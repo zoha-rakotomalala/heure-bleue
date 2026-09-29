@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kept · Gallery wall</title>
+<style>
+  :root {
+    --bg: #0b1026;
+    --text: #dde3f2;
+    --text-rgb: 221, 227, 242;
+    --muted: rgba(var(--text-rgb), 0.55);
+    --faint: rgba(var(--text-rgb), 0.28);
+    --gold: #f0b45c;
+    --glow: rgba(240, 180, 92, 0.35);
+    --hair: rgba(var(--text-rgb), 0.10);
+    --serif: "Iowan Old Style", "Palatino", "Georgia", serif;
+    --sans: -apple-system, "Helvetica Neue", "Inter", sans-serif;
+    --u: 1vw; /* base unit: viewport width in portrait, viewport height in landscape */
+  }
+  @media (orientation: landscape) { :root { --u: 0.75vh; } }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; transition: background 3s ease, color 3s ease; }
+  body { min-height: 100%; padding: 3.2vh 4vw 6vh; }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 40% at 50% 45%, var(--glow) 0%, transparent 70%);
+    opacity: var(--glow-opacity, 0.45); transition: background 3s ease, opacity 3s ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+  /* --- top band --------------------------------------------------------- */
+  #top { display: grid; grid-template-columns: 1fr auto; align-items: end; padding-bottom: 2vh; border-bottom: 1px solid var(--hair); }
+  #top h1 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: calc(var(--u) * 3.2); line-height: 1; letter-spacing: -0.01em; }
+  #top h1 small { font-family: var(--sans); font-style: normal; font-weight: 300; font-size: 0.5em; color: var(--muted); margin-left: 0.6em; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+  #back { font-size: calc(var(--u) * 1.5); color: var(--muted); letter-spacing: 0.04em; padding-bottom: 0.2em; transition: color 0.3s ease; }
+  #back:hover, #back:focus-visible { color: var(--gold); outline: none; }
+
+  /* --- filters ------------------------------------------------------------ */
+  #filters { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1.2vh 3vw; padding: 1.8vh 0; border-bottom: 1px solid var(--hair); font-size: calc(var(--u) * 1.35); color: var(--muted); }
+  #filters .group { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6vh 2.2vw; }
+  #filters .k { color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.8em; margin-right: 0.4vw; }
+  #filters button { padding: 0.2em 0; color: var(--muted); border-bottom: 1px solid transparent; letter-spacing: 0.02em; transition: color 0.3s ease, border-color 0.3s ease; }
+  #filters button:hover, #filters button:focus-visible { color: var(--text); outline: none; }
+  #filters button.on { color: var(--text); border-bottom-color: var(--gold); }
+
+  /* --- grid --------------------------------------------------------------- */
+  #grid { columns: 2; column-gap: 3vw; padding-top: 3vh; }
+  @media (orientation: landscape) { #grid { columns: 4; } }
+  @media (orientation: landscape) and (min-width: 2200px) { #grid { columns: 5; } }
+  @media (orientation: portrait) and (max-width: 600px) { #grid { columns: 1; } }
+  .tile { position: relative; break-inside: avoid; margin-bottom: 5vh; opacity: 1; transform: none; transition: opacity 0.9s ease, transform 0.9s ease; }
+  .tile.in { opacity: 0; transform: translateY(10px); }
+  .tile.out { opacity: 0; transform: translateY(6px); pointer-events: none; }
+  .tile .pic { display: block; position: relative; }
+  .tile img { display: block; width: 100%; height: auto; filter: drop-shadow(0 18px 40px rgba(0,0,0,0.6)); background: rgba(var(--text-rgb), 0.04); min-height: 6vh; }
+  .tile .lbl { padding-top: 1.4vh; margin-top: 1.6vh; border-top: 1px solid var(--gold); border-image: linear-gradient(90deg, var(--gold) 0, var(--gold) 22%, transparent 22%) 1; }
+  .tile .title { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: calc(var(--u) * 1.9); line-height: 1.25; }
+  .tile .artist { font-size: calc(var(--u) * 1.3); color: var(--muted); margin-top: 0.6vh; }
+  .tile .museum { font-size: calc(var(--u) * 1.0); color: var(--faint); margin-top: 0.5vh; letter-spacing: 0.06em; text-transform: uppercase; }
+  .tile .dots { display: flex; gap: 0.5em; margin-top: 1vh; }
+  .tile .dots i { display: inline-block; width: calc(var(--u) * 0.9); height: calc(var(--u) * 0.9); border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+  .tile .acts { display: flex; gap: 2vw; margin-top: 1vh; font-size: calc(var(--u) * 1.15); letter-spacing: 0.08em; opacity: 0; transition: opacity 0.35s ease; }
+  .tile:hover .acts, .tile:focus-within .acts, body.touch .acts { opacity: 1; }
+  .tile .acts a, .tile .acts button { color: var(--faint); padding: 0.1em 0; border-bottom: 1px solid transparent; transition: color 0.3s ease, border-color 0.3s ease; }
+  .tile .acts a:hover, .tile .acts button:hover, .tile .acts a:focus-visible, .tile .acts button:focus-visible { color: var(--gold); border-bottom-color: var(--gold); outline: none; }
+
+  /* --- empty / error ------------------------------------------------------ */
+  #empty { display: none; font-family: var(--serif); font-style: italic; font-size: calc(var(--u) * 2.2); color: var(--muted); text-align: center; padding: 30vh 4vw; line-height: 1.5; }
+  #empty.on { display: block; }
+  #empty small { display: block; font-family: var(--sans); font-style: normal; font-size: 0.55em; color: var(--faint); margin-top: 1.2vh; letter-spacing: 0.04em; }
+
+  body.snap *, body.snap *::before { transition: none !important; animation: none !important; }
+  body.snap .tile.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before { transition: none !important; animation: none !important; }
+    .tile.in { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+  <header id="top">
+    <h1>Kept<small id="count"></small></h1>
+    <a id="back" href="/">&larr; wall</a>
+  </header>
+
+  <nav id="filters" aria-label="filter and sort">
+    <div class="group" id="museums"><span class="k">museum</span></div>
+    <div class="group" id="sorts"><span class="k">order</span>
+      <button data-sort="newest" class="on">newest</button>
+      <button data-sort="oldest">oldest</button>
+      <button data-sort="artist">artist</button>
+    </div>
+  </nav>
+
+  <main>
+    <div id="grid"></div>
+    <div id="empty">Nothing kept yet. Press L on the wall.</div>
+  </main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+
+// --- themes (same as the wall) ----------------------------------------------
+const THEMES = {
+  "heure-bleue": { bg: "#0b1026", text: "#dde3f2", gold: "#f0b45c" },
+  "night":       { bg: "#07070a", text: "#e8e6e1", gold: "#d8b36a" },
+  "charcoal":    { bg: "#1b1b1d", text: "#e6e4df", gold: "#d9a441" },
+  "forest":      { bg: "#0e1f1c", text: "#dfe9e5", gold: "#c9a96b" },
+  "plum":        { bg: "#1a1020", text: "#ece3f0", gold: "#e0b070" },
+  "oxblood":     { bg: "#24100f", text: "#f0e4dc", gold: "#e0a860" },
+  "paper":       { bg: "#f4ecdd", text: "#2c2315", gold: "#b45a10" },
+  "linen":       { bg: "#e9e4da", text: "#2a2622", gold: "#9c6a10" },
+  "painting":    null,
+};
+const params = new URLSearchParams(location.search);
+let themeName = params.get("theme") || (params.get("bg") ? "custom" : null) || localStorage.getItem("wall.theme") || "forest";
+let customBg = params.get("bg") || localStorage.getItem("wall.bg");
+if (params.has("theme") || params.has("bg")) { localStorage.setItem("wall.theme", themeName); if (customBg) localStorage.setItem("wall.bg", customBg); }
+
+function hexRgb(h) { const n = parseInt(h.replace("#", ""), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+function luminance([r, g, b]) { return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255; }
+function applyTheme(t) {
+  const root = document.documentElement.style;
+  root.setProperty("--bg", t.bg);
+  root.setProperty("--text", t.text);
+  root.setProperty("--text-rgb", hexRgb(t.text).join(", "));
+  root.setProperty("--gold", t.gold);
+  root.setProperty("--glow-opacity", luminance(hexRgb(t.bg)) < 0.45 ? "0.45" : "0.18");
+}
+function themeFromBg(bg) {
+  const dark = luminance(hexRgb(bg)) < 0.45;
+  return { bg, text: dark ? "#e8e6e1" : "#2a2622", gold: dark ? "#d8b36a" : "#9c6a10" };
+}
+function themeFromPainting(p) {
+  const pal = (p && p.palette) || [];
+  let [r, g, b] = pal.length ? hexRgb(pal.reduce((a, c) => luminance(hexRgb(c.hex)) < luminance(hexRgb(a.hex)) ? c : a).hex) : [11, 16, 38];
+  [r, g, b] = [r, g, b].map(v => Math.round(v * 0.38));
+  return themeFromBg("#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join(""));
+}
+function setTheme(p) {
+  if (themeName === "painting") applyTheme(themeFromPainting(p));
+  else if (themeName === "custom" && customBg) applyTheme(themeFromBg(customBg.startsWith("#") ? customBg : "#" + customBg));
+  else applyTheme(THEMES[themeName] || THEMES["forest"]);
+}
+setTheme(null);
+if (params.has("snap")) document.body.classList.add("snap");
+if (matchMedia("(hover: none)").matches) document.body.classList.add("touch");
+
+// --- data -------------------------------------------------------------------
+let favorites = [], museum = "all", sort = "newest";
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+async function load() {
+  try { favorites = await (await fetch("/api/favorites", { cache: "no-store" })).json(); }
+  catch (e) { console.warn("favorites", e); favorites = []; }
+  if (!Array.isArray(favorites)) favorites = [];
+  if (themeName === "painting") setTheme(favorites[favorites.length - 1] || null);
+  buildMuseums();
+  render(true);
+}
+
+function buildMuseums() {
+  const box = $("#museums");
+  box.querySelectorAll("button").forEach(b => b.remove());
+  const names = [...new Set(favorites.map(f => f.museum).filter(Boolean))].sort();
+  if (!names.includes(museum)) museum = "all";
+  const add = (val, txt) => {
+    const b = document.createElement("button");
+    b.textContent = txt; b.dataset.museum = val; b.classList.toggle("on", val === museum);
+    b.onclick = () => { museum = val; buildMuseums(); render(false); };
+    box.appendChild(b);
+  };
+  add("all", "all");
+  names.forEach(n => add(n, shortMuseum(n)));
+  box.style.display = names.length > 1 ? "" : "none";
+}
+function shortMuseum(n) { return n.replace(/^The\s+/, "").replace(/,.*$/, ""); }
+
+function sorted(list) {
+  const l = [...list];
+  const t = (f) => Date.parse((f.saved_at || "").replace(" ", "T")) || 0;
+  if (sort === "newest") l.sort((a, b) => t(b) - t(a));
+  else if (sort === "oldest") l.sort((a, b) => t(a) - t(b));
+  else l.sort((a, b) => (a.artist || "\uffff").localeCompare(b.artist || "\uffff") || (a.title || "").localeCompare(b.title || ""));
+  return l;
+}
+
+function render(first) {
+  const list = sorted(favorites.filter(f => museum === "all" || f.museum === museum));
+  $("#count").textContent = favorites.length ? String(favorites.length) : "";
+  $("#empty").classList.toggle("on", favorites.length === 0);
+  const grid = $("#grid"); grid.innerHTML = "";
+  list.forEach((p, i) => {
+    const el = document.createElement("figure");
+    el.className = "tile in"; el.dataset.id = p.id;
+    const dots = (p.palette || []).slice(0, 5).map(c => `<i style="background:${esc(c.hex)}"></i>`).join("");
+    el.innerHTML = `
+      <a class="pic" href="${esc(p.url || "#")}" target="_blank" rel="noopener" tabindex="-1"><img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" decoding="async"></a>
+      <figcaption class="lbl">
+        <div class="title">${esc(p.title)}</div>
+        <div class="artist">${esc([p.artist, p.date].filter(Boolean).join(" · "))}</div>
+        <div class="museum">${esc(p.museum)}</div>
+        <div class="dots">${dots}</div>
+        <div class="acts"><a href="${esc(p.url || "#")}" target="_blank" rel="noopener">open</a><button class="rm">remove</button></div>
+      </figcaption>`;
+    el.querySelector(".rm").onclick = () => remove(p, el);
+    grid.appendChild(el);
+    const delay = first ? Math.min(i * 60, 900) : 0;
+    setTimeout(() => el.classList.remove("in"), delay + 20);
+  });
+}
+
+async function remove(p, el) {
+  el.classList.add("out");
+  try {
+    await fetch("/api/favorite", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ painting: p }) });
+  } catch (e) { console.warn("remove", e); el.classList.remove("out"); return; }
+  const reduced = document.body.classList.contains("snap") || matchMedia("(prefers-reduced-motion: reduce)").matches;
+  setTimeout(async () => {
+    favorites = favorites.filter(f => f.id !== p.id);
+    el.remove();
+    buildMuseums();
+    $("#count").textContent = favorites.length ? String(favorites.length) : "";
+    $("#empty").classList.toggle("on", favorites.length === 0);
+    if (!favorites.some(f => museum === "all" || f.museum === museum)) render(false);
+  }, reduced ? 0 : 900);
+}
+
+// --- controls --------------------------------------------------------------
+document.querySelectorAll("#sorts button").forEach(b => {
+  b.onclick = () => { sort = b.dataset.sort; document.querySelectorAll("#sorts button").forEach(x => x.classList.toggle("on", x === b)); render(false); };
+});
+document.addEventListener("keydown", (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "Escape") location.href = "/";
+});
+
+load();
+</script>
+</body>
+</html>

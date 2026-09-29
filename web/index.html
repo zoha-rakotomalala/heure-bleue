@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>heure bleue</title>
+<style>
+  :root {
+    --bg: #0b1026;
+    --text: #dde3f2;
+    --text-rgb: 221, 227, 242;
+    --muted: rgba(var(--text-rgb), 0.55);
+    --faint: rgba(var(--text-rgb), 0.28);
+    --gold: #f0b45c;
+    --glow: rgba(240, 180, 92, 0.35);
+    --hair: rgba(var(--text-rgb), 0.10);
+    --serif: "Iowan Old Style", "Palatino", "Georgia", serif;
+    --sans: -apple-system, "Helvetica Neue", "Inter", sans-serif;
+    --band-opacity: 1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--sans); overflow: hidden; transition: background 3s ease, color 3s ease; }
+  body { display: grid; grid-template-rows: auto 1fr auto; padding: 3.2vh 4vw; gap: 2vh; }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 40% at 50% 45%, var(--glow) 0%, transparent 70%);
+    opacity: var(--glow-opacity, 0.45); transition: background 3s ease, opacity 3s ease;
+  }
+
+  /* --- top band --------------------------------------------------------- */
+  #top { display: grid; grid-template-columns: 1fr auto; align-items: end; padding-bottom: 2vh; border-bottom: 1px solid var(--hair); opacity: var(--band-opacity); transition: opacity 4s ease; }
+  #clock { font-size: 11vw; font-weight: 300; letter-spacing: -0.03em; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+  #clock small { font-size: 0.3em; color: var(--text); opacity: 0.6; margin-left: 0.3em; letter-spacing: 0; }
+  #date { font-size: 2vw; color: var(--text); opacity: 0.8; margin-top: 1vh; font-weight: 300; text-transform: capitalize; }
+  #weather { text-align: right; font-weight: 300; font-size: 2vw; color: var(--text); opacity: 0.85; line-height: 1.5; }
+  #weather .temp { font-size: 5vw; color: var(--gold); font-weight: 300; }
+  #weather .sun { font-size: 1.5vw; color: var(--muted); }
+
+  /* --- gallery ----------------------------------------------------------- */
+  #gallery { position: relative; display: grid; grid-template-rows: 1fr auto; gap: 2.4vh; min-height: 0; }
+  #frame { position: relative; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  #frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 2.5s ease; filter: drop-shadow(0 30px 60px rgba(0,0,0,0.7)); }
+  #frame img.show { opacity: 1; }
+  #frame img.drift.show { animation: drift 600s ease-in-out infinite alternate; }
+  @keyframes drift { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.06) translate(-1.2%, 0.8%); } }
+  @media (prefers-reduced-motion: reduce) { #frame img.drift.show { animation: none; } }
+  #label .story { font-size: 1.35vw; color: var(--muted); margin-top: 1.4vh; line-height: 1.5; font-weight: 300; max-width: 92%; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; opacity: 0; transition: opacity 3s ease; }
+  #label .story.on { opacity: 1; }
+  #weather .sun b { color: var(--gold); font-weight: 400; }
+  #label { padding-top: 2vh; border-top: 1px solid var(--gold); border-image: linear-gradient(90deg, var(--gold) 0, var(--gold) 22%, transparent 22%) 1; }
+  #label .title { font-family: var(--serif); font-size: 2.6vw; font-weight: 400; line-height: 1.2; font-style: italic; }
+  #label .artist { font-size: 1.6vw; color: var(--muted); margin-top: 0.8vh; font-weight: 300; }
+  #label .museum { font-size: 1.2vw; color: var(--faint); margin-top: 0.6vh; letter-spacing: 0.06em; text-transform: uppercase; }
+  #label .mood { font-size: 1.1vw; color: var(--faint); margin-top: 1.2vh; display: none; align-items: center; gap: 0.6em; }
+  #label .mood.on { display: flex; }
+  #label .mood i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; }
+
+  /* --- spotify badge ----------------------------------------------------- */
+  #now { display: grid; grid-template-columns: auto 1fr; gap: 1.6vw; align-items: center; padding-top: 2vh; border-top: 1px solid var(--hair); opacity: 0; transform: translateY(8px); transition: opacity 1.5s ease, transform 1.5s ease; }
+  #now.on { opacity: 1; transform: none; }
+  #now > div { opacity: var(--band-opacity); transition: opacity 4s ease; }
+  #now img { width: 9.5vw; height: 9.5vw; object-fit: cover; border-radius: 4px; box-shadow: 0 14px 34px -10px rgba(0,0,0,0.95); outline: 1px solid rgba(var(--text-rgb), 0.18); outline-offset: -1px; }
+  #now .t { font-size: 2vw; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #now .a { font-size: 1.5vw; color: var(--muted); font-weight: 300; margin-top: 0.3vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #now .times { display: flex; justify-content: space-between; font-size: 1.15vw; color: var(--muted); margin-top: 1.4vh; font-variant-numeric: tabular-nums; }
+  #now .bar { height: 2px; background: var(--hair); margin-top: 0.6vh; position: relative; }
+  #now .bar i { position: absolute; left: 0; top: 0; height: 2px; background: var(--gold); width: 0%; transition: width 1s linear; }
+  #now .state { font-size: 1vw; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.8vh; }
+
+  /* --- controls (discreet, bottom-right) -------------------------------- */
+  #controls { position: fixed; right: 2.2vw; bottom: 2.4vh; display: flex; flex-direction: column; align-items: flex-end; gap: 1vh; z-index: 9; opacity: 0.22; transition: opacity 0.4s ease; }
+  #controls:hover, #controls.open { opacity: 1; }
+  #controls .row { display: flex; gap: 0.8vw; }
+  #controls button { width: 3.4vw; height: 3.4vw; border-radius: 50%; border: 1px solid rgba(var(--text-rgb), 0.35); background: rgba(var(--text-rgb), 0.06); color: var(--text); font-size: 1.6vw; line-height: 1; cursor: pointer; display: grid; place-items: center; backdrop-filter: blur(6px); transition: transform 0.2s ease, background 0.2s ease; }
+  #controls button:hover { background: rgba(var(--text-rgb), 0.16); transform: translateY(-1px); }
+  #controls button.fav.on { color: #e07a6e; border-color: #e07a6e; }
+  #controls button.spin { animation: spin 0.8s ease; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #swatches { display: none; gap: 0.7vw; padding: 0.9vh 0.9vw; border-radius: 999px; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); }
+  #controls.open #swatches { display: flex; }
+  #swatches span { width: 2.2vw; height: 2.2vw; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15); }
+  #swatches span.on { border-color: var(--gold); }
+  #swatches span.painting { background: conic-gradient(#8a2a1e, #2b3a6b, #1e4d3a, #6b4a1e, #8a2a1e); }
+
+  body.idle, body.idle * { cursor: none !important; }
+  body.idle #controls { opacity: 0; }
+  body.snap *, body.snap *::before { transition: none !important; }
+  body.evening { --band-opacity: 0.7; }
+  body.night { --band-opacity: 0.45; }
+</style>
+</head>
+<body>
+  <header id="top">
+    <div>
+      <div id="clock">--:--<small>--</small></div>
+      <div id="date"></div>
+    </div>
+    <div id="weather">
+      <div class="temp">--°</div>
+      <div class="desc"></div>
+      <div class="sun"></div>
+    </div>
+  </header>
+
+  <main id="gallery">
+    <div id="frame"><img id="imgA" alt=""><img id="imgB" alt=""></div>
+    <div id="label">
+      <div class="title"></div>
+      <div class="artist"></div>
+      <div class="museum"></div>
+      <div class="story"></div>
+      <div class="mood"><span class="dots"></span><span class="txt">matched to the album cover</span></div>
+    </div>
+  </main>
+
+  <footer id="now">
+    <img id="cover" alt="">
+    <div>
+      <div class="t"></div>
+      <div class="a"></div>
+      <div class="times"><span class="in">0:00</span><span class="out">0:00</span></div>
+      <div class="bar"><i></i></div>
+      <div class="state"></div>
+    </div>
+  </footer>
+
+  <div id="controls">
+    <div id="swatches"></div>
+    <div class="row">
+      <button class="theme" title="Wall colour">◐</button>
+      <button class="swap" title="Another painting">↻</button>
+      <button class="fav" title="Keep this one">♡</button>
+      <button class="kept" title="Kept paintings">▤</button>
+    </div>
+  </div>
+
+<script>
+// settings come from config.json through /api/config; these are only fallbacks
+let CFG = { city: { name: "Paris", lat: 48.8566, lon: 2.3522, timezone: "Europe/Paris" }, locale: "fr-FR", theme: "forest", rotate_minutes: 10 };
+let ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
+async function loadConfig() {
+  try { CFG = { ...CFG, ...(await (await fetch("/api/config", { cache: "no-store" })).json()) }; } catch (e) {}
+  ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
+  if (!localStorage.getItem("wall.theme") && !params.has("theme") && !params.has("bg")) { themeName = CFG.theme; setTheme(current); buildSwatches(); }
+}
+const $ = (s) => document.querySelector(s);
+
+// --- themes ------------------------------------------------------------------
+// Pick with ?theme=<name> or ?bg=<hex>. The choice is remembered in this browser.
+// theme=painting derives the wall color from the current artwork.
+const THEMES = {
+  "heure-bleue": { bg: "#0b1026", text: "#dde3f2", gold: "#f0b45c" },   // Eos dark
+  "night":       { bg: "#07070a", text: "#e8e6e1", gold: "#d8b36a" },   // near-black
+  "charcoal":    { bg: "#1b1b1d", text: "#e6e4df", gold: "#d9a441" },
+  "forest":      { bg: "#0e1f1c", text: "#dfe9e5", gold: "#c9a96b" },   // dark green-teal
+  "plum":        { bg: "#1a1020", text: "#ece3f0", gold: "#e0b070" },
+  "oxblood":     { bg: "#24100f", text: "#f0e4dc", gold: "#e0a860" },
+  "paper":       { bg: "#f4ecdd", text: "#2c2315", gold: "#b45a10" },   // Eos light
+  "linen":       { bg: "#e9e4da", text: "#2a2622", gold: "#9c6a10" },
+  "painting":    null,
+};
+const params = new URLSearchParams(location.search);
+let themeName = params.get("theme") || (params.get("bg") ? "custom" : null) || localStorage.getItem("wall.theme") || "forest";
+let customBg = params.get("bg") || localStorage.getItem("wall.bg");
+if (params.has("theme") || params.has("bg")) { localStorage.setItem("wall.theme", themeName); if (customBg) localStorage.setItem("wall.bg", customBg); }
+
+function hexRgb(h) { const n = parseInt(h.replace("#", ""), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+function luminance([r, g, b]) { return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255; }
+function applyTheme(t) {
+  const root = document.documentElement.style;
+  root.setProperty("--bg", t.bg);
+  root.setProperty("--text", t.text);
+  root.setProperty("--text-rgb", hexRgb(t.text).join(", "));
+  root.setProperty("--gold", t.gold);
+  root.setProperty("--glow-opacity", luminance(hexRgb(t.bg)) < 0.45 ? "0.45" : "0.18");
+}
+function themeFromBg(bg) {
+  const dark = luminance(hexRgb(bg)) < 0.45;
+  return { bg, text: dark ? "#e8e6e1" : "#2a2622", gold: dark ? "#d8b36a" : "#9c6a10" };
+}
+function themeFromPainting(p) {
+  // darkest palette color, pulled toward black so the painting still lifts off the wall
+  const pal = (p && p.palette) || [];
+  let [r, g, b] = pal.length ? hexRgb(pal.reduce((a, c) => luminance(hexRgb(c.hex)) < luminance(hexRgb(a.hex)) ? c : a).hex) : [11, 16, 38];
+  [r, g, b] = [r, g, b].map(v => Math.round(v * 0.38));
+  return themeFromBg("#" + [r, g, b].map(v => v.toString(16).padStart(2, "0")).join(""));
+}
+function setTheme(p) {
+  if (themeName === "painting") applyTheme(themeFromPainting(p));
+  else if (themeName === "custom" && customBg) applyTheme(themeFromBg(customBg.startsWith("#") ? customBg : "#" + customBg));
+  else applyTheme(THEMES[themeName] || THEMES["forest"]);
+}
+setTheme(null);
+if (params.has("snap")) document.body.classList.add("snap");
+
+// --- clock ---------------------------------------------------------------
+function tickClock() {
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  $("#clock").innerHTML = `${hh}:${mm}<small>${String(d.getSeconds()).padStart(2,"0")}</small>`;
+  $("#date").textContent = d.toLocaleDateString(CFG.locale, { weekday: "long", day: "numeric", month: "long" });
+  const h = d.getHours();
+  document.body.classList.toggle("evening", h >= 19 && h < 23);
+  document.body.classList.toggle("night", h >= 23 || h < 7);
+}
+setInterval(tickClock, 1000); tickClock();
+
+// --- weather (Open-Meteo, no key) -----------------------------------------
+const WMO = {0:"Ciel clair",1:"Presque clair",2:"Quelques nuages",3:"Couvert",45:"Brouillard",48:"Brouillard givrant",51:"Bruine légère",53:"Bruine",55:"Bruine dense",61:"Pluie légère",63:"Pluie",65:"Pluie forte",71:"Neige légère",73:"Neige",75:"Neige forte",80:"Averses",81:"Averses",82:"Averses fortes",95:"Orage",96:"Orage",99:"Orage"};
+async function weather() {
+  try {
+    const u = `https://api.open-meteo.com/v1/forecast?latitude=${CFG.city.lat}&longitude=${CFG.city.lon}&current=temperature_2m,weather_code&daily=sunrise,sunset&timezone=${encodeURIComponent(CFG.city.timezone)}&forecast_days=1`;
+    const j = await (await fetch(u)).json();
+    $("#weather .temp").textContent = `${Math.round(j.current.temperature_2m)}°`;
+    $("#weather .desc").textContent = `${CFG.city.name} · ${WMO[j.current.weather_code] || ""}`;
+    sunTimes = { rise: new Date(j.daily.sunrise[0]), set: new Date(j.daily.sunset[0]) };
+    sunLine();
+  } catch (e) { console.warn("weather", e); }
+}
+let sunTimes = null;
+function sunLine() {
+  if (!sunTimes) return;
+  const now = new Date(), t = (d) => d.toTimeString().slice(0, 5);
+  const minsTo = (d) => Math.round((d - now) / 60000);
+  let line = `☀ ${t(sunTimes.rise)} → ${t(sunTimes.set)}`;
+  const toSet = minsTo(sunTimes.set), toRise = minsTo(sunTimes.rise);
+  if (toSet > 0 && toSet <= 90) line = `<b>coucher du soleil dans ${toSet} min</b> · ${t(sunTimes.set)}`;
+  else if (toSet <= 0 && toSet > -35) line = `<b>heure bleue</b> · soleil couché à ${t(sunTimes.set)}`;
+  else if (toRise > 0 && toRise <= 60) line = `<b>première lueur dans ${toRise} min</b> · ${t(sunTimes.rise)}`;
+  else if (toRise <= 0 && toRise > -30) line = `<b>heure bleue du matin</b> · levé à ${t(sunTimes.rise)}`;
+  $("#weather .sun").innerHTML = line;
+}
+setInterval(weather, 15 * 60 * 1000); setInterval(sunLine, 60 * 1000);
+
+// --- paintings ------------------------------------------------------------
+let index = [], current = null, front = "A", lastRotate = 0, recent = [];
+async function loadIndex() {
+  try { index = await (await fetch(`data/paintings.json?t=${Date.now()}`)).json(); } catch (e) { console.warn("index", e); }
+}
+let taste = {};
+async function loadTaste() { try { taste = await (await fetch("/api/taste", { cache: "no-store" })).json(); } catch (e) {} }
+function centuryOf(date) { const m = /(1[0-9]{3}|20[0-9]{2})/.exec(date || ""); return m ? String(Math.floor(+m[1] / 100) + 1) : null; }
+function tasteWeight(p) {
+  // 1 = neutral. Favorites raise the odds of their artist, museum and century.
+  if (!taste.n) return 1;
+  const strength = Math.min(1, taste.n / 20);
+  const score = 0.5 * (taste.artists?.[p.artist] || 0) + 0.25 * (taste.museums?.[p.museum] || 0) + 0.25 * (taste.centuries?.[centuryOf(p.date)] || 0);
+  return 1 + 3 * strength * score;
+}
+function pickRandom() {
+  const pool = index.filter(p => p.h >= p.w * 0.9 && !recent.includes(p.id)); // prefer portrait or square
+  const src = pool.length ? pool : index;
+  const weights = src.map(tasteWeight); let r = Math.random() * weights.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < src.length; i++) { r -= weights[i]; if (r <= 0) return src[i]; }
+  return src[src.length - 1];
+}
+let shownAt = 0, swapRequested = false;
+function reportSeen(prev) {
+  if (!prev) return;
+  const t = (lastNow && lastNow.track) || {};
+  fetch("/api/seen", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
+    id: prev.id, title: prev.title, artist: prev.artist, museum: prev.museum, mode: musicMode ? "music" : "rotation",
+    track: t.title || null, track_artist: t.artist || null, dwell_s: Math.round((Date.now() - shownAt) / 1000), swapped: swapRequested }) }).catch(() => {});
+  swapRequested = false;
+}
+function show(p, matched) {
+  if (!p || (current && current.id === p.id)) return;
+  reportSeen(current); shownAt = Date.now();
+  current = p; recent = [...recent, p.id].slice(-30);
+  const next = front === "A" ? $("#imgB") : $("#imgA");
+  const prev = front === "A" ? $("#imgA") : $("#imgB");
+  next.classList.remove("drift");
+  next.onload = () => { next.classList.add("show", "drift"); prev.classList.remove("show", "drift"); front = front === "A" ? "B" : "A"; };
+  next.src = p.image;
+  const story = $("#label .story"); story.classList.remove("on"); clearTimeout(story._t);
+  if (p.story && p.story_lang !== "nl") { story.textContent = p.story; story._t = setTimeout(() => story.classList.add("on"), 2500); setTimeout(() => story.classList.remove("on"), 90 * 1000); }
+  else story.textContent = "";
+  $("#label .title").textContent = p.title;
+  $("#label .artist").textContent = [p.artist, p.date].filter(Boolean).join(" · ");
+  $("#label .museum").textContent = p.museum;
+  const dom = p.palette && p.palette[0] ? p.palette[0].hex : "#f0b45c";
+  document.documentElement.style.setProperty("--glow", hexToRgba(dom, 0.5));
+  setTheme(p);
+  refreshFav();
+  $("#label .mood").classList.toggle("on", !!matched);
+  if (matched) $("#label .mood .dots").innerHTML = matched.slice(0,5).map(c => `<i style="background:${c.hex}"></i>`).join("");
+  lastRotate = Date.now();
+}
+function mmss(ms) { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
+function hexToRgba(h, a) { const n = parseInt(h.slice(1), 16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
+
+// --- now playing ------------------------------------------------------------
+let musicMode = false, lastNow = null;
+async function nowPlaying() {
+  let j = null;
+  try { j = await (await fetch(`data/now_playing.json?t=${Date.now()}`)).json(); } catch (e) {}
+  lastNow = j;
+  const fresh = j && (Date.now() / 1000 - j.updated_at) < 30;
+  if (fresh && j.active && j.track) {
+    musicMode = true;
+    const t = j.track;
+    $("#now").classList.add("on");
+    if (t.cover && !$("#cover").src.endsWith(t.cover)) $("#cover").src = t.cover;
+    $("#cover").style.visibility = t.cover ? "visible" : "hidden";
+    $("#now .t").textContent = t.title;
+    $("#now .a").textContent = `${t.artist} · ${t.album}`;
+    $("#now .state").textContent = (t.state === "playing" ? "en cours" : "en pause") + (t.player ? ` · ${t.player}` : "");
+    const pct = Math.min(100, (t.position_s * 1000 / t.duration_ms) * 100);
+    $("#now .bar i").style.width = `${pct}%`;
+    $("#now .in").textContent = mmss(t.position_s * 1000);
+    $("#now .out").textContent = `-${mmss(Math.max(0, t.duration_ms - t.position_s * 1000))}`;
+    if (j.painting) show(j.painting, j.cover_palette);
+  } else {
+    musicMode = false;
+    $("#now").classList.remove("on");
+    $("#label .mood").classList.remove("on");
+  }
+}
+
+async function rotate() {
+  if (musicMode) return;
+  if (!current || Date.now() - lastRotate > ROTATE_MS) show(pickRandom(), null);
+}
+
+// --- controls --------------------------------------------------------------
+let favorites = [];
+async function loadFavs() { try { favorites = await (await fetch("/api/favorites")).json(); } catch (e) {} refreshFav(); }
+function refreshFav() { $("#controls .fav").classList.toggle("on", !!(current && favorites.some(f => f.id === current.id))); $("#controls .fav").textContent = $("#controls .fav").classList.contains("on") ? "♥" : "♡"; }
+$("#controls .fav").onclick = async () => {
+  if (!current) return;
+  const r = await (await fetch("/api/favorite", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ painting: current }) })).json();
+  await loadFavs(); await loadTaste();
+};
+$("#controls .swap").onclick = async (e) => {
+  e.currentTarget.classList.remove("spin"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("spin");
+  swapRequested = true;
+  if (musicMode) { await fetch("/api/swap", { method: "POST" }); setTimeout(nowPlaying, 6000); }
+  else show(pickRandom(), null);
+};
+$("#controls .theme").onclick = () => $("#controls").classList.toggle("open");
+$("#controls .kept").onclick = () => { location.href = "/favorites.html"; };
+function buildSwatches() {
+  const box = $("#swatches"); box.innerHTML = "";
+  for (const [name, t] of Object.entries(THEMES)) {
+    const el = document.createElement("span"); el.title = name; el.className = name === "painting" ? "painting" : "";
+    if (t) el.style.background = t.bg;
+    if (name === themeName) el.classList.add("on");
+    el.onclick = () => { themeName = name; localStorage.setItem("wall.theme", name); setTheme(current); buildSwatches(); };
+    box.appendChild(el);
+  }
+}
+buildSwatches();
+
+// --- keyboard + idle cursor -------------------------------------------------
+document.addEventListener("keydown", (e) => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (k === "f") { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  else if (k === "n" || k === " " || k === "arrowright") { e.preventDefault(); $("#controls .swap").click(); }
+  else if (k === "l") { $("#controls .fav").click(); }
+  else if (k === "t") { $("#controls .theme").click(); }
+  else if (k === "k") { location.href = "/favorites.html"; }
+  else if (k === "escape") { $("#controls").classList.remove("open"); }
+});
+let idleTimer;
+function poke() { document.body.classList.remove("idle"); clearTimeout(idleTimer); idleTimer = setTimeout(() => document.body.classList.add("idle"), 4000); }
+["mousemove", "mousedown", "keydown", "touchstart"].forEach(ev => document.addEventListener(ev, poke, { passive: true }));
+poke();
+
+(async () => {
+  await loadConfig(); weather();
+  await loadFavs(); await loadTaste();
+  await loadIndex();
+  await nowPlaying();
+  await rotate();
+  setInterval(nowPlaying, 5000);
+  setInterval(rotate, 30 * 1000);
+  setInterval(loadIndex, 60 * 60 * 1000);
+  setInterval(loadTaste, 10 * 60 * 1000);
+  window.addEventListener("beforeunload", () => reportSeen(current));
+})();
+</script>
+</body>
+</html>

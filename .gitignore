@@ -1,0 +1,8 @@
+# runtime state (everything in data/ except the shipped index)
+data/*
+!data/paintings.json
+logs/
+config.json
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "heure-bleue"
+version = "0.1.0"
+description = "A gallery wall for a spare screen: open-collection paintings matched to the music you play."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = ["pillow>=10"]
+
+[project.optional-dependencies]
+windows = ["winsdk; sys_platform == 'win32'"]
+
+[project.scripts]
+heurebleue = "heurebleue.__main__:main"
+
+[tool.setuptools]
+packages = ["heurebleue", "heurebleue.nowplaying"]
