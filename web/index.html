@@ -318,7 +318,7 @@ function mmss(ms) { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60
 function hexToRgba(h, a) { const n = parseInt(h.slice(1), 16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
 
 // --- now playing ------------------------------------------------------------
-let musicMode = false, lastNow = null, lastTrackKey = null;
+let musicMode = false, lastNow = null, lastTrackKey = null, pausedSince = 0;
 // The poller writes every 5 s. Between polls we advance the position locally
 // so the times and the bar move every second.
 let tick = { pos: 0, dur: 0, at: 0, playing: false };
@@ -338,21 +338,25 @@ async function nowPlaying() {
   if (fresh && j.active && j.track) {
     const t = j.track;
     const key = `${t.title}|${t.artist}|${t.album}`;
-    if (key !== lastTrackKey) lastTrackKey = key;
+    if (key !== lastTrackKey) { lastTrackKey = key; pausedSince = 0; }
+    // paused for a long time = nobody is listening; let the wall rotate again
+    if (t.state === "paused") { if (!pausedSince) pausedSince = Date.now(); } else pausedSince = 0;
+    const longPause = pausedSince && (Date.now() - pausedSince) > (CFG.paused_rotate_minutes || 20) * 60 * 1000;
     // a new song whose painting has not been chosen yet
-    const waiting = j.pending || (j.painting_for && j.painting_for !== key);
+    const waiting = !longPause && (j.pending || (j.painting_for && j.painting_for !== key));
     if (waiting) status(swapRequested ? "choosing another painting" : "reading the album cover");
     else if ($("#label .status").textContent !== "loading the painting") status(null);
-    musicMode = true;
+    musicMode = !longPause;
     $("#now").classList.add("on");
     if (t.cover && !$("#cover").src.endsWith(t.cover)) $("#cover").src = t.cover;
     $("#cover").style.visibility = t.cover ? "visible" : "hidden";
     $("#now .t").textContent = t.title;
     $("#now .a").textContent = `${t.artist} · ${t.album}`;
-    $("#now .state").textContent = (t.state === "playing" ? "en cours" : "en pause") + (t.player ? ` · ${t.player}` : "");
+    $("#now .state").textContent = (t.state === "playing" ? "en cours" : longPause ? "en pause · le mur tourne" : "en pause") + (t.player ? ` · ${t.player}` : "");
     tick = { pos: t.position_s, dur: t.duration_ms, at: Date.now(), playing: t.state === "playing" };
     paintTimes();
-    if (j.painting) show(j.painting, j.cover_palette);
+    if (longPause) $("#label .mood").classList.remove("on");
+    else if (j.painting) show(j.painting, j.cover_palette);
   } else {
     if (musicMode) { lastTrackKey = null; status(null); }
     musicMode = false;

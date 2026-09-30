@@ -21,7 +21,7 @@ from urllib.parse import urlsplit
 
 from . import config
 
-PUBLIC_CFG_KEYS = ("city", "locale", "theme", "rotate_minutes")
+PUBLIC_CFG_KEYS = ("city", "locale", "theme", "rotate_minutes", "paused_rotate_minutes")
 
 
 def load_favs() -> list[dict]:

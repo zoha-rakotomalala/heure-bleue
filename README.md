@@ -88,7 +88,8 @@ Create `config.json` next to this README. Any key you omit keeps its default.
   "city": { "name": "Amsterdam", "lat": 52.3676, "lon": 4.9041, "timezone": "Europe/Amsterdam" },
   "poll_seconds": 5,
   "min_dwell_seconds": 45,
-  "rotate_minutes": 4
+  "rotate_minutes": 4,
+  "paused_rotate_minutes": 20
 }
 ```
 
@@ -118,7 +119,9 @@ has five. The distance between two palettes is a weighted nearest-colour sum in
 CIELAB, both ways. Favorites shorten the distance for artists, museums and
 centuries you keep. The painting changes when the song changes, never sooner
 than `min_dwell_seconds` after the last change, so skipping tracks does not make
-the wall flicker. When nothing plays, the wall rotates every `rotate_minutes`.
+the wall flicker. When no player is open, the wall rotates every `rotate_minutes`. A paused
+player holds the painting, until it has been paused for `paused_rotate_minutes`;
+then the wall rotates again until you press play.
 
 ## Data written at runtime
 

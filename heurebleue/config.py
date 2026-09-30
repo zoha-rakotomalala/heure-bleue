@@ -23,6 +23,7 @@ DEFAULTS = {
     "poll_seconds": 5,
     "min_dwell_seconds": 45,
     "rotate_minutes": 4,
+    "paused_rotate_minutes": 20,
     "theme": "forest",
     "city": {"name": "Paris", "lat": 48.8566, "lon": 2.3522, "timezone": "Europe/Paris"},
     "locale": "fr-FR",
