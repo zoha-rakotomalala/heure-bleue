@@ -92,6 +92,7 @@ def run(stop: threading.Event, cfg: dict) -> None:
     last_change = prev.get("painting_changed_at", 0)
     recent = prev.get("recent", [])
     painting = prev.get("painting")
+    painting_for = prev.get("painting_for")
     cover_palette = prev.get("cover_palette")
     pending = False
     dwell = cfg["min_dwell_seconds"]
@@ -120,12 +121,14 @@ def run(stop: threading.Event, cfg: dict) -> None:
                 chosen = choose_painting(cover_palette, recent)
                 if chosen:
                     painting, last_change = chosen, now
+                    painting_for = f"{track.get('title')}|{track.get('artist')}|{track.get('album')}"
                     recent = (recent + [chosen["id"]])[-RECENT_MAX:]
                 pending = False
             public = {k: v for k, v in track.items() if k != "cover_bytes"}
             public["cover"] = track.get("cover_url") or (f"/data/cover.jpg?v={int(last_change)}" if track.get("cover_bytes") else None)
             out = {"active": True, "backend": backend, "updated_at": now, "track": public, "cover_palette": cover_palette,
-                   "painting": painting, "painting_changed_at": last_change, "recent": recent}
+                   "painting": painting, "painting_for": painting_for, "painting_changed_at": last_change,
+                   "pending": pending, "recent": recent}
         tmp = config.NOW.with_suffix(".tmp")
         tmp.write_text(json.dumps(out, ensure_ascii=False))
         tmp.replace(config.NOW)

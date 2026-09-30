@@ -20,7 +20,7 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--sans); overflow: hidden; transition: background 3s ease, color 3s ease; }
-  body { display: grid; grid-template-rows: auto 1fr auto; padding: 3.2vh 4vw; gap: 2vh; }
+  body { display: grid; grid-template-rows: auto 1fr auto; padding: 3.2vh 4vmin; gap: 2vh; }
   body::before {
     content: ""; position: fixed; inset: 0; pointer-events: none;
     background: radial-gradient(60% 40% at 50% 45%, var(--glow) 0%, transparent 70%);
@@ -29,12 +29,12 @@
 
   /* --- top band --------------------------------------------------------- */
   #top { display: grid; grid-template-columns: 1fr auto; align-items: end; padding-bottom: 2vh; border-bottom: 1px solid var(--hair); opacity: var(--band-opacity); transition: opacity 4s ease; }
-  #clock { font-size: 11vw; font-weight: 300; letter-spacing: -0.03em; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+  #clock { font-size: 11vmin; font-weight: 300; letter-spacing: -0.03em; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
   #clock small { font-size: 0.3em; color: var(--text); opacity: 0.6; margin-left: 0.3em; letter-spacing: 0; }
-  #date { font-size: 2vw; color: var(--text); opacity: 0.8; margin-top: 1vh; font-weight: 300; text-transform: capitalize; }
-  #weather { text-align: right; font-weight: 300; font-size: 2vw; color: var(--text); opacity: 0.85; line-height: 1.5; }
-  #weather .temp { font-size: 5vw; color: var(--gold); font-weight: 300; }
-  #weather .sun { font-size: 1.5vw; color: var(--muted); }
+  #date { font-size: 2vmin; color: var(--text); opacity: 0.8; margin-top: 1vh; font-weight: 300; text-transform: capitalize; }
+  #weather { text-align: right; font-weight: 300; font-size: 2vmin; color: var(--text); opacity: 0.85; line-height: 1.5; }
+  #weather .temp { font-size: 5vmin; color: var(--gold); font-weight: 300; }
+  #weather .sun { font-size: 1.5vmin; color: var(--muted); }
 
   /* --- gallery ----------------------------------------------------------- */
   #gallery { position: relative; display: grid; grid-template-rows: 1fr auto; gap: 2.4vh; min-height: 0; }
@@ -44,43 +44,66 @@
   #frame img.drift.show { animation: drift 600s ease-in-out infinite alternate; }
   @keyframes drift { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.06) translate(-1.2%, 0.8%); } }
   @media (prefers-reduced-motion: reduce) { #frame img.drift.show { animation: none; } }
-  #label .story { font-size: 1.35vw; color: var(--muted); margin-top: 1.4vh; line-height: 1.5; font-weight: 300; max-width: 92%; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; opacity: 0; transition: opacity 3s ease; }
+  #label .story { font-size: 1.35vmin; color: var(--muted); margin-top: 1.4vh; line-height: 1.5; font-weight: 300; max-width: 92%; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; opacity: 0; transition: opacity 3s ease; }
   #label .story.on { opacity: 1; }
   #weather .sun b { color: var(--gold); font-weight: 400; }
   #label { padding-top: 2vh; border-top: 1px solid var(--gold); border-image: linear-gradient(90deg, var(--gold) 0, var(--gold) 22%, transparent 22%) 1; }
-  #label .title { font-family: var(--serif); font-size: 2.6vw; font-weight: 400; line-height: 1.2; font-style: italic; }
-  #label .artist { font-size: 1.6vw; color: var(--muted); margin-top: 0.8vh; font-weight: 300; }
-  #label .museum { font-size: 1.2vw; color: var(--faint); margin-top: 0.6vh; letter-spacing: 0.06em; text-transform: uppercase; }
-  #label .mood { font-size: 1.1vw; color: var(--faint); margin-top: 1.2vh; display: none; align-items: center; gap: 0.6em; }
+  #label .title { font-family: var(--serif); font-size: 2.6vmin; font-weight: 400; line-height: 1.2; font-style: italic; }
+  #label .artist { font-size: 1.6vmin; color: var(--muted); margin-top: 0.8vh; font-weight: 300; }
+  #label .museum { font-size: 1.2vmin; color: var(--faint); margin-top: 0.6vh; letter-spacing: 0.06em; text-transform: uppercase; }
+  #label .mood { font-size: 1.1vmin; color: var(--faint); margin-top: 1.2vh; display: none; align-items: center; gap: 0.6em; }
   #label .mood.on { display: flex; }
   #label .mood i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; }
 
   /* --- spotify badge ----------------------------------------------------- */
-  #now { display: grid; grid-template-columns: auto 1fr; gap: 1.6vw; align-items: center; padding-top: 2vh; border-top: 1px solid var(--hair); opacity: 0; transform: translateY(8px); transition: opacity 1.5s ease, transform 1.5s ease; }
+  #now { display: grid; grid-template-columns: auto 1fr; gap: 1.6vmin; align-items: center; padding-top: 2vh; border-top: 1px solid var(--hair); opacity: 0; transform: translateY(8px); transition: opacity 1.5s ease, transform 1.5s ease; }
   #now.on { opacity: 1; transform: none; }
   #now > div { opacity: var(--band-opacity); transition: opacity 4s ease; }
-  #now img { width: 9.5vw; height: 9.5vw; object-fit: cover; border-radius: 4px; box-shadow: 0 14px 34px -10px rgba(0,0,0,0.95); outline: 1px solid rgba(var(--text-rgb), 0.18); outline-offset: -1px; }
-  #now .t { font-size: 2vw; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  #now .a { font-size: 1.5vw; color: var(--muted); font-weight: 300; margin-top: 0.3vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  #now .times { display: flex; justify-content: space-between; font-size: 1.15vw; color: var(--muted); margin-top: 1.4vh; font-variant-numeric: tabular-nums; }
+  #now img { width: 9.5vmin; height: 9.5vmin; object-fit: cover; border-radius: 4px; box-shadow: 0 14px 34px -10px rgba(0,0,0,0.95); outline: 1px solid rgba(var(--text-rgb), 0.18); outline-offset: -1px; }
+  #now .t { font-size: 2vmin; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #now .a { font-size: 1.5vmin; color: var(--muted); font-weight: 300; margin-top: 0.3vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #now .times { display: flex; justify-content: space-between; font-size: 1.15vmin; color: var(--muted); margin-top: 1.4vh; font-variant-numeric: tabular-nums; }
   #now .bar { height: 2px; background: var(--hair); margin-top: 0.6vh; position: relative; }
   #now .bar i { position: absolute; left: 0; top: 0; height: 2px; background: var(--gold); width: 0%; transition: width 1s linear; }
-  #now .state { font-size: 1vw; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.8vh; }
+  #now .state { font-size: 1vmin; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.8vh; }
 
   /* --- controls (discreet, bottom-right) -------------------------------- */
-  #controls { position: fixed; right: 2.2vw; bottom: 2.4vh; display: flex; flex-direction: column; align-items: flex-end; gap: 1vh; z-index: 9; opacity: 0.22; transition: opacity 0.4s ease; }
+  #controls { position: fixed; right: 2.2vmin; bottom: 2.4vh; display: flex; flex-direction: column; align-items: flex-end; gap: 1vh; z-index: 9; opacity: 0.22; transition: opacity 0.4s ease; }
   #controls:hover, #controls.open { opacity: 1; }
-  #controls .row { display: flex; gap: 0.8vw; }
-  #controls button { width: 3.4vw; height: 3.4vw; border-radius: 50%; border: 1px solid rgba(var(--text-rgb), 0.35); background: rgba(var(--text-rgb), 0.06); color: var(--text); font-size: 1.6vw; line-height: 1; cursor: pointer; display: grid; place-items: center; backdrop-filter: blur(6px); transition: transform 0.2s ease, background 0.2s ease; }
+  #controls .row { display: flex; gap: 0.8vmin; }
+  #controls button { width: 3.4vmin; height: 3.4vmin; border-radius: 50%; border: 1px solid rgba(var(--text-rgb), 0.35); background: rgba(var(--text-rgb), 0.06); color: var(--text); font-size: 1.6vmin; line-height: 1; cursor: pointer; display: grid; place-items: center; backdrop-filter: blur(6px); transition: transform 0.2s ease, background 0.2s ease; }
   #controls button:hover { background: rgba(var(--text-rgb), 0.16); transform: translateY(-1px); }
   #controls button.fav.on { color: #e07a6e; border-color: #e07a6e; }
   #controls button.spin { animation: spin 0.8s ease; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  #swatches { display: none; gap: 0.7vw; padding: 0.9vh 0.9vw; border-radius: 999px; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); }
+  #swatches { display: none; gap: 0.7vmin; padding: 0.9vh 0.9vmin; border-radius: 999px; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); }
   #controls.open #swatches { display: flex; }
-  #swatches span { width: 2.2vw; height: 2.2vw; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15); }
+  #swatches span { width: 2.2vmin; height: 2.2vmin; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15); }
   #swatches span.on { border-color: var(--gold); }
   #swatches span.painting { background: conic-gradient(#8a2a1e, #2b3a6b, #1e4d3a, #6b4a1e, #8a2a1e); }
+
+  /* --- status line (loading / detecting) ----------------------------------- */
+  #label .status { font-size: 1.15vmin; color: var(--faint); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1.2vh; min-height: 1.4em; opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; gap: 0.7em; }
+  #label .status.on { opacity: 1; }
+  #label .status::before { content: ""; width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--gold); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { #label .status::before { animation: none; } }
+
+  /* --- landscape: bands on the left, the wall on the right --------------- */
+  @media (orientation: landscape) {
+    body { grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr); grid-template-rows: auto 1fr; grid-template-areas: "top gallery" "now gallery"; column-gap: 6vmin; padding: 5vmin 6vmin; }
+    #top { grid-area: top; grid-template-columns: 1fr; align-items: start; border-bottom: none; padding-bottom: 0; }
+    #clock { font-size: 15vmin; }
+    #date { font-size: 2.6vmin; }
+    #weather { text-align: left; margin-top: 4vmin; font-size: 2.4vmin; }
+    #weather .temp { font-size: 7vmin; }
+    #weather .sun { font-size: 1.8vmin; }
+    #gallery { grid-area: gallery; }
+    #now { grid-area: now; align-self: end; }
+    #now img { width: 12vmin; height: 12vmin; }
+    #now .t { font-size: 2.4vmin; } #now .a { font-size: 1.8vmin; }
+    #label .title { font-size: 3vmin; } #label .artist { font-size: 1.9vmin; } #label .story { font-size: 1.6vmin; }
+  }
 
   body.idle, body.idle * { cursor: none !important; }
   body.idle #controls { opacity: 0; }
@@ -110,6 +133,7 @@
       <div class="museum"></div>
       <div class="story"></div>
       <div class="mood"><span class="dots"></span><span class="txt">matched to the album cover</span></div>
+      <div class="status"></div>
     </div>
   </main>
 
@@ -264,6 +288,7 @@ function reportSeen(prev) {
     track: t.title || null, track_artist: t.artist || null, dwell_s: Math.round((Date.now() - shownAt) / 1000), swapped: swapRequested }) }).catch(() => {});
   swapRequested = false;
 }
+function status(msg) { const el = $("#label .status"); if (msg) { el.textContent = msg; el.classList.add("on"); } else el.classList.remove("on"); }
 function show(p, matched) {
   if (!p || (current && current.id === p.id)) return;
   reportSeen(current); shownAt = Date.now();
@@ -271,7 +296,9 @@ function show(p, matched) {
   const next = front === "A" ? $("#imgB") : $("#imgA");
   const prev = front === "A" ? $("#imgA") : $("#imgB");
   next.classList.remove("drift");
-  next.onload = () => { next.classList.add("show", "drift"); prev.classList.remove("show", "drift"); front = front === "A" ? "B" : "A"; };
+  status("loading the painting");
+  next.onload = () => { next.classList.add("show", "drift"); prev.classList.remove("show", "drift"); front = front === "A" ? "B" : "A"; status(null); };
+  next.onerror = () => { status("the museum did not answer, trying another"); if (!musicMode) setTimeout(() => show(pickRandom(), null), 2000); };
   next.src = p.image;
   const story = $("#label .story"); story.classList.remove("on"); clearTimeout(story._t);
   if (p.story && p.story_lang !== "nl") { story.textContent = p.story; story._t = setTimeout(() => story.classList.add("on"), 2500); setTimeout(() => story.classList.remove("on"), 90 * 1000); }
@@ -291,27 +318,43 @@ function mmss(ms) { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60
 function hexToRgba(h, a) { const n = parseInt(h.slice(1), 16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
 
 // --- now playing ------------------------------------------------------------
-let musicMode = false, lastNow = null;
+let musicMode = false, lastNow = null, lastTrackKey = null;
+// The poller writes every 5 s. Between polls we advance the position locally
+// so the times and the bar move every second.
+let tick = { pos: 0, dur: 0, at: 0, playing: false };
+function paintTimes() {
+  if (!musicMode || !tick.dur) return;
+  const pos = Math.min(tick.dur, tick.pos + (tick.playing ? (Date.now() - tick.at) / 1000 : 0));
+  $("#now .bar i").style.width = `${Math.min(100, pos * 1000 / tick.dur * 100)}%`;
+  $("#now .in").textContent = mmss(pos * 1000);
+  $("#now .out").textContent = `-${mmss(Math.max(0, tick.dur - pos * 1000))}`;
+}
+setInterval(paintTimes, 1000);
 async function nowPlaying() {
   let j = null;
   try { j = await (await fetch(`data/now_playing.json?t=${Date.now()}`)).json(); } catch (e) {}
   lastNow = j;
   const fresh = j && (Date.now() / 1000 - j.updated_at) < 30;
   if (fresh && j.active && j.track) {
-    musicMode = true;
     const t = j.track;
+    const key = `${t.title}|${t.artist}|${t.album}`;
+    if (key !== lastTrackKey) lastTrackKey = key;
+    // a new song whose painting has not been chosen yet
+    const waiting = j.pending || (j.painting_for && j.painting_for !== key);
+    if (waiting) status(swapRequested ? "choosing another painting" : "reading the album cover");
+    else if ($("#label .status").textContent !== "loading the painting") status(null);
+    musicMode = true;
     $("#now").classList.add("on");
     if (t.cover && !$("#cover").src.endsWith(t.cover)) $("#cover").src = t.cover;
     $("#cover").style.visibility = t.cover ? "visible" : "hidden";
     $("#now .t").textContent = t.title;
     $("#now .a").textContent = `${t.artist} · ${t.album}`;
     $("#now .state").textContent = (t.state === "playing" ? "en cours" : "en pause") + (t.player ? ` · ${t.player}` : "");
-    const pct = Math.min(100, (t.position_s * 1000 / t.duration_ms) * 100);
-    $("#now .bar i").style.width = `${pct}%`;
-    $("#now .in").textContent = mmss(t.position_s * 1000);
-    $("#now .out").textContent = `-${mmss(Math.max(0, t.duration_ms - t.position_s * 1000))}`;
+    tick = { pos: t.position_s, dur: t.duration_ms, at: Date.now(), playing: t.state === "playing" };
+    paintTimes();
     if (j.painting) show(j.painting, j.cover_palette);
   } else {
+    if (musicMode) { lastTrackKey = null; status(null); }
     musicMode = false;
     $("#now").classList.remove("on");
     $("#label .mood").classList.remove("on");
@@ -335,7 +378,7 @@ $("#controls .fav").onclick = async () => {
 $("#controls .swap").onclick = async (e) => {
   e.currentTarget.classList.remove("spin"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("spin");
   swapRequested = true;
-  if (musicMode) { await fetch("/api/swap", { method: "POST" }); setTimeout(nowPlaying, 6000); }
+  if (musicMode) { status("choosing another painting"); await fetch("/api/swap", { method: "POST" }); setTimeout(nowPlaying, 1500); setTimeout(nowPlaying, 4000); setTimeout(nowPlaying, 7000); }
   else show(pickRandom(), null);
 };
 $("#controls .theme").onclick = () => $("#controls").classList.toggle("open");
