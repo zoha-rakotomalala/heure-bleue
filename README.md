@@ -88,7 +88,7 @@ Create `config.json` next to this README. Any key you omit keeps its default.
   "city": { "name": "Amsterdam", "lat": 52.3676, "lon": 4.9041, "timezone": "Europe/Amsterdam" },
   "poll_seconds": 5,
   "min_dwell_seconds": 45,
-  "rotate_minutes": 10
+  "rotate_minutes": 4
 }
 ```
 
