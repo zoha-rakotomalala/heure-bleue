@@ -70,7 +70,7 @@ def cmd_doctor(_args) -> int:
     except Exception as exc:  # noqa: BLE001
         line("now playing", False, f"read failed: {exc}")
     if config.PAINTINGS.exists():
-        n = len(json.loads(config.PAINTINGS.read_text()))
+        n = len(json.loads(config.PAINTINGS.read_text(encoding="utf-8")))
         line("index", n > 0, f"{n} paintings")
     else:
         line("index", False, "missing: python -m heurebleue index")

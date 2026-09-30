@@ -310,7 +310,7 @@ def orsay_candidates(seen, depth=2, cache_hours=72):
     cache = ROOT / "logs" / "orsay_candidates.json"
     files = None
     if cache.exists() and time.time() - cache.stat().st_mtime < cache_hours * 3600:
-        files = {int(k): v for k, v in json.loads(cache.read_text()).items()}
+        files = {int(k): v for k, v in json.loads(cache.read_text(encoding="utf-8")).items()}
         print(f"  orsay: {len(files)} image files from cache {cache.name}")
     if files is None:
         files, todo, done = {}, [(ORSAY_ROOT, 0)], set()
@@ -333,7 +333,7 @@ def orsay_candidates(seen, depth=2, cache_hours=72):
                     todo.append((m["title"], lvl + 1))
         print(f"  orsay: {len(done)} categories walked, {len(files)} image files", flush=True)
         cache.parent.mkdir(parents=True, exist_ok=True)
-        cache.write_text(json.dumps(files, ensure_ascii=False))
+        cache.write_text(json.dumps(files, ensure_ascii=False), encoding="utf-8")
     ids = [pid for pid in files if f"orsay-{pid}" not in seen]
     random.shuffle(ids)
     global _ORSAY_QUEUE
@@ -516,7 +516,7 @@ def main(target=None, source=None, delay=None, argv=None):
     source = "all" if args.source == "both" else args.source
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    existing = json.loads(OUT.read_text()) if OUT.exists() else []
+    existing = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else []
     seen = {e["id"] for e in existing}
     print(f"existing: {len(existing)}  target: {args.target}")
 
@@ -549,9 +549,9 @@ def main(target=None, source=None, delay=None, argv=None):
                 seen.add(entry["id"])
                 added += 1
             if processed % 20 == 0:
-                OUT.write_text(json.dumps(existing, ensure_ascii=False))
+                OUT.write_text(json.dumps(existing, ensure_ascii=False), encoding="utf-8")
                 print(f"  {processed} processed, {added} added, index={len(existing)}")
-    OUT.write_text(json.dumps(existing, ensure_ascii=False))
+    OUT.write_text(json.dumps(existing, ensure_ascii=False), encoding="utf-8")
     print(f"done: {len(existing)} paintings in {OUT}")
     return 0
 

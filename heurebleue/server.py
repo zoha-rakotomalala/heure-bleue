@@ -31,7 +31,7 @@ _SEEN_LOCK = threading.Lock()
 
 def load_favs() -> list[dict]:
     try:
-        return json.loads(config.FAVORITES.read_text())
+        return json.loads(config.FAVORITES.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
@@ -76,7 +76,7 @@ def rebuild_taste(favs: list[dict]) -> dict:
 
     taste = {"n": len(favs), "artists": norm(artists), "museums": norm(museums), "centuries": norm(centuries),
              "colors": colors[-20:], "updated_at": time.time()}
-    config.TASTE.write_text(json.dumps(taste, ensure_ascii=False, indent=1))
+    config.TASTE.write_text(json.dumps(taste, ensure_ascii=False, indent=1), encoding="utf-8")
     return taste
 
 
@@ -117,7 +117,7 @@ class Handler(SimpleHTTPRequestHandler):
             return self._json(load_favs())
         if p == "/api/taste":
             try:
-                return self._json(json.loads(config.TASTE.read_text()))
+                return self._json(json.loads(config.TASTE.read_text(encoding="utf-8")))
             except (FileNotFoundError, json.JSONDecodeError):
                 return self._json(rebuild_taste(load_favs()))
         if p == "/api/history":
@@ -140,7 +140,7 @@ class Handler(SimpleHTTPRequestHandler):
             return self._json({"error": "bad json"}, 400)
 
         if p == "/api/swap":
-            config.SWAP.write_text(json.dumps({"ts": time.time()}))
+            config.SWAP.write_text(json.dumps({"ts": time.time()}), encoding="utf-8")
             return self._json({"ok": True})
 
         if p == "/api/seen":
@@ -172,10 +172,10 @@ class Handler(SimpleHTTPRequestHandler):
                 keep["track"] = {k: track.get(k) for k in TRACK_KEYS} if isinstance(track, dict) and track.get("title") else None
                 favs.append(keep)
                 state = True
-            config.FAVORITES.write_text(json.dumps(favs, ensure_ascii=False, indent=1))
+            config.FAVORITES.write_text(json.dumps(favs, ensure_ascii=False, indent=1), encoding="utf-8")
             taste = rebuild_taste(favs)
             if state:
-                config.ARTIST_HOUR.write_text(json.dumps({"artist": painting.get("artist"), "until": time.time() + 3600}))
+                config.ARTIST_HOUR.write_text(json.dumps({"artist": painting.get("artist"), "until": time.time() + 3600}), encoding="utf-8")
             return self._json({"favorite": state, "count": len(favs), "taste_n": taste["n"]})
 
         return self._json({"error": "unknown endpoint"}, 404)

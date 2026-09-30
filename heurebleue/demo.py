@@ -30,7 +30,7 @@ def build(out: Path) -> Path:
 
     shutil.copy2(config.WEB / "demo.js", out / "demo.js")
     shutil.copy2(config.PAINTINGS, out / "data" / "paintings.json")
-    (out / ".nojekyll").write_text("")  # Pages must not run Jekyll over the folder
+    (out / ".nojekyll").write_text("", encoding="utf-8")  # Pages must not run Jekyll over the folder
     return out
 
 

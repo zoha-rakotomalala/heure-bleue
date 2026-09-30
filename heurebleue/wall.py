@@ -26,7 +26,7 @@ UA = {"User-Agent": "heure-bleue/1.0 (personal desk display)"}
 
 def _load_json(path, default):
     try:
-        return json.loads(path.read_text())
+        return json.loads(path.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError):
         return default
 
@@ -130,6 +130,6 @@ def run(stop: threading.Event, cfg: dict) -> None:
                    "painting": painting, "painting_for": painting_for, "painting_changed_at": last_change,
                    "pending": pending, "recent": recent}
         tmp = config.NOW.with_suffix(".tmp")
-        tmp.write_text(json.dumps(out, ensure_ascii=False))
+        tmp.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
         tmp.replace(config.NOW)
         stop.wait(cfg["poll_seconds"])

@@ -35,7 +35,7 @@ def load() -> dict:
     cfg = json.loads(json.dumps(DEFAULTS))
     if CONFIG_FILE.exists():
         try:
-            user = json.loads(CONFIG_FILE.read_text())
+            user = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
             raise SystemExit(f"config.json is not valid JSON: {exc}")
         for k, v in user.items():

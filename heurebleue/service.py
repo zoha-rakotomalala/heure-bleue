@@ -75,7 +75,7 @@ def _launchd_install() -> str:
 """
     p = _plist_path()
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(plist)
+    p.write_text(plist, encoding="utf-8")
     _run(["launchctl", "unload", str(p)])
     out = _run(["launchctl", "load", str(p)])
     return f"installed {p}\n{out}".strip()
@@ -116,6 +116,6 @@ WantedBy=default.target
 """
     p = Path.home() / ".config/systemd/user/heure-bleue.service"
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(unit)
+    p.write_text(unit, encoding="utf-8")
     _run(["systemctl", "--user", "daemon-reload"])
     return f"installed {p}\n" + _run(["systemctl", "--user", "enable", "--now", "heure-bleue.service"])

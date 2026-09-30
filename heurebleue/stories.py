@@ -29,7 +29,7 @@ def main(force=False, argv=None):
     if force: args.force = True
     indexer.DELAY = args.delay
 
-    idx = json.loads(OUT.read_text())
+    idx = json.loads(OUT.read_text(encoding="utf-8"))
     todo = [p for p in idx if p["id"].startswith("rijks-") and (args.force or "story" not in p)]
     print(f"{len(idx)} entries, {len(todo)} rijks entries to check")
     added = none = failed = 0
@@ -51,9 +51,9 @@ def main(force=False, argv=None):
         else:
             none += 1
         if n % 25 == 0:
-            OUT.write_text(json.dumps(idx, ensure_ascii=False))
+            OUT.write_text(json.dumps(idx, ensure_ascii=False), encoding="utf-8")
             print(f"  {n}/{len(todo)} checked, {added} stories")
-    OUT.write_text(json.dumps(idx, ensure_ascii=False))
+    OUT.write_text(json.dumps(idx, ensure_ascii=False), encoding="utf-8")
     langs = {}
     for p in idx:
         if "story" in p:
