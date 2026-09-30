@@ -160,7 +160,7 @@
 
 <script>
 // settings come from config.json through /api/config; these are only fallbacks
-let CFG = { city: { name: "Paris", lat: 48.8566, lon: 2.3522, timezone: "Europe/Paris" }, locale: "fr-FR", theme: "forest", rotate_minutes: 10 };
+let CFG = { city: { name: "Paris", lat: 48.8566, lon: 2.3522, timezone: "Europe/Paris" }, locale: "fr-FR", theme: "forest", rotate_minutes: 4 };
 let ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
 async function loadConfig() {
   try { CFG = { ...CFG, ...(await (await fetch("/api/config", { cache: "no-store" })).json()) }; } catch (e) {}
