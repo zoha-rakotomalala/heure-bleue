@@ -15,3 +15,7 @@ jobs:
       - run: python -m compileall -q heurebleue
       - run: python -m heurebleue doctor || true
       - run: python -c "import json;d=json.load(open('data/paintings.json'));assert len(d)>0 and all({'id','title','image','palette'}<=set(p) for p in d);print(len(d),'paintings')"
+      - run: python -m heurebleue demo --out site
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: node tests/test_demo_shim.js web/demo.js

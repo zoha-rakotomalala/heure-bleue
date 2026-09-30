@@ -82,7 +82,7 @@
 <body>
   <header id="top">
     <h1>Kept<small id="count"></small></h1>
-    <a id="back" href="/">&larr; wall</a>
+    <a id="back" href="./">&larr; wall</a>
   </header>
 
   <nav id="filters" aria-label="filter and sort">
@@ -234,7 +234,7 @@ document.querySelectorAll("#sorts button").forEach(b => {
 });
 document.addEventListener("keydown", (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  if (e.key === "Escape") location.href = "/";
+  if (e.key === "Escape") location.href = "./";
 });
 
 load();

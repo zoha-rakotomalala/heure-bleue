@@ -386,7 +386,7 @@ $("#controls .swap").onclick = async (e) => {
   else show(pickRandom(), null);
 };
 $("#controls .theme").onclick = () => $("#controls").classList.toggle("open");
-$("#controls .kept").onclick = () => { location.href = "/favorites.html"; };
+$("#controls .kept").onclick = () => { location.href = "favorites.html"; };
 function buildSwatches() {
   const box = $("#swatches"); box.innerHTML = "";
   for (const [name, t] of Object.entries(THEMES)) {
@@ -407,7 +407,7 @@ document.addEventListener("keydown", (e) => {
   else if (k === "n" || k === " " || k === "arrowright") { e.preventDefault(); $("#controls .swap").click(); }
   else if (k === "l") { $("#controls .fav").click(); }
   else if (k === "t") { $("#controls .theme").click(); }
-  else if (k === "k") { location.href = "/favorites.html"; }
+  else if (k === "k") { location.href = "favorites.html"; }
   else if (k === "escape") { $("#controls").classList.remove("open"); }
 });
 let idleTimer;

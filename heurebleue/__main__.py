@@ -7,6 +7,7 @@
   python -m heurebleue stories            add curator texts to Rijksmuseum entries
   python -m heurebleue service install    start at login (launchd / Task Scheduler / systemd)
   python -m heurebleue service remove
+  python -m heurebleue demo --out site    build the static web demo (GitHub Pages)
 """
 from __future__ import annotations
 
@@ -102,6 +103,11 @@ def cmd_service(args) -> int:
     return 0
 
 
+def cmd_demo(args) -> int:
+    from . import demo
+    return demo.main(out=args.out)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="heurebleue", description="a gallery wall for a spare screen")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -113,6 +119,7 @@ def main(argv=None) -> int:
     p.set_defaults(fn=cmd_index)
     p = sub.add_parser("stories", help="add curator texts to Rijksmuseum entries"); p.add_argument("--force", action="store_true"); p.set_defaults(fn=cmd_stories)
     p = sub.add_parser("service", help="start at login"); p.add_argument("action", choices=["install", "remove"]); p.set_defaults(fn=cmd_service)
+    p = sub.add_parser("demo", help="build the static web demo (no music)"); p.add_argument("--out", default="site"); p.set_defaults(fn=cmd_demo)
     args = ap.parse_args(argv)
     return args.fn(args)
 

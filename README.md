@@ -3,6 +3,9 @@
 A gallery wall for a spare screen. One painting at a time, from open museum
 collections, chosen to match the colours of whatever you are listening to.
 
+**[Try the web demo](https://zoha-rakotomalala.github.io/heure-bleue/)** — the
+wall without the music match. Press `F` for fullscreen, `N` for another painting.
+
 ![the wall](docs/wall.png)
 
 - **Paintings** from The Met, the Rijksmuseum and the Musée d'Orsay. 420 public-domain works ship in the index; the indexer can fetch more.
@@ -122,6 +125,18 @@ than `min_dwell_seconds` after the last change, so skipping tracks does not make
 the wall flicker. When no player is open, the wall rotates every `rotate_minutes`. A paused
 player holds the painting, until it has been paused for `paused_rotate_minutes`;
 then the wall rotates again until you press play.
+
+## Web demo
+
+`python3 -m heurebleue demo` builds a static copy of the wall in `site/`: the two
+pages, the shipped index, and `web/demo.js`, which answers the `/api/*` routes in
+the browser. Favourites and taste live in `localStorage`. There is no player loop
+in a browser, so there is no music match: the wall rotates on its own.
+
+The `pages` workflow builds and publishes it to GitHub Pages on every push to
+`main`. One-time setup in the repo: *Settings → Pages → Source: GitHub Actions*.
+
+Preview locally: `python3 -m http.server 8766 --bind 127.0.0.1 --directory site`.
 
 ## Data written at runtime
 
