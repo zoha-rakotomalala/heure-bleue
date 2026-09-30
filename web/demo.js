@@ -51,7 +51,9 @@
       let body = {}; try { body = JSON.parse(init.body || "{}"); } catch (e) {}
       const row = {}; for (const k of ["id", "title", "artist", "museum", "mode", "track", "track_artist", "dwell_s", "swapped"]) row[k] = body[k] ?? null;
       row.ts = Date.now() / 1000;
-      localStorage.setItem(HKEY, JSON.stringify([...loadHist(), row].slice(-HMAX)));
+      const hist = loadHist(), last = hist[hist.length - 1];
+      if (last && last.id === row.id && last.track === row.track && row.ts - last.ts < 15) return json({ ok: true, deduped: true });
+      localStorage.setItem(HKEY, JSON.stringify([...hist, row].slice(-HMAX)));
       return json({ ok: true });
     }
 

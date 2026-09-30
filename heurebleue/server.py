@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import re
+import threading
 import time
 from collections import Counter
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -23,6 +24,9 @@ from urllib.parse import urlsplit
 from . import config
 
 PUBLIC_CFG_KEYS = ("city", "locale", "theme", "rotate_minutes", "paused_rotate_minutes")
+SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
+_LAST_SEEN: dict = {}
+_SEEN_LOCK = threading.Lock()
 
 
 def load_favs() -> list[dict]:
@@ -142,8 +146,15 @@ class Handler(SimpleHTTPRequestHandler):
         if p == "/api/seen":
             row = {k: body.get(k) for k in ("id", "title", "artist", "museum", "mode", "track", "track_artist", "dwell_s", "swapped")}
             row["ts"] = time.time()
-            with config.HISTORY.open("a", encoding="utf-8") as f:
-                f.write(json.dumps(row, ensure_ascii=False) + "\n")
+            # two windows showing the wall report the same change a few seconds apart: keep one
+            key = (row["id"], row["track"])
+            with _SEEN_LOCK:
+                last = _LAST_SEEN.get("row")
+                if last and (last["id"], last["track"]) == key and row["ts"] - last["ts"] < SEEN_DEDUPE_S:
+                    return self._json({"ok": True, "deduped": True})
+                _LAST_SEEN["row"] = row
+                with config.HISTORY.open("a", encoding="utf-8") as f:
+                    f.write(json.dumps(row, ensure_ascii=False) + "\n")
             return self._json({"ok": True})
 
         if p == "/api/favorite":
