@@ -40,3 +40,12 @@ def read() -> Optional[Track]:
         "title": title, "artist": artist, "album": album, "cover_url": cover_url, "cover_bytes": cover_bytes,
         "duration_ms": int(int(length or 0) / 1000), "position_s": int(pos or 0) / 1_000_000,
     }
+
+
+def next_track() -> bool:
+    if not shutil.which("playerctl"):
+        return False
+    try:
+        return subprocess.run(["playerctl", "next"], capture_output=True, timeout=5).returncode == 0
+    except Exception:  # noqa: BLE001
+        return False

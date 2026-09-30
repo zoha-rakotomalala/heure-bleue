@@ -65,7 +65,7 @@ def _parse(line: str, player: str) -> Optional[Track]:
     state, tid, name, artist, album, art, dur, pos = parts[:8]
     return {
         "player": player, "state": state, "id": f"{player}:{tid}", "title": name, "artist": artist,
-        "album": album, "cover_url": art or None, "cover_bytes": None,
+        "album": album, "cover_url": art if art and art != "missing value" else None, "cover_bytes": None,
         "duration_ms": int(_num(dur)), "position_s": _num(pos),
     }
 
@@ -101,3 +101,15 @@ def read() -> Optional[Track]:
             t["cover_bytes"] = _last_music_art
             return t
     return None
+
+
+def next_track() -> bool:
+    """Skip to the next song in whichever player is active. Never launches an app."""
+    procs = _running()
+    for app in ("Spotify", "Music"):
+        if app in procs:
+            state = _osa(f'tell application "{app}" to (player state as string)')
+            if state in ("playing", "paused"):
+                _osa(f'tell application "{app}" to next track')
+                return True
+    return False

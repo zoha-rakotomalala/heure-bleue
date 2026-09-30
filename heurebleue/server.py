@@ -6,6 +6,7 @@
   GET  /api/history?limit=N       -> last N rows of history.jsonl (for the stats page)
   POST /api/favorite {painting, track?} -> toggle; remembers the song playing; rebuilds taste; starts the artist hour
   POST /api/swap                  -> ask the wall loop for another painting now
+  POST /api/next                  -> skip the player to the next song; the wall follows at once
   POST /api/seen {...}            -> append one line to history.jsonl
 
 Binds to 127.0.0.1 by default. Nothing here needs or holds a credential.
@@ -142,6 +143,11 @@ class Handler(SimpleHTTPRequestHandler):
         if p == "/api/swap":
             config.SWAP.write_text(json.dumps({"ts": time.time()}), encoding="utf-8")
             return self._json({"ok": True})
+
+        if p == "/api/next":
+            from . import wall
+            ok = wall.request_next()
+            return self._json({"ok": ok} if ok else {"ok": False, "error": "no player answered"}, 200 if ok else 409)
 
         if p == "/api/seen":
             row = {k: body.get(k) for k in ("id", "title", "artist", "museum", "mode", "track", "track_artist", "dwell_s", "swapped")}

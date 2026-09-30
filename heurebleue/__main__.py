@@ -62,7 +62,7 @@ def cmd_doctor(_args) -> int:
         line("pillow", True, PIL.__version__)
     except ImportError:
         line("pillow", False, "pip install pillow")
-    name, read = nowplaying.detect()
+    name, read, _next = nowplaying.detect()
     line("player backend", "unavailable" not in name and name != "unsupported", name)
     try:
         t = read()

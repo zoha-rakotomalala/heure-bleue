@@ -86,3 +86,20 @@ def read() -> Optional[Track]:
         return asyncio.run(_read_async())
     except Exception:  # noqa: BLE001
         return None
+
+
+async def _next_async() -> bool:
+    mgr = await _Mgr.request_async()
+    session = mgr.get_current_session()
+    if session is None:
+        return False
+    return bool(await session.try_skip_next_async())
+
+
+def next_track() -> bool:
+    if not available():
+        return False
+    try:
+        return asyncio.run(_next_async())
+    except Exception:  # noqa: BLE001
+        return False

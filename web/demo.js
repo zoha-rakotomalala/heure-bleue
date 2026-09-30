@@ -46,6 +46,7 @@
     if (path.endsWith("/api/taste")) return json(taste(loadFavs()));
     if (path.endsWith("now_playing.json")) return json({ active: false, updated_at: 0 });
     if (path.endsWith("/api/swap")) return json({ ok: true });
+    if (path.endsWith("/api/next")) return json({ ok: false, error: "no player in the web demo" }, 409);
     if (path.endsWith("/api/history")) return json(loadHist());
     if (path.endsWith("/api/seen") && method === "POST") {
       let body = {}; try { body = JSON.parse(init.body || "{}"); } catch (e) {}

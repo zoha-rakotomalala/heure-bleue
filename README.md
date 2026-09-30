@@ -66,14 +66,17 @@ Any MPRIS player works.
 
 ## Keys and buttons
 
-Four small buttons sit bottom-right and fade after 4 s of stillness.
+Small buttons sit bottom-right and fade after 4 s of stillness. The ⏭ button
+appears only while music plays.
 
 | key | action |
 |---|---|
 | `F` | fullscreen |
 | `N`, `space`, `→` | another painting |
-| `L` | keep this painting (♥) |
+| `>` or `.` | next song in the player; the wall follows at once |
+| `L` | keep this painting (♥). The song playing is remembered with it |
 | `K` | open *Kept*, your favorites |
+| `S` | open *Stats* |
 | `T` | wall colour |
 | `Esc` | close |
 

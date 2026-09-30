@@ -83,9 +83,26 @@ def cover_palette_for(track: dict) -> Optional[list[dict]]:
     return palette_from_bytes(data)
 
 
+# set by run(); used by the server's POST /api/next
+_WAKE = threading.Event()
+_next_track = lambda: False  # noqa: E731
+_force_change = 0.0  # deadline: change the painting as soon as the player reports a new track
+
+
+def request_next() -> bool:
+    """Skip the player to the next song and make the wall follow at once."""
+    global _force_change
+    ok = _next_track()
+    if ok:
+        _force_change = time.time() + 8  # give the player a few seconds to report the new track
+        _WAKE.set()
+    return ok
+
+
 def run(stop: threading.Event, cfg: dict) -> None:
+    global _next_track, _force_change
     config.DATA.mkdir(parents=True, exist_ok=True)
-    backend, read = nowplaying.detect()
+    backend, read, _next_track = nowplaying.detect()
     print(f"player backend: {backend}", flush=True)
     prev = _load_json(config.NOW, {})
     last_track = (prev.get("track") or {}).get("id")
@@ -117,7 +134,10 @@ def run(stop: threading.Event, cfg: dict) -> None:
             swap = config.SWAP.exists()
             if swap:
                 config.SWAP.unlink(missing_ok=True)
-            if cover_palette and (swap or (pending and now - last_change >= dwell)):
+            forced = pending and now < _force_change  # the new song came from our own skip button
+            if forced:
+                _force_change = 0.0
+            if cover_palette and (swap or forced or (pending and now - last_change >= dwell)):
                 chosen = choose_painting(cover_palette, recent)
                 if chosen:
                     painting, last_change = chosen, now
@@ -132,4 +152,7 @@ def run(stop: threading.Event, cfg: dict) -> None:
         tmp = config.NOW.with_suffix(".tmp")
         tmp.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
         tmp.replace(config.NOW)
-        stop.wait(cfg["poll_seconds"])
+        # poll fast while a skip is waiting for the player to switch; otherwise the normal cadence
+        wait = 0.7 if now < _force_change else cfg["poll_seconds"]
+        _WAKE.wait(wait)
+        _WAKE.clear()

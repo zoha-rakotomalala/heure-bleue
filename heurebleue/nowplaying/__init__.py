@@ -1,6 +1,7 @@
 """Now-playing backends.
 
-Each backend exposes  read() -> Track | None  where Track is a plain dict:
+Each backend exposes  read() -> Track | None  and  next_track() -> bool
+(skip to the next song; False when no player answered). Track is a plain dict:
 
   {
     "player":      "Spotify" | "Music" | "<app name>",
@@ -31,17 +32,17 @@ from .. import config
 Track = dict
 
 
-def detect() -> tuple[str, Callable[[], Optional[Track]]]:
-    """Return (backend name, read function) for this machine."""
+def detect() -> tuple[str, Callable[[], Optional[Track]], Callable[[], bool]]:
+    """Return (backend name, read function, next_track function) for this machine."""
     sys_ = config.system()
     if sys_ == "macos":
         from . import macos
-        return "macos/applescript", macos.read
+        return "macos/applescript", macos.read, macos.next_track
     if sys_ == "windows":
         from . import windows
-        return ("windows/smtc" if windows.available() else "windows/unavailable"), windows.read
+        return ("windows/smtc" if windows.available() else "windows/unavailable"), windows.read, windows.next_track
     if sys_ == "linux":
         from . import linux
         name = "linux/playerctl" if shutil.which("playerctl") else "linux/unavailable (install playerctl)"
-        return name, linux.read
-    return "unsupported", lambda: None
+        return name, linux.read, linux.next_track
+    return "unsupported", lambda: None, lambda: False

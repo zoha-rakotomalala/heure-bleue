@@ -75,6 +75,8 @@
   #controls button:hover { background: rgba(var(--text-rgb), 0.16); transform: translateY(-1px); }
   #controls button.fav.on { color: #e07a6e; border-color: #e07a6e; }
   #controls button.spin { animation: spin 0.8s ease; }
+  #controls button.next { display: none; font-size: 1.3vmin; }
+  #controls.music button.next { display: grid; }
   @keyframes spin { to { transform: rotate(360deg); } }
   #swatches { display: none; gap: 0.7vmin; padding: 0.9vh 0.9vmin; border-radius: 999px; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); }
   #controls.open #swatches { display: flex; }
@@ -155,6 +157,7 @@
       <button class="swap" title="Another painting">↻</button>
       <button class="fav" title="Keep this one">♡</button>
       <button class="kept" title="Kept paintings">▤</button>
+      <button class="next" title="Next song">⏭</button>
     </div>
   </div>
 
@@ -347,6 +350,7 @@ async function nowPlaying() {
     if (waiting) status(swapRequested ? "choosing another painting" : "reading the album cover");
     else if ($("#label .status").textContent !== "loading the painting") status(null);
     musicMode = !longPause;
+    $("#controls").classList.toggle("music", musicMode);
     $("#now").classList.add("on");
     if (t.cover && !$("#cover").src.endsWith(t.cover)) $("#cover").src = t.cover;
     $("#cover").style.visibility = t.cover ? "visible" : "hidden";
@@ -360,6 +364,7 @@ async function nowPlaying() {
   } else {
     if (musicMode) { lastTrackKey = null; status(null); }
     musicMode = false;
+    $("#controls").classList.remove("music");
     $("#now").classList.remove("on");
     $("#label .mood").classList.remove("on");
   }
@@ -386,6 +391,14 @@ $("#controls .swap").onclick = async (e) => {
   if (musicMode) { status("choosing another painting"); await fetch("/api/swap", { method: "POST" }); setTimeout(nowPlaying, 1500); setTimeout(nowPlaying, 4000); setTimeout(nowPlaying, 7000); }
   else show(pickRandom(), null);
 };
+$("#controls .next").onclick = async (e) => {
+  if (!musicMode) return;
+  e.currentTarget.classList.remove("spin"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("spin");
+  status("next song");
+  const r = await fetch("/api/next", { method: "POST" }).catch(() => null);
+  if (!r || !r.ok) { status("the player did not answer"); setTimeout(() => status(null), 2500); return; }
+  [800, 1600, 2600, 4000, 6000].forEach(ms => setTimeout(nowPlaying, ms));
+};
 $("#controls .theme").onclick = () => $("#controls").classList.toggle("open");
 $("#controls .kept").onclick = () => { location.href = "favorites.html"; };
 function buildSwatches() {
@@ -410,6 +423,7 @@ document.addEventListener("keydown", (e) => {
   else if (k === "t") { $("#controls .theme").click(); }
   else if (k === "k") { location.href = "favorites.html"; }
   else if (k === "s") { location.href = "stats.html"; }
+  else if (k === ">" || k === ".") { $("#controls .next").click(); }
   else if (k === "escape") { $("#controls").classList.remove("open"); }
 });
 let idleTimer;
