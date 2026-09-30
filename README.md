@@ -117,8 +117,9 @@ five-colour palette for each work. About 500 bytes per painting, no images on
 disk. To add more:
 
 ```sh
-python3 -m heurebleue index --target 800            # all three museums, round-robin
-python3 -m heurebleue index --source orsay --target 600
+python3 -m heurebleue index --target 800            # every source, round-robin
+python3 -m heurebleue index --source louvre --target 600   # one museum (met, rijks, or a Commons slug)
+python3 -m heurebleue index --source commons --target 600  # all the Wikimedia Commons museums
 python3 -m heurebleue stories                        # curator texts for Rijksmuseum entries
 ```
 

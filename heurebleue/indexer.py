@@ -17,6 +17,7 @@ Usage: python3 build_index.py --target 300 [--source met|rijks|orsay|all] [--del
        ("both" is kept as an alias for "all")
 """
 import argparse
+import functools
 import html
 import io
 import json
@@ -268,12 +269,37 @@ def rijks_fetch(obj_url):
     return with_story(entry, *rijks_story(o))
 
 
-# --- Musée d'Orsay via Wikimedia Commons -------------------------------------------
+# --- Museums via Wikimedia Commons -----------------------------------------------
+# One category per museum; the Orsay code below walks any of them. Slug = id prefix.
 
 COMMONS = "https://commons.wikimedia.org/w/api.php"
-ORSAY_ROOT = "Category:Paintings in the Musée d'Orsay"
-ORSAY_MUSEUM = "Musée d'Orsay, Paris"
-ORSAY_SKIP_CATS = ("People with paintings",)  # portraits of sitters, not the paintings themselves
+COMMONS_MUSEUMS = {
+    "orsay": ("Category:Paintings in the Musée d'Orsay", "Musée d'Orsay, Paris"),
+    "orangerie": ("Category:Paintings in the Musée de l'Orangerie", "Musée de l'Orangerie, Paris"),
+    "marmottan": ("Category:Paintings in the Musée Marmottan Monet", "Musée Marmottan Monet, Paris"),
+    "petit-palais": ("Category:Paintings in the Petit Palais", "Petit Palais, Paris"),
+    "louvre": ("Category:Paintings in the Louvre", "Musée du Louvre, Paris"),
+    "lyon": ("Category:Paintings in the Musée des Beaux Arts de Lyon", "Musée des Beaux-Arts de Lyon"),
+    "national-gallery": ("Category:Paintings in the National Gallery, London", "National Gallery, London"),
+    "prado": ("Category:Paintings in the Museo del Prado", "Museo del Prado, Madrid"),
+    "mauritshuis": ("Category:Paintings in the Mauritshuis", "Mauritshuis, The Hague"),
+    "van-gogh": ("Category:Paintings in the Van Gogh Museum", "Van Gogh Museum, Amsterdam"),
+    "kroller-muller": ("Category:Paintings in the Kröller-Müller Museum", "Kröller-Müller Museum, Otterlo"),
+    "khm": ("Category:Paintings in the Kunsthistorisches Museum", "Kunsthistorisches Museum, Vienna"),
+    "belvedere": ("Category:Paintings in the Österreichische Galerie Belvedere", "Belvedere, Vienna"),
+    "alte-nationalgalerie": ("Category:Paintings in the Alte Nationalgalerie", "Alte Nationalgalerie, Berlin"),
+    "gemaldegalerie": ("Category:Paintings in the Gemäldegalerie, Berlin", "Gemäldegalerie, Berlin"),
+    "neue-pinakothek": ("Category:Paintings in the Neue Pinakothek", "Neue Pinakothek, Munich"),
+    "stadel": ("Category:Paintings in the Städel", "Städel Museum, Frankfurt"),
+    "nationalmuseum": ("Category:Paintings in the Nationalmuseum Stockholm", "Nationalmuseum, Stockholm"),
+    "ateneum": ("Category:Paintings in the Ateneum", "Ateneum, Helsinki"),
+    "hermitage": ("Category:Paintings in the Hermitage", "Hermitage Museum, Saint Petersburg"),
+    "nga": ("Category:Paintings in the National Gallery of Art (Washington, D.C.)", "National Gallery of Art, Washington"),
+}
+ORSAY_ROOT, ORSAY_MUSEUM = COMMONS_MUSEUMS["orsay"]
+COMMONS_SKIP_CATS = ("People with paintings", "Framed paintings", "Details of", "Copies after", "Reproductions of")
+ORSAY_SKIP_CATS = COMMONS_SKIP_CATS
+MAX_CATS = 60  # categories walked per museum; enough for a few hundred files, cheap on the API
 IMAGE_EXT = (".jpg", ".jpeg", ".png")
 BAD_TITLE = re.compile(r"\b(detail|details|d[ée]tails?|crop|cropped|frame|framed|cadre|encadr[ée]e?|in situ|installation view|exhibition|exposition)\b", re.I)
 PD_LICENCE = re.compile(r"public domain|\bCC0\b|\bPD\b|no (known )?(copyright )?restrictions", re.I)
@@ -301,20 +327,21 @@ def commons_members(cat):
         params.update(d["continue"])
 
 
-def orsay_candidates(seen, depth=2, cache_hours=72):
-    """Walk the Orsay category and its subcategories (default two levels down).
+def commons_candidates(seen, slug="orsay", depth=2, cache_hours=72):
+    """Walk one museum's Commons category and its subcategories (default two levels down).
 
     Returns Commons file pageids of jpg/png files not yet indexed, shuffled. The
-    walk costs ~250 API calls, so its result is cached in logs/ for a few days.
+    walk costs up to MAX_CATS API calls, so its result is cached in logs/ for a few days.
     """
-    cache = ROOT / "logs" / "orsay_candidates.json"
+    root, _ = COMMONS_MUSEUMS[slug]
+    cache = ROOT / "logs" / f"{slug}_candidates.json"
     files = None
     if cache.exists() and time.time() - cache.stat().st_mtime < cache_hours * 3600:
         files = {int(k): v for k, v in json.loads(cache.read_text(encoding="utf-8")).items()}
-        print(f"  orsay: {len(files)} image files from cache {cache.name}")
+        print(f"  {slug}: {len(files)} image files from cache {cache.name}")
     if files is None:
-        files, todo, done = {}, [(ORSAY_ROOT, 0)], set()
-        while todo:
+        files, todo, done = {}, [(root, 0)], set()
+        while todo and len(done) < MAX_CATS:
             cat, lvl = todo.pop(0)
             if cat in done:
                 continue
@@ -326,23 +353,27 @@ def orsay_candidates(seen, depth=2, cache_hours=72):
                 if "429" in str(exc) or "403" in str(exc):
                     time.sleep(60)
                 continue
+            time.sleep(DELAY)
             for m in members:
                 if m.get("ns") == 6 and m["title"].lower().endswith(IMAGE_EXT):
                     files[m["pageid"]] = m["title"]
-                elif m.get("ns") == 14 and lvl < depth and not any(s in m["title"] for s in ORSAY_SKIP_CATS):
+                elif m.get("ns") == 14 and lvl < depth and not any(s in m["title"] for s in COMMONS_SKIP_CATS):
                     todo.append((m["title"], lvl + 1))
-        print(f"  orsay: {len(done)} categories walked, {len(files)} image files", flush=True)
+        print(f"  {slug}: {len(done)} categories walked, {len(files)} image files", flush=True)
         cache.parent.mkdir(parents=True, exist_ok=True)
         cache.write_text(json.dumps(files, ensure_ascii=False), encoding="utf-8")
-    ids = [pid for pid in files if f"orsay-{pid}" not in seen]
+    ids = [pid for pid in files if f"{slug}-{pid}" not in seen]
     random.shuffle(ids)
-    global _ORSAY_QUEUE
-    _ORSAY_QUEUE = ids  # same list object main() pops from, so orsay_fetch can prefetch the next batch
+    _QUEUES[slug] = ids  # same list object main() pops from, so the fetcher can prefetch the next batch
     return ids
 
 
-_ORSAY_QUEUE = []          # remaining candidate pageids (shared with main's queue order)
-_ORSAY_META = {}           # pageid -> (page, imageinfo@1400, imageinfo@600)
+def orsay_candidates(seen, depth=2, cache_hours=72):
+    return commons_candidates(seen, "orsay", depth, cache_hours)
+
+
+_QUEUES = {}               # slug -> remaining candidate pageids (shared with main's queue order)
+_META = {}                 # pageid -> (page, imageinfo)
 ORSAY_BATCH = 25
 
 
@@ -355,15 +386,16 @@ def _imageinfo_batch(pageids):
     return {p["pageid"]: p for p in d.get("query", {}).get("pages", []) if "imageinfo" in p}
 
 
-def _imageinfo(pageid):
-    """(page, imageinfo) for a file; fetched ORSAY_BATCH files per API call."""
-    if pageid not in _ORSAY_META:
-        batch = [pageid] + [p for p in reversed(_ORSAY_QUEUE) if p != pageid and p not in _ORSAY_META][: ORSAY_BATCH - 1]
+def _imageinfo(pageid, slug="orsay"):
+    """(page, imageinfo) for a file; fetched ORSAY_BATCH files per API call, from this museum's queue."""
+    if pageid not in _META:
+        queue = _QUEUES.get(slug, [])
+        batch = [pageid] + [p for p in reversed(queue) if p != pageid and p not in _META][: ORSAY_BATCH - 1]
         pages = _imageinfo_batch(batch)
         for pid in batch:
             pg = pages.get(pid)
-            _ORSAY_META[pid] = (pg, pg["imageinfo"][0]) if pg else (None, None)
-    return _ORSAY_META.pop(pageid)
+            _META[pid] = (pg, pg["imageinfo"][0]) if pg else (None, None)
+    return _META.pop(pageid)
 
 
 def thumb_url(original, orig_width, width):
@@ -393,11 +425,11 @@ def _meta(ii, key):
 LANG_LABEL = re.compile(r"\b(English|French|Français|Italian|Italiano|German|Deutsch|Dutch|Nederlands|Spanish|Español|Portuguese|Russian|Polish|Swedish|Danish|Catalan)\s*:\s*", re.I)
 USERNAME_LIKE = re.compile(r"^[A-Za-z0-9_.-]+$")  # a single token such as "Sailko" is the photographer, not the painter
 PAINTER_CATS = [  # Commons category patterns that name the painter, most specific first
-    re.compile(r"^Category:(?:\d{4}s? )?(?:paintings|works|portraits|landscapes|gardens|drawings) by (.+?)(?: in (?:the )?Mus[ée]e d.Orsay| by .+)?$", re.I),
+    re.compile(r"^Category:(?:\d{4}s? )?(?:paintings|works|portraits|landscapes|gardens|drawings) by (.+?)(?: in (?:the )?[^|]+| by .+)?$", re.I),
     re.compile(r"^Category:.+ (?:-|by) ([A-ZÀ-Ý][\wÀ-ÿ'.-]+(?: [\wÀ-ÿ'.-]+){1,4})$"),  # '<Title> - <Painter>' single-painting cats
 ]
 FRAME_CATS = re.compile(r"framed paintings|painting frames|frames \(", re.I)
-PHOTO_DATE = re.compile(r"\b(19[3-9]\d|20\d\d)\b")  # Orsay collection ends 1914: a later year is the photo's date
+PHOTO_DATE = re.compile(r"\b(19[3-9]\d|20\d\d)\b")  # public-domain painting pools end before 1930: a later year is the photo's date
 
 
 def pick_language(text):
@@ -463,13 +495,14 @@ def orsay_date(ii):
     return "" if PHOTO_DATE.search(d) else d[:60]
 
 
-def orsay_fetch(pageid):
-    page, ii = _imageinfo(pageid)
+def commons_fetch(pageid, slug="orsay"):
+    museum = COMMONS_MUSEUMS[slug][1]
+    page, ii = _imageinfo(pageid, slug)
     if not ii:
         return None
     lic = _meta(ii, "LicenseShortName")
     if not PD_LICENCE.search(lic):
-        print(f"  licence orsay-{pageid} {lic[:40]!r}")
+        print(f"  licence {slug}-{pageid} {lic[:40]!r}")
         return None
     w0, h0 = ii.get("width", 0), ii.get("height", 0)
     if w0 < MIN_ORIGINAL_WIDTH:
@@ -485,17 +518,21 @@ def orsay_fetch(pageid):
     time.sleep(DELAY)  # be polite to upload.wikimedia.org too
     res = analyse(get_bytes(thumb))
     if not res:
-        print(f"  strip  orsay-{pageid} {title[:40]}")
+        print(f"  strip  {slug}-{pageid} {title[:40]}")
         return None
     w, h, pal = res
     entry = {
-        "id": f"orsay-{pageid}", "title": title, "artist": artist, "date": orsay_date(ii),
-        "museum": ORSAY_MUSEUM, "url": ii.get("descriptionurl") or f"https://commons.wikimedia.org/?curid={pageid}",
+        "id": f"{slug}-{pageid}", "title": title, "artist": artist, "date": orsay_date(ii),
+        "museum": museum, "url": ii.get("descriptionurl") or f"https://commons.wikimedia.org/?curid={pageid}",
         "image": image, "w": w0 or w, "h": h0 or h, "palette": pal,
     }
     if len(desc) > 60 and desc.lower() != title.lower() and " " in desc:
         entry["story"] = trim_story(desc)
     return entry
+
+
+def orsay_fetch(pageid):
+    return commons_fetch(pageid, "orsay")
 
 
 # --- main ------------------------------------------------------------------------
@@ -505,15 +542,16 @@ def main(target=None, source=None, delay=None, argv=None):
     sys.stdout.reconfigure(line_buffering=True)  # progress shows up in a redirected log
     ap = argparse.ArgumentParser()
     ap.add_argument("--target", type=int, default=300, help="stop when the index holds this many paintings")
-    ap.add_argument("--source", choices=["met", "rijks", "orsay", "all", "both"], default="all",
-                    help="'both' is a legacy alias for 'all' (met + rijks + orsay, round-robin)")
+    ap.add_argument("--source", default="all",
+                    help="met, rijks, a Commons museum slug (" + ", ".join(COMMONS_MUSEUMS) + "), "
+                         "'commons' for all Commons museums, or 'all' (default, round-robin over everything)")
     ap.add_argument("--delay", type=float, default=0.8)
     args = ap.parse_args(argv if argv is not None else [])
     if target is not None: args.target = target
     if source is not None: args.source = source
     if delay is not None: args.delay = delay
     DELAY = args.delay
-    source = "all" if args.source == "both" else args.source
+    source = "all" if args.source == "both" else args.source.lower()
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     existing = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else []
@@ -525,8 +563,11 @@ def main(target=None, source=None, delay=None, argv=None):
         queues.append(("met", met_candidates(seen), met_fetch))
     if source in ("rijks", "all"):
         queues.append(("rijks", rijks_candidates(seen), rijks_fetch))
-    if source in ("orsay", "all"):
-        queues.append(("orsay", orsay_candidates(seen), orsay_fetch))
+    for slug in COMMONS_MUSEUMS:
+        if source in (slug, "commons", "all"):
+            queues.append((slug, commons_candidates(seen, slug), functools.partial(commons_fetch, slug=slug)))
+    if not queues:
+        ap.error(f"unknown source {source!r}")
     print("candidates: " + ", ".join(f"{n}={len(q)}" for n, q, _ in queues))
 
     processed = added = 0
