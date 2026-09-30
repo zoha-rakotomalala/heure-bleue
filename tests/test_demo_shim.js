@@ -26,10 +26,15 @@ const P = { id: "met-1", title: "Nocturne", artist: "Whistler", date: "1875", mu
   r = await (await f("/api/favorite", { method: "POST", body: JSON.stringify({ painting: P }) })).json();
   assert.deepStrictEqual([r.favorite, r.count], [false, 0]);
   assert.strictEqual((await f("/api/favorite", { method: "POST", body: "{}" })).status, 400);
-  assert.strictEqual((await f("/api/seen", { method: "POST", body: "{}" })).status, 200);
+  assert.strictEqual((await f("/api/seen", { method: "POST", body: JSON.stringify({ id: "met-1", title: "Nocturne", dwell_s: 240, mode: "rotation" }) })).status, 200);
+  const h = await (await f("/api/history?limit=20000")).json();
+  assert.deepStrictEqual([h.length, h[0].id, h[0].dwell_s, typeof h[0].ts], [1, "met-1", 240, "number"]);
+  r = await (await f("/api/favorite", { method: "POST", body: JSON.stringify({ painting: P, track: { title: "Old Friend", artist: "Darlingside", cover: "c" } }) })).json();
+  assert.strictEqual(r.favorite, true);
+  assert.deepStrictEqual((await (await f("/api/favorites")).json())[0].track, { title: "Old Friend", artist: "Darlingside", album: null, cover: "c", player: null });
   const pass = await f("https://api.open-meteo.com/x");
   assert.strictEqual(pass.passthrough, true);
   const pass2 = await f("data/paintings.json?t=2");
   assert.strictEqual(pass2.passthrough, true);
-  console.log("shim ok: 12 assertions");
+  console.log("shim ok: 17 assertions");
 })().catch(e => { console.error(e); process.exit(1); });

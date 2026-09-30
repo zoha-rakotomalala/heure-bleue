@@ -6,13 +6,14 @@
 // routes in the browser: favourites and taste live in localStorage, there is no
 // player session, so the wall rotates on its own. The page itself is unchanged.
 (() => {
-  const KEY = "heurebleue.favorites";
+  const KEY = "heurebleue.favorites", HKEY = "heurebleue.history", HMAX = 2000;
   const realFetch = window.fetch.bind(window);
   const json = (obj, status = 200) =>
     Promise.resolve(new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } }));
 
   const loadFavs = () => { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } };
   const saveFavs = (f) => localStorage.setItem(KEY, JSON.stringify(f));
+  const loadHist = () => { try { return JSON.parse(localStorage.getItem(HKEY) || "[]"); } catch (e) { return []; } };
   const century = (date) => { const m = /(1[0-9]{3}|20[0-9]{2})/.exec(date || ""); return m ? String(Math.floor(+m[1] / 100) + 1) : null; };
 
   // mirrors server.rebuild_taste
@@ -44,7 +45,15 @@
     if (path.endsWith("/api/favorites")) return json(loadFavs());
     if (path.endsWith("/api/taste")) return json(taste(loadFavs()));
     if (path.endsWith("now_playing.json")) return json({ active: false, updated_at: 0 });
-    if (path.endsWith("/api/seen") || path.endsWith("/api/swap")) return json({ ok: true });
+    if (path.endsWith("/api/swap")) return json({ ok: true });
+    if (path.endsWith("/api/history")) return json(loadHist());
+    if (path.endsWith("/api/seen") && method === "POST") {
+      let body = {}; try { body = JSON.parse(init.body || "{}"); } catch (e) {}
+      const row = {}; for (const k of ["id", "title", "artist", "museum", "mode", "track", "track_artist", "dwell_s", "swapped"]) row[k] = body[k] ?? null;
+      row.ts = Date.now() / 1000;
+      localStorage.setItem(HKEY, JSON.stringify([...loadHist(), row].slice(-HMAX)));
+      return json({ ok: true });
+    }
 
     if (path.endsWith("/api/favorite") && method === "POST") {
       let body = {}; try { body = JSON.parse(init.body || "{}"); } catch (e) {}
@@ -55,6 +64,7 @@
       else {
         const keep = {}; for (const k of ["id", "title", "artist", "date", "museum", "url", "image", "palette"]) keep[k] = p[k] ?? null;
         keep.saved_at = new Date().toISOString().slice(0, 16).replace("T", " ");
+        const t = body.track; keep.track = t && t.title ? { title: t.title, artist: t.artist ?? null, album: t.album ?? null, cover: t.cover ?? null, player: t.player ?? null } : null;
         favs.push(keep); state = true;
       }
       saveFavs(favs);

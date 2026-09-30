@@ -34,8 +34,8 @@
   #top { display: grid; grid-template-columns: 1fr auto; align-items: end; padding-bottom: 2vh; border-bottom: 1px solid var(--hair); }
   #top h1 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: calc(var(--u) * 3.2); line-height: 1; letter-spacing: -0.01em; }
   #top h1 small { font-family: var(--sans); font-style: normal; font-weight: 300; font-size: 0.5em; color: var(--muted); margin-left: 0.6em; letter-spacing: 0; font-variant-numeric: tabular-nums; }
-  #back { font-size: calc(var(--u) * 1.5); color: var(--muted); letter-spacing: 0.04em; padding-bottom: 0.2em; transition: color 0.3s ease; }
-  #back:hover, #back:focus-visible { color: var(--gold); outline: none; }
+  #back, .lnk { font-size: calc(var(--u) * 1.5); color: var(--muted); letter-spacing: 0.04em; padding-bottom: 0.2em; transition: color 0.3s ease; }
+  #back:hover, #back:focus-visible, .lnk:hover, .lnk:focus-visible { color: var(--gold); outline: none; }
 
   /* --- filters ------------------------------------------------------------ */
   #filters { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 1.2vh 3vw; padding: 1.8vh 0; border-bottom: 1px solid var(--hair); font-size: calc(var(--u) * 1.35); color: var(--muted); }
@@ -59,6 +59,11 @@
   .tile .title { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: calc(var(--u) * 1.9); line-height: 1.25; }
   .tile .artist { font-size: calc(var(--u) * 1.3); color: var(--muted); margin-top: 0.6vh; }
   .tile .museum { font-size: calc(var(--u) * 1.0); color: var(--faint); margin-top: 0.5vh; letter-spacing: 0.06em; text-transform: uppercase; }
+  .tile .song { display: flex; align-items: center; gap: 0.6em; font-size: calc(var(--u) * 1.15); color: var(--muted); margin-top: 0.9vh; }
+  .tile .song::before { content: "♪"; color: var(--gold); font-size: 0.9em; }
+  .tile .song img { width: calc(var(--u) * 2.2); height: calc(var(--u) * 2.2); object-fit: cover; border-radius: 2px; filter: none; min-height: 0; }
+  .tile .song .n { color: var(--faint); }
+  #links { display: flex; gap: 2.4vw; align-items: baseline; }
   .tile .dots { display: flex; gap: 0.5em; margin-top: 1vh; }
   .tile .dots i { display: inline-block; width: calc(var(--u) * 0.9); height: calc(var(--u) * 0.9); border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
   .tile .acts { display: flex; gap: 2vw; margin-top: 1vh; font-size: calc(var(--u) * 1.15); letter-spacing: 0.08em; opacity: 0; transition: opacity 0.35s ease; }
@@ -82,7 +87,7 @@
 <body>
   <header id="top">
     <h1>Kept<small id="count"></small></h1>
-    <a id="back" href="./">&larr; wall</a>
+    <nav id="links"><a id="stats" class="lnk" href="stats.html">stats</a><a id="back" href="./">&larr; wall</a></nav>
   </header>
 
   <nav id="filters" aria-label="filter and sort">
@@ -196,6 +201,8 @@ function render(first) {
     const el = document.createElement("figure");
     el.className = "tile in"; el.dataset.id = p.id;
     const dots = (p.palette || []).slice(0, 5).map(c => `<i style="background:${esc(c.hex)}"></i>`).join("");
+    const t = p.track && p.track.title ? p.track : null;
+    const song = t ? `<div class="song" title="playing when you kept this">${t.cover ? `<img src="${esc(t.cover)}" alt="">` : ""}<span>${esc(t.title)}<span class="n"> · ${esc(t.artist || "")}</span></span></div>` : "";
     el.innerHTML = `
       <a class="pic" href="${esc(p.url || "#")}" target="_blank" rel="noopener" tabindex="-1"><img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" decoding="async"></a>
       <figcaption class="lbl">
@@ -203,6 +210,7 @@ function render(first) {
         <div class="artist">${esc([p.artist, p.date].filter(Boolean).join(" · "))}</div>
         <div class="museum">${esc(p.museum)}</div>
         <div class="dots">${dots}</div>
+        ${song}
         <div class="acts"><a href="${esc(p.url || "#")}" target="_blank" rel="noopener">open</a><button class="rm">remove</button></div>
       </figcaption>`;
     el.querySelector(".rm").onclick = () => remove(p, el);

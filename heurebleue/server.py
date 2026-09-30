@@ -3,7 +3,8 @@
   GET  /api/config                -> city, locale, theme, rotate_minutes (the page reads this)
   GET  /api/favorites             -> kept paintings
   GET  /api/taste                 -> weights derived from favorites
-  POST /api/favorite {painting}   -> toggle; rebuilds taste; starts the artist hour
+  GET  /api/history?limit=N       -> last N rows of history.jsonl (for the stats page)
+  POST /api/favorite {painting, track?} -> toggle; remembers the song playing; rebuilds taste; starts the artist hour
   POST /api/swap                  -> ask the wall loop for another painting now
   POST /api/seen {...}            -> append one line to history.jsonl
 
@@ -29,6 +30,24 @@ def load_favs() -> list[dict]:
         return json.loads(config.FAVORITES.read_text())
     except (FileNotFoundError, json.JSONDecodeError):
         return []
+
+
+def load_history(limit: int = 20000) -> list[dict]:
+    """Last `limit` rows of history.jsonl. Bad lines are skipped, never fatal."""
+    try:
+        lines = config.HISTORY.read_text(encoding="utf-8").splitlines()[-limit:]
+    except FileNotFoundError:
+        return []
+    rows = []
+    for ln in lines:
+        try:
+            rows.append(json.loads(ln))
+        except json.JSONDecodeError:
+            continue
+    return rows
+
+
+TRACK_KEYS = ("title", "artist", "album", "cover", "player")
 
 
 def century(date):
@@ -97,6 +116,13 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._json(json.loads(config.TASTE.read_text()))
             except (FileNotFoundError, json.JSONDecodeError):
                 return self._json(rebuild_taste(load_favs()))
+        if p == "/api/history":
+            q = dict(x.split("=", 1) for x in urlsplit(self.path).query.split("&") if "=" in x)
+            try:
+                limit = max(1, min(int(q.get("limit", 20000)), 100000))
+            except ValueError:
+                limit = 20000
+            return self._json(load_history(limit))
         if p.startswith("/data/") and not (config.DATA / p[6:]).exists():
             return self._json({"error": "not found"}, 404)
         return super().do_GET()
@@ -131,6 +157,8 @@ class Handler(SimpleHTTPRequestHandler):
             else:
                 keep = {k: painting.get(k) for k in ("id", "title", "artist", "date", "museum", "url", "image", "palette")}
                 keep["saved_at"] = time.strftime("%Y-%m-%d %H:%M")
+                track = body.get("track")
+                keep["track"] = {k: track.get(k) for k in TRACK_KEYS} if isinstance(track, dict) and track.get("title") else None
                 favs.append(keep)
                 state = True
             config.FAVORITES.write_text(json.dumps(favs, ensure_ascii=False, indent=1))

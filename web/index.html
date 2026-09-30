@@ -376,7 +376,8 @@ async function loadFavs() { try { favorites = await (await fetch("/api/favorites
 function refreshFav() { $("#controls .fav").classList.toggle("on", !!(current && favorites.some(f => f.id === current.id))); $("#controls .fav").textContent = $("#controls .fav").classList.contains("on") ? "♥" : "♡"; }
 $("#controls .fav").onclick = async () => {
   if (!current) return;
-  const r = await (await fetch("/api/favorite", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ painting: current }) })).json();
+  const track = musicMode && lastNow && lastNow.track ? lastNow.track : null;
+  const r = await (await fetch("/api/favorite", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ painting: current, track }) })).json();
   await loadFavs(); await loadTaste();
 };
 $("#controls .swap").onclick = async (e) => {
@@ -408,6 +409,7 @@ document.addEventListener("keydown", (e) => {
   else if (k === "l") { $("#controls .fav").click(); }
   else if (k === "t") { $("#controls .theme").click(); }
   else if (k === "k") { location.href = "favorites.html"; }
+  else if (k === "s") { location.href = "stats.html"; }
   else if (k === "escape") { $("#controls").classList.remove("open"); }
 });
 let idleTimer;

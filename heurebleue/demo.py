@@ -2,7 +2,7 @@
 
   python -m heurebleue demo [--out site]
 
-Copies the two pages and the shipped index into one folder and injects
+Copies the three pages and the shipped index into one folder and injects
 web/demo.js, which answers the /api/* routes from localStorage. No music match:
 there is no player loop in a browser. The wall rotates on its own.
 """
@@ -23,7 +23,7 @@ def build(out: Path) -> Path:
     shutil.rmtree(out, ignore_errors=True)
     (out / "data").mkdir(parents=True)
 
-    for name in ("index.html", "favorites.html"):
+    for name in ("index.html", "favorites.html", "stats.html"):
         html = (config.WEB / name).read_text(encoding="utf-8")
         i = html.index("<script>")  # the shim must run before the page's own script
         (out / name).write_text(html[:i] + SHIM_TAG + html[i:], encoding="utf-8")
