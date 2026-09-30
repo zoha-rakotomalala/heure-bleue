@@ -24,7 +24,7 @@ from urllib.parse import urlsplit
 
 from . import config
 
-PUBLIC_CFG_KEYS = ("city", "locale", "theme", "rotate_minutes", "paused_rotate_minutes")
+PUBLIC_CFG_KEYS = ("city", "locale", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days")
 SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
 _LAST_SEEN: dict = {}
 _SEEN_LOCK = threading.Lock()

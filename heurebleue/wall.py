@@ -20,7 +20,8 @@ from typing import Optional
 from . import config, nowplaying
 from .color import palette_distance, palette_from_bytes
 
-RECENT_MAX = 40
+RECENT_MAX = 40          # in-memory floor; the real memory is the viewing history (see recently_shown)
+CANDIDATES = 12          # pick among the closest N, weighted toward the closest
 UA = {"User-Agent": "heure-bleue/1.0 (personal desk display)"}
 
 
@@ -59,16 +60,50 @@ def artist_hour() -> Optional[str]:
     return a.get("artist") if a.get("until", 0) > time.time() else None
 
 
-def choose_painting(cover_palette: list[dict], recent: list[str]) -> Optional[dict]:
-    paintings = [p for p in load_index() if p["id"] not in recent]
+def recently_shown(days: float, wear_days: float = 30) -> tuple[set[str], dict[str, int]]:
+    """From history.jsonl: the ids shown in the last `days` (excluded outright),
+    and how many times each id was shown in the last `wear_days` (a soft penalty,
+    so the whole pool gets its turn instead of the same close matches)."""
+    cutoff, wear_cutoff = time.time() - days * 86400, time.time() - wear_days * 86400
+    block, shows = set(), {}
+    try:
+        for line in config.HISTORY.read_text(encoding="utf-8").splitlines():
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            ts, pid = row.get("ts", 0), row.get("id")
+            if not pid or ts < wear_cutoff:
+                continue
+            shows[pid] = shows.get(pid, 0) + 1
+            if ts >= cutoff:
+                block.add(pid)
+    except FileNotFoundError:
+        pass
+    return block, shows
+
+
+def choose_painting(cover_palette: list[dict], recent: list[str], repeat_days: float = 3) -> Optional[dict]:
+    index = load_index()
+    block, shows = recently_shown(repeat_days)
+    block.update(recent)
+    paintings = [p for p in index if p["id"] not in block]
+    if len(paintings) < 20:  # the pool is small or the memory long: fall back to the short memory only
+        paintings = [p for p in index if p["id"] not in recent] or index
     if not paintings:
         return None
     taste, hour = _load_json(config.TASTE, {}), artist_hour()
     upright = [p for p in paintings if p.get("h", 1) >= p.get("w", 1) * 0.9]
     if len(upright) >= 40:  # the screen is portrait; prefer upright when the pool allows
         paintings = upright
-    scored = sorted(((palette_distance(cover_palette, p["palette"]) * taste_bonus(p, taste, hour), p) for p in paintings), key=lambda t: t[0])
-    return random.choice([p for _, p in scored[:5]])
+
+    def score(p):
+        wear = 1 + 0.2 * shows.get(p["id"], 0)  # each showing this month costs 20% of closeness
+        return palette_distance(cover_palette, p["palette"]) * taste_bonus(p, taste, hour) * wear
+
+    scored = sorted(((score(p), p) for p in paintings), key=lambda t: t[0])[:CANDIDATES]
+    weights = [1 / (i + 1) for i in range(len(scored))]  # closest most likely, never certain
+    return random.choices([p for _, p in scored], weights=weights, k=1)[0]
 
 
 def cover_palette_for(track: dict) -> Optional[list[dict]]:
@@ -138,7 +173,7 @@ def run(stop: threading.Event, cfg: dict) -> None:
             if forced:
                 _force_change = 0.0
             if cover_palette and (swap or forced or (pending and now - last_change >= dwell)):
-                chosen = choose_painting(cover_palette, recent)
+                chosen = choose_painting(cover_palette, recent, cfg.get("repeat_days", 3))
                 if chosen:
                     painting, last_change = chosen, now
                     painting_for = f"{track.get('title')}|{track.get('artist')}|{track.get('album')}"

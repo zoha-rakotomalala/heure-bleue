@@ -278,9 +278,27 @@ function tasteWeight(p) {
 function pickRandom() {
   const pool = index.filter(p => p.h >= p.w * 0.9 && !recent.includes(p.id)); // prefer portrait or square
   const src = pool.length ? pool : index;
-  const weights = src.map(tasteWeight); let r = Math.random() * weights.reduce((a, b) => a + b, 0);
+  // taste raises the odds; each showing this month lowers them, so the whole pool gets its turn
+  const weights = src.map(p => tasteWeight(p) / (1 + 0.5 * (shows[p.id] || 0)));
+  let r = Math.random() * weights.reduce((a, b) => a + b, 0);
   for (let i = 0; i < src.length; i++) { r -= weights[i]; if (r <= 0) return src[i]; }
   return src[src.length - 1];
+}
+let shows = {};
+async function loadRecent() {
+  // the page's memory survives reloads: the last 3 days of history are excluded,
+  // the last 30 days count as wear
+  try {
+    const rows = await (await fetch("/api/history?limit=3000", { cache: "no-store" })).json();
+    const now = Date.now() / 1000, days = (CFG.repeat_days ?? 3) * 86400;
+    shows = {};
+    for (const r of rows) {
+      if (!r.id || now - r.ts > 30 * 86400) continue;
+      shows[r.id] = (shows[r.id] || 0) + 1;
+      if (now - r.ts <= days && !recent.includes(r.id)) recent.push(r.id);
+    }
+    if (recent.length > index.length - 20) recent = recent.slice(-Math.max(30, index.length - 20));
+  } catch (e) {}
 }
 let shownAt = 0, swapRequested = false;
 function reportSeen(prev) {
@@ -295,7 +313,7 @@ function status(msg) { const el = $("#label .status"); if (msg) { el.textContent
 function show(p, matched) {
   if (!p || (current && current.id === p.id)) return;
   reportSeen(current); shownAt = Date.now();
-  current = p; recent = [...recent, p.id].slice(-30);
+  current = p; recent = [...recent, p.id].slice(-Math.max(30, index.length - 20)); shows[p.id] = (shows[p.id] || 0) + 1;
   const next = front === "A" ? $("#imgB") : $("#imgA");
   const prev = front === "A" ? $("#imgA") : $("#imgB");
   next.classList.remove("drift");
@@ -435,6 +453,7 @@ poke();
   await loadConfig(); weather();
   await loadFavs(); await loadTaste();
   await loadIndex();
+  await loadRecent();
   await nowPlaying();
   await rotate();
   setInterval(nowPlaying, 5000);
