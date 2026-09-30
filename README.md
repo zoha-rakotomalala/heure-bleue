@@ -8,6 +8,10 @@ wall without the music match. Press `F` for fullscreen, `N` for another painting
 
 ![the wall](docs/wall.png)
 
+![four minutes of the wall, four songs, four paintings](docs/demo.gif)
+
+*Four minutes on a Wednesday afternoon, in eight seconds: each new song brings a painting in the cover's colours. Recorded from the running app with `tools/record_demo.js` and `tools/assemble_demo.py`.*
+
 - **Paintings** from The Met, the Rijksmuseum and the Musée d'Orsay. 420 public-domain works ship in the index; the indexer can fetch more.
 - **Music** from Spotify or Apple Music on macOS, any player on Windows (system media session) and Linux (MPRIS). The album cover's palette picks the painting.
 - **A quiet board**: clock, date, weather, sunrise and sunset, a *heure bleue* countdown. Nothing from work.
