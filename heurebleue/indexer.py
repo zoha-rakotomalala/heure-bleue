@@ -521,15 +521,21 @@ def orsay_title(page, ii):
     return re.sub(r"\.[a-z]+$", "", t, flags=re.I).replace("_", " ")
 
 
-def orsay_artist(page, ii):
-    """Painter name: extmetadata Artist unless it is an uploader handle, then the 'Paintings by X' category."""
-    artist = pick_language(_meta(ii, "Artist"))
+def orsay_artist(page, ii, trust_artist_field=True):
+    """Painter name. Order: a curated 'paintings by X' category, then extmetadata Artist (unless it is an
+    uploader handle, or the file is a CC photo where Artist names the photographer), then looser categories,
+    then a '<Title> - <Painter>' file name."""
+    cats = [c.get("title", "") for c in page.get("categories", []) or []]
+    for c in cats:
+        m = PAINTER_CATS[0].match(c)
+        if m and not USERNAME_LIKE.match(m.group(1)):
+            return m.group(1)
+    artist = pick_language(_meta(ii, "Artist")) if trust_artist_field else ""
     artist = re.split(r"\s+[–-]\s+(?:Painter|Peintre|Maler)\b|\bDetails on\b|\(\d{4}\s*[–-]\s*\d{4}\)", artist)[0]
     artist = re.sub(r"\s*\(.*?\)\s*$", "", artist).strip(" -–,")[:120]
     if artist and not USERNAME_LIKE.match(artist) and not artist.lower().startswith(("unknown", "anonym")):
         return artist
-    cats = [c.get("title", "") for c in page.get("categories", []) or []]
-    for pat in PAINTER_CATS:
+    for pat in PAINTER_CATS[1:]:
         for c in cats:
             m = pat.match(c)
             if m and not USERNAME_LIKE.match(m.group(1)):
@@ -568,10 +574,11 @@ def commons_fetch(pageid, slug="orsay"):
         return None  # detail/crop/frame, or a photo taken in a gallery rather than a reproduction
     if title.rstrip().endswith(("...", "…")) or BOOK_SCAN.search(cats) or BOOK_SCAN.search(page["title"]):
         return None  # a scan from a book or album, not the painting
-    artist = orsay_artist(page, ii)
+    artist = orsay_artist(page, ii, trust_artist_field=not cc_only)
     if artist is None:
         print(f"  noname {slug}-{pageid} {title[:40]}")
         return None
+    title = re.sub(r"^WLANL\s+-\s+[^-]+-\s+", "", title)  # Wiki Loves Art NL files start with the photographer
     title = re.sub(r"\s+[–-]\s+" + re.escape(artist) + r"\s*$", "", title)  # 'Girl Carrying Water - J.-F. Millet'
     image = thumb_url(ii["url"], w0, IMAGE_WIDTH)
     thumb = thumb_url(ii["url"], w0, THUMB_WIDTH)
