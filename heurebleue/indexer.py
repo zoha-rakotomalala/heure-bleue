@@ -477,6 +477,71 @@ PAINTER_CATS = [  # Commons category patterns that name the painter, most specif
 FRAME_CATS = re.compile(r"framed paintings|painting frames|frames \(", re.I)
 BOOK_SCAN = re.compile(r"\b(book scans?|scans? from|la peinture au louvre|publications?|catalogu|postcards?|plates? from|illustrations? from|\bp\.\s?\d+)\b", re.I)
 PHOTO_DATE = re.compile(r"\b(19[3-9]\d|20\d\d)\b")  # public-domain painting pools end before 1930: a later year is the photo's date
+# Files that live in a museum's Commons category without being a painting: stamps reproducing one, scanned
+# catalogues and magazines, room photos, a frog cropped from a bull. Matched on title, artist and categories.
+NON_PAINTING = re.compile(r"\b(stamps?|MiNr\s?\d|katalog|catalogue|catalog\b|magazine|обозр[еѣ]н|internet archive|book images|"
+                          r"hidden treasures|carpets?, runners|interior \d+$|the \w+ from [A-Z][\w.' -]+ -)", re.I)
+# Artist strings that name a photographer, a postal administration or a collection, never a painter.
+NOT_A_PAINTER = re.compile(r"\bon stamps\b|postal administration|internet archive|unknown author|^room \d|^painting by |"
+                           r" in the (?:mauritshuis|louvre|rijksmuseum|museum)\b|^[A-Z]\.\s?[A-Z][a-z]+ / ", re.I)  # 'G.Blot / H. Lewandowski' are photographers
+_INVENTORY = re.compile(r"[,\s-]*\b(?:(?:RF|MI|INV\.?|MO RF|MAO|MNH)\s?\d[\d\s.-]*[a-z]?|SK-[A-Z]-?\d+|[sd]\d{4}[A-Z]\d{4}[a-z]?)(?=[\s,.-]|$)", re.I)
+# A museum or city name is dropped only when it sits at an edge: start, end, or against a separator or a number.
+_MUSEUM_NAMES = (r"Mus[ée]e d'Orsay(?: Parijs| Paris)?|Mus[ée]e Marmottan Monet|Van Gogh Museum|Mauritshuis|Louvre(?: museum)?|"
+                 r"National Gallery|Neue Pinakothek|Hermitage(?: Museum)?(?: Saint Petersburg)?")
+_MUSEUM_WORDS = re.compile(r"(?<![\w'])(?:%s)(?=\s*(?:[-–,.;]|\d+\b|$))" % _MUSEUM_NAMES, re.I)
+_CITY_WORDS = re.compile(r"(?:^|[-–,;]\s*)(?:Paris|Parijs|Den Haag|The Hague|Saint Petersburg|MN)(?=\s*(?:[-–,.;]|$))", re.I)
+_PHOTO_STAMP = re.compile(r"\b\d{1,2}-\d{1,2}-20\d\d(?:\s\d{1,2}-\d{2}-\d{2})?\b|\b(?:January|February|March|April|May|June|July|"
+                          r"August|September|October|November|December) 20\d\d\b", re.I)
+_LIFE_DATES = re.compile(r"\s*\(\s*\d{4}\s*[–-]\s*\d{4}\s*\)\)?")
+_TRAILING_COUNTER = re.compile(r"(?:[\s,]+\d{1,3}|\s+\(\d{1,3}\)|\s+\(\d{5,}\))$")
+_APRES = re.compile(r"[,\s-]*\bD'apr[èe]s\b[,\s-]*", re.I)
+
+
+def clean_title(title, artist="", museum=""):
+    """Turn a Commons file name into a label. Removes the painter (leading 'Vallotton - ', trailing ' - Félix Vallotton',
+    ', par X', ' by X'), the museum and city at the edges, inventory numbers (RF 2012 19, MI 734, s0275V1962r), photo dates
+    and life dates, trailing counters, and 'D'après' (kept as '(after X)'). Shouting titles are lowered. Never empty."""
+    t = title
+    after = bool(_APRES.search(t))
+    t = _APRES.sub(" ", t)
+    t = _LIFE_DATES.sub("", t)
+    t = re.sub(r"\s*\((?:1[0-9]{3}|20\d\d)\)\s*$", "", t)  # 'Isaac Israëls (1925)'
+    t = _PHOTO_STAMP.sub(" ", t)
+    t = _INVENTORY.sub(" ", t)
+    t = _MUSEUM_WORDS.sub(" ", t)
+    t = _CITY_WORDS.sub(" ", t)
+    t = re.sub(r",\s*(?:19[3-9]\d|20\d\d)\s*$", "", t)  # 'Attack on a Woman, 1810 – 1812, 1980': the last is the inventory year
+    t = re.sub(r"\s+(?:[3-9]\d{3}|2[1-9]\d\d)\s*$", "", t)  # 'Japanese Bridge 5077': a bare number that cannot be a year
+    t = _TRAILING_COUNTER.sub("", t)
+    if artist and artist != "Unknown artist":
+        parts = [p for p in re.split(r"[\s,.]+", artist) if len(p) > 2 and p[0].isupper()]
+        surname = parts[-1] if parts else ""
+        full = re.escape(artist)
+        names = [full]
+        for sn in {surname, surname.split("-")[-1]} - {""}:  # 'Bastien-Lepage' and 'Lepage'
+            names.append(re.escape(sn) + r"(?:,\s*[A-Z][\w-]+)?")  # 'Bouts' or 'Bouts, Dirck'
+            names.append(r"[A-Z][\w-]+[- ]" + re.escape(sn))  # 'Jules-Bastien Lepage', 'Toulouse-Lautrec'
+        alt = "|".join(names)
+        t = re.sub(r"^\s*(?:%s)\s*[.:,]?\s*(?:[–-]\s*)?(?=[A-Z])" % alt, "", t, flags=re.I)  # 'Vallotton - Verdun', 'Jan steen, la visita'
+        t = re.sub(r"^\s*(?:%s)\s*,\s*" % alt, "", t, flags=re.I)  # 'Jan steen, la visita del dottore'
+        t = re.sub(r",?\s+(?:par|by|door)\s+(?:%s)\b[,.]?" % alt, "", t)  # 'L'Avocat, par Paul Cézanne'
+        t = re.sub(r"\s*[–-]\s*(?:%s)\s*(?=[–-]|$)" % alt, " ", t)  # 'The Boat - Odilon Redon - 1898'
+        t = re.sub(r",?\s+(?:de|von|van)\s+%s\b[,.]?" % full, "", t)  # 'Arbre en fleurs de Gustave Caillebotte' (full name only)
+        t = re.sub(r"\s*[.:,]\s*(?:%s)\s*$" % alt, "", t)  # 'Play Lyra. Louis de Boullogne', 'Bonger, Isaac Israëls'
+        t = re.sub(r"^\s*(?:%s)\s+(?=[A-Z])" % alt, "", t)  # 'Champaigne Translation des reliques'
+    t = re.sub(r"\s*[–-]\s*(?:[–-]\s*)+", " - ", t)
+    t = _TRAILING_COUNTER.sub("", t)
+    t = re.sub(r"\s{2,}", " ", t).strip(" -–,.:;")
+    if t.count(")") > t.count("("):
+        t = t.rstrip(")").rstrip()
+    letters = [c for c in t if c.isalpha()]
+    if letters and sum(c.isupper() for c in letters) > 0.8 * len(letters):
+        t = ". ".join(s.strip().capitalize() for s in t.split(".") if s.strip())
+    elif t and t[0].islower():
+        t = t[0].upper() + t[1:]
+    if after and artist:
+        t = f"{t} (after {artist})"
+    return t or title.strip()
 
 
 def pick_language(text):
@@ -533,6 +598,8 @@ def orsay_artist(page, ii, trust_artist_field=True):
     artist = pick_language(_meta(ii, "Artist")) if trust_artist_field else ""
     artist = re.split(r"\s+[–-]\s+(?:Painter|Peintre|Maler)\b|\bDetails on\b|\(\d{4}\s*[–-]\s*\d{4}\)", artist)[0]
     artist = re.sub(r"\s*\(.*?\)\s*$", "", artist).strip(" -–,")[:120]
+    if NOT_A_PAINTER.search(artist):
+        artist = re.sub(r"^painting by\s+| in the \w+$", "", artist, flags=re.I) if artist.lower().startswith("painting by") else ""
     if artist and not USERNAME_LIKE.match(artist) and not artist.lower().startswith(("unknown", "anonym")):
         return artist
     for pat in PAINTER_CATS[1:]:
@@ -574,12 +641,17 @@ def commons_fetch(pageid, slug="orsay"):
         return None  # detail/crop/frame, or a photo taken in a gallery rather than a reproduction
     if title.rstrip().endswith(("...", "…")) or BOOK_SCAN.search(cats) or BOOK_SCAN.search(page["title"]):
         return None  # a scan from a book or album, not the painting
+    raw_artist = pick_language(_meta(ii, "Artist"))
+    if NON_PAINTING.search(title) or NON_PAINTING.search(cats) or NON_PAINTING.search(raw_artist) \
+            or re.search(r"\((?:19[3-9]\d|20\d\d)\)\s*$", title):
+        print(f"  notart {slug}-{pageid} {title[:40]}")
+        return None  # a stamp, a catalogue page, a room photo, or a painting too recent to be public domain
     artist = orsay_artist(page, ii, trust_artist_field=not cc_only)
-    if artist is None:
+    if artist is None or NOT_A_PAINTER.search(artist):
         print(f"  noname {slug}-{pageid} {title[:40]}")
         return None
     title = re.sub(r"^WLANL\s+-\s+[^-]+-\s+", "", title)  # Wiki Loves Art NL files start with the photographer
-    title = re.sub(r"\s+[–-]\s+" + re.escape(artist) + r"\s*$", "", title)  # 'Girl Carrying Water - J.-F. Millet'
+    title = clean_title(title, artist, museum)
     image = thumb_url(ii["url"], w0, IMAGE_WIDTH)
     thumb = thumb_url(ii["url"], w0, THUMB_WIDTH)
     time.sleep(DELAY)  # be polite to upload.wikimedia.org too
