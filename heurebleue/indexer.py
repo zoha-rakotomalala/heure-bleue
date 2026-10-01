@@ -297,7 +297,10 @@ COMMONS_MUSEUMS = {
     "nga": ("Category:Paintings in the National Gallery of Art (Washington, D.C.)", "National Gallery of Art, Washington"),
 }
 ORSAY_ROOT, ORSAY_MUSEUM = COMMONS_MUSEUMS["orsay"]
-COMMONS_SKIP_CATS = ("People with paintings", "Framed paintings", "Details of", "Copies after", "Reproductions of")
+COMMONS_SKIP_CATS = ("People with paintings", "Framed paintings", "Details of", "Copies after", "Reproductions of",
+                     # book scans and printed matter, not photographs of the paintings themselves
+                     "La peinture au Louvre", "Books", "Book scans", "Scans from", "Publications", "Catalogues",
+                     "Postcards", "Prints after", "Engravings after", "Photographs", "Interior", "Exterior")
 ORSAY_SKIP_CATS = COMMONS_SKIP_CATS
 MAX_CATS = 60  # categories walked per museum; enough for a few hundred files, cheap on the API
 IMAGE_EXT = (".jpg", ".jpeg", ".png")
@@ -429,6 +432,7 @@ PAINTER_CATS = [  # Commons category patterns that name the painter, most specif
     re.compile(r"^Category:.+ (?:-|by) ([A-ZÀ-Ý][\wÀ-ÿ'.-]+(?: [\wÀ-ÿ'.-]+){1,4})$"),  # '<Title> - <Painter>' single-painting cats
 ]
 FRAME_CATS = re.compile(r"framed paintings|painting frames|frames \(", re.I)
+BOOK_SCAN = re.compile(r"\b(book scans?|scans? from|la peinture au louvre|publications?|catalogu|postcards?|plates? from|illustrations? from|\bp\.\s?\d+)\b", re.I)
 PHOTO_DATE = re.compile(r"\b(19[3-9]\d|20\d\d)\b")  # public-domain painting pools end before 1930: a later year is the photo's date
 
 
@@ -477,7 +481,8 @@ def orsay_title(page, ii):
 def orsay_artist(page, ii):
     """Painter name: extmetadata Artist unless it is an uploader handle, then the 'Paintings by X' category."""
     artist = pick_language(_meta(ii, "Artist"))
-    artist = re.sub(r"\s*\(.*?\)\s*$", "", artist).strip()[:120]
+    artist = re.split(r"\s+[–-]\s+(?:Painter|Peintre|Maler)\b|\bDetails on\b|\(\d{4}\s*[–-]\s*\d{4}\)", artist)[0]
+    artist = re.sub(r"\s*\(.*?\)\s*$", "", artist).strip(" -–,")[:120]
     if artist and not USERNAME_LIKE.match(artist) and not artist.lower().startswith(("unknown", "anonym")):
         return artist
     cats = [c.get("title", "") for c in page.get("categories", []) or []]
@@ -486,7 +491,9 @@ def orsay_artist(page, ii):
             m = pat.match(c)
             if m and not USERNAME_LIKE.match(m.group(1)):
                 return m.group(1)
-    return artist or "Unknown artist"
+    if artist.lower().startswith(("unknown", "anonym")):
+        return "Unknown artist"
+    return None  # a bare handle or a Wikidata id and no painter category: we cannot name the painter
 
 
 def orsay_date(ii):
@@ -512,7 +519,12 @@ def commons_fetch(pageid, slug="orsay"):
     cats = " ".join(c.get("title", "") for c in page.get("categories", []) or [])
     if BAD_TITLE.search(title) or BAD_TITLE.search(page["title"]) or BAD_TITLE.search(desc[:300]) or FRAME_CATS.search(cats):
         return None  # detail/crop/frame, or a photo taken in a gallery rather than a reproduction
+    if title.rstrip().endswith(("...", "…")) or BOOK_SCAN.search(cats) or BOOK_SCAN.search(page["title"]):
+        return None  # a scan from a book or album, not the painting
     artist = orsay_artist(page, ii)
+    if artist is None:
+        print(f"  noname {slug}-{pageid} {title[:40]}")
+        return None
     image = thumb_url(ii["url"], w0, IMAGE_WIDTH)
     thumb = thumb_url(ii["url"], w0, THUMB_WIDTH)
     time.sleep(DELAY)  # be polite to upload.wikimedia.org too
