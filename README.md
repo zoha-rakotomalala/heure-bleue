@@ -1,32 +1,38 @@
 # heure bleue
 
-A gallery wall for a spare screen. One painting at a time, from open museum
-collections, chosen to match the colours of whatever you are listening to.
+A gallery wall for a spare screen. One painting at a time, from the open
+collections of seventeen museums, chosen to match the colours of the music you
+are playing.
 
 **[Try the web demo](https://zoha-rakotomalala.github.io/heure-bleue/)** — the
 wall without the music match. Press `F` for fullscreen, `N` for another painting.
 
-![the wall](docs/wall.png)
+<p align="center">
+  <img src="docs/wall.png" alt="The wall on a portrait screen: clock, weather, a Nicolaes Maes painting, and the song that chose it" width="420">
+</p>
 
-![four minutes of the wall, four songs, four paintings](docs/demo.gif)
+<p align="center">
+  <img src="docs/demo.gif" alt="Four minutes of the wall: each new song brings a painting in the colours of its cover" width="300">
+</p>
 
-*Four minutes on a Wednesday afternoon, in eight seconds: each new song brings a painting in the cover's colours. Recorded from the running app with `tools/record_demo.js` and `tools/assemble_demo.py`.*
+*Four minutes on a Wednesday afternoon, in eight seconds. Each new song brings a
+painting in the colours of its cover.*
 
-![the same wall on a landscape screen](docs/demo-landscape.gif)
+## What it does
 
-*On a landscape screen the clock, weather and music sit on the left and the painting takes the full height on the right.*
-
-- **Paintings** from The Met, the Rijksmuseum and the Musée d'Orsay. 420 public-domain works ship in the index; the indexer can fetch more.
-- **Music** from Spotify or Apple Music on macOS, any player on Windows (system media session) and Linux (MPRIS). The album cover's palette picks the painting.
-- **A quiet board**: clock, date, weather, sunrise and sunset, a *heure bleue* countdown. Nothing from work.
-- **It learns**: keep a painting (♥) and the wall leans toward that artist, museum and century.
-- **Themes**: forest, heure bleue, night, charcoal, plum, oxblood, paper, linen, any hex, or a wall that follows the painting.
-
-![themes](docs/themes.png)
+- **Follows your music.** When a song starts, the album cover is reduced to five
+  colours and the closest painting comes up. Spotify or Apple Music on macOS;
+  any player on Windows and Linux.
+- **Rotates on its own** every few minutes when nothing is playing.
+- **Keeps a quiet board**: clock, date, weather, sunrise and sunset. Nothing from work.
+- **Learns what you like.** Keep a painting (♥) and the wall leans toward that
+  painter, museum and century. The song playing is remembered with it.
+- **Keeps a diary.** A *Kept* page for your favourites and a *Stats* page: time
+  on the wall by museum, century and painter, and which music brought which painters.
 
 Everything runs on your machine, on `127.0.0.1`. No accounts, no API keys, no
 telemetry. The only network calls are museum images, Open-Meteo for weather, and
-the Spotify cover CDN.
+the album cover.
 
 ## Install
 
@@ -36,61 +42,91 @@ Python 3.10 or newer.
 git clone https://github.com/zoha-rakotomalala/heure-bleue.git
 cd heure-bleue
 python3 -m pip install -r requirements.txt
-python3 -m heurebleue doctor      # checks Python, Pillow, your player, the index, the port
 python3 -m heurebleue start --open
 ```
 
-Then put the browser window on the spare screen and press `F` for fullscreen.
-On macOS, Safari → File → *Add to Dock* gives you a clean web app with no
-address bar. Chrome: *Save and share → Install page as app*.
+Put the browser window on the spare screen and press `F`. On macOS, Safari →
+File → *Add to Dock* gives a clean web app with no address bar.
 
-Start at login:
-
-```sh
-python3 -m heurebleue service install    # launchd / Task Scheduler / systemd --user
-python3 -m heurebleue service remove
-```
-
-### Windows
-
-Install the media-session bridge so the wall can see your player:
+To start it at login and keep it running:
 
 ```sh
-py -m pip install winsdk
+python3 -m heurebleue service install
 ```
 
-`winsdk` supports Python 3.9–3.12. On 3.13 use the `winrt-*` packages instead
-(`pip install winrt-runtime winrt-Windows.Media.Control winrt-Windows.Storage.Streams`).
-Anything that shows in the Windows media overlay works: Spotify, Apple Music,
-iTunes, a browser tab.
+<details>
+<summary>Windows and Linux</summary>
 
-### Linux
+**Windows.** Install the media-session bridge so the wall can see your player:
+`py -m pip install winsdk` (Python 3.9–3.12; on 3.13 use `winrt-runtime
+winrt-Windows.Media.Control winrt-Windows.Storage.Streams`). Anything that shows in
+the Windows media overlay works.
 
-```sh
-sudo apt install playerctl      # or dnf / pacman
-```
+**Linux.** `sudo apt install playerctl` (or dnf / pacman). Any MPRIS player works.
 
-Any MPRIS player works.
+`python3 -m heurebleue doctor` checks Python, Pillow, your player, the index and the port.
+</details>
 
-## Keys and buttons
+## On a landscape screen
 
-Small buttons sit bottom-right and fade after 4 s of stillness. The ⏭ button
-appears only while music plays.
+<p align="center">
+  <img src="docs/wall-landscape.png" alt="The same wall on a landscape screen: clock, weather and music on the left, the painting full height on the right" width="720">
+</p>
 
-| key | action |
+The clock, weather and music move to the left; the painting takes the full
+height on the right. The layout follows the screen, nothing to configure.
+
+## Keys
+
+Small buttons sit bottom-right and fade when the mouse is still.
+
+| key | |
 |---|---|
 | `F` | fullscreen |
-| `N`, `space`, `→` | another painting |
-| `>` or `.` | next song in the player; the wall follows at once |
-| `L` | keep this painting (♥). The song playing is remembered with it |
-| `K` | open *Kept*, your favorites |
-| `S` | open *Stats* |
+| `N` · `space` · `→` | another painting |
+| `>` · `.` | next song, the wall follows at once |
+| `L` | keep this painting ♥ |
+| `K` | *Kept*, your favourites |
+| `S` | *Stats* |
 | `T` | wall colour |
-| `Esc` | close |
 
-![kept](docs/kept.png)
+<p align="center">
+  <img src="docs/kept.png" alt="The Kept page: favourites in a grid, each with the song that was playing" width="300">
+  &nbsp;&nbsp;
+  <img src="docs/stats.png" alt="The Stats page: time on the wall by museum, century and painter" width="330">
+</p>
 
-## Configure
+## Wall colours
+
+Forest, heure bleue, night, charcoal, plum, oxblood, paper, linen, or a wall
+that takes its colour from the painting. Press `T`, or add `?theme=night` to the
+URL. The choice is remembered per browser.
+
+![six wall colours](docs/themes.png)
+
+## The paintings
+
+1,121 public-domain works ship with the app, about 500 bytes each, no images on
+disk. Rijksmuseum 300 · Musée d'Orsay 125 · The Met 101 · Van Gogh Museum 90 ·
+Mauritshuis 67 · Louvre 41 · Belvedere, Ateneum, Prado, Kunsthistorisches
+Museum, Gemäldegalerie, Hermitage, Neue Pinakothek, Alte Nationalgalerie,
+Marmottan Monet, National Gallery London 35–40 each · Städel 20. Rijksmuseum
+works carry the museum's own text about the painting, shown under the label.
+
+To add more:
+
+```sh
+python3 -m heurebleue index --target 1500               # every museum, round-robin
+python3 -m heurebleue index --source prado --target 1200  # one museum
+```
+
+The indexer is slow on purpose (a pause between requests, back-off on 429) so it
+stays a good citizen of free museum APIs. Only public-domain images are kept;
+`--allow-cc` also keeps CC-licensed photos in a local, git-ignored file for your
+own screen.
+
+<details>
+<summary>Settings</summary>
 
 Create `config.json` next to this README. Any key you omit keeps its default.
 
@@ -100,69 +136,52 @@ Create `config.json` next to this README. Any key you omit keeps its default.
   "theme": "forest",
   "locale": "en-GB",
   "city": { "name": "Amsterdam", "lat": 52.3676, "lon": 4.9041, "timezone": "Europe/Amsterdam" },
-  "poll_seconds": 5,
   "min_dwell_seconds": 45,
   "rotate_minutes": 4,
-  "paused_rotate_minutes": 20
+  "paused_rotate_minutes": 20,
+  "repeat_days": 3
 }
 ```
 
-Themes can also be set from the URL: `?theme=night`, `?theme=painting`, `?bg=1f2a1c`.
-The choice is remembered per browser.
+`min_dwell_seconds` stops the wall flickering when you skip tracks.
+`rotate_minutes` is the pace with no music. A paused player holds the painting
+for `paused_rotate_minutes`, then the wall rotates until you press play.
+`repeat_days` keeps a painting off the wall for that long after it has been shown.
+</details>
 
-## The index
+<details>
+<summary>How the match works</summary>
 
-`data/paintings.json` holds title, artist, date, museum, image URL and a
-five-colour palette for each work. About 500 bytes per painting, no images on
-disk. To add more:
+Each painting in the index has a five-colour palette. The album cover is reduced
+to five colours too. The distance between two palettes is a weighted
+nearest-colour sum in CIELAB, both ways. Your favourites shorten the distance for
+painters, museums and centuries you keep; recent showings lengthen it. The pick
+is a weighted draw among the twelve closest, so the same cover does not always
+give the same painting.
+</details>
 
-```sh
-python3 -m heurebleue index --target 800            # every source, round-robin
-python3 -m heurebleue index --source louvre --target 600   # one museum (met, rijks, or a Commons slug)
-python3 -m heurebleue index --source commons --target 600  # all the Wikimedia Commons museums
-python3 -m heurebleue stories                        # curator texts for Rijksmuseum entries
-```
+<details>
+<summary>Web demo, data files, recording a demo</summary>
 
-The indexer is deliberately slow (0.8 s between requests, backs off on 429) so it
-stays a good citizen of free museum APIs. Photos that include a photographic
-calibration strip are detected and skipped. Only public-domain images are kept.
+**Web demo.** `python3 -m heurebleue demo` builds a static copy in `site/`.
+Favourites live in `localStorage`; there is no player loop in a browser, so the
+wall rotates on its own. The `pages` workflow publishes it to GitHub Pages on
+every push to `main`.
 
-## How the match works
+**Data written at runtime**, all under `data/` and git-ignored except the index:
+`now_playing.json`, `favorites.json`, `taste.json`, `history.jsonl` (one line per
+painting shown, with dwell time and song), `cover.jpg`.
 
-The album cover is reduced to five colours. Each painting in the index already
-has five. The distance between two palettes is a weighted nearest-colour sum in
-CIELAB, both ways. Favorites shorten the distance for artists, museums and
-centuries you keep. The painting changes when the song changes, never sooner
-than `min_dwell_seconds` after the last change, so skipping tracks does not make
-the wall flicker. When no player is open, the wall rotates every `rotate_minutes`. A paused
-player holds the painting, until it has been paused for `paused_rotate_minutes`;
-then the wall rotates again until you press play.
-
-## Web demo
-
-`python3 -m heurebleue demo` builds a static copy of the wall in `site/`: the two
-pages, the shipped index, and `web/demo.js`, which answers the `/api/*` routes in
-the browser. Favourites and taste live in `localStorage`. There is no player loop
-in a browser, so there is no music match: the wall rotates on its own.
-
-The `pages` workflow builds and publishes it to GitHub Pages on every push to
-`main`. One-time setup in the repo: *Settings → Pages → Source: GitHub Actions*.
-
-Preview locally: `python3 -m http.server 8766 --bind 127.0.0.1 --directory site`.
-
-## Data written at runtime
-
-All under `data/`, all git-ignored except the index:
-
-`now_playing.json` (current state) · `favorites.json` · `taste.json` (weights
-derived from favorites) · `history.jsonl` (one line per painting shown, with
-dwell time and the song) · `cover.jpg` (when the player gives raw artwork).
+**Demo recordings.** `tools/record_demo.js` opens the running wall as a second
+viewer and saves a frame every few seconds; `tools/assemble_demo.py` turns the
+frames into a GIF. `tools/shoot_docs.js` takes the screenshots on this page.
+</details>
 
 ## Credits
 
 Images and metadata: [The Metropolitan Museum of Art](https://www.metmuseum.org/art/collection) (CC0),
-[Rijksmuseum](https://data.rijksmuseum.nl/) (CC0), and Wikimedia Commons uploads of
-public-domain works in the [Musée d'Orsay](https://commons.wikimedia.org/wiki/Category:Paintings_in_the_Mus%C3%A9e_d%27Orsay).
-Weather: [Open-Meteo](https://open-meteo.com/).
+the [Rijksmuseum](https://data.rijksmuseum.nl/) (CC0), and
+[Wikimedia Commons](https://commons.wikimedia.org/) uploads of public-domain works
+from fifteen other museums. Weather: [Open-Meteo](https://open-meteo.com/).
 
 MIT licence.
