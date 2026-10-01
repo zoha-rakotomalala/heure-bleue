@@ -344,7 +344,7 @@ ORSAY_SKIP_CATS = COMMONS_SKIP_CATS
 MAX_CATS = 60  # categories walked per museum; enough for a few hundred files, cheap on the API
 IMAGE_EXT = (".jpg", ".jpeg", ".png")
 BAD_TITLE = re.compile(r"\b(detail|details|d[ée]tails?|crop|cropped|frame|framed|cadre|encadr[ée]e?|in situ|installation view|exhibition|exposition)\b", re.I)
-PD_LICENCE = re.compile(r"public domain|\bCC0\b|\bPD\b|no (known )?(copyright )?restrictions", re.I)
+PD_LICENCE = re.compile(r"public domain|\bCC0\b|\bPDM?\b|no (known )?(copyright )?restrictions", re.I)  # PDM = Public Domain Mark
 CC_LICENCE = re.compile(r"\bCC[ -]BY\b", re.I)  # any attribution licence: fine to display at home, not shipped
 MIN_ORIGINAL_WIDTH = 700
 # Wikimedia only serves standard thumbnail widths (https://w.wiki/GHai: 20 40 60 120 250 330 500
