@@ -22,7 +22,7 @@ from .color import palette_distance, palette_from_bytes
 
 RECENT_MAX = 40          # in-memory floor; the real memory is the viewing history (see recently_shown)
 CANDIDATES = 12          # pick among the closest N, weighted toward the closest
-UA = {"User-Agent": "heure-bleue/1.0 (personal desk display)"}
+UA = {"User-Agent": "heure-bleue/1.0 (https://github.com/zoha-rakotomalala/heure-bleue; personal desk display)"}
 
 
 def _load_json(path, default):
