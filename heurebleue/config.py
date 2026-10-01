@@ -55,6 +55,7 @@ def system() -> str:
 
 # runtime files (all under data/, all git-ignored except paintings.json)
 PAINTINGS = DATA / "paintings.json"
+PAINTINGS_LOCAL = DATA / "paintings.local.json"  # CC BY-licensed extras for this machine; git-ignored, never in the demo
 NOW = DATA / "now_playing.json"
 FAVORITES = DATA / "favorites.json"
 HISTORY = DATA / "history.jsonl"

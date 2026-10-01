@@ -23,6 +23,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from . import config
+from .wall import load_index
 
 PUBLIC_CFG_KEYS = ("city", "locale", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days")
 SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
@@ -128,6 +129,8 @@ class Handler(SimpleHTTPRequestHandler):
             except ValueError:
                 limit = 20000
             return self._json(load_history(limit))
+        if p == "/data/paintings.json":  # shipped index + this machine's local extras
+            return self._json(load_index())
         if p.startswith("/data/") and not (config.DATA / p[6:]).exists():
             return self._json({"error": "not found"}, 404)
         return super().do_GET()

@@ -33,7 +33,7 @@ def _load_json(path, default):
 
 
 def load_index() -> list[dict]:
-    return _load_json(config.PAINTINGS, [])
+    return _load_json(config.PAINTINGS, []) + _load_json(config.PAINTINGS_LOCAL, [])
 
 
 def century(date: Optional[str]) -> Optional[str]:

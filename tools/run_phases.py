@@ -15,13 +15,13 @@ ROOT = Path(__file__).resolve().parent.parent
 LOGS = ROOT / "logs"
 
 
-def run_phase(slug: str, target: str) -> int:
+def run_phase(slug: str, target: str, flags: list[str]) -> int:
     log = LOGS / f"index-{slug}.log"
     with log.open("a", encoding="utf-8") as fh:
-        fh.write(f"\n=== phase {slug} -> {target} at {time.strftime('%H:%M:%S')}\n")
+        fh.write(f"\n=== phase {slug} -> {target} {' '.join(flags)} at {time.strftime('%H:%M:%S')}\n")
         fh.flush()
         proc = subprocess.run(
-            [sys.executable, "-m", "heurebleue", "index", "--source", slug, "--target", target],
+            [sys.executable, "-m", "heurebleue", "index", "--source", slug, "--target", target, *flags],
             cwd=ROOT, stdout=fh, stderr=subprocess.STDOUT,
         )
         fh.write(f"=== phase {slug} exit {proc.returncode}\n")
@@ -29,7 +29,8 @@ def run_phase(slug: str, target: str) -> int:
 
 
 def main() -> int:
-    phases = [a.split(":", 1) for a in sys.argv[1:]]
+    flags = [a for a in sys.argv[1:] if a.startswith("--")]  # passed to every phase, e.g. --allow-cc
+    phases = [a.split(":", 1) for a in sys.argv[1:] if not a.startswith("--")]
     if not phases:
         print(__doc__)
         return 2
@@ -46,7 +47,7 @@ def main() -> int:
     LOGS.mkdir(exist_ok=True)
     summary = LOGS / "run_phases.log"
     for slug, target in phases:
-        code = run_phase(slug, target)
+        code = run_phase(slug, target, flags)
         with summary.open("a", encoding="utf-8") as fh:
             fh.write(f"{time.strftime('%H:%M:%S')} {slug} -> {target} exit {code}\n")
     if sys.platform == "darwin":

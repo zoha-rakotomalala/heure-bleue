@@ -24,7 +24,9 @@ import json
 import random
 import re
 import sys
+import threading
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -36,8 +38,22 @@ from .color import has_calibration_strip, palette_from_image
 
 ROOT = config.ROOT
 OUT = config.PAINTINGS
+LOCAL = config.PAINTINGS_LOCAL
 UA = {"User-Agent": "heure-bleue/1.0 (personal desk display)"}
 DELAY = 0.8
+DEADLINE = 75          # seconds; a wall-clock cap per request. urllib's timeout does not cover DNS lookups,
+                       # which hung an overnight run for 20 minutes.
+ALLOW_CC = False       # accept CC BY / CC BY-SA files into the local-only index (never committed)
+
+
+def _with_deadline(fn, seconds):
+    box = []
+    t = threading.Thread(target=lambda: box.append(fn()), daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise TimeoutError(f"no answer after {seconds}s")
+    return box[0]
 
 
 def get_json(url, retries=3):
@@ -46,8 +62,10 @@ def get_json(url, retries=3):
     for attempt in range(retries):
         try:
             time.sleep(DELAY)
-            with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=30) as r:
+            with _with_deadline(lambda: urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=30), DEADLINE) as r:
                 return json.load(r)
+        except urllib.error.HTTPError:
+            raise  # 429 / 403 / 404: the caller decides how long to back off
         except Exception:  # noqa: BLE001
             if attempt == retries - 1:
                 raise
@@ -55,8 +73,18 @@ def get_json(url, retries=3):
 
 
 def get_bytes(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+    with _with_deadline(lambda: urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60), DEADLINE) as r:
         return r.read()
+
+
+def backoff_seconds(exc, hits):
+    """How long to sleep after the ``hits``-th consecutive 429/403: 90 s, 180, 360, capped at 600,
+    or longer if the server said so in Retry-After."""
+    wait = min(90 * 2 ** (hits - 1), 600)
+    retry_after = exc.headers.get("Retry-After") if isinstance(exc, urllib.error.HTTPError) else None
+    if retry_after and retry_after.isdigit():
+        wait = max(wait, int(retry_after))
+    return wait
 
 
 # --- text helpers ----------------------------------------------------------------
@@ -306,6 +334,7 @@ MAX_CATS = 60  # categories walked per museum; enough for a few hundred files, c
 IMAGE_EXT = (".jpg", ".jpeg", ".png")
 BAD_TITLE = re.compile(r"\b(detail|details|d[ée]tails?|crop|cropped|frame|framed|cadre|encadr[ée]e?|in situ|installation view|exhibition|exposition)\b", re.I)
 PD_LICENCE = re.compile(r"public domain|\bCC0\b|\bPD\b|no (known )?(copyright )?restrictions", re.I)
+CC_LICENCE = re.compile(r"\bCC[ -]BY\b", re.I)  # any attribution licence: fine to display at home, not shipped
 MIN_ORIGINAL_WIDTH = 700
 # Wikimedia only serves standard thumbnail widths (https://w.wiki/GHai: 20 40 60 120 250 330 500
 # 960 1280 1920 3840). Any other width is rejected (400) or throttled (429), so hotlinked thumbs
@@ -343,7 +372,7 @@ def commons_candidates(seen, slug="orsay", depth=2, cache_hours=72):
         files = {int(k): v for k, v in json.loads(cache.read_text(encoding="utf-8")).items()}
         print(f"  {slug}: {len(files)} image files from cache {cache.name}")
     if files is None:
-        files, todo, done = {}, [(root, 0)], set()
+        files, todo, done, hits = {}, [(root, 0)], set(), 0
         while todo and len(done) < MAX_CATS:
             cat, lvl = todo.pop(0)
             if cat in done:
@@ -351,10 +380,12 @@ def commons_candidates(seen, slug="orsay", depth=2, cache_hours=72):
             done.add(cat)
             try:
                 members = commons_members(cat)
+                hits = 0
             except Exception as exc:  # noqa: BLE001
                 print(f"  skip   category {cat}: {exc}", file=sys.stderr)
                 if "429" in str(exc) or "403" in str(exc):
-                    time.sleep(60)
+                    hits += 1
+                    time.sleep(backoff_seconds(exc, hits))
                 continue
             time.sleep(DELAY)
             for m in members:
@@ -427,6 +458,7 @@ def _meta(ii, key):
 
 LANG_LABEL = re.compile(r"\b(English|French|Français|Italian|Italiano|German|Deutsch|Dutch|Nederlands|Spanish|Español|Portuguese|Russian|Polish|Swedish|Danish|Catalan)\s*:\s*", re.I)
 USERNAME_LIKE = re.compile(r"^[A-Za-z0-9_.-]+$")  # a single token such as "Sailko" is the photographer, not the painter
+TITLE_PAINTER = re.compile(r"\s+[–-]\s+([A-ZÀ-Ý][\wÀ-ÿ'.-]+(?: (?:d[aeiu]|van|der|den|von|le|la|du|de la)?\s?[A-ZÀ-Ý][\wÀ-ÿ'.-]+){1,3})\s*$")
 PAINTER_CATS = [  # Commons category patterns that name the painter, most specific first
     re.compile(r"^Category:(?:\d{4}s? )?(?:paintings|works|portraits|landscapes|gardens|drawings) by (.+?)(?: in (?:the )?[^|]+| by .+)?$", re.I),
     re.compile(r"^Category:.+ (?:-|by) ([A-ZÀ-Ý][\wÀ-ÿ'.-]+(?: [\wÀ-ÿ'.-]+){1,4})$"),  # '<Title> - <Painter>' single-painting cats
@@ -493,6 +525,9 @@ def orsay_artist(page, ii):
                 return m.group(1)
     if artist.lower().startswith(("unknown", "anonym")):
         return "Unknown artist"
+    m = TITLE_PAINTER.search(orsay_title(page, ii))  # 'Girl Carrying Water - Jean-François Millet'
+    if m:
+        return m.group(1)
     return None  # a bare handle or a Wikidata id and no painter category: we cannot name the painter
 
 
@@ -508,7 +543,8 @@ def commons_fetch(pageid, slug="orsay"):
     if not ii:
         return None
     lic = _meta(ii, "LicenseShortName")
-    if not PD_LICENCE.search(lic):
+    cc_only = not PD_LICENCE.search(lic) and bool(CC_LICENCE.search(lic))
+    if not PD_LICENCE.search(lic) and not (ALLOW_CC and cc_only):
         print(f"  licence {slug}-{pageid} {lic[:40]!r}")
         return None
     w0, h0 = ii.get("width", 0), ii.get("height", 0)
@@ -525,6 +561,7 @@ def commons_fetch(pageid, slug="orsay"):
     if artist is None:
         print(f"  noname {slug}-{pageid} {title[:40]}")
         return None
+    title = re.sub(r"\s+[–-]\s+" + re.escape(artist) + r"\s*$", "", title)  # 'Girl Carrying Water - J.-F. Millet'
     image = thumb_url(ii["url"], w0, IMAGE_WIDTH)
     thumb = thumb_url(ii["url"], w0, THUMB_WIDTH)
     time.sleep(DELAY)  # be polite to upload.wikimedia.org too
@@ -540,6 +577,10 @@ def commons_fetch(pageid, slug="orsay"):
     }
     if len(desc) > 60 and desc.lower() != title.lower() and " " in desc:
         entry["story"] = trim_story(desc)
+    if cc_only:  # kept on this machine only: data/paintings.local.json, never committed
+        entry["local"] = True
+        entry["licence"] = lic
+        entry["credit"] = _meta(ii, "Attribution") or pick_language(_meta(ii, "Artist")) or _meta(ii, "Credit")
     return entry
 
 
@@ -558,17 +599,28 @@ def main(target=None, source=None, delay=None, argv=None):
                     help="met, rijks, a Commons museum slug (" + ", ".join(COMMONS_MUSEUMS) + "), "
                          "'commons' for all Commons museums, or 'all' (default, round-robin over everything)")
     ap.add_argument("--delay", type=float, default=0.8)
+    ap.add_argument("--allow-cc", action="store_true",
+                    help="also keep CC BY-licensed files, in data/paintings.local.json (git-ignored, this machine only)")
     args = ap.parse_args(argv if argv is not None else [])
     if target is not None: args.target = target
     if source is not None: args.source = source
     if delay is not None: args.delay = delay
     DELAY = args.delay
+    global ALLOW_CC
+    ALLOW_CC = args.allow_cc
     source = "all" if args.source == "both" else args.source.lower()
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     existing = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else []
+    existing += json.loads(LOCAL.read_text(encoding="utf-8")) if LOCAL.exists() else []
     seen = {e["id"] for e in existing}
-    print(f"existing: {len(existing)}  target: {args.target}")
+    print(f"existing: {len(existing)}  target: {args.target}" + ("  (CC BY allowed, local only)" if ALLOW_CC else ""))
+
+    def save():
+        OUT.write_text(json.dumps([e for e in existing if not e.get("local")], ensure_ascii=False), encoding="utf-8")
+        local = [e for e in existing if e.get("local")]
+        if local:
+            LOCAL.write_text(json.dumps(local, ensure_ascii=False), encoding="utf-8")
 
     queues = []
     if source in ("met", "all"):
@@ -582,7 +634,7 @@ def main(target=None, source=None, delay=None, argv=None):
         ap.error(f"unknown source {source!r}")
     print("candidates: " + ", ".join(f"{n}={len(q)}" for n, q, _ in queues))
 
-    processed = added = 0
+    processed = added = hits = 0
     while len(existing) < args.target and any(q for _, q, _ in queues):
         for name, q, fetch in queues:  # round-robin so the museums grow together
             if not q or len(existing) >= args.target:
@@ -591,21 +643,24 @@ def main(target=None, source=None, delay=None, argv=None):
             processed += 1
             try:
                 entry = fetch(cid)
+                hits = 0
             except Exception as exc:  # noqa: BLE001
                 print(f"  skip   {name} {cid}: {exc}", file=sys.stderr)
                 if "403" in str(exc) or "429" in str(exc):
-                    print("  rate-limited, sleeping 90s", file=sys.stderr)
-                    time.sleep(90)
+                    hits += 1
+                    wait = backoff_seconds(exc, hits)
+                    print(f"  rate-limited ({hits} in a row), sleeping {wait}s", file=sys.stderr)
+                    time.sleep(wait)
                 continue
             if entry:
                 existing.append(entry)
                 seen.add(entry["id"])
                 added += 1
             if processed % 20 == 0:
-                OUT.write_text(json.dumps(existing, ensure_ascii=False), encoding="utf-8")
+                save()
                 print(f"  {processed} processed, {added} added, index={len(existing)}")
-    OUT.write_text(json.dumps(existing, ensure_ascii=False), encoding="utf-8")
-    print(f"done: {len(existing)} paintings in {OUT}")
+    save()
+    print(f"done: {len(existing)} paintings in {OUT}" + (f" + {LOCAL.name}" if LOCAL.exists() else ""))
     return 0
 
 
