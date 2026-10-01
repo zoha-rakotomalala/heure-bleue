@@ -39,7 +39,8 @@ from .color import has_calibration_strip, palette_from_image
 ROOT = config.ROOT
 OUT = config.PAINTINGS
 LOCAL = config.PAINTINGS_LOCAL
-UA = {"User-Agent": "heure-bleue/1.0 (personal desk display)"}
+UA = {"User-Agent": "heure-bleue/1.0 (https://github.com/zoha-rakotomalala/heure-bleue; personal desk display)"}
+# Wikimedia's robot policy wants a contact URL in the User-Agent; without one it answers 429 far more often.
 DELAY = 0.8
 DEADLINE = 75          # seconds; a wall-clock cap per request. urllib's timeout does not cover DNS lookups,
                        # which hung an overnight run for 20 minutes.
@@ -48,12 +49,22 @@ ALLOW_CC = False       # accept CC BY / CC BY-SA files into the local-only index
 
 def _with_deadline(fn, seconds):
     box = []
-    t = threading.Thread(target=lambda: box.append(fn()), daemon=True)
+
+    def run():
+        try:
+            box.append((fn(), None))
+        except Exception as exc:  # noqa: BLE001
+            box.append((None, exc))
+
+    t = threading.Thread(target=run, daemon=True)
     t.start()
     t.join(seconds)
     if t.is_alive():
         raise TimeoutError(f"no answer after {seconds}s")
-    return box[0]
+    value, exc = box[0]
+    if exc is not None:
+        raise exc
+    return value
 
 
 def get_json(url, retries=3):
