@@ -36,7 +36,9 @@ the album cover.
 
 ## Install
 
-Python 3.10 or newer.
+You need Python 3.10 or newer and a browser. Pick your system.
+
+### macOS
 
 ```sh
 git clone https://github.com/zoha-rakotomalala/heure-bleue.git
@@ -45,27 +47,69 @@ python3 -m pip install -r requirements.txt
 python3 -m heurebleue start --open
 ```
 
-Put the browser window on the spare screen and press `F`. On macOS, Safari →
-File → *Add to Dock* gives a clean web app with no address bar.
+The wall opens in your browser. Move the window to the spare screen and press
+`F` for fullscreen. For a clean window with no address bar: in Safari, *File →
+Add to Dock*, then open the wall from the Dock.
 
-To start it at login and keep it running:
+Music is read from Spotify or Apple Music. Nothing else to install.
+
+To start the wall at login and keep it running in the background:
 
 ```sh
 python3 -m heurebleue service install
 ```
 
-<details>
-<summary>Windows and Linux</summary>
+### Windows
 
-**Windows.** Install the media-session bridge so the wall can see your player:
-`py -m pip install winsdk` (Python 3.9–3.12; on 3.13 use `winrt-runtime
-winrt-Windows.Media.Control winrt-Windows.Storage.Streams`). Anything that shows in
-the Windows media overlay works.
+Open PowerShell or Terminal:
 
-**Linux.** `sudo apt install playerctl` (or dnf / pacman). Any MPRIS player works.
+```powershell
+git clone https://github.com/zoha-rakotomalala/heure-bleue.git
+cd heure-bleue
+py -m pip install -r requirements.txt
+py -m pip install winsdk
+py -m heurebleue start --open
+```
 
-`python3 -m heurebleue doctor` checks Python, Pillow, your player, the index and the port.
-</details>
+`winsdk` lets the wall read the Windows media session, so any player that shows
+in the volume overlay works (Spotify, Apple Music, a browser tab). On Python
+3.13, install `winrt-runtime winrt-Windows.Media.Control
+winrt-Windows.Storage.Streams` instead of `winsdk`.
+
+To start the wall at login (creates a Task Scheduler task named *HeureBleue*):
+
+```powershell
+py -m heurebleue service install
+```
+
+### Linux
+
+```sh
+sudo apt install playerctl        # or: dnf install playerctl / pacman -S playerctl
+git clone https://github.com/zoha-rakotomalala/heure-bleue.git
+cd heure-bleue
+python3 -m pip install -r requirements.txt
+python3 -m heurebleue start --open
+```
+
+`playerctl` lets the wall read any MPRIS player (Spotify, VLC, a browser).
+
+To start the wall at login (creates a `systemd --user` service):
+
+```sh
+python3 -m heurebleue service install
+```
+
+### Check the setup
+
+On any system, `heurebleue doctor` tells you what is missing:
+
+```sh
+python3 -m heurebleue doctor      # Windows: py -m heurebleue doctor
+```
+
+It checks Python, Pillow, your music player, the painting index and the port.
+To remove the login service later: `python3 -m heurebleue service remove`.
 
 ## On a landscape screen
 
