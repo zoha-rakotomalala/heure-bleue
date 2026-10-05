@@ -165,6 +165,10 @@ The same panel sets the place for the weather and the sun times: search a city
 Rijksmuseum texts about a painting exist in Dutch and English; the wall shows the
 Dutch original to Dutch readers and the English text to everyone else.
 
+<p align="center">
+  <img src="docs/panel.png" alt="The settings panel: thirteen languages, a city search with results, °C or °F" width="520">
+</p>
+
 ## The paintings
 
 1,121 public-domain works ship with the app, about 500 bytes each, no images on
