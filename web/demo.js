@@ -33,7 +33,7 @@
   const CONFIG = {
     demo: true,
     city: { name: "Paris", lat: 48.8566, lon: 2.3522, timezone: "Europe/Paris" },
-    locale: "fr-FR", theme: "forest", rotate_minutes: 4, paused_rotate_minutes: 20,
+    locale: "", language: "", units: "celsius", theme: "forest",   // the web demo follows the visitor's browser language rotate_minutes: 4, paused_rotate_minutes: 20,
   };
 
   window.fetch = async (input, init = {}) => {

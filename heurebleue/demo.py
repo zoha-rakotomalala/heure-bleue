@@ -2,7 +2,7 @@
 
   python -m heurebleue demo [--out site]
 
-Copies the three pages and the shipped index into one folder and injects
+Copies the three pages, i18n.js and the shipped index into one folder and injects
 web/demo.js, which answers the /api/* routes from localStorage. No music match:
 there is no player loop in a browser. The wall rotates on its own.
 """
@@ -29,6 +29,7 @@ def build(out: Path) -> Path:
         (out / name).write_text(html[:i] + SHIM_TAG + html[i:], encoding="utf-8")
 
     shutil.copy2(config.WEB / "demo.js", out / "demo.js")
+    shutil.copy2(config.WEB / "i18n.js", out / "i18n.js")
     shutil.copy2(config.PAINTINGS, out / "data" / "paintings.json")
     (out / ".nojekyll").write_text("", encoding="utf-8")  # Pages must not run Jekyll over the folder
     return out

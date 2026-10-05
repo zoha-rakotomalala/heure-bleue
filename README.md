@@ -133,6 +133,7 @@ Small buttons sit bottom-right and fade when the mouse is still.
 | `K` | *Kept*, your favourites |
 | `S` | *Stats* |
 | `T` | wall colour |
+| `G` | language, place, units |
 
 <p align="center">
   <img src="docs/kept.png" alt="The Kept page: favourites in a grid, each with the song that was playing" width="300">
@@ -147,6 +148,22 @@ that takes its colour from the painting. Press `T`, or add `?theme=night` to the
 URL. The choice is remembered per browser.
 
 ![six wall colours](docs/themes.png)
+
+## Language, place, units
+
+Press `G`, or the ⚙ button. The wall speaks English, French, Dutch, German,
+Spanish, Italian, Portuguese, Finnish, Swedish, Danish, Polish, Russian and
+Japanese: every label, the weather, the sun line, the Kept and Stats pages. The
+date follows the language too. Add `?lang=de` to the URL to pick one from the
+address bar.
+
+The same panel sets the place for the weather and the sun times: search a city
+(Open-Meteo geocoding, no key) or use the browser's position. Temperatures in
+°C or °F. All three choices are remembered per browser; *reset* goes back to
+`config.json`.
+
+Rijksmuseum texts about a painting exist in Dutch and English; the wall shows the
+Dutch original to Dutch readers and the English text to everyone else.
 
 ## The paintings
 
@@ -179,6 +196,8 @@ Create `config.json` next to this README. Any key you omit keeps its default.
   "port": 8765,
   "theme": "forest",
   "locale": "en-GB",
+  "language": "",
+  "units": "celsius",
   "city": { "name": "Amsterdam", "lat": 52.3676, "lon": 4.9041, "timezone": "Europe/Amsterdam" },
   "min_dwell_seconds": 45,
   "rotate_minutes": 4,
@@ -191,6 +210,9 @@ Create `config.json` next to this README. Any key you omit keeps its default.
 `rotate_minutes` is the pace with no music. A paused player holds the painting
 for `paused_rotate_minutes`, then the wall rotates until you press play.
 `repeat_days` keeps a painting off the wall for that long after it has been shown.
+`locale` is the regional date format; `language` picks the words on screen and,
+left empty, follows the locale. `units` is `celsius` or `fahrenheit`. A choice
+made in the ⚙ panel wins over these three in that browser.
 </details>
 
 <details>

@@ -1,6 +1,6 @@
 """Local HTTP server. Serves web/ and data/ and a small JSON API.
 
-  GET  /api/config                -> city, locale, theme, rotate_minutes (the page reads this)
+  GET  /api/config                -> city, locale, language, units, theme, rotate_minutes (the page reads this)
   GET  /api/favorites             -> kept paintings
   GET  /api/taste                 -> weights derived from favorites
   GET  /api/history?limit=N       -> last N rows of history.jsonl (for the stats page)
@@ -25,7 +25,7 @@ from urllib.parse import urlsplit
 from . import config
 from .wall import load_index
 
-PUBLIC_CFG_KEYS = ("city", "locale", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days")
+PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days")
 SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
 _LAST_SEEN: dict = {}
 _SEEN_LOCK = threading.Lock()

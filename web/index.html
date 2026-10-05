@@ -70,7 +70,7 @@
 
   /* --- controls (discreet, bottom-right) -------------------------------- */
   #controls { position: fixed; right: 2.2vmin; bottom: 2.4vh; display: flex; flex-direction: column; align-items: flex-end; gap: 1vh; z-index: 9; opacity: 0.22; transition: opacity 0.4s ease; }
-  #controls:hover, #controls.open { opacity: 1; }
+  #controls:hover, #controls.open, #controls.prefs { opacity: 1; }
   #controls .row { display: flex; gap: 0.8vmin; }
   #controls button { width: 3.4vmin; height: 3.4vmin; border-radius: 50%; border: 1px solid rgba(var(--text-rgb), 0.35); background: rgba(var(--text-rgb), 0.06); color: var(--text); font-size: 1.6vmin; line-height: 1; cursor: pointer; display: grid; place-items: center; backdrop-filter: blur(6px); transition: transform 0.2s ease, background 0.2s ease; }
   #controls button:hover { background: rgba(var(--text-rgb), 0.16); transform: translateY(-1px); }
@@ -84,6 +84,20 @@
   #swatches span { width: 2.2vmin; height: 2.2vmin; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15); }
   #swatches span.on { border-color: var(--gold); }
   #swatches span.painting { background: conic-gradient(#8a2a1e, #2b3a6b, #1e4d3a, #6b4a1e, #8a2a1e); }
+
+  /* --- language, place, units (the ⚙ button) ------------------------------- */
+  #prefs { display: none; flex-direction: column; gap: 1vh; padding: 1.4vh 1.6vmin; min-width: 30vmin; max-width: 44vmin; border-radius: 1.6vmin; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); font-size: 1.2vmin; }
+  #controls.prefs #prefs { display: flex; }
+  #prefs .k { font-size: 1vmin; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4vh; }
+  #prefs .pills { display: flex; flex-wrap: wrap; gap: 0.5vmin; }
+  #prefs .pills button, #prefs .pills .pill { width: auto; height: auto; border-radius: 999px; padding: 0.35vh 0.9vmin; font-size: 1.15vmin; letter-spacing: 0.04em; }
+  #prefs .pills button.on { border-color: var(--gold); color: var(--gold); }
+  #prefs input { width: 100%; box-sizing: border-box; border: 1px solid rgba(var(--text-rgb), 0.3); border-radius: 999px; background: rgba(var(--text-rgb), 0.06); color: var(--text); padding: 0.5vh 1vmin; font: inherit; font-size: 1.2vmin; outline: none; }
+  #prefs input:focus { border-color: var(--gold); }
+  #prefs .place .now { color: var(--muted); margin-bottom: 0.5vh; }
+  #prefs .note { color: var(--faint); font-size: 1.05vmin; min-height: 1.2em; }
+  #prefs .reset { align-self: flex-start; background: none; border: none; color: var(--faint); font-size: 1.05vmin; text-decoration: underline; cursor: pointer; padding: 0; width: auto; height: auto; }
+  #prefs .reset:hover { color: var(--text); transform: none; background: none; }
 
   /* --- status line (loading / detecting) ----------------------------------- */
   #label .status { font-size: 1.15vmin; color: var(--faint); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1.2vh; min-height: 1.4em; opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; gap: 0.7em; }
@@ -110,6 +124,7 @@
 
   body.idle, body.idle * { cursor: none !important; }
   body.idle #controls { opacity: 0; }
+  body.idle #controls.prefs { opacity: 1; }   /* an open settings panel stays until Escape or the ⚙ button */
   body.snap *, body.snap *::before { transition: none !important; }
   body.evening { --band-opacity: 0.7; }
   body.night { --band-opacity: 0.45; }
@@ -135,7 +150,7 @@
       <div class="artist"></div>
       <div class="museum"></div>
       <div class="story"></div>
-      <div class="mood"><span class="dots"></span><span class="txt">matched to the album cover</span></div>
+      <div class="mood"><span class="dots"></span><span class="txt" data-i18n="mood">matched to the album cover</span></div>
       <div class="status"></div>
     </div>
   </main>
@@ -152,22 +167,31 @@
   </footer>
 
   <div id="controls">
+    <div id="prefs">
+      <div><div class="k" data-i18n="language">Language</div><div class="pills langs"></div></div>
+      <div class="place"><div class="k" data-i18n="place">Place</div><div class="now"></div><input type="search" autocomplete="off" data-i18n-ph="search_city" placeholder="search a city"><div class="pills results"></div><div class="note"></div></div>
+      <div><div class="k" data-i18n="units">Units</div><div class="pills units"><button data-u="celsius">°C</button><button data-u="fahrenheit">°F</button></div></div>
+      <button class="reset" data-i18n="reset">reset to config.json</button>
+    </div>
     <div id="swatches"></div>
     <div class="row">
-      <button class="theme" title="Wall colour">◐</button>
-      <button class="swap" title="Another painting">↻</button>
-      <button class="fav" title="Keep this one">♡</button>
-      <button class="kept" title="Kept paintings">▤</button>
-      <button class="next" title="Next song">⏭</button>
+      <button class="prefs" data-i18n-title="tip_prefs" title="Language, place, units">⚙</button>
+      <button class="theme" data-i18n-title="tip_theme" title="Wall colour">◐</button>
+      <button class="swap" data-i18n-title="tip_swap" title="Another painting">↻</button>
+      <button class="fav" data-i18n-title="tip_keep" title="Keep this one">♡</button>
+      <button class="kept" data-i18n-title="tip_kept" title="Kept paintings">▤</button>
+      <button class="next" data-i18n-title="tip_next" title="Next song">⏭</button>
     </div>
   </div>
 
+<script src="i18n.js"></script>
 <script>
 // settings come from config.json through /api/config; these are only fallbacks
 let CFG = { city: { name: "Paris", lat: 48.8566, lon: 2.3522, timezone: "Europe/Paris" }, locale: "fr-FR", theme: "forest", rotate_minutes: 4 };
 let ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
+const T = (k, v) => HB.t(k, v);
 async function loadConfig() {
-  try { CFG = { ...CFG, ...(await (await fetch("/api/config", { cache: "no-store" })).json()) }; } catch (e) {}
+  CFG = { ...CFG, ...(await HB.init()) };   // /api/config, then the language is picked and the static text translated
   ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
   if (!localStorage.getItem("wall.theme") && !params.has("theme") && !params.has("bg")) { themeName = CFG.theme; setTheme(current); buildSwatches(); }
 }
@@ -227,7 +251,7 @@ function tickClock() {
   const hh = String(d.getHours()).padStart(2, "0");
   const mm = String(d.getMinutes()).padStart(2, "0");
   $("#clock").innerHTML = `${hh}:${mm}<small>${String(d.getSeconds()).padStart(2,"0")}</small>`;
-  $("#date").textContent = d.toLocaleDateString(CFG.locale, { weekday: "long", day: "numeric", month: "long" });
+  $("#date").textContent = d.toLocaleDateString(HB.dateLocale(), { weekday: "long", day: "numeric", month: "long" });
   const h = d.getHours();
   document.body.classList.toggle("evening", h >= 19 && h < 23);
   document.body.classList.toggle("night", h >= 23 || h < 7);
@@ -235,16 +259,23 @@ function tickClock() {
 setInterval(tickClock, 1000); tickClock();
 
 // --- weather (Open-Meteo, no key) -----------------------------------------
-const WMO = {0:"Ciel clair",1:"Presque clair",2:"Quelques nuages",3:"Couvert",45:"Brouillard",48:"Brouillard givrant",51:"Bruine légère",53:"Bruine",55:"Bruine dense",61:"Pluie légère",63:"Pluie",65:"Pluie forte",71:"Neige légère",73:"Neige",75:"Neige forte",80:"Averses",81:"Averses",82:"Averses fortes",95:"Orage",96:"Orage",99:"Orage"};
+// the place and the units come from the ⚙ panel (this browser) or config.json; labels follow the language
+let lastWeather = null;
 async function weather() {
   try {
-    const u = `https://api.open-meteo.com/v1/forecast?latitude=${CFG.city.lat}&longitude=${CFG.city.lon}&current=temperature_2m,weather_code&daily=sunrise,sunset&timezone=${encodeURIComponent(CFG.city.timezone)}&forecast_days=1`;
+    const c = HB.city(), unit = HB.units() === "fahrenheit" ? "&temperature_unit=fahrenheit" : "";
+    const u = `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,weather_code&daily=sunrise,sunset&timezone=${encodeURIComponent(c.timezone || "auto")}&forecast_days=1${unit}`;
     const j = await (await fetch(u)).json();
-    $("#weather .temp").textContent = `${Math.round(j.current.temperature_2m)}°`;
-    $("#weather .desc").textContent = `${CFG.city.name} · ${WMO[j.current.weather_code] || ""}`;
+    lastWeather = { city: c.name, temp: j.current.temperature_2m, code: j.current.weather_code };
+    paintWeather();
     sunTimes = { rise: new Date(j.daily.sunrise[0]), set: new Date(j.daily.sunset[0]) };
     sunLine();
   } catch (e) { console.warn("weather", e); }
+}
+function paintWeather() {
+  if (!lastWeather) return;
+  $("#weather .temp").textContent = `${Math.round(lastWeather.temp)}°`;
+  $("#weather .desc").textContent = `${lastWeather.city} · ${HB.wmo(lastWeather.code)}`;
 }
 let sunTimes = null;
 function sunLine() {
@@ -253,13 +284,15 @@ function sunLine() {
   const minsTo = (d) => Math.round((d - now) / 60000);
   let line = `☀ ${t(sunTimes.rise)} → ${t(sunTimes.set)}`;
   const toSet = minsTo(sunTimes.set), toRise = minsTo(sunTimes.rise);
-  if (toSet > 0 && toSet <= 90) line = `<b>coucher du soleil dans ${toSet} min</b> · ${t(sunTimes.set)}`;
-  else if (toSet <= 0 && toSet > -35) line = `<b>heure bleue</b> · soleil couché à ${t(sunTimes.set)}`;
-  else if (toRise > 0 && toRise <= 60) line = `<b>première lueur dans ${toRise} min</b> · ${t(sunTimes.rise)}`;
-  else if (toRise <= 0 && toRise > -30) line = `<b>heure bleue du matin</b> · levé à ${t(sunTimes.rise)}`;
+  if (toSet > 0 && toSet <= 90) line = `<b>${T("sunset_in", { n: toSet })}</b> · ${t(sunTimes.set)}`;
+  else if (toSet <= 0 && toSet > -35) line = `<b>${T("blue_hour")}</b> · ${T("set_at", { t: t(sunTimes.set) })}`;
+  else if (toRise > 0 && toRise <= 60) line = `<b>${T("first_light_in", { n: toRise })}</b> · ${t(sunTimes.rise)}`;
+  else if (toRise <= 0 && toRise > -30) line = `<b>${T("blue_morning")}</b> · ${T("rise_at", { t: t(sunTimes.rise) })}`;
   $("#weather .sun").innerHTML = line;
 }
 setInterval(weather, 15 * 60 * 1000); setInterval(sunLine, 60 * 1000);
+document.addEventListener("hb:place", () => { weather(); buildPrefs(); });
+document.addEventListener("hb:lang", () => { tickClock(); paintWeather(); sunLine(); if (lastNow) paintNow(lastNow); buildPrefs(); });
 
 // --- paintings ------------------------------------------------------------
 let index = [], current = null, front = "A", lastRotate = 0, recent = [];
@@ -310,7 +343,10 @@ function reportSeen(prev) {
     track: t.title || null, track_artist: t.artist || null, dwell_s: Math.round((Date.now() - shownAt) / 1000), swapped: swapRequested }) }).catch(() => {});
   swapRequested = false;
 }
-function status(msg) { const el = $("#label .status"); if (msg) { el.textContent = msg; el.classList.add("on"); } else el.classList.remove("on"); }
+function status(key) { const el = $("#label .status"); if (key) { el.textContent = T(key); el.dataset.key = key; el.classList.add("on"); } else { el.classList.remove("on"); delete el.dataset.key; } }
+const statusIs = (key) => $("#label .status").dataset.key === key;
+// the curator text: Dutch readers get the Dutch original where it exists; everyone else gets the English text, never the Dutch one
+function storyFor(p) { if (HB.lang === "nl" && p.story_nl) return p.story_nl; if (p.story && p.story_lang !== "nl") return p.story; return ""; }
 function show(p, matched) {
   if (!p || (current && current.id === p.id)) return;
   reportSeen(current); shownAt = Date.now();
@@ -318,12 +354,13 @@ function show(p, matched) {
   const next = front === "A" ? $("#imgB") : $("#imgA");
   const prev = front === "A" ? $("#imgA") : $("#imgB");
   next.classList.remove("drift");
-  status("loading the painting");
+  status("st_loading");
   next.onload = () => { next.classList.add("show", "drift"); prev.classList.remove("show", "drift"); front = front === "A" ? "B" : "A"; status(null); };
-  next.onerror = () => { status("the museum did not answer, trying another"); if (!musicMode) setTimeout(() => show(pickRandom(), null), 2000); };
+  next.onerror = () => { status("st_museum"); if (!musicMode) setTimeout(() => show(pickRandom(), null), 2000); };
   next.src = p.image;
   const story = $("#label .story"); story.classList.remove("on"); clearTimeout(story._t);
-  if (p.story && p.story_lang !== "nl") { story.textContent = p.story; story._t = setTimeout(() => story.classList.add("on"), 2500); setTimeout(() => story.classList.remove("on"), 90 * 1000); }
+  const text = storyFor(p);
+  if (text) { story.textContent = text; story._t = setTimeout(() => story.classList.add("on"), 2500); setTimeout(() => story.classList.remove("on"), 90 * 1000); }
   else story.textContent = "";
   $("#label .title").textContent = p.title;
   $("#label .artist").textContent = [p.artist, p.date].filter(Boolean).join(" · ");
@@ -340,7 +377,10 @@ function mmss(ms) { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60
 function hexToRgba(h, a) { const n = parseInt(h.slice(1), 16); return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`; }
 
 // --- now playing ------------------------------------------------------------
-let musicMode = false, lastNow = null, lastTrackKey = null, pausedSince = 0;
+let musicMode = false, lastNow = null, lastTrackKey = null, pausedSince = 0, lastLongPause = false;
+function paintState(t, longPause) { $("#now .state").textContent = (t.state === "playing" ? T("playing") : longPause ? T("paused_rot") : T("paused")) + (t.player ? ` · ${t.player}` : ""); }
+// on a language change: redraw the text that is not re-fetched (the player state and any status line)
+function paintNow(j) { if (j && j.track) paintState(j.track, lastLongPause); const st = $("#label .status"); if (st.dataset.key) st.textContent = T(st.dataset.key); }
 // The poller writes every 5 s. Between polls we advance the position locally
 // so the times and the bar move every second.
 let tick = { pos: 0, dur: 0, at: 0, playing: false };
@@ -366,8 +406,8 @@ async function nowPlaying() {
     const longPause = pausedSince && (Date.now() - pausedSince) > (CFG.paused_rotate_minutes || 20) * 60 * 1000;
     // a new song whose painting has not been chosen yet
     const waiting = !longPause && (j.pending || (j.painting_for && j.painting_for !== key));
-    if (waiting) status(swapRequested ? "choosing another painting" : "reading the album cover");
-    else if ($("#label .status").textContent !== "loading the painting") status(null);
+    if (waiting) status(swapRequested ? "st_choosing" : "st_reading");
+    else if (!statusIs("st_loading")) status(null);
     musicMode = !longPause;
     $("#controls").classList.toggle("music", musicMode);
     $("#now").classList.add("on");
@@ -375,7 +415,7 @@ async function nowPlaying() {
     $("#cover").style.visibility = t.cover ? "visible" : "hidden";
     $("#now .t").textContent = t.title;
     $("#now .a").textContent = `${t.artist} · ${t.album}`;
-    $("#now .state").textContent = (t.state === "playing" ? "en cours" : longPause ? "en pause · le mur tourne" : "en pause") + (t.player ? ` · ${t.player}` : "");
+    lastLongPause = longPause; paintState(t, longPause);
     tick = { pos: t.position_s, dur: t.duration_ms, at: Date.now(), playing: t.state === "playing" };
     paintTimes();
     if (longPause) $("#label .mood").classList.remove("on");
@@ -407,19 +447,60 @@ $("#controls .fav").onclick = async () => {
 $("#controls .swap").onclick = async (e) => {
   e.currentTarget.classList.remove("spin"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("spin");
   swapRequested = true;
-  if (musicMode) { status("choosing another painting"); await fetch("/api/swap", { method: "POST" }); setTimeout(nowPlaying, 1500); setTimeout(nowPlaying, 4000); setTimeout(nowPlaying, 7000); }
+  if (musicMode) { status("st_choosing"); await fetch("/api/swap", { method: "POST" }); setTimeout(nowPlaying, 1500); setTimeout(nowPlaying, 4000); setTimeout(nowPlaying, 7000); }
   else show(pickRandom(), null);
 };
 $("#controls .next").onclick = async (e) => {
   if (!musicMode) return;
   e.currentTarget.classList.remove("spin"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("spin");
-  status("next song");
+  status("st_next");
   const r = await fetch("/api/next", { method: "POST" }).catch(() => null);
-  if (!r || !r.ok) { status("the player did not answer"); setTimeout(() => status(null), 2500); return; }
+  if (!r || !r.ok) { status("st_player"); setTimeout(() => status(null), 2500); return; }
   [800, 1600, 2600, 4000, 6000].forEach(ms => setTimeout(nowPlaying, ms));
 };
-$("#controls .theme").onclick = () => $("#controls").classList.toggle("open");
+$("#controls .theme").onclick = () => { $("#controls").classList.remove("prefs"); $("#controls").classList.toggle("open"); };
+$("#controls .prefs").onclick = () => { $("#controls").classList.remove("open"); $("#controls").classList.toggle("prefs"); if ($("#controls").classList.contains("prefs")) buildPrefs(); };
 $("#controls .kept").onclick = () => { location.href = "favorites.html"; };
+
+// --- language, place, units ---------------------------------------------------
+function buildPrefs() {
+  const langs = $("#prefs .langs"); langs.innerHTML = "";
+  for (const [code, L] of Object.entries(HB.LANGS)) {
+    const b = document.createElement("button"); b.textContent = L.name; b.lang = code; b.classList.toggle("on", code === HB.lang);
+    b.onclick = () => HB.setLang(code);
+    langs.appendChild(b);
+  }
+  const c = HB.city(); $("#prefs .place .now").textContent = `${c.name} · ${c.timezone || ""}`;
+  document.querySelectorAll("#prefs .units button").forEach(b => b.classList.toggle("on", b.dataset.u === HB.units()));
+  $("#prefs .reset").style.display = HB.overridden() ? "" : "none";
+}
+document.querySelectorAll("#prefs .units button").forEach(b => { b.onclick = () => HB.setUnits(b.dataset.u); });
+$("#prefs .reset").onclick = () => { HB.reset(); buildPrefs(); };
+let searchTimer;
+$("#prefs input").oninput = (e) => {
+  clearTimeout(searchTimer);
+  const q = e.target.value.trim(), box = $("#prefs .results"), note = $("#prefs .note");
+  box.innerHTML = ""; note.textContent = "";
+  const mine = document.createElement("button"); mine.textContent = "◎ " + T("my_position"); mine.onclick = locateMe; box.appendChild(mine);
+  if (q.length < 2) return;
+  searchTimer = setTimeout(async () => {
+    try {
+      const hits = await HB.searchCity(q);
+      if (!hits.length) { note.textContent = T("not_found"); return; }
+      for (const h of hits) {
+        const b = document.createElement("button"); b.textContent = h.detail ? `${h.name}, ${h.detail}` : h.name; b.title = h.timezone || "";
+        b.onclick = () => { HB.setCity(h); e.target.value = ""; box.innerHTML = ""; };
+        box.appendChild(b);
+      }
+    } catch (err) { note.textContent = T("not_found"); }
+  }, 350);
+};
+$("#prefs input").onfocus = () => { if (!$("#prefs .results").children.length) $("#prefs input").oninput({ target: $("#prefs input") }); };
+async function locateMe() {
+  const note = $("#prefs .note"); note.textContent = T("locating");
+  try { HB.setCity(await HB.locate()); note.textContent = ""; $("#prefs .results").innerHTML = ""; }
+  catch (e) { note.textContent = T("no_position"); }
+}
 function buildSwatches() {
   const box = $("#swatches"); box.innerHTML = "";
   for (const [name, t] of Object.entries(THEMES)) {
@@ -435,15 +516,17 @@ buildSwatches();
 // --- keyboard + idle cursor -------------------------------------------------
 document.addEventListener("keydown", (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.target.tagName === "INPUT") { if (e.key === "Escape") { e.target.blur(); $("#controls").classList.remove("prefs"); } return; }
   const k = e.key.toLowerCase();
   if (k === "f") { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
   else if (k === "n" || k === " " || k === "arrowright") { e.preventDefault(); $("#controls .swap").click(); }
   else if (k === "l") { $("#controls .fav").click(); }
   else if (k === "t") { $("#controls .theme").click(); }
+  else if (k === "g") { $("#controls .prefs").click(); }
   else if (k === "k") { location.href = "favorites.html"; }
   else if (k === "s") { location.href = "stats.html"; }
   else if (k === ">" || k === ".") { $("#controls .next").click(); }
-  else if (k === "escape") { $("#controls").classList.remove("open"); }
+  else if (k === "escape") { $("#controls").classList.remove("open", "prefs"); }
 });
 let idleTimer;
 function poke() { document.body.classList.remove("idle"); clearTimeout(idleTimer); idleTimer = setTimeout(() => document.body.classList.add("idle"), 4000); }

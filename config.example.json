@@ -2,6 +2,8 @@
   "port": 8765,
   "theme": "forest",
   "locale": "fr-FR",
+  "language": "",
+  "units": "celsius",
   "city": { "name": "Paris", "lat": 48.8566, "lon": 2.3522, "timezone": "Europe/Paris" },
   "poll_seconds": 5,
   "min_dwell_seconds": 45,

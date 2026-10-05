@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Stats · Gallery wall</title>
+<title data-i18n-doc="stats">Stats · Gallery wall</title>
 <style>
   :root {
     --bg: #0b1026;
@@ -75,16 +75,18 @@
 </head>
 <body>
   <header id="top">
-    <h1>Stats<small id="since"></small></h1>
-    <nav id="links"><a href="favorites.html">kept</a><a href="./">&larr; wall</a></nav>
+    <h1><span data-i18n="stats">Stats</span><small id="since"></small></h1>
+    <nav id="links"><a href="favorites.html" data-i18n="kept">kept</a><a href="./">&larr; <span data-i18n="wall">wall</span></a></nav>
   </header>
 
   <div id="head"></div>
-  <div id="empty">Nothing yet.<small>The wall writes one line each time the painting changes.</small></div>
+  <div id="empty"><span data-i18n="empty_stats">Nothing yet.</span><small data-i18n="empty_stats_sub">The wall writes one line each time the painting changes.</small></div>
   <main id="grid"></main>
 
+<script src="i18n.js"></script>
 <script>
 const $ = (s) => document.querySelector(s);
+const T = (k, v) => HB.t(k, v);
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 // --- themes (same as the wall) -------------------------------------------------
@@ -110,16 +112,15 @@ if (params.has("snap")) document.body.classList.add("snap");
 
 // --- helpers --------------------------------------------------------------------
 const century = (date) => { const m = /(1[0-9]{3}|20[0-9]{2})/.exec(date || ""); return m ? Math.floor(+m[1] / 100) + 1 : null; };
-const ordinal = (n) => n + (n === 1 ? "st" : n === 2 ? "nd" : n === 3 ? "rd" : "th");
 const shortMuseum = (n) => (n || "").replace(/^The\s+/, "").replace(/,.*$/, "");
-function dur(sec) { const m = Math.round(sec / 60); if (m < 60) return `${m} min`; const h = Math.floor(m / 60); return `${h} h ${String(m % 60).padStart(2, "0")}`; }
+function dur(sec) { const m = Math.round(sec / 60); if (m < 60) return `${m} ${T("min")}`; const h = Math.floor(m / 60); return `${h} ${T("h")} ${String(m % 60).padStart(2, "0")}`; }
 function tally(rows, keyFn, valFn = () => 1) {
   const m = new Map();
   for (const r of rows) { const k = keyFn(r); if (k == null || k === "") continue; const e = m.get(k) || { k, v: 0, n: 0, r }; e.v += valFn(r); e.n += 1; m.set(k, e); }
   return [...m.values()].sort((a, b) => b.v - a.v);
 }
 function rows(list, top, fmt, extra = "") {
-  if (!list.length) return `<div class="none">nothing yet</div>`;
+  if (!list.length) return `<div class="none">${T("nothing_yet")}</div>`;
   const max = list[0].v || 1;
   return list.slice(0, top).map(e => `<div class="row ${extra}"><span class="k" title="${esc(e.label || e.k)}">${e.html || esc(e.label || e.k)}</span><span class="bar"><i data-w="${(100 * e.v / max).toFixed(1)}"></i></span><span class="v">${fmt(e)}</span></div>`).join("");
 }
@@ -137,17 +138,17 @@ async function load() {
 
   if (!hist.length && !favs.length) { $("#empty").classList.add("on"); return; }
   const first = hist.length ? new Date(Math.min(...hist.map(r => r.ts * 1000)) ) : null;
-  $("#since").textContent = first ? `since ${first.toLocaleDateString(undefined, { day: "numeric", month: "long" })}` : "";
+  $("#since").textContent = first ? T("since", { d: first.toLocaleDateString(HB.dateLocale(), { day: "numeric", month: "long" }) }) : "";
 
   const total = hist.reduce((a, r) => a + (r.dwell_s || 0), 0);
   const music = hist.filter(r => r.mode === "music");
   const skipped = hist.filter(r => r.swapped);
   const dwellAvg = hist.length ? total / hist.length : 0;
   const head = [
-    [hist.length, "", "paintings shown"], [new Set(hist.map(r => r.id)).size, "", "different works"],
-    [total >= 3600 ? (total / 3600).toFixed(1) : Math.round(total / 60), total >= 3600 ? "h" : "min", "on the wall"],
-    [favs.length, "", "kept"], [hist.length ? Math.round(100 * skipped.length / hist.length) : 0, "%", "skipped"],
-    [hist.length ? Math.round(100 * music.length / hist.length) : 0, "%", "with music"],
+    [hist.length, "", T("shown")], [new Set(hist.map(r => r.id)).size, "", T("works")],
+    [total >= 3600 ? (total / 3600).toFixed(1) : Math.round(total / 60), total >= 3600 ? T("h") : T("min"), T("on_wall")],
+    [favs.length, "", T("kept").toLowerCase()], [hist.length ? Math.round(100 * skipped.length / hist.length) : 0, "%", T("skipped")],
+    [hist.length ? Math.round(100 * music.length / hist.length) : 0, "%", T("with_music")],
   ];
   $("#head").innerHTML = head.map(([n, u, k]) => `<div class="big"><div class="n">${n}${u ? `<small>${u}</small>` : ""}</div><div class="k">${k}</div></div>`).join("");
 
@@ -155,34 +156,34 @@ async function load() {
   const time = (e) => dur(e.v);
   const count = (e) => `${e.n}×`;
 
-  secs.push(section("Museums", "time on the wall", rows(tally(hist, r => r.museum, r => r.dwell_s).map(e => ({ ...e, label: shortMuseum(e.k) })), 6, time)));
-  secs.push(section("Centuries", "time on the wall", rows(tally(hist, r => century(r.p.date), r => r.dwell_s).map(e => ({ ...e, label: `${ordinal(e.k)} century` })), 8, time)));
-  secs.push(section("Painters", "most on the wall", rows(tally(hist.filter(r => r.artist && r.artist !== "Unknown artist"), r => r.artist, r => r.dwell_s), 8, time)));
+  secs.push(section(T("museums"), T("time_on_wall"), rows(tally(hist, r => r.museum, r => r.dwell_s).map(e => ({ ...e, label: shortMuseum(e.k) })), 6, time)));
+  secs.push(section(T("centuries"), T("time_on_wall"), rows(tally(hist, r => century(r.p.date), r => r.dwell_s).map(e => ({ ...e, label: HB.century(e.k) })), 8, time)));
+  secs.push(section(T("painters"), T("most_on_wall"), rows(tally(hist.filter(r => r.artist && r.artist !== "Unknown artist"), r => r.artist, r => r.dwell_s), 8, time)));
   const pics = tally(hist, r => r.id, r => r.dwell_s).map(e => ({ ...e, html: `${e.r.p.image ? `<img src="${esc(e.r.p.image)}" alt="">` : ""}<span><em>${esc(e.r.title)}</em><br><span class="s">${esc(e.r.artist || "")}</span></span>` }));
-  secs.push(section("Most shown", "", rows(pics, 5, (e) => `${e.n}× · ${dur(e.v)}`, "pic")));
+  secs.push(section(T("most_shown"), "", rows(pics, 5, (e) => `${e.n}× · ${dur(e.v)}`, "pic")));
   const skips = tally(skipped, r => r.id).map(e => ({ ...e, html: `${e.r.p.image ? `<img src="${esc(e.r.p.image)}" alt="">` : ""}<span><em>${esc(e.r.title)}</em><br><span class="s">${esc(e.r.artist || "")}</span></span>` }));
-  secs.push(section("Skipped", "the ones you moved past", rows(skips, 5, count, "pic")));
+  secs.push(section(T("sec_skipped"), T("skipped_sub"), rows(skips, 5, count, "pic")));
 
-  secs.push(section("Music", "artists behind the wall", rows(tally(music.filter(r => r.track_artist), r => r.track_artist, r => r.dwell_s), 8, time)));
-  secs.push(section("Songs", "", rows(tally(music.filter(r => r.track), r => `${r.track}|${r.track_artist}`, r => r.dwell_s).map(e => ({ ...e, html: `${esc(e.r.track)} <span class="s">· ${esc(e.r.track_artist || "")}</span>` })), 8, time)));
+  secs.push(section(T("music"), T("music_sub"), rows(tally(music.filter(r => r.track_artist), r => r.track_artist, r => r.dwell_s), 8, time)));
+  secs.push(section(T("songs"), "", rows(tally(music.filter(r => r.track), r => `${r.track}|${r.track_artist}`, r => r.dwell_s).map(e => ({ ...e, html: `${esc(e.r.track)} <span class="s">· ${esc(e.r.track_artist || "")}</span>` })), 8, time)));
   // pairings: for each music artist, the painter matched most often
   const pairs = [];
   for (const a of tally(music.filter(r => r.track_artist && r.artist), r => r.track_artist).slice(0, 12)) {
     const top = tally(music.filter(r => r.track_artist === a.k && r.artist), r => r.artist)[0];
     if (top) pairs.push({ k: a.k, v: top.n, n: a.n, label: `${a.k} → ${top.k}`, html: `${esc(a.k)} <span class="s">→</span> ${esc(top.k)}` });
   }
-  secs.push(section("Pairings", "music artist → painter matched most", rows(pairs.sort((a, b) => b.v - a.v), 6, (e) => `${e.v} of ${e.n}`, "pair")));
+  secs.push(section(T("pairings"), T("pairings_sub"), rows(pairs.sort((a, b) => b.v - a.v), 6, (e) => T("of", { a: e.v, b: e.n }), "pair")));
 
   const keptMuseum = tally(favs, f => f.museum).map(e => ({ ...e, label: shortMuseum(e.k) }));
-  secs.push(section("Kept", "by museum", rows(keptMuseum, 6, count)));
+  secs.push(section(T("kept"), T("by_museum"), rows(keptMuseum, 6, count)));
   const keptSongs = tally(favs.filter(f => f.track && f.track.title), f => `${f.track.title}|${f.track.artist}`).map(e => ({ ...e, html: `${e.r.track.cover ? `<img src="${esc(e.r.track.cover)}" alt="">` : ""}<span>${esc(e.r.track.title)}<br><span class="s">${esc(e.r.track.artist || "")}</span></span>` }));
-  secs.push(section("Songs behind the hearts", "", rows(keptSongs, 6, count, "pic")));
+  secs.push(section(T("songs_hearts"), "", rows(keptSongs, 6, count, "pic")));
 
   // hours of the day
   const hours = new Array(24).fill(0);
   for (const r of hist) hours[new Date(r.ts * 1000).getHours()] += r.dwell_s || 0;
   const hmax = Math.max(...hours, 1);
-  secs.push(section("Hours", "when the wall is on", `<div id="hours">${hours.map(h => `<i class="${h ? "" : "z"}" data-h="${(100 * h / hmax).toFixed(1)}"></i>`).join("")}</div><div id="hourlbl">${hours.map((_, i) => `<span>${String(i).padStart(2, "0")}</span>`).join("")}</div>`));
+  secs.push(section(T("hours"), T("hours_sub"), `<div id="hours">${hours.map(h => `<i class="${h ? "" : "z"}" data-h="${(100 * h / hmax).toFixed(1)}"></i>`).join("")}</div><div id="hourlbl">${hours.map((_, i) => `<span>${String(i).padStart(2, "0")}</span>`).join("")}</div>`));
 
   $("#grid").innerHTML = secs.join("");
   requestAnimationFrame(() => {
@@ -191,7 +192,8 @@ async function load() {
   });
 }
 document.addEventListener("keydown", (e) => { if (!e.metaKey && !e.ctrlKey && !e.altKey && e.key === "Escape") location.href = "./"; });
-load();
+HB.init().then(load);
+document.addEventListener("hb:lang", () => load());
 </script>
 </body>
 </html>

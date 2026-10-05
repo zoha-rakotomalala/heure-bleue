@@ -1,7 +1,7 @@
 """Paths and settings for heure bleue.
 
 Everything lives under one root (the repo checkout, or HEURE_BLEUE_HOME if set):
-  web/    the two pages
+  web/    the three pages and i18n.js
   data/   paintings.json (shipped), plus files written at runtime
   config.json  optional user settings, merged over DEFAULTS
 """
@@ -28,6 +28,8 @@ DEFAULTS = {
     "theme": "forest",
     "city": {"name": "Paris", "lat": 48.8566, "lon": 2.3522, "timezone": "Europe/Paris"},
     "locale": "fr-FR",
+    "language": "",       # ui language (en, fr, nl, de, es, it, pt, fi, sv, da, pl, ru, ja); empty = follow locale
+    "units": "celsius",   # or fahrenheit
     "players": "auto",
 }
 

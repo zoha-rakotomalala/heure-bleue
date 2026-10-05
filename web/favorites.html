@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kept · Gallery wall</title>
+<title data-i18n-doc="kept">Kept · Gallery wall</title>
 <style>
   :root {
     --bg: #0b1026;
@@ -86,26 +86,28 @@
 </head>
 <body>
   <header id="top">
-    <h1>Kept<small id="count"></small></h1>
-    <nav id="links"><a id="stats" class="lnk" href="stats.html">stats</a><a id="back" href="./">&larr; wall</a></nav>
+    <h1><span data-i18n="kept">Kept</span><small id="count"></small></h1>
+    <nav id="links"><a id="stats" class="lnk" href="stats.html" data-i18n="stats">stats</a><a id="back" href="./">&larr; <span data-i18n="wall">wall</span></a></nav>
   </header>
 
   <nav id="filters" aria-label="filter and sort">
-    <div class="group" id="museums"><span class="k">museum</span></div>
-    <div class="group" id="sorts"><span class="k">order</span>
-      <button data-sort="newest" class="on">newest</button>
-      <button data-sort="oldest">oldest</button>
-      <button data-sort="artist">artist</button>
+    <div class="group" id="museums"><span class="k" data-i18n="museum">museum</span></div>
+    <div class="group" id="sorts"><span class="k" data-i18n="order">order</span>
+      <button data-sort="newest" class="on" data-i18n="newest">newest</button>
+      <button data-sort="oldest" data-i18n="oldest">oldest</button>
+      <button data-sort="artist" data-i18n="artist">artist</button>
     </div>
   </nav>
 
   <main>
     <div id="grid"></div>
-    <div id="empty">Nothing kept yet. Press L on the wall.</div>
+    <div id="empty" data-i18n="empty_kept">Nothing kept yet. Press L on the wall.</div>
   </main>
 
+<script src="i18n.js"></script>
 <script>
 const $ = (s) => document.querySelector(s);
+const T = (k, v) => HB.t(k, v);
 
 // --- themes (same as the wall) ----------------------------------------------
 const THEMES = {
@@ -177,7 +179,7 @@ function buildMuseums() {
     b.onclick = () => { museum = val; buildMuseums(); render(false); };
     box.appendChild(b);
   };
-  add("all", "all");
+  add("all", T("all"));
   names.forEach(n => add(n, shortMuseum(n)));
   box.style.display = names.length > 1 ? "" : "none";
 }
@@ -202,7 +204,7 @@ function render(first) {
     el.className = "tile in"; el.dataset.id = p.id;
     const dots = (p.palette || []).slice(0, 5).map(c => `<i style="background:${esc(c.hex)}"></i>`).join("");
     const t = p.track && p.track.title ? p.track : null;
-    const song = t ? `<div class="song" title="playing when you kept this">${t.cover ? `<img src="${esc(t.cover)}" alt="">` : ""}<span>${esc(t.title)}<span class="n"> · ${esc(t.artist || "")}</span></span></div>` : "";
+    const song = t ? `<div class="song" title="${esc(T("song_tip"))}">${t.cover ? `<img src="${esc(t.cover)}" alt="">` : ""}<span>${esc(t.title)}<span class="n"> · ${esc(t.artist || "")}</span></span></div>` : "";
     el.innerHTML = `
       <a class="pic" href="${esc(p.url || "#")}" target="_blank" rel="noopener" tabindex="-1"><img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy" decoding="async"></a>
       <figcaption class="lbl">
@@ -211,7 +213,7 @@ function render(first) {
         <div class="museum">${esc(p.museum)}</div>
         <div class="dots">${dots}</div>
         ${song}
-        <div class="acts"><a href="${esc(p.url || "#")}" target="_blank" rel="noopener">open</a><button class="rm">remove</button></div>
+        <div class="acts"><a href="${esc(p.url || "#")}" target="_blank" rel="noopener">${T("open")}</a><button class="rm">${T("remove")}</button></div>
       </figcaption>`;
     el.querySelector(".rm").onclick = () => remove(p, el);
     grid.appendChild(el);
@@ -245,7 +247,8 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") location.href = "./";
 });
 
-load();
+HB.init().then(load);
+document.addEventListener("hb:lang", () => { if (favorites.length) { buildMuseums(); render(false); } });
 </script>
 </body>
 </html>
