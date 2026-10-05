@@ -69,6 +69,21 @@ When a newer version is published, a small *new version x.y available* link
 appears above the buttons. It opens the Releases page; download and replace the
 app. Nothing updates itself.
 
+**Moving from the source install to the app.** Your kept paintings and history
+are three files in the checkout's `data/` folder. Copy them into the app's folder
+once, before the first launch, then use one or the other:
+
+```sh
+# Mac
+D="$HOME/Library/Application Support/heure bleue/data"; mkdir -p "$D"
+cp data/favorites.json data/history.jsonl data/taste.json "$D/"
+cp config.json "$HOME/Library/Application Support/heure bleue/"   # if you have one
+```
+
+On Windows the folder is `%APPDATA%\heure bleue\data`. The language, place and
+units chosen in the ⚙ panel live in the browser, not in a file: pick them again
+in the app, three clicks.
+
 Linux has no packaged app yet: use the Python install below, which gives the
 same window with `python3 -m heurebleue app` after `pip install pywebview`.
 
