@@ -13,7 +13,7 @@ dependencies = ["pillow>=10"]
 
 [project.optional-dependencies]
 windows = ["winsdk; sys_platform == 'win32'"]
-app = ["pywebview>=5"]          # `heurebleue app`: the wall in its own window
+app = ["pywebview>=5", "certifi"]   # `heurebleue app`: the wall in its own window; certifi = https from the packaged app
 
 [project.scripts]
 heurebleue = "heurebleue.__main__:main"

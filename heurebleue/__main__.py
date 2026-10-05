@@ -82,6 +82,13 @@ def cmd_doctor(_args) -> int:
         line("index", n > 0, f"{n} paintings")
     else:
         line("index", False, "missing: python -m heurebleue index")
+    try:
+        import urllib.request
+        from .wall import UA
+        with urllib.request.urlopen(urllib.request.Request("https://i.scdn.co/image/ab67616d0000b273051c714fe8f8e635e0c183f5", headers=UA), timeout=15) as r:
+            line("https", True, f"album cover fetched ({len(r.read()) // 1000} kB)")
+    except Exception as exc:  # noqa: BLE001
+        line("https", False, f"cover fetch failed: {exc}")
     with socket.socket() as s:
         free = s.connect_ex((cfg["host"], cfg["port"])) != 0
     line("port", True, f"{cfg['port']} {'free' if free else 'in use (already running?)'}")

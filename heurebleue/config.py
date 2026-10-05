@@ -46,6 +46,16 @@ WEB = BUNDLE / "web"
 DATA = ROOT / "data"
 CONFIG_FILE = ROOT / "config.json"
 
+if FROZEN and "SSL_CERT_FILE" not in os.environ:
+    # The bundled OpenSSL remembers the certificate folder of the machine that BUILT the app
+    # (python.org's Python: /Library/Frameworks/Python.framework/.../etc/openssl), which does
+    # not exist on the user's machine, so every https fetch fails. certifi ships its own file.
+    try:
+        import certifi
+        os.environ["SSL_CERT_FILE"] = certifi.where()
+    except ImportError:
+        pass
+
 DEFAULTS = {
     "port": 8765,
     "host": "127.0.0.1",

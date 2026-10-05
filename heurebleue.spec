@@ -14,7 +14,7 @@ from heurebleue import __version__  # noqa: E402
 NAME = "HeureBleue"
 ICON = {"darwin": "assets/icon.icns", "win32": "assets/icon.ico"}.get(sys.platform, "assets/icon.png")
 
-hidden = ["heurebleue.nowplaying.macos", "heurebleue.nowplaying.windows", "heurebleue.nowplaying.linux"]
+hidden = ["heurebleue.nowplaying.macos", "heurebleue.nowplaying.windows", "heurebleue.nowplaying.linux", "certifi"]
 if sys.platform == "win32":
     hidden += ["winsdk", "winsdk.windows.media.control", "winsdk.windows.storage.streams"]
 
