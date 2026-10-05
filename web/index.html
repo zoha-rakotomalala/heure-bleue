@@ -56,9 +56,10 @@
   #label .mood i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; }
 
   /* --- spotify badge ----------------------------------------------------- */
-  #now { display: grid; grid-template-columns: auto 1fr; gap: 1.6vmin; align-items: center; padding-top: 2vh; border-top: 1px solid var(--hair); opacity: 0; transform: translateY(8px); transition: opacity 1.5s ease, transform 1.5s ease; }
+  #now { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.6vmin; align-items: center; padding-top: 2vh; border-top: 1px solid var(--hair); opacity: 0; transform: translateY(8px); transition: opacity 1.5s ease, transform 1.5s ease; min-width: 0; }
   #now.on { opacity: 1; transform: none; }
-  #now > div { opacity: var(--band-opacity); transition: opacity 4s ease; }
+  /* min-width: 0 lets a long song title shrink and take the ellipsis; without it the footer grew into the painting's column */
+  #now > div { opacity: var(--band-opacity); transition: opacity 4s ease; min-width: 0; }
   #now img { width: 9.5vmin; height: 9.5vmin; object-fit: cover; border-radius: 4px; box-shadow: 0 14px 34px -10px rgba(0,0,0,0.95); outline: 1px solid rgba(var(--text-rgb), 0.18); outline-offset: -1px; }
   #now .t { font-size: 2vmin; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   #now .a { font-size: 1.5vmin; color: var(--muted); font-weight: 300; margin-top: 0.3vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
