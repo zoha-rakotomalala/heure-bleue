@@ -7,6 +7,7 @@
 <style>
   :root {
     --bg: #0b1026;
+    --bg-rgb: 11, 16, 38;
     --text: #dde3f2;
     --text-rgb: 221, 227, 242;
     --muted: rgba(var(--text-rgb), 0.55);
@@ -88,10 +89,14 @@
   #swatches span.painting { background: conic-gradient(#8a2a1e, #2b3a6b, #1e4d3a, #6b4a1e, #8a2a1e); }
 
   /* --- language, place, units (the ⚙ button) ------------------------------- */
-  #prefs { display: none; flex-direction: column; gap: 1vh; padding: 1.4vh 1.6vmin; min-width: 30vmin; max-width: 44vmin; border-radius: 1.6vmin; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); font-size: 1.2vmin; }
+  /* The panel opens over the painting in landscape, so it needs a solid floor: the wall colour at 94%, not a tint. */
+  #prefs { display: none; flex-direction: column; gap: 1vh; padding: 1.4vh 1.6vmin; min-width: 30vmin; max-width: min(40vmin, calc(100vw - 4.4vmin)); border-radius: 1.6vmin; background: rgba(var(--bg-rgb), 0.94); border: 1px solid rgba(var(--text-rgb), 0.2); box-shadow: 0 18px 50px -16px rgba(0,0,0,0.6); backdrop-filter: blur(12px); font-size: 1.2vmin; }
   #controls.prefs #prefs { display: flex; }
   #prefs .k { font-size: 1vmin; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4vh; }
   #prefs .pills { display: flex; flex-wrap: wrap; gap: 0.5vmin; }
+  /* one menu instead of thirteen tiles; the system draws the list, the closed state is styled as a pill */
+  #prefs select { -webkit-appearance: none; appearance: none; width: 100%; box-sizing: border-box; border: 1px solid rgba(var(--text-rgb), 0.35); border-radius: 999px; background: rgba(var(--text-rgb), 0.06) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23999' stroke-width='1.4'/%3E%3C/svg%3E") no-repeat right 1vmin center / 1vmin; color: var(--text); padding: 0.5vh 2.6vmin 0.5vh 1vmin; font: inherit; font-size: 1.2vmin; cursor: pointer; outline: none; }
+  #prefs select:focus { border-color: var(--gold); }
   #prefs .pills button, #prefs .pills .pill { width: auto; height: auto; border-radius: 999px; padding: 0.35vh 0.9vmin; font-size: 1.15vmin; letter-spacing: 0.04em; }
   #prefs .pills button.on { border-color: var(--gold); color: var(--gold); }
   #prefs input { width: 100%; box-sizing: border-box; border: 1px solid rgba(var(--text-rgb), 0.3); border-radius: 999px; background: rgba(var(--text-rgb), 0.06); color: var(--text); padding: 0.5vh 1vmin; font: inherit; font-size: 1.2vmin; outline: none; }
@@ -170,7 +175,7 @@
 
   <div id="controls">
     <div id="prefs">
-      <div><div class="k" data-i18n="language">Language</div><div class="pills langs"></div></div>
+      <div><div class="k" data-i18n="language">Language</div><select class="lang"></select></div>
       <div class="place"><div class="k" data-i18n="place">Place</div><div class="now"></div><input type="search" autocomplete="off" data-i18n-ph="search_city" placeholder="search a city"><div class="pills results"></div><div class="note"></div></div>
       <div><div class="k" data-i18n="units">Units</div><div class="pills units"><button data-u="celsius">°C</button><button data-u="fahrenheit">°F</button></div></div>
       <button class="reset" data-i18n="reset">reset to config.json</button>
@@ -258,6 +263,7 @@ function luminance([r, g, b]) { return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 
 function applyTheme(t) {
   const root = document.documentElement.style;
   root.setProperty("--bg", t.bg);
+  root.setProperty("--bg-rgb", hexRgb(t.bg).join(", "));
   root.setProperty("--text", t.text);
   root.setProperty("--text-rgb", hexRgb(t.text).join(", "));
   root.setProperty("--gold", t.gold);
@@ -501,12 +507,12 @@ $("#controls .kept").onclick = () => { location.href = "favorites.html"; };
 
 // --- language, place, units ---------------------------------------------------
 function buildPrefs() {
-  const langs = $("#prefs .langs"); langs.innerHTML = "";
+  const sel = $("#prefs select.lang"); sel.innerHTML = "";
   for (const [code, L] of Object.entries(HB.LANGS)) {
-    const b = document.createElement("button"); b.textContent = L.name; b.lang = code; b.classList.toggle("on", code === HB.lang);
-    b.onclick = () => HB.setLang(code);
-    langs.appendChild(b);
+    const o = document.createElement("option"); o.value = code; o.textContent = L.name; o.lang = code; o.selected = code === HB.lang;
+    sel.appendChild(o);
   }
+  sel.onchange = () => HB.setLang(sel.value);
   const c = HB.city(); $("#prefs .place .now").textContent = `${c.name} · ${c.timezone || ""}`;
   document.querySelectorAll("#prefs .units button").forEach(b => b.classList.toggle("on", b.dataset.u === HB.units()));
   $("#prefs .reset").style.display = HB.overridden() ? "" : "none";
@@ -553,7 +559,7 @@ buildSwatches();
 // --- keyboard + idle cursor -------------------------------------------------
 document.addEventListener("keydown", (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
-  if (e.target.tagName === "INPUT") { if (e.key === "Escape") { e.target.blur(); $("#controls").classList.remove("prefs"); } return; }
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") { if (e.key === "Escape") { e.target.blur(); $("#controls").classList.remove("prefs"); } return; }
   const k = e.key.toLowerCase();
   if (k === "f") { if (window.pywebview) pywebview.api.toggle_fullscreen(); else document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
   else if (k === "n" || k === " " || k === "arrowright") { e.preventDefault(); $("#controls .swap").click(); }
