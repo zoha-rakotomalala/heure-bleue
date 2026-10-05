@@ -46,12 +46,12 @@
   #filters button.on { color: var(--text); border-bottom-color: var(--gold); }
 
   /* --- grid --------------------------------------------------------------- */
-  #grid { columns: 2; column-gap: 3vw; padding-top: 3vh; }
-  @media (orientation: landscape) { #grid { columns: 3; } }
-  @media (orientation: landscape) and (min-width: 1500px) { #grid { columns: 4; } }
-  @media (orientation: landscape) and (min-width: 2200px) { #grid { columns: 5; } }
-  @media (orientation: portrait) and (max-width: 600px) { #grid { columns: 1; } }
-  .tile { position: relative; break-inside: avoid; margin-bottom: 5vh; opacity: 1; transform: none; transition: opacity 0.9s ease, transform 0.9s ease; }
+  /* Explicit columns filled by script (shortest column first, using each painting's
+     known proportions). CSS multi-column looked the same but WebKit balances it once,
+     before the images arrive, and leaves holes at the top of columns 2..n. */
+  #grid { display: flex; gap: 3vw; padding-top: 3vh; align-items: flex-start; }
+  #grid .col { flex: 1 1 0; min-width: 0; }
+  .tile { position: relative; margin-bottom: 5vh; opacity: 1; transform: none; transition: opacity 0.9s ease, transform 0.9s ease; }
   .tile.in { opacity: 0; transform: translateY(10px); }
   .tile.out { opacity: 0; transform: translateY(6px); pointer-events: none; }
   .tile .pic { display: block; position: relative; }
@@ -160,10 +160,13 @@ if (matchMedia("(hover: none)").matches) document.body.classList.add("touch");
 let favorites = [], museum = "all", sort = "newest";
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+let shape = {};   // painting id -> height/width, from the index; a kept painting not in it gets 4:3 upright
 async function load() {
   try { favorites = await (await fetch("/api/favorites", { cache: "no-store" })).json(); }
   catch (e) { console.warn("favorites", e); favorites = []; }
   if (!Array.isArray(favorites)) favorites = [];
+  try { for (const p of await (await fetch("/data/paintings.json")).json()) if (p.w && p.h) shape[p.id] = p.h / p.w; }
+  catch (e) { console.warn("index", e); }
   if (themeName === "painting") setTheme(favorites[favorites.length - 1] || null);
   buildMuseums();
   render(true);
@@ -200,6 +203,9 @@ function render(first) {
   $("#count").textContent = favorites.length ? String(favorites.length) : "";
   $("#empty").classList.toggle("on", favorites.length === 0);
   const grid = $("#grid"); grid.innerHTML = "";
+  const n = columnCount();
+  const cols = Array.from({ length: n }, () => { const c = document.createElement("div"); c.className = "col"; grid.appendChild(c); return c; });
+  const height = new Array(n).fill(0);   // in column widths: image (h/w) + label, song line if any
   list.forEach((p, i) => {
     const el = document.createElement("figure");
     el.className = "tile in"; el.dataset.id = p.id;
@@ -217,11 +223,22 @@ function render(first) {
         <div class="acts"><a href="${esc(p.url || "#")}" target="_blank" rel="noopener">${T("open")}</a><button class="rm">${T("remove")}</button></div>
       </figcaption>`;
     el.querySelector(".rm").onclick = () => remove(p, el);
-    grid.appendChild(el);
+    const k = height.indexOf(Math.min(...height));
+    cols[k].appendChild(el);
+    height[k] += (shape[p.id] || 1.33) + 0.42 + (t ? 0.1 : 0);
     const delay = first ? Math.min(i * 60, 900) : 0;
     setTimeout(() => el.classList.remove("in"), delay + 20);
   });
+  lastCols = n;
 }
+
+function columnCount() {
+  const landscape = innerWidth > innerHeight;
+  if (!landscape) return innerWidth <= 600 ? 1 : 2;
+  return innerWidth >= 2200 ? 5 : innerWidth >= 1500 ? 4 : 3;
+}
+let lastCols = 0, resizeTimer;
+addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (favorites.length && columnCount() !== lastCols) render(false); }, 150); });
 
 async function remove(p, el) {
   el.classList.add("out");
