@@ -18,7 +18,7 @@
     --sans: -apple-system, "Helvetica Neue", "Inter", sans-serif;
     --u: 1vw; /* base unit: viewport width in portrait, viewport height in landscape */
   }
-  @media (orientation: landscape) { :root { --u: 0.75vh; } }
+  @media (orientation: landscape) { :root { --u: max(0.75vh, 0.6vw, 9px); } }   /* a TV scales with its height; a laptop window never drops below readable */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 300; transition: background 3s ease, color 3s ease; }
   body { min-height: 100%; padding: 3.2vh 4vw 6vh; }
@@ -47,7 +47,8 @@
 
   /* --- grid --------------------------------------------------------------- */
   #grid { columns: 2; column-gap: 3vw; padding-top: 3vh; }
-  @media (orientation: landscape) { #grid { columns: 4; } }
+  @media (orientation: landscape) { #grid { columns: 3; } }
+  @media (orientation: landscape) and (min-width: 1500px) { #grid { columns: 4; } }
   @media (orientation: landscape) and (min-width: 2200px) { #grid { columns: 5; } }
   @media (orientation: portrait) and (max-width: 600px) { #grid { columns: 1; } }
   .tile { position: relative; break-inside: avoid; margin-bottom: 5vh; opacity: 1; transform: none; transition: opacity 0.9s ease, transform 0.9s ease; }
