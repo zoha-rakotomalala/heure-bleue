@@ -21,8 +21,9 @@ painting in the colours of its cover.*
 ## What it does
 
 - **Follows your music.** When a song starts, the album cover is reduced to five
-  colours and the closest painting comes up. Spotify or Apple Music on macOS;
-  any player on Windows and Linux.
+  colours and the closest painting comes up. Spotify and Apple Music on macOS,
+  plus YouTube Music, Deezer, TIDAL or a browser tab with `media-control`
+  installed; any player on Windows and Linux.
 - **Rotates on its own** every few minutes when nothing is playing.
 - **Keeps a quiet board**: clock, date, weather, sunrise and sunset. Nothing from work.
 - **Learns what you like.** Keep a painting (♥) and the wall leans toward that
@@ -104,7 +105,17 @@ The wall opens in your browser. Move the window to the spare screen and press
 `F` for fullscreen. For a clean window with no address bar: in Safari, *File →
 Add to Dock*, then open the wall from the Dock.
 
-Music is read from Spotify or Apple Music. Nothing else to install.
+Music is read from Spotify or Apple Music. Nothing else to install. For other
+players (YouTube Music, Deezer, TIDAL, a browser tab), add one tool:
+
+```sh
+brew install media-control
+```
+
+It reads what the macOS Now Playing widget shows. Apple closed that feed to
+third-party apps in macOS 15.4; `media-control` is a community tool that gets
+through, so an Apple update may break it. The wall then falls back to Spotify
+and Music on its own. The downloadable app uses it too when it is installed.
 
 To start the wall at login and keep it running in the background:
 

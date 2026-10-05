@@ -18,7 +18,7 @@ Each backend exposes  read() -> Track | None  and  next_track() -> bool
 
 None means nothing is playing or no supported player is running.
 
-  macOS   -> AppleScript (Spotify, Music)
+  macOS   -> AppleScript (Spotify, Music), then media-control for any other player when installed
   Windows -> system media session (SMTC) via winsdk, any player
   Linux   -> MPRIS via playerctl, any player
 """
@@ -37,7 +37,7 @@ def detect() -> tuple[str, Callable[[], Optional[Track]], Callable[[], bool]]:
     sys_ = config.system()
     if sys_ == "macos":
         from . import macos
-        return "macos/applescript", macos.read, macos.next_track
+        return ("macos/applescript+media-control" if macos.MEDIA_CONTROL else "macos/applescript"), macos.read, macos.next_track
     if sys_ == "windows":
         from . import windows
         return ("windows/smtc" if windows.available() else "windows/unavailable"), windows.read, windows.next_track

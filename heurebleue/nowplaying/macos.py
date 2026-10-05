@@ -1,16 +1,40 @@
-"""macOS: Spotify and Apple Music (the Music app) via AppleScript.
+"""macOS: Spotify and Apple Music (the Music app) via AppleScript, then any other
+player through the system Now Playing feed.
 
 Spotify gives an artwork URL. Music gives raw artwork bytes, which we pull as a
 hex blob through osascript. Both are polled only when the app is running, so we
 never launch a player by accident.
+
+Everything else (YouTube Music, Deezer, Tidal, a browser tab) is read with
+`media-control` (brew install media-control), which opens the MediaRemote feed
+Apple closed to third parties in macOS 15.4. It is a community tool, not an
+Apple door; when it is missing or stops working the wall simply falls back to
+Spotify and Music.
 """
 from __future__ import annotations
 
+import base64
+import calendar
+import json
 import re
+import shutil
 import subprocess
+import time
+from pathlib import Path
 from typing import Optional
 
 from . import Track
+
+MEDIA_CONTROL = shutil.which("media-control") or next(
+    (p for p in ("/opt/homebrew/bin/media-control", "/usr/local/bin/media-control") if Path(p).exists()), None)
+# an app opened from Finder has a bare PATH, so the Homebrew locations are tried by hand
+
+APP_NAMES = {
+    "com.spotify.client": "Spotify", "com.apple.Music": "Music", "com.google.Chrome": "Chrome",
+    "com.apple.Safari": "Safari", "org.mozilla.firefox": "Firefox", "com.brave.Browser": "Brave",
+    "com.microsoft.edgemac": "Edge", "company.thebrowser.Browser": "Arc", "com.github.th-ch.youtube-music": "YouTube Music",
+    "com.tidal.desktop": "TIDAL", "com.deezer.deezer-desktop": "Deezer", "org.videolan.vlc": "VLC",
+}
 
 RUNNING = 'tell application "System Events" to (name of processes)'
 
@@ -85,6 +109,42 @@ _last_music_id = None
 _last_music_art: Optional[bytes] = None
 
 
+def _system_now_playing() -> Optional[Track]:
+    """Whatever macOS itself shows in the Now Playing widget, via media-control."""
+    if not MEDIA_CONTROL:
+        return None
+    try:
+        r = subprocess.run([MEDIA_CONTROL, "get"], capture_output=True, text=True, timeout=10)
+        d = json.loads(r.stdout or "null")
+    except (subprocess.SubprocessError, OSError, json.JSONDecodeError):
+        return None
+    if not d or not d.get("title"):
+        return None
+    bundle = d.get("bundleIdentifier") or ""
+    player = APP_NAMES.get(bundle) or bundle.rsplit(".", 1)[-1] or "player"
+    playing = bool(d.get("playing"))
+    pos = float(d.get("elapsedTime") or 0)
+    if playing and d.get("timestamp"):  # elapsedTime is the position at `timestamp`; advance it to now
+        try:
+            ts = calendar.timegm(time.strptime(d["timestamp"][:19], "%Y-%m-%dT%H:%M:%S"))  # the feed stamps in UTC
+            pos += max(0.0, time.time() - ts)
+        except ValueError:
+            pass
+    art = d.get("artworkData")
+    try:
+        cover = base64.b64decode(art) if art else None
+    except ValueError:
+        cover = None
+    title, artist = d.get("title") or "", d.get("artist") or ""
+    return {
+        "player": player, "state": "playing" if playing else "paused",
+        "id": f"{player}:{d.get('contentItemIdentifier') or title + '|' + artist}",
+        "title": title, "artist": artist, "album": d.get("album") or "",
+        "cover_url": None, "cover_bytes": cover,
+        "duration_ms": int(float(d.get("duration") or 0) * 1000), "position_s": pos,
+    }
+
+
 def read() -> Optional[Track]:
     global _last_music_id, _last_music_art
     procs = _running()
@@ -100,7 +160,7 @@ def read() -> Optional[Track]:
                 _last_music_id = t["id"]
             t["cover_bytes"] = _last_music_art
             return t
-    return None
+    return _system_now_playing()
 
 
 def next_track() -> bool:
@@ -112,4 +172,10 @@ def next_track() -> bool:
             if state in ("playing", "paused"):
                 _osa(f'tell application "{app}" to next track')
                 return True
+    if MEDIA_CONTROL and _system_now_playing():
+        try:
+            subprocess.run([MEDIA_CONTROL, "next-track"], capture_output=True, timeout=10)
+            return True
+        except (subprocess.SubprocessError, OSError):
+            return False
     return False
