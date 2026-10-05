@@ -202,17 +202,34 @@ async function loadConfig() {
 const $ = (s) => document.querySelector(s);
 
 // --- a newer release? the server asks GitHub once a day; the demo has no server ----
+// The packaged Mac app can install it itself (one click, progress on the same line);
+// elsewhere the line opens the release page.
+let upd = null, updTimer = null;
 async function checkUpdate() {
   try {
-    const v = await (await fetch("/api/version")).json();
-    const a = $("#update");
-    a.hidden = !v.newer;
-    if (v.newer) { a.textContent = T("update", { v: v.latest }); a.href = v.url; }
+    upd = await (await fetch("/api/version")).json();
+    const a = $("#update"), inst = upd.install;
+    a.hidden = !upd.newer;
+    if (!upd.newer) return;
+    a.href = upd.url;
+    if (inst && inst.phase === "downloading") a.textContent = T("upd_downloading", { p: inst.pct || 0 });
+    else if (inst && (inst.phase === "verifying" || inst.phase === "installing")) a.textContent = T("upd_installing");
+    else if (inst && inst.phase === "restarting") a.textContent = T("upd_restarting");
+    else if (inst && inst.phase === "error") a.textContent = T("upd_failed");
+    else a.textContent = T(upd.can_install ? "update_install" : "update", { v: upd.latest });
+    const busy = inst && !["error", null, undefined].includes(inst.phase);
+    clearTimeout(updTimer);
+    if (busy) updTimer = setTimeout(checkUpdate, 700);
   } catch (e) { /* offline or the web demo */ }
 }
 $("#update").addEventListener("click", (e) => {
-  e.preventDefault();  // in the app window a plain link would replace the wall; the server opens the system browser
-  fetch("/api/update/open", { method: "POST" }).catch(() => window.open($("#update").href, "_blank"));
+  e.preventDefault();  // in the app window a plain link would replace the wall
+  const inst = upd && upd.install;
+  if (upd && upd.can_install && !(inst && inst.phase === "error")) {
+    fetch("/api/update/install", { method: "POST" }).then(checkUpdate).catch(() => fetch("/api/update/open", { method: "POST" }));
+  } else {
+    fetch("/api/update/open", { method: "POST" }).catch(() => window.open($("#update").href, "_blank"));
+  }
 });
 document.addEventListener("hb:lang", checkUpdate);
 

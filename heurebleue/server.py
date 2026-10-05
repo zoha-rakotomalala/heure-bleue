@@ -10,6 +10,7 @@
   POST /api/seen {...}            -> append one line to history.jsonl
   GET  /api/version               -> this version, the latest GitHub release, whether it is newer
   POST /api/update/open           -> open that release page in the system browser
+  POST /api/update/install        -> packaged macOS app only: download, verify, swap, relaunch (progress in /api/version)
 
 Binds to 127.0.0.1 by default. Nothing here needs or holds a credential.
 """
@@ -149,6 +150,12 @@ class Handler(SimpleHTTPRequestHandler):
 
         if p == "/api/update/open":
             return self._json({"ok": updates.open_latest()})
+
+        if p == "/api/update/install":
+            try:
+                return self._json(updates.install())
+            except Exception as exc:  # noqa: BLE001
+                return self._json({"error": str(exc)}, 409)
 
         if p == "/api/swap":
             config.SWAP.write_text(json.dumps({"ts": time.time()}), encoding="utf-8")

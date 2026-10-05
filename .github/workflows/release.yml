@@ -74,6 +74,8 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with: { path: out, merge-multiple: true }
+      - name: checksums (the app verifies its own update against this file)
+        run: cd out && sha256sum HeureBleue-* > SHA256SUMS.txt && cat SHA256SUMS.txt
       - uses: softprops/action-gh-release@v2
         with:
           draft: true

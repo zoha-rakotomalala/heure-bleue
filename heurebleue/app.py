@@ -41,7 +41,7 @@ def run(fullscreen: bool = False, screen_index: int = 1, debug: bool = False) ->
     except ImportError:
         print("the app window needs pywebview:  python3 -m pip install pywebview", file=sys.stderr)
         return 2
-    from . import server, wall
+    from . import server, updates, wall
 
     cfg = config.load()
     if not config.PAINTINGS.exists():
@@ -75,6 +75,7 @@ def run(fullscreen: bool = False, screen_index: int = 1, debug: bool = False) ->
             window.toggle_fullscreen()
 
     window.expose(Api().toggle_fullscreen)
+    updates.on_quit = window.destroy  # a finished self-update closes the window; the new app opens itself
 
     storage = config.ROOT / "webview"  # localStorage: language, place, units chosen in the panel
     storage.mkdir(parents=True, exist_ok=True)

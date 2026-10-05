@@ -66,9 +66,13 @@ first. Your kept paintings, history and choices live in
 `~/Library/Application Support/heure bleue` (Mac) or `%APPDATA%\heure bleue`
 (Windows); a `config.json` there works the same as the one described below.
 
-When a newer version is published, a small *new version x.y available* link
-appears above the buttons. It opens the Releases page; download and replace the
-app. Nothing updates itself.
+When a newer version is published, a small gold line appears above the
+buttons. On the Mac app it reads *new version x.y · install*: one click, and
+the app downloads the new `.dmg` from the release, checks it against the
+`SHA256SUMS.txt` published next to it, swaps itself in Applications and
+restarts. Thirty seconds, no Finder. Your paintings and settings are outside
+the app and are not touched. Everywhere else (Windows, a source install, the
+web demo) the line opens the Releases page.
 
 **Moving from the source install to the app.** Your kept paintings and history
 are three files in the checkout's `data/` folder. Copy them into the app's folder
