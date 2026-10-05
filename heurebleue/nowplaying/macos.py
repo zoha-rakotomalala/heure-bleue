@@ -146,21 +146,29 @@ def _system_now_playing() -> Optional[Track]:
 
 
 def read() -> Optional[Track]:
+    """Spotify, then Music, by AppleScript; then the system feed. A player that is
+    playing beats one that is paused, so a Firefox tab wins over a paused Spotify."""
     global _last_music_id, _last_music_art
     procs = _running()
+    direct: Optional[Track] = None
     if "Spotify" in procs:
         t = _parse(_osa(SPOTIFY), "Spotify")
         if t and t["state"] in ("playing", "paused"):
-            return t
-    if "Music" in procs:
+            direct = t
+    if "Music" in procs and (direct is None or direct["state"] == "paused"):
         t = _parse(_osa(MUSIC), "Music")
-        if t and t["state"] in ("playing", "paused"):
+        if t and t["state"] in ("playing", "paused") and (direct is None or t["state"] == "playing"):
             if t["id"] != _last_music_id:  # artwork is heavy; fetch once per track
                 _last_music_art = _music_artwork()
                 _last_music_id = t["id"]
             t["cover_bytes"] = _last_music_art
-            return t
-    return _system_now_playing()
+            direct = t
+    if direct is not None and direct["state"] == "playing":
+        return direct
+    other = _system_now_playing()
+    if other and other["state"] == "playing" and other["player"] not in ("Spotify", "Music"):
+        return other
+    return direct or other
 
 
 def next_track() -> bool:
