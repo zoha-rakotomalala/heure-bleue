@@ -81,6 +81,8 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   #swatches { display: none; gap: 0.7vmin; padding: 0.9vh 0.9vmin; border-radius: 999px; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); }
   #controls.open #swatches { display: flex; }
+  #update { font-size: 1.15vmin; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; opacity: 0.9; }
+  #update:hover { text-decoration: underline; }
   #swatches span { width: 2.2vmin; height: 2.2vmin; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15); }
   #swatches span.on { border-color: var(--gold); }
   #swatches span.painting { background: conic-gradient(#8a2a1e, #2b3a6b, #1e4d3a, #6b4a1e, #8a2a1e); }
@@ -174,6 +176,7 @@
       <button class="reset" data-i18n="reset">reset to config.json</button>
     </div>
     <div id="swatches"></div>
+    <a id="update" href="#" hidden></a>
     <div class="row">
       <button class="prefs" data-i18n-title="tip_prefs" title="Language, place, units">⚙</button>
       <button class="theme" data-i18n-title="tip_theme" title="Wall colour">◐</button>
@@ -194,8 +197,24 @@ async function loadConfig() {
   CFG = { ...CFG, ...(await HB.init()) };   // /api/config, then the language is picked and the static text translated
   ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
   if (!localStorage.getItem("wall.theme") && !params.has("theme") && !params.has("bg")) { themeName = CFG.theme; setTheme(current); buildSwatches(); }
+  setTimeout(checkUpdate, 30000); setInterval(checkUpdate, 6 * 3600 * 1000);
 }
 const $ = (s) => document.querySelector(s);
+
+// --- a newer release? the server asks GitHub once a day; the demo has no server ----
+async function checkUpdate() {
+  try {
+    const v = await (await fetch("/api/version")).json();
+    const a = $("#update");
+    a.hidden = !v.newer;
+    if (v.newer) { a.textContent = T("update", { v: v.latest }); a.href = v.url; }
+  } catch (e) { /* offline or the web demo */ }
+}
+$("#update").addEventListener("click", (e) => {
+  e.preventDefault();  // in the app window a plain link would replace the wall; the server opens the system browser
+  fetch("/api/update/open", { method: "POST" }).catch(() => window.open($("#update").href, "_blank"));
+});
+document.addEventListener("hb:lang", checkUpdate);
 
 // --- themes ------------------------------------------------------------------
 // Pick with ?theme=<name> or ?bg=<hex>. The choice is remembered in this browser.
@@ -518,7 +537,7 @@ document.addEventListener("keydown", (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.target.tagName === "INPUT") { if (e.key === "Escape") { e.target.blur(); $("#controls").classList.remove("prefs"); } return; }
   const k = e.key.toLowerCase();
-  if (k === "f") { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  if (k === "f") { if (window.pywebview) pywebview.api.toggle_fullscreen(); else document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
   else if (k === "n" || k === " " || k === "arrowright") { e.preventDefault(); $("#controls .swap").click(); }
   else if (k === "l") { $("#controls .fav").click(); }
   else if (k === "t") { $("#controls .theme").click(); }

@@ -1,6 +1,7 @@
 """heurebleue command line.
 
   python -m heurebleue start              run the wall (server + player loop) in one process
+  python -m heurebleue app                the same, in its own window (needs pywebview); --fullscreen, --screen N
   python -m heurebleue doctor             check Python, Pillow, player backend, index, port
   python -m heurebleue open               open the wall in the default browser
   python -m heurebleue index --target N   grow data/paintings.json from the museums
@@ -45,6 +46,11 @@ def cmd_start(args) -> int:
     return 0
 
 
+def cmd_app(args) -> int:
+    from . import app
+    return app.run(fullscreen=args.fullscreen, screen_index=args.screen, debug=args.debug)
+
+
 def cmd_doctor(_args) -> int:
     from . import nowplaying
     cfg = config.load()
@@ -55,7 +61,9 @@ def cmd_doctor(_args) -> int:
         ok &= bool(good)
         print(f"  [{'ok' if good else '!!'}] {label:<18} {detail}")
 
-    print(f"heure bleue doctor ({config.system()}, Python {sys.version.split()[0]})")
+    from . import __version__
+    print(f"heure bleue {__version__} doctor ({config.system()}, Python {sys.version.split()[0]})")
+    line("files", True, f"data in {config.DATA}" + (" (packaged app)" if config.FROZEN else ""))
     line("python", sys.version_info >= (3, 10), "3.10+ required" if sys.version_info < (3, 10) else "")
     try:
         import PIL  # noqa: F401
@@ -113,6 +121,7 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="heurebleue", description="a gallery wall for a spare screen")
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("start", help="run the wall"); p.add_argument("--open", action="store_true", help="also open the browser"); p.set_defaults(fn=cmd_start)
+    p = sub.add_parser("app", help="run the wall in its own window"); p.add_argument("--fullscreen", action="store_true"); p.add_argument("--screen", type=int, default=1, help="1 = main screen"); p.add_argument("--debug", action="store_true", help="web inspector"); p.set_defaults(fn=cmd_app)
     sub.add_parser("doctor", help="check the setup").set_defaults(fn=cmd_doctor)
     sub.add_parser("open", help="open the wall in a browser").set_defaults(fn=cmd_open)
     p = sub.add_parser("index", help="grow the painting index")
@@ -122,6 +131,8 @@ def main(argv=None) -> int:
     p = sub.add_parser("stories", help="add curator texts to Rijksmuseum entries"); p.add_argument("--force", action="store_true"); p.set_defaults(fn=cmd_stories)
     p = sub.add_parser("service", help="start at login"); p.add_argument("action", choices=["install", "remove"]); p.set_defaults(fn=cmd_service)
     p = sub.add_parser("demo", help="build the static web demo (no music)"); p.add_argument("--out", default="site"); p.set_defaults(fn=cmd_demo)
+    if argv is None and config.FROZEN and len(sys.argv) == 1:
+        argv = ["app"]  # double-clicked app icon
     args = ap.parse_args(argv)
     return args.fn(args)
 

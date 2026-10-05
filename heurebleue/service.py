@@ -20,6 +20,11 @@ def _python() -> str:
     return sys.executable
 
 
+def _cmd() -> list[str]:
+    """The packaged app is its own interpreter: `HeureBleue app`. From a checkout: `python -m heurebleue start`."""
+    return [sys.executable, "app"] if config.FROZEN else [_python(), "-m", "heurebleue", "start"]
+
+
 def install() -> str:
     s = config.system()
     if s == "macos":
@@ -63,7 +68,7 @@ def _launchd_install() -> str:
 <plist version="1.0"><dict>
   <key>Label</key><string>{LABEL}</string>
   <key>ProgramArguments</key><array>
-    <string>{_python()}</string><string>-m</string><string>heurebleue</string><string>start</string>
+    {"".join(f"<string>{a}</string>" for a in _cmd())}
   </array>
   <key>WorkingDirectory</key><string>{config.ROOT}</string>
   <key>EnvironmentVariables</key><dict><key>HEURE_BLEUE_HOME</key><string>{config.ROOT}</string></dict>
@@ -91,9 +96,10 @@ def _launchd_remove() -> str:
 # --- Windows -------------------------------------------------------------------
 
 def _schtasks_install() -> str:
-    pyw = Path(_python()).with_name("pythonw.exe")
-    exe = str(pyw if pyw.exists() else _python())
-    cmd = f'"{exe}" -m heurebleue start'
+    argv = _cmd()
+    pyw = Path(argv[0]).with_name("pythonw.exe")
+    argv[0] = str(pyw if pyw.exists() else argv[0])
+    cmd = f'"{argv[0]}" ' + " ".join(argv[1:])
     return _run(["schtasks", "/Create", "/F", "/SC", "ONLOGON", "/TN", "HeureBleue", "/TR", cmd, "/RL", "LIMITED"]) + \
         f"\nrun now with: schtasks /Run /TN HeureBleue  (working dir: set HEURE_BLEUE_HOME={config.ROOT} in your user env)"
 
@@ -106,7 +112,7 @@ Description=heure bleue gallery wall
 After=graphical-session.target
 
 [Service]
-ExecStart={_python()} -m heurebleue start
+ExecStart={" ".join(_cmd())}
 WorkingDirectory={config.ROOT}
 Environment=HEURE_BLEUE_HOME={config.ROOT}
 Restart=on-failure
