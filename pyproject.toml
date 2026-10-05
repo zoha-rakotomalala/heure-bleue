@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "heure-bleue"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A gallery wall for a spare screen: open-collection paintings matched to the music you play."
 readme = "README.md"
 license = { text = "MIT" }
@@ -13,9 +13,13 @@ dependencies = ["pillow>=10"]
 
 [project.optional-dependencies]
 windows = ["winsdk; sys_platform == 'win32'"]
+app = ["pywebview>=5"]          # `heurebleue app`: the wall in its own window
 
 [project.scripts]
 heurebleue = "heurebleue.__main__:main"
 
 [tool.setuptools]
 packages = ["heurebleue", "heurebleue.nowplaying"]
+
+[tool.setuptools.dynamic]
+version = { attr = "heurebleue.__version__" }

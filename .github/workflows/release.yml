@@ -1,0 +1,81 @@
+# Build the desktop app and attach it to a GitHub release.
+#
+# Trigger: push a tag named v<version> (the version in heurebleue/__init__.py).
+#
+# One job per platform, each runs the same checks as check.yml first, then
+# PyInstaller with heurebleue.spec. The release is created as a DRAFT so the
+# notes can be written before anyone sees it; publish it from the Releases page.
+# The wall's update link reads the latest *published* release.
+name: release
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest        # Apple silicon
+            arch: mac-arm64
+          - os: macos-15-intel
+            arch: mac-intel
+          - os: windows-latest
+            arch: windows-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: python -m pip install -r requirements.txt pywebview pyinstaller
+      - if: runner.os == 'Windows'
+        run: python -m pip install winsdk
+      - run: node tests/test_i18n.js web/i18n.js
+      - run: python -m compileall -q heurebleue
+      - name: version must match the tag
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          v=$(python -c "import heurebleue;print(heurebleue.__version__)")
+          test "v$v" = "${GITHUB_REF_NAME}" || { echo "heurebleue/__init__.py says $v, tag is ${GITHUB_REF_NAME}"; exit 1; }
+      - run: pyinstaller --noconfirm heurebleue.spec
+      - name: smoke test the binary
+        shell: bash
+        run: |
+          if [ "${{ runner.os }}" = "macOS" ]; then dist/HeureBleue.app/Contents/MacOS/HeureBleue doctor || true
+          else dist/HeureBleue/HeureBleue.exe doctor || true; fi
+      - name: package (macOS .dmg)
+        if: runner.os == 'macOS'
+        run: |
+          hdiutil create -volname "heure bleue" -srcfolder dist/HeureBleue.app -ov -format UDZO "HeureBleue-${GITHUB_REF_NAME}-${{ matrix.arch }}.dmg"
+      - name: package (Windows .zip)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive -Path dist/HeureBleue -DestinationPath "HeureBleue-$env:GITHUB_REF_NAME-${{ matrix.arch }}.zip"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HeureBleue-${{ matrix.arch }}
+          path: |
+            HeureBleue-*.dmg
+            HeureBleue-*.zip
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: out, merge-multiple: true }
+      - uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          generate_release_notes: true
+          files: out/*

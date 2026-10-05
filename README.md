@@ -31,10 +31,48 @@ painting in the colours of its cover.*
   on the wall by museum, century and painter, and which music brought which painters.
 
 Everything runs on your machine, on `127.0.0.1`. No accounts, no API keys, no
-telemetry. The only network calls are museum images, Open-Meteo for weather, and
-the album cover.
+telemetry. The only network calls are museum images, Open-Meteo for weather, the
+album cover, and one request a day to GitHub to see whether a newer version exists
+(`"update_check": false` in `config.json` turns that off).
 
 ## Install
+
+### The app (no Python, no terminal)
+
+Download the file for your machine from the
+[Releases page](https://github.com/zoha-rakotomalala/heure-bleue/releases/latest):
+
+| | File |
+|---|---|
+| Mac with Apple silicon (M1 and later) | `HeureBleue-…-mac-arm64.dmg` |
+| Mac with an Intel chip | `HeureBleue-…-mac-intel.dmg` |
+| Windows 10 or 11 | `HeureBleue-…-windows-x64.zip` |
+
+**Mac:** open the `.dmg`, drag *HeureBleue* to Applications, open it. The app is
+not signed with an Apple developer certificate, so the first time macOS says it
+cannot check it. Right-click the app, choose *Open*, then *Open* again; macOS
+remembers. The first time a song plays, macOS asks whether heure bleue may control
+Spotify or Music: say yes, that is how it reads the song. To start the wall at
+login: *System Settings → General → Login Items*, add HeureBleue.
+
+**Windows:** unzip, open the folder, run `HeureBleue.exe`. SmartScreen shows a
+warning the first time because the file is not signed: *More info → Run anyway*.
+To start at login, put a shortcut to `HeureBleue.exe` in the Startup folder
+(`Win+R`, `shell:startup`).
+
+The window has no address bar. `F` is fullscreen; drag it to the spare screen
+first. Your kept paintings, history and choices live in
+`~/Library/Application Support/heure bleue` (Mac) or `%APPDATA%\heure bleue`
+(Windows); a `config.json` there works the same as the one described below.
+
+When a newer version is published, a small *new version x.y available* link
+appears above the buttons. It opens the Releases page; download and replace the
+app. Nothing updates itself.
+
+Linux has no packaged app yet: use the Python install below, which gives the
+same window with `python3 -m heurebleue app` after `pip install pywebview`.
+
+### From source
 
 You need Python 3.10 or newer and a browser. Pick your system.
 
@@ -110,6 +148,30 @@ python3 -m heurebleue doctor      # Windows: py -m heurebleue doctor
 
 It checks Python, Pillow, your music player, the painting index and the port.
 To remove the login service later: `python3 -m heurebleue service remove`.
+
+### A window instead of a browser tab
+
+```sh
+python3 -m pip install pywebview
+python3 -m heurebleue app --fullscreen --screen 2
+```
+
+Same wall, in its own window on the second screen, using the web view the
+system already has (WebKit on macOS, WebView2 on Windows, WebKitGTK or Qt on
+Linux). This is what the downloadable app runs.
+
+### Building the app yourself
+
+```sh
+python3 -m pip install pywebview pyinstaller
+python3 tools/make_icon.py        # assets/icon.png, .ico, .icns
+pyinstaller heurebleue.spec       # dist/HeureBleue.app or dist/HeureBleue/
+```
+
+A release is a tag. Bump `__version__` in `heurebleue/__init__.py`, commit, tag
+the commit `v0.3.0` and push the tag. The *release* workflow builds the three
+files, attaches them to a draft release, and you publish it from the Releases
+page. The wall's update link reads the latest published release.
 
 ## On a landscape screen
 
