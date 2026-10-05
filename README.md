@@ -48,6 +48,7 @@ Download the file for your machine from the
 | Mac with Apple silicon (M1 and later) | `HeureBleue-…-mac-arm64.dmg` |
 | Mac with an Intel chip | `HeureBleue-…-mac-intel.dmg` |
 | Windows 10 or 11 | `HeureBleue-…-windows-x64.zip` |
+| Linux (x86-64, glibc 2.35+: Ubuntu 22.04 and newer, Fedora, Arch) | `HeureBleue-…-linux-x64.tar.gz` |
 
 **Mac:** open the `.dmg`, drag *HeureBleue* to Applications, open it. The app is
 not signed with an Apple developer certificate, so the first time macOS says it
@@ -61,18 +62,27 @@ warning the first time because the file is not signed: *More info → Run anyway
 To start at login, put a shortcut to `HeureBleue.exe` in the Startup folder
 (`Win+R`, `shell:startup`).
 
+**Linux:** `tar -xzf HeureBleue-*-linux-x64.tar.gz` and run `HeureBleue/HeureBleue`.
+The app carries its own web view (Qt), so nothing else is needed; `playerctl`
+from your distribution lets it read the music. The Linux build is new and has
+had less testing than the other two.
+
 The window has no address bar. `F` is fullscreen; drag it to the spare screen
 first. Your kept paintings, history and choices live in
-`~/Library/Application Support/heure bleue` (Mac) or `%APPDATA%\heure bleue`
-(Windows); a `config.json` there works the same as the one described below.
+`~/Library/Application Support/heure bleue` (Mac), `%APPDATA%\heure bleue`
+(Windows) or `~/.local/share/heure-bleue` (Linux); a `config.json` there works
+the same as the one described below.
 
-When a newer version is published, a small gold line appears above the
-buttons. On the Mac app it reads *new version x.y · install*: one click, and
-the app downloads the new `.dmg` from the release, checks it against the
-`SHA256SUMS.txt` published next to it, swaps itself in Applications and
-restarts. Thirty seconds, no Finder. Your paintings and settings are outside
-the app and are not touched. Everywhere else (Windows, a source install, the
-web demo) the line opens the Releases page.
+**Updates.** When a newer version is published, a small gold line appears above
+the buttons: *new version x.y · install*. One click, and the app downloads the
+file for your machine from the release, checks that the release's checksum list
+is signed by the heure bleue key and that the file matches it, swaps itself in
+place and restarts. Thirty seconds, no Finder, on all three systems. Your
+paintings and settings are outside the app and are not touched. With
+`"update_mode": "auto"` in `config.json` the app does the download and the
+checks as soon as it sees a new release and swaps it in when you quit; the line
+then reads *new version x.y ready · restart* for the impatient. A source install
+and the web demo show the line too; there it opens the Releases page.
 
 **Moving from the source install to the app.** Your kept paintings and history
 are three files in the checkout's `data/` folder. Copy them into the app's folder
@@ -88,9 +98,6 @@ cp config.json "$HOME/Library/Application Support/heure bleue/"   # if you have 
 On Windows the folder is `%APPDATA%\heure bleue\data`. The language, place and
 units chosen in the ⚙ panel live in the browser, not in a file: pick them again
 in the app, three clicks.
-
-Linux has no packaged app yet: use the Python install below, which gives the
-same window with `python3 -m heurebleue app` after `pip install pywebview`.
 
 ### From source
 
@@ -199,9 +206,24 @@ pyinstaller heurebleue.spec       # dist/HeureBleue.app or dist/HeureBleue/
 ```
 
 A release is a tag. Bump `__version__` in `heurebleue/__init__.py`, commit, tag
-the commit `v0.3.0` and push the tag. The *release* workflow builds the three
-files, attaches them to a draft release, and you publish it from the Releases
-page. The wall's update link reads the latest published release.
+the commit `v0.3.0` and push the tag. The *release* workflow builds the four
+files, writes `SHA256SUMS.txt`, signs it, and attaches everything to a draft
+release that you publish from the Releases page. The wall's update link reads
+the latest published release.
+
+The signature is Ed25519. The public key is in `heurebleue/updates.py`; the
+private key is the repository secret `HB_SIGNING_KEY` (the 32-byte seed,
+base64). A release built without the secret fails on purpose: an unsigned
+release is one the app would refuse anyway. To use your own key for a fork:
+
+```sh
+python3 -c "
+from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey as K
+from cryptography.hazmat.primitives.serialization import Encoding, PrivateFormat, PublicFormat, NoEncryption
+import base64; k = K.generate()
+print('secret HB_SIGNING_KEY:', base64.b64encode(k.private_bytes(Encoding.Raw, PrivateFormat.Raw, NoEncryption())).decode())
+print('PUBLIC_KEY_B64:      ', base64.b64encode(k.public_key().public_bytes(Encoding.Raw, PublicFormat.Raw)).decode())"
+```
 
 ## On a landscape screen
 

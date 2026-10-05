@@ -12,16 +12,17 @@ sys.path.insert(0, str(Path(SPECPATH)))
 from heurebleue import __version__  # noqa: E402
 
 NAME = "HeureBleue"
+(Path(SPECPATH) / "assets" / "VERSION").write_text(__version__ + "\n", encoding="utf-8")  # read back by the updater
 ICON = {"darwin": "assets/icon.icns", "win32": "assets/icon.ico"}.get(sys.platform, "assets/icon.png")
 
-hidden = ["heurebleue.nowplaying.macos", "heurebleue.nowplaying.windows", "heurebleue.nowplaying.linux", "certifi"]
+hidden = ["heurebleue.nowplaying.macos", "heurebleue.nowplaying.windows", "heurebleue.nowplaying.linux", "certifi", "cryptography"]
 if sys.platform == "win32":
     hidden += ["winsdk", "winsdk.windows.media.control", "winsdk.windows.storage.streams"]
 
 a = Analysis(
     ["tools/app_entry.py"],
     pathex=[SPECPATH],
-    datas=[("web", "web"), ("data/paintings.json", "data"), ("assets/icon.png", "assets")],
+    datas=[("web", "web"), ("data/paintings.json", "data"), ("assets/icon.png", "assets"), ("assets/VERSION", ".")],
     hiddenimports=hidden,
     excludes=["tkinter", "unittest", "pydoc", "doctest", "test"],
     noarchive=False,

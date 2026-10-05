@@ -83,6 +83,7 @@ def run(fullscreen: bool = False, screen_index: int = 1, debug: bool = False) ->
         webview.start(private_mode=False, storage_path=str(storage), debug=debug)
     finally:
         stop.set()
+        updates.apply_if_ready()  # update_mode auto: a staged release is swapped in now, used at the next start
         if httpd is not None:
             httpd.shutdown()
             httpd.server_close()

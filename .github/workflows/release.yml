@@ -3,9 +3,12 @@
 # Trigger: push a tag named v<version> (the version in heurebleue/__init__.py).
 #
 # One job per platform, each runs the same checks as check.yml first, then
-# PyInstaller with heurebleue.spec. The release is created as a DRAFT so the
-# notes can be written before anyone sees it; publish it from the Releases page.
-# The wall's update link reads the latest *published* release.
+# PyInstaller with heurebleue.spec. The release job writes SHA256SUMS.txt over
+# the files and signs it with the repository secret HB_SIGNING_KEY (an Ed25519
+# seed, base64); the app verifies that signature before it installs an update.
+# The release is created as a DRAFT so the notes can be written before anyone
+# sees it; publish it from the Releases page. The wall's update link reads the
+# latest *published* release.
 name: release
 on:
   push:
@@ -27,6 +30,8 @@ jobs:
             arch: mac-intel
           - os: windows-latest
             arch: windows-x64
+          - os: ubuntu-22.04        # oldest glibc we build against; runs on anything newer
+            arch: linux-x64
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -34,9 +39,12 @@ jobs:
         with: { python-version: "3.12" }
       - uses: actions/setup-node@v4
         with: { node-version: "20" }
-      - run: python -m pip install -r requirements.txt pywebview certifi pyinstaller
+      - run: python -m pip install -r requirements.txt pywebview certifi cryptography pyinstaller
       - if: runner.os == 'Windows'
         run: python -m pip install winsdk
+      - if: runner.os == 'Linux'
+        # the Linux app carries its own web view (Qt) so it runs on any distribution
+        run: python -m pip install "pywebview[qt]"
       - run: node tests/test_i18n.js web/i18n.js
       - run: python -m compileall -q heurebleue
       - name: version must match the tag
@@ -49,8 +57,11 @@ jobs:
       - name: smoke test the binary
         shell: bash
         run: |
-          if [ "${{ runner.os }}" = "macOS" ]; then dist/HeureBleue.app/Contents/MacOS/HeureBleue doctor || true
-          else dist/HeureBleue/HeureBleue.exe doctor || true; fi
+          case "${{ runner.os }}" in
+            macOS)   dist/HeureBleue.app/Contents/MacOS/HeureBleue doctor || true ;;
+            Windows) dist/HeureBleue/HeureBleue.exe doctor || true ;;
+            Linux)   dist/HeureBleue/HeureBleue doctor || true ;;
+          esac
       - name: package (macOS .dmg)
         if: runner.os == 'macOS'
         run: |
@@ -59,12 +70,16 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: Compress-Archive -Path dist/HeureBleue -DestinationPath "HeureBleue-$env:GITHUB_REF_NAME-${{ matrix.arch }}.zip"
+      - name: package (Linux .tar.gz)
+        if: runner.os == 'Linux'
+        run: tar -czf "HeureBleue-${GITHUB_REF_NAME}-${{ matrix.arch }}.tar.gz" -C dist HeureBleue
       - uses: actions/upload-artifact@v4
         with:
           name: HeureBleue-${{ matrix.arch }}
           path: |
             HeureBleue-*.dmg
             HeureBleue-*.zip
+            HeureBleue-*.tar.gz
           if-no-files-found: error
 
   release:
@@ -72,10 +87,19 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
       - uses: actions/download-artifact@v4
         with: { path: out, merge-multiple: true }
-      - name: checksums (the app verifies its own update against this file)
+      - name: checksums (the app verifies its download against this file)
         run: cd out && sha256sum HeureBleue-* > SHA256SUMS.txt && cat SHA256SUMS.txt
+      - name: sign the checksums (the app verifies this signature first)
+        env:
+          HB_SIGNING_KEY: ${{ secrets.HB_SIGNING_KEY }}
+        run: |
+          python -m pip install cryptography
+          python tools/sign_sums.py out/SHA256SUMS.txt
       - uses: softprops/action-gh-release@v2
         with:
           draft: true

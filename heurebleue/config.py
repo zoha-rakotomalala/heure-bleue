@@ -71,6 +71,7 @@ DEFAULTS = {
     "units": "celsius",   # or fahrenheit
     "players": "auto",
     "update_check": True,  # ask GitHub once a day whether a newer release exists; the wall shows a small link
+    "update_mode": "click",  # click: the line installs when clicked. auto: download now, install at quit (packaged app)
 }
 
 
