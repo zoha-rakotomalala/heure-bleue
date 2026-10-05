@@ -8,6 +8,8 @@
   POST /api/swap                  -> ask the wall loop for another painting now
   POST /api/next                  -> skip the player to the next song; the wall follows at once
   POST /api/seen {...}            -> append one line to history.jsonl
+  GET  /api/version               -> this version, the latest GitHub release, whether it is newer
+  POST /api/update/open           -> open that release page in the system browser
 
 Binds to 127.0.0.1 by default. Nothing here needs or holds a credential.
 """
@@ -22,7 +24,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from . import config
+from . import config, updates
 from .wall import load_index
 
 PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days")
@@ -117,6 +119,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self._json({k: self.cfg[k] for k in PUBLIC_CFG_KEYS})
         if p == "/api/favorites":
             return self._json(load_favs())
+        if p == "/api/version":
+            return self._json(updates.state())
         if p == "/api/taste":
             try:
                 return self._json(json.loads(config.TASTE.read_text(encoding="utf-8")))
@@ -142,6 +146,9 @@ class Handler(SimpleHTTPRequestHandler):
             body = json.loads(self.rfile.read(length) or b"{}") if length else {}
         except json.JSONDecodeError:
             return self._json({"error": "bad json"}, 400)
+
+        if p == "/api/update/open":
+            return self._json({"ok": updates.open_latest()})
 
         if p == "/api/swap":
             config.SWAP.write_text(json.dumps({"ts": time.time()}), encoding="utf-8")
@@ -193,5 +200,6 @@ class Handler(SimpleHTTPRequestHandler):
 def serve(cfg: dict) -> ThreadingHTTPServer:
     config.DATA.mkdir(parents=True, exist_ok=True)
     Handler.cfg = cfg
+    updates.start(cfg)
     ThreadingHTTPServer.allow_reuse_address = True
     return ThreadingHTTPServer((cfg["host"], cfg["port"]), Handler)
