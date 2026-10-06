@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>heure bleue · download</title>
+<!--
+  Stable download links. GitHub release files carry the version in their name,
+  so a plain link would go stale with every release. This page asks GitHub for
+  the latest release and sends the browser straight to the right file:
+
+    get/?os=mac-arm64   get/?os=mac-intel   get/?os=windows   get/?os=linux
+
+  No ?os= shows the four buttons, the detected system first. Without JavaScript
+  or when GitHub does not answer, the links fall back to the Releases page.
+-->
+<style>
+  :root { --bg: #0f1a17; --text: #e7ece7; --gold: #f0b45c; --muted: rgba(231,236,231,0.55); --hair: rgba(231,236,231,0.14);
+          --serif: "Iowan Old Style", "Palatino", "Georgia", serif; --sans: -apple-system, "Helvetica Neue", "Inter", sans-serif; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { height: 100%; } body { min-height: 100%; background: radial-gradient(ellipse at 50% 120%, rgba(240,180,92,0.18), transparent 60%), var(--bg); color: var(--text); font-family: var(--sans); }
+  body { display: grid; place-items: center; padding: 6vmin; background-attachment: fixed; }
+  main { max-width: 34rem; width: 100%; text-align: center; }
+  h1 { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 2.2rem; color: var(--gold); margin-bottom: 0.4rem; }
+  p { color: var(--muted); line-height: 1.5; font-size: 0.95rem; }
+  .pulse { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--gold); margin-right: 0.5rem; animation: pulse 1.6s ease-out infinite; vertical-align: middle; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(240,180,92,0.6); } 70% { box-shadow: 0 0 0 0.7rem rgba(240,180,92,0); } 100% { box-shadow: 0 0 0 0 rgba(240,180,92,0); } }
+  .buttons { display: grid; gap: 0.7rem; margin: 2rem auto 1.4rem; max-width: 22rem; }
+  .buttons a { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.85rem 1.2rem; border-radius: 999px; border: 1px solid var(--hair); color: var(--text); text-decoration: none; background: rgba(231,236,231,0.04); transition: border-color 0.2s ease, background 0.2s ease; }
+  .buttons a:hover { border-color: var(--gold); background: rgba(240,180,92,0.1); }
+  .buttons a.first { border-color: rgba(240,180,92,0.6); }
+  .buttons a small { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.04em; }
+  .buttons a .v { color: var(--gold); font-variant-numeric: tabular-nums; }
+  .fine { font-size: 0.82rem; }
+  .fine a { color: var(--muted); }
+  #direct { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>heure bleue</h1>
+  <p id="lead">A gallery wall for a spare screen. Free, no account, updates itself.</p>
+
+  <section id="direct">
+    <p><span class="pulse"></span>Finding the newest version for <b id="os-name"></b>…</p>
+    <p class="fine" style="margin-top:1rem">Nothing happening? <a id="direct-fallback" href="https://github.com/zoha-rakotomalala/heure-bleue/releases/latest">Open the Releases page</a>.</p>
+  </section>
+
+  <section id="choose">
+    <div class="buttons" id="buttons">
+      <a data-os="mac-arm64" href="https://github.com/zoha-rakotomalala/heure-bleue/releases/latest"><span>Mac <small>Apple silicon · M1 and later</small></span><span class="v"></span></a>
+      <a data-os="mac-intel" href="https://github.com/zoha-rakotomalala/heure-bleue/releases/latest"><span>Mac <small>Intel</small></span><span class="v"></span></a>
+      <a data-os="windows" href="https://github.com/zoha-rakotomalala/heure-bleue/releases/latest"><span>Windows <small>10 or 11</small></span><span class="v"></span></a>
+      <a data-os="linux" href="https://github.com/zoha-rakotomalala/heure-bleue/releases/latest"><span>Linux <small>x86-64 · Ubuntu 22.04 and newer</small></span><span class="v"></span></a>
+    </div>
+    <p class="fine">Not signed by Apple or Microsoft yet: the first open needs a right-click → <i>Open</i> on a Mac, <i>More info → Run anyway</i> on Windows. <a href="https://github.com/zoha-rakotomalala/heure-bleue#install">How to install</a> · <a href="./">Try the web demo</a> · <a href="https://github.com/zoha-rakotomalala/heure-bleue">Source</a></p>
+  </section>
+</main>
+<script>
+(async () => {
+  const API = "https://api.github.com/repos/zoha-rakotomalala/heure-bleue/releases/latest";
+  const NAMES = { "mac-arm64": "Mac (Apple silicon)", "mac-intel": "Mac (Intel)", "windows": "Windows", "linux": "Linux" };
+  const SUFFIX = { "mac-arm64": "-mac-arm64.dmg", "mac-intel": "-mac-intel.dmg", "windows": "-windows-x64.zip", "linux": "-linux-x64.tar.gz" };
+  const want = new URLSearchParams(location.search).get("os");
+  const direct = want && SUFFIX[want];
+
+  // the visitor's system, as far as a browser can tell: Mac chips cannot be told apart, so both Mac rows lead
+  const ua = navigator.userAgent, plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+  const guess = /Mac/i.test(plat) ? "mac" : /Win/i.test(plat) ? "windows" : /Linux|X11/i.test(plat) && !/Android/i.test(ua) ? "linux" : null;
+  const rows = [...document.querySelectorAll("#buttons a")];
+  if (guess) {
+    const first = rows.filter(a => a.dataset.os.startsWith(guess)), rest = rows.filter(a => !a.dataset.os.startsWith(guess));
+    const box = document.getElementById("buttons"); [...first, ...rest].forEach(a => box.appendChild(a));
+    first.forEach(a => a.classList.add("first"));
+  }
+
+  if (direct) {
+    document.getElementById("choose").style.display = "none";
+    document.getElementById("direct").style.display = "block";
+    document.getElementById("os-name").textContent = NAMES[want];
+  }
+
+  let rel = null;
+  try { rel = await (await fetch(API, { headers: { Accept: "application/vnd.github+json" } })).json(); } catch (e) { /* offline, rate-limited: the links stay on the Releases page */ }
+  const assets = {};
+  for (const a of (rel && rel.assets) || []) for (const k in SUFFIX) if (a.name.endsWith(SUFFIX[k])) assets[k] = a.browser_download_url;
+  const tag = rel && rel.tag_name ? String(rel.tag_name).replace(/^v/, "") : "";
+
+  if (direct) {
+    if (assets[want]) { location.replace(assets[want]); return; }
+    document.getElementById("direct").firstElementChild.innerHTML = "GitHub did not answer. The file is on the Releases page.";
+    return;
+  }
+  for (const a of rows) {
+    if (assets[a.dataset.os]) { a.href = assets[a.dataset.os]; a.querySelector(".v").textContent = tag; }
+  }
+})();
+</script>
+</body>
+</html>

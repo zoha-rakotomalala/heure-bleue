@@ -40,15 +40,19 @@ album cover, and one request a day to GitHub to see whether a newer version exis
 
 ### The app (no Python, no terminal)
 
-Download the file for your machine from the
-[Releases page](https://github.com/zoha-rakotomalala/heure-bleue/releases/latest):
+One click per system; each link always gives the newest version
+(it goes through [`get/`](https://zoha-rakotomalala.github.io/heure-bleue/get/), which asks GitHub
+for the latest release and sends you to the file):
 
-| | File |
+| | Download |
 |---|---|
-| Mac with Apple silicon (M1 and later) | `HeureBleue-…-mac-arm64.dmg` |
-| Mac with an Intel chip | `HeureBleue-…-mac-intel.dmg` |
-| Windows 10 or 11 | `HeureBleue-…-windows-x64.zip` |
-| Linux (x86-64, glibc 2.35+: Ubuntu 22.04 and newer, Fedora, Arch) | `HeureBleue-…-linux-x64.tar.gz` |
+| Mac with Apple silicon (M1 and later) | [HeureBleue mac-arm64.dmg](https://zoha-rakotomalala.github.io/heure-bleue/get/?os=mac-arm64) |
+| Mac with an Intel chip | [HeureBleue mac-intel.dmg](https://zoha-rakotomalala.github.io/heure-bleue/get/?os=mac-intel) |
+| Windows 10 or 11 | [HeureBleue windows-x64.zip](https://zoha-rakotomalala.github.io/heure-bleue/get/?os=windows) |
+| Linux (x86-64, glibc 2.35+: Ubuntu 22.04 and newer, Fedora, Arch) | [HeureBleue linux-x64.tar.gz](https://zoha-rakotomalala.github.io/heure-bleue/get/?os=linux) |
+
+All files, checksums and the signature are on the
+[Releases page](https://github.com/zoha-rakotomalala/heure-bleue/releases/latest).
 
 **Mac:** open the `.dmg`, drag *HeureBleue* to Applications, open it. The app is
 not signed with an Apple developer certificate, so the first time macOS says it

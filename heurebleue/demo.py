@@ -28,6 +28,8 @@ def build(out: Path) -> Path:
         i = html.index("<script>")  # the shim must run before the page's own script
         (out / name).write_text(html[:i] + SHIM_TAG + html[i:], encoding="utf-8")
 
+    (out / "get").mkdir()
+    shutil.copy2(config.WEB / "get.html", out / "get" / "index.html")  # stable download links: get/?os=mac-arm64 ...
     shutil.copy2(config.WEB / "demo.js", out / "demo.js")
     shutil.copy2(config.WEB / "i18n.js", out / "i18n.js")
     shutil.copy2(config.PAINTINGS, out / "data" / "paintings.json")

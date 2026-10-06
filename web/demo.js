@@ -76,13 +76,44 @@
     return realFetch(input, init);
   };
 
-  // one faint line so a visitor knows why there is no music badge
-  addEventListener("DOMContentLoaded", () => {
-    if (!document.getElementById("label")) return;
-    const el = document.createElement("div");
-    el.id = "demo-note";
-    el.textContent = "web demo · the desktop app adds the music match";
-    el.style.cssText = "position:fixed;left:50%;bottom:1.6vmin;transform:translateX(-50%);font-size:1.1vmin;letter-spacing:0.08em;text-transform:uppercase;color:var(--faint);pointer-events:none;white-space:nowrap";
-    document.body.appendChild(el);
+  // the demo cannot hear music, so the music slot holds the install card instead:
+  // one button per system, the visitor's own system first. Links go through get/,
+  // which redirects to the newest release file, so they never go stale.
+  addEventListener("DOMContentLoaded", async () => {
+    const now = document.getElementById("now");
+    if (!now || !document.getElementById("label")) return;
+    const T = (k) => (window.HB ? HB.t(k) : k);
+    if (window.HB && HB.init) await HB.init();
+    const plat = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "";
+    const mine = /Mac/i.test(plat) ? "mac" : /Win/i.test(plat) ? "windows" : /Linux|X11/i.test(plat) && !/Android/i.test(navigator.userAgent) ? "linux" : "";
+    const systems = [
+      ["mac-arm64", "Mac", "Apple silicon"], ["mac-intel", "Mac", "Intel"], ["windows", "Windows", ""], ["linux", "Linux", ""],
+    ].sort((a, b) => (b[0].startsWith(mine) ? 1 : 0) - (a[0].startsWith(mine) ? 1 : 0));
+    const style = document.createElement("style");
+    style.textContent = `
+      #now.install { display: block; opacity: 1; transform: none; }
+      #install .k { font-size: 1vmin; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; }
+      #install .h { font-family: var(--serif); font-style: italic; font-size: 2vmin; margin-top: 0.6vh; }
+      #install .s { font-size: 1.25vmin; color: var(--muted); font-weight: 300; margin-top: 0.4vh; }
+      #install .os { display: flex; flex-wrap: wrap; gap: 0.7vmin; margin-top: 1.4vh; }
+      #install .os a { display: inline-flex; align-items: baseline; gap: 0.5vmin; padding: 0.55vh 1.2vmin; border-radius: 999px; border: 1px solid rgba(var(--text-rgb), 0.3); color: var(--text); text-decoration: none; font-size: 1.25vmin; background: rgba(var(--text-rgb), 0.05); transition: border-color 0.2s ease, background 0.2s ease; }
+      #install .os a small { color: var(--muted); font-size: 0.95vmin; letter-spacing: 0.04em; }
+      #install .os a:hover { border-color: var(--gold); background: rgba(240, 180, 92, 0.1); }
+      #install .os a.mine { border-color: rgba(240, 180, 92, 0.65); color: var(--gold); }
+      #install .os a.mine small { color: var(--gold); opacity: 0.75; }
+      #install .n { font-size: 1.05vmin; color: var(--faint); margin-top: 1vh; }
+      #install .n a { color: var(--muted); }`;
+    document.head.appendChild(style);
+    now.classList.add("install");
+    now.innerHTML = `<div id="install">
+      <div class="k">${T("demo_kicker")}</div>
+      <div class="h">${T("demo_title")}</div>
+      <div class="s">${T("demo_sub")}</div>
+      <div class="os">${systems.map(([os, name, chip]) =>
+        `<a href="get/?os=${os}" class="${os.startsWith(mine) ? "mine" : ""}">↓ ${name}${chip ? ` <small>${chip}</small>` : ""}</a>`).join("")}</div>
+      <div class="n"><a href="https://github.com/zoha-rakotomalala/heure-bleue#install">${T("demo_how")}</a></div>
+    </div>`;
+    const rerender = () => { now.querySelector(".k").textContent = T("demo_kicker"); now.querySelector(".h").textContent = T("demo_title"); now.querySelector(".s").textContent = T("demo_sub"); now.querySelector(".n a").textContent = T("demo_how"); };
+    document.addEventListener("hb:lang", rerender);
   });
 })();
