@@ -73,6 +73,8 @@
       saveFavs(favs);
       return json({ favorite: state, count: favs.length, taste_n: favs.length });
     }
+    if (path.endsWith("/api/today")) return json([]);  // the painters' dates live with the server
+    if (path.endsWith("/api/card") || /\/api\/favorites\.(csv|md)$/.test(path)) return json({ error: "needs the app" }, 501);
     return realFetch(input, init);
   };
 
@@ -105,6 +107,7 @@
       #install .n a { color: var(--muted); }`;
     document.head.appendChild(style);
     now.classList.add("install");
+    document.querySelectorAll("#controls .card, #links .exp").forEach(el => { el.style.display = "none"; });  // nothing to save to in a browser tab
     now.innerHTML = `<div id="install">
       <div class="k">${T("demo_kicker")}</div>
       <div class="h">${T("demo_title")}</div>

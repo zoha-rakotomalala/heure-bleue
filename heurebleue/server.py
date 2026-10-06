@@ -13,6 +13,9 @@
   POST /api/update/install        -> packaged app: download, verify, swap, relaunch (progress in /api/version)
   POST /api/config {update_mode | taste} -> write a setting to config.json (the ⚙ panel's toggles)
   POST /api/open {url}            -> open one of our own pages (credits, source) in the system browser
+  POST /api/card                  -> render the share card (PNG) to the Desktop and reveal it
+  GET  /api/favorites.csv|.md     -> the Kept list as a download; POST the same path saves it to the Desktop
+  GET  /api/today                 -> painters in the index born or died on this day
 
 Binds to 127.0.0.1 by default. Nothing here needs or holds a credential.
 """
@@ -28,13 +31,51 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from . import config, updates
-from .wall import load_index
+from .wall import load_index, painters_of_the_day
 
 OPEN_ALLOWED = ("https://zoha-rakotomalala.github.io/", "https://github.com/zoha-rakotomalala/heure-bleue")
 PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days", "taste")
 SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
 _LAST_SEEN: dict = {}
 _SEEN_LOCK = threading.Lock()
+
+
+def today_paintings() -> list[dict]:
+    """Distinct paintings shown since local midnight, oldest first, from history.jsonl."""
+    start = time.mktime(time.localtime()[:3] + (0, 0, 0, 0, 0, -1))
+    seen, out = set(), []
+    try:
+        for line in config.HISTORY.read_text(encoding="utf-8").splitlines():
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if row.get("ts", 0) >= start and row.get("id") and row.get("title") and row["id"] not in seen:
+                seen.add(row["id"]); out.append(row)
+    except FileNotFoundError:
+        pass
+    return out
+
+
+def export_favorites(favs: list[dict], fmt: str) -> tuple[str, bytes, str]:
+    """The Kept list as a file of the user's own: CSV for a spreadsheet, Markdown for notes."""
+    stamp = time.strftime("%Y-%m-%d")
+    if fmt == "csv":
+        import csv, io
+        buf = io.StringIO()
+        w = csv.writer(buf)
+        w.writerow(["kept", "title", "artist", "date", "museum", "song", "song_artist", "album", "url", "image"])
+        for f in favs:
+            t = f.get("track") or {}
+            w.writerow([f.get("saved_at"), f.get("title"), f.get("artist"), f.get("date"), f.get("museum"), t.get("title"), t.get("artist"), t.get("album"), f.get("url"), f.get("image")])
+        return f"heure bleue kept {stamp}.csv", buf.getvalue().encode("utf-8-sig"), "text/csv"
+    lines = [f"# Kept paintings · heure bleue · {stamp}", "", f"{len(favs)} paintings, newest first.", ""]
+    for f in reversed(favs):
+        t = f.get("track") or {}
+        who = " · ".join(s for s in (f.get("artist"), f.get("date")) if s)
+        lines.append(f"- **[{f.get('title')}]({f.get('url') or f.get('image')})** — {who}  ")
+        lines.append(f"  {f.get('museum') or ''}" + (f" · while playing *{t['title']}* by {t.get('artist')}" if t.get("title") else "") + f" · kept {f.get('saved_at')}")
+    return f"heure bleue kept {stamp}.md", ("\n".join(lines) + "\n").encode("utf-8"), "text/markdown"
 
 
 def load_favs() -> list[dict]:
@@ -112,6 +153,15 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_header("Cache-Control", "no-cache")
         super().end_headers()
 
+    def _file_download(self, name: str, data: bytes, mime: str):
+        self.send_response(200)
+        self.send_header("Content-Type", f"{mime}; charset=utf-8")
+        self.send_header("Content-Disposition", f'attachment; filename="{name}"')
+        self.send_header("Content-Length", str(len(data)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(data)
+
     def _json(self, obj, code=200):
         body = json.dumps(obj, ensure_ascii=False).encode()
         self.send_response(code)
@@ -129,6 +179,10 @@ class Handler(SimpleHTTPRequestHandler):
             return self._json(load_favs())
         if p == "/api/version":
             return self._json(updates.state())
+        if p == "/api/today":
+            return self._json(painters_of_the_day())
+        if p in ("/api/favorites.csv", "/api/favorites.md"):
+            return self._file_download(*export_favorites(load_favs(), p.rsplit(".", 1)[1]))
         if p == "/api/taste":
             try:
                 return self._json(json.loads(config.TASTE.read_text(encoding="utf-8")))
@@ -178,12 +232,46 @@ class Handler(SimpleHTTPRequestHandler):
             if "update_mode" in body:
                 out["update_mode"] = updates.set_mode(body["update_mode"])
                 self.cfg["update_mode"] = out["update_mode"]
+            if "rotate_minutes" in body:
+                try:
+                    m = max(1, min(60, int(body["rotate_minutes"])))
+                except (TypeError, ValueError):
+                    return self._json({"error": "rotate_minutes must be a number"}, 400)
+                out["rotate_minutes"] = self.cfg["rotate_minutes"] = m
+                config.save_keys(rotate_minutes=m)
             if "taste" in body:
                 out["taste"] = self.cfg["taste"] = bool(body["taste"])  # the wall loop shares this dict, so the next choice sees it
                 config.save_keys(taste=out["taste"])
             if not out:
                 return self._json({"error": "nothing to set"}, 400)
             return self._json(out)
+
+        if p == "/api/card":
+            # the share card: a PNG of the wall right now, saved to the Desktop and shown in the file manager
+            from . import card
+            try:
+                now = json.loads(config.NOW.read_text(encoding="utf-8"))
+            except (FileNotFoundError, json.JSONDecodeError):
+                now = {}
+            if not (now.get("painting") or {}).get("image"):
+                return self._json({"error": "no painting on the wall yet"}, 409)
+            now["cover_file"] = str(config.COVER)
+            index = {q["id"]: q for q in load_index()}
+            img = card.render(now, today_paintings(), index, time.strftime("%A %d %B %Y"))
+            path = card.save(img)
+            card.reveal(path)
+            return self._json({"ok": True, "path": str(path)})
+
+        if p == "/api/favorites.csv" or p == "/api/favorites.md":
+            name, data, mime = export_favorites(load_favs(), p.rsplit(".", 1)[1])
+            from . import card
+            folder = card.desktop()
+            if not folder.exists():
+                folder = config.DATA.parent
+            path = folder / name
+            path.write_bytes(data)
+            card.reveal(path)
+            return self._json({"ok": True, "path": str(path), "count": len(load_favs())})
 
         if p == "/api/swap":
             config.SWAP.write_text(json.dumps({"ts": time.time()}), encoding="utf-8")

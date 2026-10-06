@@ -36,6 +36,8 @@
   #weather { text-align: right; font-weight: 300; font-size: 2vmin; color: var(--text); opacity: 0.85; line-height: 1.5; }
   #weather .temp { font-size: 5vmin; color: var(--gold); font-weight: 300; }
   #weather .sun { font-size: 1.5vmin; color: var(--muted); }
+  #weather .today { font-size: 1.35vmin; color: var(--gold); opacity: 0.85; margin-top: 1.2vh; font-family: var(--serif); font-style: italic; display: none; }
+  #weather .today.on { display: block; }
 
   /* --- gallery ----------------------------------------------------------- */
   #gallery { position: relative; display: grid; grid-template-rows: 1fr auto; gap: 2.4vh; min-height: 0; }
@@ -159,6 +161,7 @@
       <div class="temp">--°</div>
       <div class="desc"></div>
       <div class="sun"></div>
+      <div class="today"></div>
     </div>
   </header>
 
@@ -190,6 +193,7 @@
       <div><div class="k" data-i18n="language">Language</div><select class="lang"></select></div>
       <div class="place"><div class="k" data-i18n="place">Place</div><div class="now"></div><input type="search" autocomplete="off" data-i18n-ph="search_city" placeholder="search a city"><div class="pills results"></div><div class="note"></div></div>
       <div><div class="k" data-i18n="units">Units</div><div class="pills units"><button data-u="celsius">°C</button><button data-u="fahrenheit">°F</button></div></div>
+      <div class="pace"><div class="k" data-i18n="pace">Pace</div><div class="pills rot"><button data-m="2">2 min</button><button data-m="4">4 min</button><button data-m="8">8 min</button><button data-m="15">15 min</button></div><div class="note" data-i18n="pace_note">how long a painting stays when nothing is playing</div></div>
       <div class="taste"><div class="k" data-i18n="choice">Choice</div><div class="pills pick"><button data-t="1" data-i18n="taste_on">my taste</button><button data-t="0" data-i18n="taste_off">surprise me</button></div><div class="note" data-i18n="taste_note">my taste: kept paintings pull toward their artists, museums and centuries</div></div>
       <div class="updates" hidden><div class="k" data-i18n="updates">Updates</div><div class="pills mode"><button data-m="click" data-i18n="upd_click">ask me</button><button data-m="auto" data-i18n="upd_auto">install at quit</button></div><div class="note ver"></div></div>
       <button class="reset" data-i18n="reset">reset to config.json</button>
@@ -203,6 +207,7 @@
       <button class="swap" data-i18n-title="tip_swap" title="Another painting">↻</button>
       <button class="fav" data-i18n-title="tip_keep" title="Keep this one">♡</button>
       <button class="kept" data-i18n-title="tip_kept" title="Kept paintings">▤</button>
+      <button class="card" data-i18n-title="tip_card" title="Save a card of this wall">⌑</button>
       <button class="next" data-i18n-title="tip_next" title="Next song">⏭</button>
     </div>
   </div>
@@ -224,6 +229,20 @@ const $ = (s) => document.querySelector(s);
 // --- a newer release? the server asks GitHub once a day; the demo has no server ----
 // The packaged Mac app can install it itself (one click, progress on the same line);
 // elsewhere the line opens the release page.
+// today in art: a painter in the index born or died on this day
+let todayList = [];
+async function loadToday() {
+  try { todayList = await (await fetch("/api/today", { cache: "no-store" })).json(); } catch (e) { todayList = []; }
+  paintToday();
+}
+function paintToday() {
+  const el = $("#weather .today"); const e = todayList[0];
+  el.classList.toggle("on", !!e);
+  if (!e) return;
+  el.textContent = T(e.event === "born" ? "today_born" : "today_died", { a: e.artist, y: e.year, n: e.age });
+}
+document.addEventListener("hb:lang", paintToday);
+loadToday(); setInterval(loadToday, 3600 * 1000);
 let upd = null, updTimer = null;
 async function checkUpdate() {
   try {
@@ -556,8 +575,16 @@ function buildPrefs() {
   document.querySelectorAll("#prefs .units button").forEach(b => b.classList.toggle("on", b.dataset.u === HB.units()));
   $("#prefs .reset").style.display = HB.overridden() ? "" : "none";
   document.querySelectorAll("#prefs .pick button").forEach(b => b.classList.toggle("on", (b.dataset.t === "1") === (CFG.taste !== false)));
+  document.querySelectorAll("#prefs .rot button").forEach(b => b.classList.toggle("on", +b.dataset.m === +CFG.rotate_minutes));
   buildUpdates();
 }
+document.querySelectorAll("#prefs .rot button").forEach(b => {
+  b.onclick = async () => {
+    CFG.rotate_minutes = +b.dataset.m; ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
+    buildPrefs();
+    try { await fetch("/api/config", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ rotate_minutes: CFG.rotate_minutes }) }); } catch (e) {}
+  };
+});
 document.querySelectorAll("#prefs .pick button").forEach(b => {
   b.onclick = async () => {
     CFG.taste = b.dataset.t === "1";
@@ -571,6 +598,17 @@ document.querySelectorAll("#prefs .credits a[data-open]").forEach(a => {
 });
 document.querySelectorAll("#prefs .units button").forEach(b => { b.onclick = () => HB.setUnits(b.dataset.u); });
 $("#prefs .reset").onclick = () => { HB.reset(); buildPrefs(); };
+// the share card: the server draws it from what is on the wall and puts it on the Desktop
+$("#controls .card").onclick = async () => {
+  const b = $("#controls .card"); if (b.classList.contains("busy")) return;
+  b.classList.add("busy", "spin"); status("card_making");
+  try {
+    const r = await fetch("/api/card", { method: "POST" }); const j = await r.json();
+    if (!r.ok) throw new Error(j.error || r.status);
+    status("card_saved"); setTimeout(() => { if (statusIs("card_saved")) status(null); }, 6000);
+  } catch (e) { status("card_failed"); setTimeout(() => { if (statusIs("card_failed")) status(null); }, 5000); }
+  b.classList.remove("busy", "spin");
+};
 let searchTimer;
 $("#prefs input").oninput = (e) => {
   clearTimeout(searchTimer);
@@ -619,6 +657,7 @@ document.addEventListener("keydown", (e) => {
   else if (k === "t") { $("#controls .theme").click(); }
   else if (k === "g") { $("#controls .prefs").click(); }
   else if (k === "k") { location.href = "favorites.html"; }
+  else if (k === "p") { $("#controls .card").click(); }
   else if (k === "s") { location.href = "stats.html"; }
   else if (k === ">" || k === ".") { $("#controls .next").click(); }
   else if (k === "escape") { $("#controls").classList.remove("open", "prefs"); }

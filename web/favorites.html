@@ -88,7 +88,7 @@
 <body>
   <header id="top">
     <h1><span data-i18n="kept">Kept</span><small id="count"></small></h1>
-    <nav id="links"><a id="stats" class="lnk" href="stats.html" data-i18n="stats">stats</a><a id="back" href="./">&larr; <span data-i18n="wall">wall</span></a></nav>
+    <nav id="links"><a class="lnk exp" href="/api/favorites.csv" download data-i18n-title="tip_export" title="save the list as a file">csv</a><a class="lnk exp" href="/api/favorites.md" download>md</a><a id="stats" class="lnk" href="stats.html" data-i18n="stats">stats</a><a id="back" href="./">&larr; <span data-i18n="wall">wall</span></a></nav>
   </header>
 
   <nav id="filters" aria-label="filter and sort">
@@ -265,6 +265,17 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") location.href = "./";
 });
 
+// export: the server writes the file to the Desktop and reveals it (the app window has no download tray)
+document.querySelectorAll("#links .exp").forEach(a => {
+  a.onclick = async (e) => {
+    e.preventDefault();
+    try {
+      const r = await fetch(a.getAttribute("href"), { method: "POST" }); const j = await r.json();
+      a.textContent = "✓"; setTimeout(() => { a.textContent = a.getAttribute("href").endsWith("csv") ? "csv" : "md"; }, 2500);
+      if (!r.ok) throw new Error(j.error || r.status);
+    } catch (err) { a.textContent = "×"; setTimeout(() => { a.textContent = a.getAttribute("href").endsWith("csv") ? "csv" : "md"; }, 2500); }
+  };
+});
 HB.init().then(load);
 document.addEventListener("hb:lang", () => { if (favorites.length) { buildMuseums(); render(false); } });
 </script>

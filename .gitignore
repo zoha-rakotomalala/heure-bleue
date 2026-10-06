@@ -1,6 +1,7 @@
 # runtime state (everything in data/ except the shipped index)
 data/*
 !data/paintings.json
+!data/artists.json
 logs/
 config.json
 __pycache__/

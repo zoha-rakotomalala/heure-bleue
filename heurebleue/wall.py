@@ -41,18 +41,47 @@ def century(date: Optional[str]) -> Optional[str]:
     return str(int(m.group(1)) // 100 + 1) if m else None
 
 
+_TODAY: set = set()
+_TODAY_DAY = ""
+
+
+def refresh_today() -> set:
+    global _TODAY, _TODAY_DAY
+    day = time.strftime("%m-%d")
+    if day != _TODAY_DAY:
+        _TODAY, _TODAY_DAY = {e["artist"] for e in painters_of_the_day()}, day
+    return _TODAY
+
+
 def taste_bonus(p: dict, taste: dict, hour_artist: Optional[str]) -> float:
     """Multiplier on the color distance, 0.35..1.0. Lower = preferred.
     Gentle until ~20 favorites, then the weights have real shape."""
     if not taste or not taste.get("n"):
-        return 1.0
+        return 0.8 if p.get("artist") in _TODAY else 1.0
     strength = min(1.0, taste["n"] / 20)
     score = 0.5 * taste.get("artists", {}).get(p.get("artist"), 0)
     score += 0.25 * taste.get("museums", {}).get(p.get("museum"), 0)
     score += 0.25 * taste.get("centuries", {}).get(century(p.get("date")), 0)
     if hour_artist and p.get("artist") == hour_artist:
         score += 0.8
+    if p.get("artist") in _TODAY:
+        score += 0.4  # the painter's birthday or death day: a small nudge, not a takeover
     return max(0.35, 1.0 - 0.5 * strength * min(score, 1.3))
+
+
+def painters_of_the_day(when: Optional[time.struct_time] = None) -> list[dict]:
+    """Painters in the index born or died on today's month and day, from data/artists.json."""
+    when = when or time.localtime()
+    md = f"{when.tm_mon:02d}-{when.tm_mday:02d}"
+    out = []
+    for name, d in _load_json(config.ARTISTS, {}).items():
+        if not d:
+            continue
+        for kind in ("born", "died"):
+            v = d.get(kind)
+            if v and v[5:] == md:
+                out.append({"artist": name, "event": kind, "year": int(v[:4]), "age": time.localtime().tm_year - int(v[:4])})
+    return sorted(out, key=lambda e: e["year"])
 
 
 def artist_hour() -> Optional[str]:
@@ -93,6 +122,7 @@ def choose_painting(cover_palette: list[dict], recent: list[str], repeat_days: f
     if not paintings:
         return None
     taste, hour = (_load_json(config.TASTE, {}), artist_hour()) if use_taste else ({}, None)  # taste off: colour and wear only
+    refresh_today()
     upright = [p for p in paintings if p.get("h", 1) >= p.get("w", 1) * 0.9]
     if len(upright) >= 40:  # the screen is portrait; prefer upright when the pool allows
         paintings = upright

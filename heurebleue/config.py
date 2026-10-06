@@ -109,6 +109,7 @@ def save_keys(**keys) -> dict:
 # runtime files (all under data/, all git-ignored except paintings.json)
 # The shipped index is read from the bundle; the app never writes it.
 PAINTINGS = (BUNDLE if FROZEN else ROOT) / "data" / "paintings.json"
+ARTISTS = (BUNDLE if FROZEN else ROOT) / "data" / "artists.json"  # painters' birth and death days (tools/artist_dates.py), shipped
 PAINTINGS_LOCAL = DATA / "paintings.local.json"  # CC BY-licensed extras for this machine; git-ignored, never in the demo
 NOW = DATA / "now_playing.json"
 FAVORITES = DATA / "favorites.json"

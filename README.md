@@ -29,6 +29,11 @@ painting in the colours of its cover.*
 - **Learns what you like.** Keep a painting (♥) and the wall leans toward that
   painter, museum and century. The song playing is remembered with it. Prefer discovering? *Surprise me* in the ⚙ panel
   turns the lean off and the match is colour alone.
+- **Makes a card.** `P` saves a 1080×1350 picture of the wall right now: the
+  painting on a dark wall, its label, the song that chose it, and the day's
+  other paintings as small tiles. For sending someone *look what my wall did*.
+- **Knows the calendar.** When a painter in the index was born or died on this
+  day, a line under the weather says so and the wall leans toward them a little.
 - **Keeps a diary.** A *Kept* page for your favourites and a *Stats* page: time
   on the wall by museum, century and painter, and which music brought which painters.
 
@@ -250,6 +255,7 @@ Small buttons sit bottom-right and fade when the mouse is still.
 | `>` · `.` | next song, the wall follows at once |
 | `L` | keep this painting ♥ |
 | `K` | *Kept*, your favourites |
+| `P` | save a card of this wall to the Desktop (PNG) |
 | `S` | *Stats* |
 | `T` | wall colour |
 | `G` | language, place, units |
@@ -259,6 +265,9 @@ Small buttons sit bottom-right and fade when the mouse is still.
   &nbsp;&nbsp;
   <img src="docs/stats.png" alt="The Stats page: time on the wall by museum, century and painter" width="330">
 </p>
+
+The Kept page has *csv* and *md* links at the top: the whole list, with the song
+that was playing for each painting, saved to the Desktop as a file of your own.
 
 ## Wall colours
 
@@ -284,7 +293,8 @@ The same panel sets the place for the weather and the sun times: search a city
 Rijksmuseum texts about a painting exist in Dutch and English; the wall shows the
 Dutch original to Dutch readers and the English text to everyone else.
 
-The *Choice* row sets how the wall picks: *my taste* lets kept paintings pull
+*Pace* is how long a painting stays when nothing is playing (2, 4, 8 or 15
+minutes; `rotate_minutes` in `config.json`). The *Choice* row sets how the wall picks: *my taste* lets kept paintings pull
 toward their artists, museums and centuries; *surprise me* matches on colour
 alone, for people who would rather discover. It is `"taste": true|false` in
 `config.json` and applies to every window. The panel ends with the credits and
@@ -366,6 +376,8 @@ wall rotates on its own. The `pages` workflow publishes it to GitHub Pages on
 every push to `main`.
 
 **Data written at runtime**, all under `data/` and git-ignored except the index:
+`artists.json` holds the painters' birth and death days from Wikidata
+(`python3 tools/artist_dates.py` refreshes it after indexing new museums).
 `now_playing.json`, `favorites.json`, `taste.json`, `history.jsonl` (one line per
 painting shown, with dwell time and song), `cover.jpg`.
 
