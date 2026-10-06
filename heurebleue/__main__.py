@@ -72,6 +72,12 @@ def cmd_doctor(_args) -> int:
         line("pillow", False, "pip install pillow")
     name, read, _next = nowplaying.detect()
     line("player backend", "unavailable" not in name and name != "unsupported", name)
+    if config.system() == "macos":
+        from .nowplaying import macos
+        mc = macos.MEDIA_CONTROL
+        where = "none (Spotify and Music only; browser tabs need it)" if not mc else (
+            f"bundled: {mc[-1]}" if str(mc[-1]).startswith(str(config.BUNDLE)) else f"homebrew: {mc[-1]}")
+        line("media-control", True, where)
     try:
         t = read()
         line("now playing", True, f"{t['player']}: {t['title']} - {t['artist']} ({t['state']})" if t else "nothing playing (that is fine)")

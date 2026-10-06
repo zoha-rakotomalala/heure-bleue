@@ -6,10 +6,12 @@ hex blob through osascript. Both are polled only when the app is running, so we
 never launch a player by accident.
 
 Everything else (YouTube Music, Deezer, Tidal, a browser tab) is read with
-`media-control` (brew install media-control), which opens the MediaRemote feed
-Apple closed to third parties in macOS 15.4. It is a community tool, not an
-Apple door; when it is missing or stops working the wall simply falls back to
-Spotify and Music.
+`media-control` (github.com/ungive/media-control, BSD-3), which opens the
+MediaRemote feed Apple closed to third parties in macOS 15.4. The packaged app
+ships its own copy under vendor/media-control and runs it with the system Perl;
+a source checkout uses the Homebrew install when there is one. It is a community
+tool, not an Apple door; when it is missing or stops working the wall simply
+falls back to Spotify and Music.
 """
 from __future__ import annotations
 
@@ -23,11 +25,22 @@ import time
 from pathlib import Path
 from typing import Optional
 
+from .. import config
 from . import Track
 
-MEDIA_CONTROL = shutil.which("media-control") or next(
-    (p for p in ("/opt/homebrew/bin/media-control", "/usr/local/bin/media-control") if Path(p).exists()), None)
-# an app opened from Finder has a bare PATH, so the Homebrew locations are tried by hand
+
+def _find_media_control() -> Optional[list]:
+    """The command prefix for media-control, or None. Bundled copy first, then Homebrew."""
+    bundled = config.BUNDLE / "vendor" / "media-control" / "bin" / "media-control"
+    if bundled.exists() and Path("/usr/bin/perl").exists():
+        return ["/usr/bin/perl", str(bundled)]  # the bundle is not on PATH and may carry a quarantine flag; perl does not care
+    found = shutil.which("media-control") or next(
+        (p for p in ("/opt/homebrew/bin/media-control", "/usr/local/bin/media-control") if Path(p).exists()), None)
+    # an app opened from Finder has a bare PATH, so the Homebrew locations are tried by hand
+    return [found] if found else None
+
+
+MEDIA_CONTROL = _find_media_control()
 
 APP_NAMES = {
     "com.spotify.client": "Spotify", "com.apple.Music": "Music", "com.google.Chrome": "Chrome",
@@ -114,7 +127,7 @@ def _system_now_playing() -> Optional[Track]:
     if not MEDIA_CONTROL:
         return None
     try:
-        r = subprocess.run([MEDIA_CONTROL, "get"], capture_output=True, text=True, timeout=10)
+        r = subprocess.run([*MEDIA_CONTROL, "get"], capture_output=True, text=True, timeout=10)
         d = json.loads(r.stdout or "null")
     except (subprocess.SubprocessError, OSError, json.JSONDecodeError):
         return None
@@ -182,7 +195,7 @@ def next_track() -> bool:
                 return True
     if MEDIA_CONTROL and _system_now_playing():
         try:
-            subprocess.run([MEDIA_CONTROL, "next-track"], capture_output=True, timeout=10)
+            subprocess.run([*MEDIA_CONTROL, "next-track"], capture_output=True, timeout=10)
             return True
         except (subprocess.SubprocessError, OSError):
             return False

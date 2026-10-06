@@ -19,10 +19,14 @@ hidden = ["heurebleue.nowplaying.macos", "heurebleue.nowplaying.windows", "heure
 if sys.platform == "win32":
     hidden += ["winsdk", "winsdk.windows.media.control", "winsdk.windows.storage.streams"]
 
+datas = [("web", "web"), ("data/paintings.json", "data"), ("assets/icon.png", "assets"), ("assets/VERSION", ".")]
+if sys.platform == "darwin" and (Path(SPECPATH) / "vendor" / "media-control" / "bin").exists():
+    datas.append(("vendor/media-control", "vendor/media-control"))  # tools/vendor_media_control.py puts it there
+
 a = Analysis(
     ["tools/app_entry.py"],
     pathex=[SPECPATH],
-    datas=[("web", "web"), ("data/paintings.json", "data"), ("assets/icon.png", "assets"), ("assets/VERSION", ".")],
+    datas=datas,
     hiddenimports=hidden,
     excludes=["tkinter", "unittest", "pydoc", "doctest", "test"],
     noarchive=False,

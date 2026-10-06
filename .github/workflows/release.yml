@@ -53,6 +53,9 @@ jobs:
         run: |
           v=$(python -c "import heurebleue;print(heurebleue.__version__)")
           test "v$v" = "${GITHUB_REF_NAME}" || { echo "heurebleue/__init__.py says $v, tag is ${GITHUB_REF_NAME}"; exit 1; }
+      - if: runner.os == 'macOS'
+        # the Mac app ships media-control so browser tabs and other players work out of the box
+        run: python tools/vendor_media_control.py --install
       - run: pyinstaller --noconfirm heurebleue.spec
       - name: smoke test the binary
         shell: bash

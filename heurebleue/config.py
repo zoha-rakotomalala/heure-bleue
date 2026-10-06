@@ -66,7 +66,7 @@ DEFAULTS = {
     "repeat_days": 3,
     "theme": "forest",
     "city": {"name": "Paris", "lat": 48.8566, "lon": 2.3522, "timezone": "Europe/Paris"},
-    "locale": "fr-FR",
+    "locale": "",        # date format (fr-FR, en-GB, ...); empty = the system language
     "language": "",       # ui language (en, fr, nl, de, es, it, pt, fi, sv, da, pl, ru, ja); empty = follow locale
     "units": "celsius",   # or fahrenheit
     "players": "auto",
@@ -89,6 +89,21 @@ def load() -> dict:
                 cfg[k] = v
     return cfg
 
+
+
+def save_keys(**keys) -> dict:
+    """Merge a few settings into the user's config.json (the ⚙ panel writes update_mode this way).
+    Only the keys given are touched; the rest of the file, comments aside, stays as the user wrote it."""
+    current = {}
+    if CONFIG_FILE.exists():
+        try:
+            current = json.loads(CONFIG_FILE.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            current = {}
+    current.update(keys)
+    CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
+    CONFIG_FILE.write_text(json.dumps(current, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return current
 
 # runtime files (all under data/, all git-ignored except paintings.json)
 # The shipped index is read from the bundle; the app never writes it.

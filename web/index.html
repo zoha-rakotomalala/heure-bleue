@@ -82,8 +82,16 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   #swatches { display: none; gap: 0.7vmin; padding: 0.9vh 0.9vmin; border-radius: 999px; background: rgba(var(--text-rgb), 0.08); border: 1px solid rgba(var(--text-rgb), 0.2); backdrop-filter: blur(8px); }
   #controls.open #swatches { display: flex; }
-  #update { font-size: 1.15vmin; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; opacity: 0.9; }
-  #update:hover { text-decoration: underline; }
+  /* the update line: a gold pill that stays readable while the rest of the controls fade */
+  #update { display: flex; align-items: center; gap: 0.9vmin; padding: 0.7vh 1.3vmin 0.7vh 1.5vmin; border-radius: 999px; font-size: max(1.35vmin, 12px); letter-spacing: 0.05em; color: var(--gold); text-decoration: none; background: rgba(var(--bg-rgb), 0.9); border: 1px solid rgba(240, 180, 92, 0.55); box-shadow: 0 10px 30px -12px rgba(0,0,0,0.6); backdrop-filter: blur(10px); opacity: 1 !important; transition: border-color 0.3s ease, background 0.3s ease; }
+  #update[hidden] { display: none; }
+  #update::before { content: ""; width: 0.8vmin; height: 0.8vmin; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 0 rgba(240, 180, 92, 0.6); animation: pulse 2.4s ease-out infinite; }
+  #update.busy::before { animation: none; }
+  #update:hover { border-color: var(--gold); background: rgba(240, 180, 92, 0.12); }
+  #update .x { color: var(--faint); font-size: 1.5vmin; line-height: 1; padding: 0 0.2vmin; }
+  #update .x:hover { color: var(--text); }
+  #update.busy .x { display: none; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(240, 180, 92, 0.6); } 70% { box-shadow: 0 0 0 0.9vmin rgba(240, 180, 92, 0); } 100% { box-shadow: 0 0 0 0 rgba(240, 180, 92, 0); } }
   #swatches span { width: 2.2vmin; height: 2.2vmin; border-radius: 50%; cursor: pointer; border: 2px solid transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15); }
   #swatches span.on { border-color: var(--gold); }
   #swatches span.painting { background: conic-gradient(#8a2a1e, #2b3a6b, #1e4d3a, #6b4a1e, #8a2a1e); }
@@ -130,8 +138,9 @@
   }
 
   body.idle, body.idle * { cursor: none !important; }
-  body.idle #controls { opacity: 0; }
   body.idle #controls.prefs { opacity: 1; }   /* an open settings panel stays until Escape or the ⚙ button */
+  body.idle #controls:not(.prefs) > :not(#update) { opacity: 0; transition: opacity 0.4s ease; }
+  body.idle #controls:not(.prefs) { opacity: 1; }  /* so the update pill can keep its own opacity */
   body.snap *, body.snap *::before { transition: none !important; }
   body.evening { --band-opacity: 0.7; }
   body.night { --band-opacity: 0.45; }
@@ -178,10 +187,11 @@
       <div><div class="k" data-i18n="language">Language</div><select class="lang"></select></div>
       <div class="place"><div class="k" data-i18n="place">Place</div><div class="now"></div><input type="search" autocomplete="off" data-i18n-ph="search_city" placeholder="search a city"><div class="pills results"></div><div class="note"></div></div>
       <div><div class="k" data-i18n="units">Units</div><div class="pills units"><button data-u="celsius">°C</button><button data-u="fahrenheit">°F</button></div></div>
+      <div class="updates" hidden><div class="k" data-i18n="updates">Updates</div><div class="pills mode"><button data-m="click" data-i18n="upd_click">ask me</button><button data-m="auto" data-i18n="upd_auto">install at quit</button></div><div class="note ver"></div></div>
       <button class="reset" data-i18n="reset">reset to config.json</button>
     </div>
     <div id="swatches"></div>
-    <a id="update" href="#" hidden></a>
+    <a id="update" href="#" hidden><span class="t"></span><span class="x" data-i18n-title="dismiss" title="not now">×</span></a>
     <div class="row">
       <button class="prefs" data-i18n-title="tip_prefs" title="Language, place, units">⚙</button>
       <button class="theme" data-i18n-title="tip_theme" title="Wall colour">◐</button>
@@ -213,21 +223,44 @@ let upd = null, updTimer = null;
 async function checkUpdate() {
   try {
     upd = await (await fetch("/api/version")).json();
-    const a = $("#update"), inst = upd.install;
-    a.hidden = !upd.newer;
-    if (!upd.newer) return;
+    const a = $("#update"), t = a.querySelector(".t"), inst = upd.install;
+    const busy = !!(inst && !["error", "ready", null, undefined].includes(inst.phase));
+    // "not now" hides this one version in this browser; a "ready" or in-progress install always shows
+    const dismissed = localStorage.getItem("hb.upd.dismissed") === upd.latest && !busy && !(inst && inst.phase === "ready");
+    a.hidden = !upd.newer || dismissed;
+    a.classList.toggle("busy", busy);
+    buildUpdates();
+    if (a.hidden) return;
     a.href = upd.url;
-    if (inst && inst.phase === "downloading") a.textContent = T("upd_downloading", { p: inst.pct || 0 });
-    else if (inst && (inst.phase === "verifying" || inst.phase === "installing")) a.textContent = T("upd_installing");
-    else if (inst && inst.phase === "ready") a.textContent = T("upd_ready", { v: upd.latest });
-    else if (inst && inst.phase === "restarting") a.textContent = T("upd_restarting");
-    else if (inst && inst.phase === "error") a.textContent = T("upd_failed");
-    else a.textContent = T(upd.can_install ? "update_install" : "update", { v: upd.latest });
-    const busy = inst && !["error", "ready", null, undefined].includes(inst.phase);
+    if (inst && inst.phase === "downloading") t.textContent = T("upd_downloading", { p: inst.pct || 0 });
+    else if (inst && (inst.phase === "verifying" || inst.phase === "installing")) t.textContent = T("upd_installing");
+    else if (inst && inst.phase === "ready") t.textContent = T("upd_ready", { v: upd.latest });
+    else if (inst && inst.phase === "restarting") t.textContent = T("upd_restarting");
+    else if (inst && inst.phase === "error") t.textContent = T("upd_failed");
+    else t.textContent = T(upd.can_install ? "update_install" : "update", { v: upd.latest });
     clearTimeout(updTimer);
     if (busy) updTimer = setTimeout(checkUpdate, 700);
   } catch (e) { /* offline or the web demo */ }
 }
+function buildUpdates() {
+  // the Updates row of the ⚙ panel: only the packaged app can install itself
+  const box = $("#prefs .updates"); if (!upd) return;
+  box.hidden = !upd.packaged;
+  if (box.hidden) return;
+  box.querySelectorAll(".mode button").forEach(b => b.classList.toggle("on", b.dataset.m === upd.mode));
+  box.querySelector(".ver").textContent = upd.newer ? T("ver_newer", { v: upd.version, n: upd.latest }) : T("ver_current", { v: upd.version });
+}
+document.querySelectorAll("#prefs .updates .mode button").forEach(b => {
+  b.onclick = async () => {
+    try { await fetch("/api/config", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ update_mode: b.dataset.m }) }); } catch (e) {}
+    checkUpdate();
+  };
+});
+$("#update .x").addEventListener("click", (e) => {
+  e.preventDefault(); e.stopPropagation();
+  if (upd && upd.latest) localStorage.setItem("hb.upd.dismissed", upd.latest);
+  $("#update").hidden = true;
+});
 $("#update").addEventListener("click", (e) => {
   e.preventDefault();  // in the app window a plain link would replace the wall
   const inst = upd && upd.install;
@@ -516,6 +549,7 @@ function buildPrefs() {
   const c = HB.city(); $("#prefs .place .now").textContent = `${c.name} · ${c.timezone || ""}`;
   document.querySelectorAll("#prefs .units button").forEach(b => b.classList.toggle("on", b.dataset.u === HB.units()));
   $("#prefs .reset").style.display = HB.overridden() ? "" : "none";
+  buildUpdates();
 }
 document.querySelectorAll("#prefs .units button").forEach(b => { b.onclick = () => HB.setUnits(b.dataset.u); });
 $("#prefs .reset").onclick = () => { HB.reset(); buildPrefs(); };

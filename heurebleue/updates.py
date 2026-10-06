@@ -104,6 +104,7 @@ def state() -> dict:
         d = {k: v for k, v in _state.items() if k != "assets"}
     d["can_install"] = bool(d["newer"]) and can_install()
     d["mode"] = _mode
+    d["packaged"] = config.FROZEN  # only the packaged app can swap itself; a checkout updates with git
     return d
 
 
@@ -416,6 +417,20 @@ def clean_previous() -> None:
         elif p.exists():
             p.unlink()
 
+
+
+def set_mode(mode: str) -> str:
+    """Switch between click and auto at runtime and remember it in config.json.
+    Going to auto with a newer release already known stages it right away."""
+    global _mode
+    _mode = "auto" if str(mode).lower() == "auto" else "click"
+    config.save_keys(update_mode=_mode)
+    if _mode == "auto":
+        with _lock:
+            newer = _state["newer"]
+        if newer:
+            stage_in_background()
+    return _mode
 
 def start(cfg: dict) -> None:
     """Begin the daily check in the background. No-op when config.json says update_check: false."""

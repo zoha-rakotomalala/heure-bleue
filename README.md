@@ -22,8 +22,8 @@ painting in the colours of its cover.*
 
 - **Follows your music.** When a song starts, the album cover is reduced to five
   colours and the closest painting comes up. Spotify and Apple Music on macOS,
-  plus YouTube Music, Deezer, TIDAL or a browser tab with `media-control`
-  installed; any player on Windows and Linux.
+  plus YouTube Music, Deezer, TIDAL or a browser tab (the Mac app ships
+  `media-control` for those); any player on Windows and Linux.
 - **Rotates on its own** every few minutes when nothing is playing.
 - **Keeps a quiet board**: clock, date, weather, sunrise and sunset. Nothing from work.
 - **Learns what you like.** Keep a painting (♥) and the wall leans toward that
@@ -73,15 +73,17 @@ first. Your kept paintings, history and choices live in
 (Windows) or `~/.local/share/heure-bleue` (Linux); a `config.json` there works
 the same as the one described below.
 
-**Updates.** When a newer version is published, a small gold line appears above
-the buttons: *new version x.y · install*. One click, and the app downloads the
+**Updates.** When a newer version is published, a gold pill appears in the
+lower-right corner and stays while the rest fades: *new version x.y · install*.
+The × on it means *not now* for that version. One click, and the app downloads the
 file for your machine from the release, checks that the release's checksum list
 is signed by the heure bleue key and that the file matches it, swaps itself in
 place and restarts. Thirty seconds, no Finder, on all three systems. Your
 paintings and settings are outside the app and are not touched. With
-`"update_mode": "auto"` in `config.json` the app does the download and the
-checks as soon as it sees a new release and swaps it in when you quit; the line
-then reads *new version x.y ready · restart* for the impatient. A source install
+*install at quit* in the ⚙ panel (or `"update_mode": "auto"` in `config.json`)
+the app does the download and the checks as soon as it sees a new release and
+swaps it in when you quit; the pill then reads *new version x.y ready · restart*
+for the impatient. The panel also shows the installed version. A source install
 and the web demo show the line too; there it opens the Releases page.
 
 **Moving from the source install to the app.** Your kept paintings and history
@@ -116,17 +118,14 @@ The wall opens in your browser. Move the window to the spare screen and press
 `F` for fullscreen. For a clean window with no address bar: in Safari, *File →
 Add to Dock*, then open the wall from the Dock.
 
-Music is read from Spotify or Apple Music. Nothing else to install. For other
-players (YouTube Music, Deezer, TIDAL, a browser tab), add one tool:
-
-```sh
-brew install media-control
-```
-
-It reads what the macOS Now Playing widget shows. Apple closed that feed to
-third-party apps in macOS 15.4; `media-control` is a community tool that gets
-through, so an Apple update may break it. The wall then falls back to Spotify
-and Music on its own. The downloadable app uses it too when it is installed.
+Music is read from Spotify or Apple Music. For other players (YouTube Music,
+Deezer, TIDAL, a browser tab) the wall uses [`media-control`](https://github.com/ungive/media-control),
+which reads what the macOS Now Playing widget shows. The downloadable app ships
+its own copy, nothing to install. A source checkout adds it with
+`brew install media-control` (`heurebleue doctor` says which copy is in use).
+Apple closed that feed to third-party apps in macOS 15.4; `media-control` is a
+community tool that gets through, so an Apple update may break it. The wall then
+falls back to Spotify and Music on its own.
 
 To start the wall at login and keep it running in the background:
 
@@ -202,6 +201,7 @@ Linux). This is what the downloadable app runs.
 ```sh
 python3 -m pip install pywebview pyinstaller
 python3 tools/make_icon.py        # assets/icon.png, .ico, .icns
+python tools/vendor_media_control.py --install   # macOS only: bundle media-control (brew)
 pyinstaller heurebleue.spec       # dist/HeureBleue.app or dist/HeureBleue/
 ```
 
@@ -328,9 +328,11 @@ Create `config.json` next to this README. Any key you omit keeps its default.
 `rotate_minutes` is the pace with no music. A paused player holds the painting
 for `paused_rotate_minutes`, then the wall rotates until you press play.
 `repeat_days` keeps a painting off the wall for that long after it has been shown.
-`locale` is the regional date format; `language` picks the words on screen and,
-left empty, follows the locale. `units` is `celsius` or `fahrenheit`. A choice
-made in the ⚙ panel wins over these three in that browser.
+`locale` is the regional date format (`fr-FR`, `en-GB`); `language` picks the
+words on screen and, left empty, follows the locale. Both empty, the wall speaks
+the system's language, so a fresh install needs no setting. `units` is `celsius`
+or `fahrenheit`. A choice made in the ⚙ panel wins over these three in that
+browser.
 </details>
 
 <details>

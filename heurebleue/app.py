@@ -63,7 +63,7 @@ def run(fullscreen: bool = False, screen_index: int = 1, debug: bool = False) ->
     screens = webview.screens
     screen = screens[screen_index - 1] if 0 < screen_index <= len(screens) else None
     window = webview.create_window(
-        f"heure bleue {__version__}", url,
+        "heure bleue", url,  # the version lives in /api/version and the gold line, not in the title bar
         screen=screen, fullscreen=fullscreen,
         width=1280, height=800, min_size=(640, 400),
         background_color="#0f1a17",  # the forest theme's dark, so the first frame is not white
