@@ -104,6 +104,10 @@ class Handler(SimpleHTTPRequestHandler):
     def end_headers(self):
         if self.path.startswith(("/data/", "/api/")):
             self.send_header("Cache-Control", "no-store")
+        else:
+            # the page and its scripts: ask again every load, so an updated app never shows the old page
+            # (WebKit kept a stale index.html across the 0.3.1 -> 0.3.2 update; the server is loopback, so this costs nothing)
+            self.send_header("Cache-Control", "no-cache")
         super().end_headers()
 
     def _json(self, obj, code=200):

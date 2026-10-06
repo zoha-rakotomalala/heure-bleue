@@ -47,7 +47,7 @@ def run(fullscreen: bool = False, screen_index: int = 1, debug: bool = False) ->
     if not config.PAINTINGS.exists():
         print(f"no painting index at {config.PAINTINGS}", file=sys.stderr)
         return 2
-    url = f"http://{cfg['host']}:{cfg['port']}/"
+    url = f"http://{cfg['host']}:{cfg['port']}/?v={__version__}"  # a new build gets a fresh cache entry whatever the web view remembers
 
     stop = threading.Event()
     httpd = None
