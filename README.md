@@ -368,7 +368,7 @@ pyinstaller heurebleue.spec       # dist/HeureBleue.app or dist/HeureBleue/
 ```
 
 A release is a tag. Bump `__version__` in `heurebleue/__init__.py`, commit, tag
-the commit `v0.4.0` and push the tag. The *release* workflow builds the four
+the commit `v0.4.1` and push the tag. The *release* workflow builds the four
 files, writes `SHA256SUMS.txt`, signs it, and attaches everything to a draft
 release that you publish from the Releases page. The wall's update pill reads
 the latest published release.
