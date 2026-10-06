@@ -54,7 +54,7 @@ async function shot(browser, { file, w, h, path: p, wait = 6000, dsf = 1, act = 
   await shot(browser, { file: "kept.png", w: 1080, h: 1920, path: "/favorites.html", wait: 4000 });
   await shot(browser, { file: "stats.png", w: 1200, h: 1700, path: "/stats.html", wait: 4000 });
   // The ⚙ panel: open it, search a city so the results show, crop to the lower-right quarter.
-  await shot(browser, { file: "panel.png", w: 1920, h: 1080, path: "/?theme=forest&lang=en", wait: 4000, dsf: 2, clip: { x: 1180, y: 480, width: 740, height: 600 },
+  await shot(browser, { file: "panel.png", w: 1920, h: 1080, path: "/?theme=forest&lang=en", wait: 4000, dsf: 2, clip: { x: 1180, y: 300, width: 740, height: 780 },
     act: async (page) => { await page.keyboard.press("g"); await settle(page, 600); await page.fill("#prefs input", "Amst"); await settle(page, 2500); } });
   // Themes: six narrow portrait frames of the same wall.
   const themes = ["forest", "heure-bleue", "night", "plum", "oxblood", "paper"];

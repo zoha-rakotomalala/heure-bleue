@@ -258,7 +258,7 @@ Small buttons sit bottom-right and fade when the mouse is still.
 | `P` | save a card of this wall to the Desktop (PNG) |
 | `S` | *Stats* |
 | `T` | wall colour |
-| `G` | language, place, units |
+| `G` | settings: language, place, units, pace, choice, updates |
 
 <p align="center">
   <img src="docs/kept.png" alt="The Kept page: favourites in a grid, each with the song that was playing" width="300">
@@ -277,7 +277,7 @@ URL. The choice is remembered per browser.
 
 ![six wall colours](docs/themes.png)
 
-## Language, place, units
+## Settings: language, place, units, pace, choice
 
 Press `G`, or the ⚙ button. The wall speaks English, French, Dutch, German,
 Spanish, Italian, Portuguese, Finnish, Swedish, Danish, Polish, Russian and
@@ -301,7 +301,7 @@ alone, for people who would rather discover. It is `"taste": true|false` in
 the installed version.
 
 <p align="center">
-  <img src="docs/panel.png" alt="The settings panel: thirteen languages, a city search with results, °C or °F" width="520">
+  <img src="docs/panel.png" alt="The settings panel: thirteen languages, a city search with results, °C or °F, pace, choice, updates, credits" width="520">
 </p>
 
 ## The paintings
@@ -341,7 +341,9 @@ Create `config.json` next to this README. Any key you omit keeps its default.
   "min_dwell_seconds": 45,
   "rotate_minutes": 4,
   "paused_rotate_minutes": 20,
-  "repeat_days": 3
+  "repeat_days": 3,
+  "taste": true,
+  "update_mode": "click"
 }
 ```
 
@@ -349,6 +351,8 @@ Create `config.json` next to this README. Any key you omit keeps its default.
 `rotate_minutes` is the pace with no music. A paused player holds the painting
 for `paused_rotate_minutes`, then the wall rotates until you press play.
 `repeat_days` keeps a painting off the wall for that long after it has been shown.
+`taste` is the *Choice* row (`false` = colour alone); `update_mode` is `click` or
+`auto`. The ⚙ panel writes `rotate_minutes`, `taste` and `update_mode` for you.
 `locale` is the regional date format (`fr-FR`, `en-GB`); `language` picks the
 words on screen and, left empty, follows the locale. Both empty, the wall speaks
 the system's language, so a fresh install needs no setting. `units` is `celsius`

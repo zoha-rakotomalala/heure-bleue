@@ -9,6 +9,7 @@
   "min_dwell_seconds": 45,
   "rotate_minutes": 4,
   "paused_rotate_minutes": 20,
+  "taste": true,
   "update_check": true,
   "update_mode": "click"
 }
