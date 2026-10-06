@@ -11,9 +11,9 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
-from . import config
+from . import __version__, config
 
-SHIM_TAG = '<script src="demo.js"></script>\n'
+SHIM_TAG = '<script src="demo.js?v=__V__"></script>\n'
 
 
 def build(out: Path) -> Path:
@@ -24,9 +24,9 @@ def build(out: Path) -> Path:
     (out / "data").mkdir(parents=True)
 
     for name in ("index.html", "favorites.html", "stats.html"):
-        html = (config.WEB / name).read_text(encoding="utf-8")
+        html = (config.WEB / name).read_text(encoding="utf-8").replace("__V__", __version__)
         i = html.index("<script>")  # the shim must run before the page's own script
-        (out / name).write_text(html[:i] + SHIM_TAG + html[i:], encoding="utf-8")
+        (out / name).write_text(html[:i] + SHIM_TAG.replace("__V__", __version__) + html[i:], encoding="utf-8")
 
     (out / "get").mkdir()
     shutil.copy2(config.WEB / "get.html", out / "get" / "index.html")  # stable download links: get/?os=mac-arm64 ...

@@ -14,6 +14,7 @@ from __future__ import annotations
 import socket
 import sys
 import threading
+from pathlib import Path
 import time
 import urllib.request
 
@@ -35,6 +36,37 @@ def _port_in_use(host: str, port: int) -> bool:
         return s.connect_ex((host, port)) == 0
 
 
+def _purge_web_cache_on_new_version() -> None:
+    """First launch of a new version: drop the web view's HTTP cache.
+
+    The pages name their scripts with the version (i18n.js?v=0.4.2) and the server
+    says no-cache, but a cache written by an OLDER version predates both rules, and
+    WebKit kept 0.3.2's i18n.js across the 0.4.1 update, so the new page showed raw
+    translation keys. The cache is only images and scripts; kept paintings, history
+    and the panel choices live elsewhere and are not touched."""
+    import shutil
+    stamp = config.ROOT / "webview" / "version"
+    try:
+        if stamp.exists() and stamp.read_text(encoding="utf-8").strip() == __version__:
+            return
+    except OSError:
+        return
+    s = config.system()
+    if s == "macos":
+        caches = [Path.home() / "Library" / "Caches" / "dev.heurebleue.wall" / "WebKit" / "NetworkCache"]
+    elif s == "windows":
+        caches = [config.ROOT / "webview" / "EBWebView" / "Default" / "Cache", config.ROOT / "webview" / "EBWebView" / "Default" / "Code Cache"]
+    else:
+        caches = [config.ROOT / "webview" / "cache", Path.home() / ".cache" / "heure-bleue"]
+    for c in caches:
+        shutil.rmtree(c, ignore_errors=True)
+    try:
+        stamp.parent.mkdir(parents=True, exist_ok=True)
+        stamp.write_text(__version__ + "\n", encoding="utf-8")
+    except OSError:
+        pass
+
+
 def run(fullscreen: bool = False, screen_index: int = 1, debug: bool = False) -> int:
     try:
         import webview
@@ -48,6 +80,7 @@ def run(fullscreen: bool = False, screen_index: int = 1, debug: bool = False) ->
         print(f"no painting index at {config.PAINTINGS}", file=sys.stderr)
         return 2
     url = f"http://{cfg['host']}:{cfg['port']}/?v={__version__}"  # a new build gets a fresh cache entry whatever the web view remembers
+    _purge_web_cache_on_new_version()
 
     stop = threading.Event()
     httpd = None

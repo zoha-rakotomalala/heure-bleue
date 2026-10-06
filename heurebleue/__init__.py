@@ -1,4 +1,4 @@
 """heure bleue: a gallery wall for a spare screen."""
 
-__version__ = "0.4.1"
+__version__ = "0.4.2"
 REPO = "zoha-rakotomalala/heure-bleue"

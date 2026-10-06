@@ -161,7 +161,8 @@ Releases page.
 The clock, weather and music sit on the left; the painting takes the full height
 on the right. On a portrait screen they stack. The layout follows the screen,
 nothing to configure. Small round buttons sit bottom-right and fade when the
-mouse is still.
+mouse is still; each one's tooltip is a full sentence, and `?` lays them all out
+with their keys. That sheet also opens by itself on the first launch.
 
 | key | |
 |---|---|
@@ -174,6 +175,7 @@ mouse is still.
 | `P` | save a card of this wall |
 | `T` | wall colour |
 | `G` | settings |
+| `?` · `H` | what the buttons and keys do (shown once on first launch) |
 
 <details>
 <summary><b>The card</b> · <code>P</code> saves a picture of the wall right now</summary>
@@ -368,7 +370,7 @@ pyinstaller heurebleue.spec       # dist/HeureBleue.app or dist/HeureBleue/
 ```
 
 A release is a tag. Bump `__version__` in `heurebleue/__init__.py`, commit, tag
-the commit `v0.4.1` and push the tag. The *release* workflow builds the four
+the commit `v0.4.2` and push the tag. The *release* workflow builds the four
 files, writes `SHA256SUMS.txt`, signs it, and attaches everything to a draft
 release that you publish from the Releases page. The wall's update pill reads
 the latest published release.

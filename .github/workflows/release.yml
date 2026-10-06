@@ -46,6 +46,7 @@ jobs:
         # the Linux app carries its own web view (Qt) so it runs on any distribution
         run: python -m pip install "pywebview[qt]"
       - run: node tests/test_i18n.js web/i18n.js
+      - run: node tests/test_keys.js web
       - run: python -m compileall -q heurebleue
       - name: version must match the tag
         if: startsWith(github.ref, 'refs/tags/')

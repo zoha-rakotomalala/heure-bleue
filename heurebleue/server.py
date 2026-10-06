@@ -30,7 +30,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from . import config, updates
+from . import __version__, config, updates
 from .wall import load_index, painters_of_the_day
 
 OPEN_ALLOWED = ("https://zoha-rakotomalala.github.io/", "https://github.com/zoha-rakotomalala/heure-bleue")
@@ -173,6 +173,20 @@ class Handler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         p = urlsplit(self.path).path
+        if p in ("/", "/index.html", "/favorites.html", "/stats.html"):
+            # the pages name their scripts as i18n.js?v=__V__: a new version is a new URL, so a web view
+            # that cached the old script (WebKit kept 0.3.2's i18n.js across the 0.4.1 update) fetches the new one
+            name = "index.html" if p == "/" else p.lstrip("/")
+            try:
+                html = (config.WEB / name).read_text(encoding="utf-8").replace("__V__", __version__)
+            except FileNotFoundError:
+                return self.send_error(404)
+            body = html.encode("utf-8")
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()  # adds Cache-Control: no-cache for the page itself
+            return self.wfile.write(body)
         if p == "/api/config":
             return self._json({k: self.cfg[k] for k in PUBLIC_CFG_KEYS})
         if p == "/api/favorites":

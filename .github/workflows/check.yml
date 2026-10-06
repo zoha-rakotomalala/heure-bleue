@@ -20,3 +20,4 @@ jobs:
         with: { node-version: "20" }
       - run: node tests/test_demo_shim.js web/demo.js
       - run: node tests/test_i18n.js web/i18n.js
+      - run: node tests/test_keys.js web

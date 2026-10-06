@@ -71,6 +71,19 @@
   #now .bar i { position: absolute; left: 0; top: 0; height: 2px; background: var(--gold); width: 0%; transition: width 1s linear; }
   #now .state { font-size: 1vmin; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.8vh; }
 
+  /* --- help overlay: what the buttons and keys do ------------------------ */
+  #help { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: rgba(var(--bg-rgb), 0.72); backdrop-filter: blur(14px); cursor: pointer; }
+  #help[hidden] { display: none; }
+  #help .sheet { width: min(64vmin, calc(100vw - 8vmin)); max-height: 90vh; overflow: auto; padding: 3.2vh 3.4vmin; border-radius: 2vmin; background: rgba(var(--bg-rgb), 0.96); border: 1px solid rgba(var(--text-rgb), 0.18); box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7); cursor: default; }
+  #help .h { font-family: var(--serif); font-style: italic; font-size: 3.2vmin; color: var(--gold); }
+  #help .s { font-size: 1.45vmin; color: var(--muted); margin-top: 0.8vh; line-height: 1.5; }
+  #help .rows { display: grid; grid-template-columns: auto auto 1fr; gap: 1.1vh 1.6vmin; align-items: center; margin-top: 2.4vh; }
+  #help .rows .i { width: 3vmin; height: 3vmin; border-radius: 50%; border: 1px solid rgba(var(--text-rgb), 0.35); display: grid; place-items: center; font-size: 1.4vmin; color: var(--text); }
+  #help .rows .i.none { border-color: transparent; }
+  #help .rows kbd { font: inherit; font-size: 1.2vmin; letter-spacing: 0.06em; color: var(--gold); white-space: nowrap; min-width: 6vmin; }
+  #help .rows .t { font-size: 1.4vmin; line-height: 1.4; }
+  #help .f { margin-top: 2.6vh; font-size: 1.1vmin; color: var(--faint); letter-spacing: 0.08em; text-transform: uppercase; }
+
   /* --- controls (discreet, bottom-right) -------------------------------- */
   #controls { position: fixed; right: 2.2vmin; bottom: 2.4vh; display: flex; flex-direction: column; align-items: flex-end; gap: 1vh; z-index: 9; opacity: 0.22; transition: opacity 0.4s ease; }
   #controls:hover, #controls.open, #controls.prefs { opacity: 1; }
@@ -177,6 +190,15 @@
     </div>
   </main>
 
+  <div id="help" hidden>
+    <div class="sheet">
+      <div class="h" data-i18n="help_title">heure bleue</div>
+      <div class="s" data-i18n="help_sub">A gallery wall that follows your music. Everything is one key or one small button, bottom right.</div>
+      <div class="rows"></div>
+      <div class="f" data-i18n="help_close">press any key to close · ? brings this back</div>
+    </div>
+  </div>
+
   <footer id="now">
     <img id="cover" alt="">
     <div>
@@ -202,6 +224,7 @@
     <div id="swatches"></div>
     <a id="update" href="#" hidden><span class="t"></span><span class="x" data-i18n-title="dismiss" title="not now">×</span></a>
     <div class="row">
+      <button class="help" data-i18n-title="tip_help" title="What the buttons and keys do">?</button>
       <button class="prefs" data-i18n-title="tip_prefs" title="Language, place, units">⚙</button>
       <button class="theme" data-i18n-title="tip_theme" title="Wall colour">◐</button>
       <button class="swap" data-i18n-title="tip_swap" title="Another painting">↻</button>
@@ -212,7 +235,7 @@
     </div>
   </div>
 
-<script src="i18n.js"></script>
+<script src="i18n.js?v=__V__"></script>
 <script>
 // settings come from config.json through /api/config; these are only fallbacks
 let CFG = { city: { name: "Paris", lat: 48.8566, lon: 2.3522, timezone: "Europe/Paris" }, locale: "fr-FR", theme: "forest", rotate_minutes: 4 };
@@ -598,6 +621,30 @@ document.querySelectorAll("#prefs .credits a[data-open]").forEach(a => {
 });
 document.querySelectorAll("#prefs .units button").forEach(b => { b.onclick = () => HB.setUnits(b.dataset.u); });
 $("#prefs .reset").onclick = () => { HB.reset(); buildPrefs(); };
+// help: the same sentences as the button tooltips, with their keys, in one sheet
+const HELP_ROWS = [
+  ["⚙", "G", "tip_prefs"], ["◐", "T", "tip_theme"], ["↻", "N · space · →", "tip_swap"], ["♡", "L", "tip_keep"],
+  ["▤", "K", "tip_kept"], ["⌑", "P", "tip_card"], ["⏭", "> · .", "tip_next"], [null, "S", "tip_stats"], [null, "F", "tip_full"], ["?", "? · H", "tip_help"],
+];
+function buildHelp() {
+  const box = $("#help .rows"); box.innerHTML = "";
+  for (const [icon, key, k] of HELP_ROWS) {
+    const i = document.createElement("div"); i.className = "i" + (icon ? "" : " none"); i.textContent = icon || "";
+    const kb = document.createElement("kbd"); kb.textContent = key;
+    const t = document.createElement("div"); t.className = "t"; t.textContent = T(k);
+    box.append(i, kb, t);
+  }
+}
+function showHelp(on) {
+  buildHelp(); $("#help").hidden = !on;
+  if (on) localStorage.setItem("hb.help.seen", "1");
+}
+$("#help").addEventListener("click", () => showHelp(false));
+$("#controls .help").onclick = () => showHelp($("#help").hidden);
+document.addEventListener("hb:lang", () => { if (!$("#help").hidden) buildHelp(); });
+// first launch: show it once, after the first painting has had a moment
+if (!localStorage.getItem("hb.help.seen") && !params.has("nohelp")) setTimeout(() => { if (!document.hidden) showHelp(true); }, 6000);
+
 // the share card: the server draws it from what is on the wall and puts it on the Desktop
 $("#controls .card").onclick = async () => {
   const b = $("#controls .card"); if (b.classList.contains("busy")) return;
@@ -650,7 +697,9 @@ buildSwatches();
 document.addEventListener("keydown", (e) => {
   if (e.metaKey || e.ctrlKey || e.altKey) return;
   if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") { if (e.key === "Escape") { e.target.blur(); $("#controls").classList.remove("prefs"); } return; }
+  if (!$("#help").hidden) { showHelp(false); if (e.key !== "?" && e.key.toLowerCase() !== "h") return; else return; }
   const k = e.key.toLowerCase();
+  if (k === "?" || k === "h") { showHelp(true); return; }
   if (k === "f") { if (window.pywebview) pywebview.api.toggle_fullscreen(); else document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
   else if (k === "n" || k === " " || k === "arrowright") { e.preventDefault(); $("#controls .swap").click(); }
   else if (k === "l") { $("#controls .fav").click(); }
