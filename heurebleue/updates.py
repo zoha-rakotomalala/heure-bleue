@@ -442,13 +442,18 @@ def start(cfg: dict) -> None:
 
     def loop():
         time.sleep(3 if "HEURE_BLEUE_RELEASE_API" in os.environ else 20)  # let the wall come up first
+        last = 0.0
         while True:
-            try:
-                check_once()
-                if _mode == "auto":
-                    stage_in_background()
-            except Exception:  # noqa: BLE001  offline, rate-limited, GitHub down: try again tomorrow
-                pass
-            time.sleep(EVERY)
+            # wall-clock, not a 24 h sleep: a Mac that sleeps overnight pauses sleeping threads,
+            # which would push the daily check late by the hours it slept
+            if time.time() - last >= EVERY:
+                last = time.time()
+                try:
+                    check_once()
+                    if _mode == "auto":
+                        stage_in_background()
+                except Exception:  # noqa: BLE001  offline, rate-limited, GitHub down: try again tomorrow
+                    pass
+            time.sleep(600)
 
     threading.Thread(target=loop, name="update-check", daemon=True).start()
