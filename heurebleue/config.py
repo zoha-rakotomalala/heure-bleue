@@ -70,6 +70,7 @@ DEFAULTS = {
     "language": "",       # ui language (en, fr, nl, de, es, it, pt, fi, sv, da, pl, ru, ja); empty = follow locale
     "units": "celsius",   # or fahrenheit
     "players": "auto",
+    "taste": True,         # let kept paintings tilt the choice toward their artists, museums and centuries; False = pure colour match, more discovery
     "update_check": True,  # ask GitHub once a day whether a newer release exists; the wall shows a small link
     "update_mode": "click",  # click: the line installs when clicked. auto: download now, install at quit (packaged app)
 }

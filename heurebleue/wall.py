@@ -83,7 +83,7 @@ def recently_shown(days: float, wear_days: float = 30) -> tuple[set[str], dict[s
     return block, shows
 
 
-def choose_painting(cover_palette: list[dict], recent: list[str], repeat_days: float = 3) -> Optional[dict]:
+def choose_painting(cover_palette: list[dict], recent: list[str], repeat_days: float = 3, use_taste: bool = True) -> Optional[dict]:
     index = load_index()
     block, shows = recently_shown(repeat_days)
     block.update(recent)
@@ -92,7 +92,7 @@ def choose_painting(cover_palette: list[dict], recent: list[str], repeat_days: f
         paintings = [p for p in index if p["id"] not in recent] or index
     if not paintings:
         return None
-    taste, hour = _load_json(config.TASTE, {}), artist_hour()
+    taste, hour = (_load_json(config.TASTE, {}), artist_hour()) if use_taste else ({}, None)  # taste off: colour and wear only
     upright = [p for p in paintings if p.get("h", 1) >= p.get("w", 1) * 0.9]
     if len(upright) >= 40:  # the screen is portrait; prefer upright when the pool allows
         paintings = upright
@@ -173,7 +173,7 @@ def run(stop: threading.Event, cfg: dict) -> None:
             if forced:
                 _force_change = 0.0
             if cover_palette and (swap or forced or (pending and now - last_change >= dwell)):
-                chosen = choose_painting(cover_palette, recent, cfg.get("repeat_days", 3))
+                chosen = choose_painting(cover_palette, recent, cfg.get("repeat_days", 3), cfg.get("taste", True))
                 if chosen:
                     painting, last_change = chosen, now
                     painting_for = f"{track.get('title')}|{track.get('artist')}|{track.get('album')}"

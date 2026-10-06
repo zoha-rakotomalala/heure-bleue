@@ -27,7 +27,8 @@ painting in the colours of its cover.*
 - **Rotates on its own** every few minutes when nothing is playing.
 - **Keeps a quiet board**: clock, date, weather, sunrise and sunset. Nothing from work.
 - **Learns what you like.** Keep a painting (♥) and the wall leans toward that
-  painter, museum and century. The song playing is remembered with it.
+  painter, museum and century. The song playing is remembered with it. Prefer discovering? *Surprise me* in the ⚙ panel
+  turns the lean off and the match is colour alone.
 - **Keeps a diary.** A *Kept* page for your favourites and a *Stats* page: time
   on the wall by museum, century and painter, and which music brought which painters.
 
@@ -282,6 +283,12 @@ The same panel sets the place for the weather and the sun times: search a city
 
 Rijksmuseum texts about a painting exist in Dutch and English; the wall shows the
 Dutch original to Dutch readers and the English text to everyone else.
+
+The *Choice* row sets how the wall picks: *my taste* lets kept paintings pull
+toward their artists, museums and centuries; *surprise me* matches on colour
+alone, for people who would rather discover. It is `"taste": true|false` in
+`config.json` and applies to every window. The panel ends with the credits and
+the installed version.
 
 <p align="center">
   <img src="docs/panel.png" alt="The settings panel: thirteen languages, a city search with results, °C or °F" width="520">

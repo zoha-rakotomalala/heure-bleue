@@ -11,7 +11,8 @@
   GET  /api/version               -> this version, the latest GitHub release, whether it is newer
   POST /api/update/open           -> open that release page in the system browser
   POST /api/update/install        -> packaged app: download, verify, swap, relaunch (progress in /api/version)
-  POST /api/config {update_mode}  -> write a setting to config.json (the ⚙ panel's update toggle)
+  POST /api/config {update_mode | taste} -> write a setting to config.json (the ⚙ panel's toggles)
+  POST /api/open {url}            -> open one of our own pages (credits, source) in the system browser
 
 Binds to 127.0.0.1 by default. Nothing here needs or holds a credential.
 """
@@ -29,7 +30,8 @@ from urllib.parse import urlsplit
 from . import config, updates
 from .wall import load_index
 
-PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days")
+OPEN_ALLOWED = ("https://zoha-rakotomalala.github.io/", "https://github.com/zoha-rakotomalala/heure-bleue")
+PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days", "taste")
 SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
 _LAST_SEEN: dict = {}
 _SEEN_LOCK = threading.Lock()
@@ -156,6 +158,14 @@ class Handler(SimpleHTTPRequestHandler):
         if p == "/api/update/open":
             return self._json({"ok": updates.open_latest()})
 
+        if p == "/api/open":
+            # the credits links: only our own pages, opened in the system browser (the app window has no address bar)
+            url = str(body.get("url") or "")
+            if not url.startswith(OPEN_ALLOWED):
+                return self._json({"error": "not one of ours"}, 403)
+            import webbrowser
+            return self._json({"ok": webbrowser.open(url)})
+
         if p == "/api/update/install":
             try:
                 return self._json(updates.install())
@@ -168,6 +178,9 @@ class Handler(SimpleHTTPRequestHandler):
             if "update_mode" in body:
                 out["update_mode"] = updates.set_mode(body["update_mode"])
                 self.cfg["update_mode"] = out["update_mode"]
+            if "taste" in body:
+                out["taste"] = self.cfg["taste"] = bool(body["taste"])  # the wall loop shares this dict, so the next choice sees it
+                config.save_keys(taste=out["taste"])
             if not out:
                 return self._json({"error": "nothing to set"}, 400)
             return self._json(out)
