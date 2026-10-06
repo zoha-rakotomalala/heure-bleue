@@ -54,6 +54,53 @@ def palette_distance(a: list[dict], b: list[dict]) -> float:
     return one_way(la, lb) + one_way(lb, la)
 
 
+def palette_feel(pal: list[dict]) -> dict:
+    """What a palette feels like, three numbers the matcher can compare with a target:
+    light 0..1 (dark to pale), chroma 0..1 (grey to vivid), warm -1..1 (blue to orange)."""
+    if not pal:
+        return {"light": 0.5, "chroma": 0.4, "warm": 0.0}
+    total = sum(c.get("w", 1) for c in pal) or 1
+    light = chroma = warm = 0.0
+    for c in pal:
+        w = c.get("w", 1) / total
+        L, a, b = rgb_to_lab(hex_to_rgb(c["hex"]))
+        C = math.hypot(a, b)
+        light += w * L / 100
+        chroma += w * min(1.0, C / 60)
+        warm += w * ((0.5 * a + b) / (C + 1e-6)) * min(1.0, C / 25)  # grey has no temperature
+    return {"light": round(light, 3), "chroma": round(chroma, 3), "warm": round(max(-1.0, min(1.0, warm)), 3)}
+
+
+def color_name(hex_: str) -> str:
+    """A plain name key for a colour (col_red, col_blue, ...), for the 'why this painting' line."""
+    L, a, b = rgb_to_lab(hex_to_rgb(hex_))
+    C = math.hypot(a, b)
+    if L < 14:
+        return "col_black"
+    if L > 90 and C < 10:
+        return "col_white"
+    if C < 9:
+        return "col_grey"
+    h = math.degrees(math.atan2(b, a)) % 360  # CIELAB hue: red ~35, orange ~60, yellow ~90, green ~150, blue ~290, violet ~320
+    if 45 <= h < 100 and L < 50 and C < 45:
+        return "col_brown"
+    if 45 <= h < 110 and L > 75 and C < 30:
+        return "col_beige"
+    if h < 48 or h >= 340:
+        return "col_pink" if L > 60 and C < 70 else "col_red"
+    if h < 75:
+        return "col_orange"
+    if h < 112:
+        return "col_yellow"
+    if h < 180:
+        return "col_green"
+    if h < 240:
+        return "col_teal"
+    if h < 305:
+        return "col_blue"
+    return "col_violet"
+
+
 def has_calibration_strip(im: Image.Image) -> bool:
     """True when the bottom ~3.5% is a vertically uniform grey ramp or block row
     (a photographic colour target left in a museum photo)."""

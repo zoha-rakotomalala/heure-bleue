@@ -3,13 +3,16 @@
 Every poll:
   * read the active player through the platform backend
   * on a new track, extract the cover palette (URL or raw bytes) and queue a change
-  * when the dwell allows (or a swap was requested), pick the painting whose palette
-    is closest in CIELAB, weighted by taste (favorites) and the artist hour
-  * write data/now_playing.json for the page
+  * on a new track, look up the artist's genre tags (MusicBrainz, cached) for the music feel
+  * when the dwell allows (or a swap was requested), pick the painting that answers the
+    signals switched on in config.json "match": the cover's colours (CIELAB), the music
+    feel, the moment (hour, sky, season); taste (favorites) and wear scale the result
+  * write data/now_playing.json for the page, with the reasons for the choice ("why")
 """
 from __future__ import annotations
 
 import json
+import math
 import random
 import re
 import threading
@@ -17,8 +20,8 @@ import time
 import urllib.request
 from typing import Optional
 
-from . import config, nowplaying
-from .color import palette_distance, palette_from_bytes
+from . import config, moment, music, nowplaying
+from .color import color_name, hex_to_rgb, palette_distance, palette_feel, palette_from_bytes, rgb_to_lab
 
 RECENT_MAX = 40          # in-memory floor; the real memory is the viewing history (see recently_shown)
 CANDIDATES = 12          # pick among the closest N, weighted toward the closest
@@ -69,6 +72,49 @@ def taste_bonus(p: dict, taste: dict, hour_artist: Optional[str]) -> float:
     return max(0.35, 1.0 - 0.5 * strength * min(score, 1.3))
 
 
+_FEEL: dict[str, dict] = {}  # painting id -> palette feel, computed once
+
+
+def feel_of(p: dict) -> dict:
+    f = _FEEL.get(p["id"])
+    if f is None:
+        f = _FEEL[p["id"]] = palette_feel(p.get("palette") or [])
+    return f
+
+
+def feel_distance(a: dict, b: dict, cent: Optional[str] = None) -> float:
+    """0 (same feel) .. 1 (opposite). b may ask for a century too."""
+    d = abs(a["light"] - b["light"]) + 0.8 * abs(a["chroma"] - b["chroma"]) + 0.35 * abs(a["warm"] - b["warm"])
+    if b.get("century") and cent:
+        d += 0.08 * min(3, abs(int(cent) - int(b["century"])))
+    return min(1.0, d / 1.6)
+
+
+MATCH_DEFAULT = {"cover": True, "music": True, "moment": True}
+WEIGHTS = {"cover": 1.0, "music": 0.6, "moment": 0.5}  # the cover is the picture itself; the others are inferred
+
+
+def explain(p: dict, cover_palette, music_feel, mom, taste, hour, signals) -> list[dict]:
+    """The reasons behind a choice, as translation keys with their values, for the why line."""
+    why = []
+    if "cover" in signals and cover_palette and p.get("palette"):
+        # the cover colour nearest to the painting's dominant one
+        lab = rgb_to_lab(hex_to_rgb(p["palette"][0]["hex"]))
+        near = min(cover_palette, key=lambda c: math.dist(lab, rgb_to_lab(hex_to_rgb(c["hex"]))))
+        why.append({"k": "why_cover", "c": color_name(near["hex"]), "hex": near["hex"]})
+    if "music" in signals and music_feel:
+        why.append({"k": "why_music", "t": music_feel["top"]})
+    if "moment" in signals and mom:
+        why += [{"k": r} for r in mom["reasons"]]
+    if hour and p.get("artist") == hour:
+        why.append({"k": "why_hour", "a": hour})
+    elif p.get("artist") in _TODAY:
+        why.append({"k": "why_today", "a": p["artist"]})
+    elif taste and taste.get("n", 0) >= 3 and taste.get("artists", {}).get(p.get("artist"), 0) >= 0.5:
+        why.append({"k": "why_taste", "a": p["artist"]})
+    return why[:4]
+
+
 def painters_of_the_day(when: Optional[time.struct_time] = None) -> list[dict]:
     """Painters in the index born or died on today's month and day, from data/artists.json."""
     when = when or time.localtime()
@@ -112,7 +158,17 @@ def recently_shown(days: float, wear_days: float = 30) -> tuple[set[str], dict[s
     return block, shows
 
 
-def choose_painting(cover_palette: list[dict], recent: list[str], repeat_days: float = 3, use_taste: bool = True) -> Optional[dict]:
+def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repeat_days: float = 3, use_taste: bool = True,
+                    match: Optional[dict] = None, music_feel: Optional[dict] = None, use_moment: bool = True,
+                    portrait: bool = True) -> tuple[Optional[dict], list[dict]]:
+    """The painting for this moment, and why.
+
+    Three signals, each with its own switch in config.json "match": the cover's colours
+    (the strongest, when a song plays), the music's genre tags, and the moment (hour, sky,
+    season). Each gives a 0..1 distance per painting; they are averaged by weight, then
+    taste and wear scale the result. With no signal on or available (nothing playing and
+    "moment" off), the choice is a weighted draw over the whole pool: taste and wear only.
+    """
     index = load_index()
     block, shows = recently_shown(repeat_days)
     block.update(recent)
@@ -120,20 +176,36 @@ def choose_painting(cover_palette: list[dict], recent: list[str], repeat_days: f
     if len(paintings) < 20:  # the pool is small or the memory long: fall back to the short memory only
         paintings = [p for p in index if p["id"] not in recent] or index
     if not paintings:
-        return None
+        return None, []
     taste, hour = (_load_json(config.TASTE, {}), artist_hour()) if use_taste else ({}, None)  # taste off: colour and wear only
     refresh_today()
-    upright = [p for p in paintings if p.get("h", 1) >= p.get("w", 1) * 0.9]
-    if len(upright) >= 40:  # the screen is portrait; prefer upright when the pool allows
-        paintings = upright
+    if portrait:
+        upright = [p for p in paintings if p.get("h", 1) >= p.get("w", 1) * 0.9]
+        if len(upright) >= 40:  # the screen is portrait; prefer upright when the pool allows
+            paintings = upright
+    match = {**MATCH_DEFAULT, **(match or {})}
+    mom = moment.current() if (match.get("moment") and use_moment) else None
+    signals = {}
+    if match.get("cover") and cover_palette:
+        signals["cover"] = lambda p: min(1.0, palette_distance(cover_palette, p["palette"]) / 110)
+    if match.get("music") and music_feel:
+        signals["music"] = lambda p: feel_distance(feel_of(p), music_feel["feel"], century(p.get("date")))
+    if mom:
+        signals["moment"] = lambda p: feel_distance(feel_of(p), mom["feel"])
+    wsum = sum(WEIGHTS[s] for s in signals)
 
     def score(p):
         wear = 1 + 0.2 * shows.get(p["id"], 0)  # each showing this month costs 20% of closeness
-        return palette_distance(cover_palette, p["palette"]) * taste_bonus(p, taste, hour) * wear
+        base = sum(WEIGHTS[s] * f(p) for s, f in signals.items()) / wsum if signals else 1.0
+        return base * taste_bonus(p, taste, hour) * wear
 
-    scored = sorted(((score(p), p) for p in paintings), key=lambda t: t[0])[:CANDIDATES]
-    weights = [1 / (i + 1) for i in range(len(scored))]  # closest most likely, never certain
-    return random.choices([p for _, p in scored], weights=weights, k=1)[0]
+    if signals:
+        scored = sorted(((score(p), p) for p in paintings), key=lambda t: t[0])[:CANDIDATES]
+        weights = [1 / (i + 1) for i in range(len(scored))]  # closest most likely, never certain
+        chosen = random.choices([p for _, p in scored], weights=weights, k=1)[0]
+    else:
+        chosen = random.choices(paintings, weights=[1 / score(p) for p in paintings], k=1)[0]
+    return chosen, explain(chosen, cover_palette, music_feel, mom, taste, hour, signals)
 
 
 def cover_palette_for(track: dict) -> Optional[list[dict]]:
@@ -167,7 +239,10 @@ def request_next() -> bool:
 def run(stop: threading.Event, cfg: dict) -> None:
     global _next_track, _force_change
     config.DATA.mkdir(parents=True, exist_ok=True)
-    backend, read, _next_track = nowplaying.detect()
+    if cfg.get("players") == "none":  # a wall without music: the page rotates on the moment alone
+        backend, read, _next_track = "none", (lambda: None), (lambda: False)
+    else:
+        backend, read, _next_track = nowplaying.detect()
     print(f"player backend: {backend}", flush=True)
     prev = _load_json(config.NOW, {})
     last_track = (prev.get("track") or {}).get("id")
@@ -176,6 +251,8 @@ def run(stop: threading.Event, cfg: dict) -> None:
     painting = prev.get("painting")
     painting_for = prev.get("painting_for")
     cover_palette = prev.get("cover_palette")
+    music_feel = prev.get("music")
+    why = prev.get("why") or []
     pending = False
     dwell = cfg["min_dwell_seconds"]
 
@@ -194,6 +271,11 @@ def run(stop: threading.Event, cfg: dict) -> None:
                     cover_palette = cover_palette_for(track) or cover_palette
                 except Exception as exc:  # noqa: BLE001
                     print("cover fetch failed:", exc, flush=True)
+                try:
+                    music_feel = music.feel_for(track) if (cfg.get("match") or MATCH_DEFAULT).get("music", True) else None
+                except Exception as exc:  # noqa: BLE001
+                    music_feel = None
+                    print("music tags failed:", exc, flush=True)
                 pending = True
                 last_track = track["id"]
             swap = config.SWAP.exists()
@@ -202,8 +284,9 @@ def run(stop: threading.Event, cfg: dict) -> None:
             forced = pending and now < _force_change  # the new song came from our own skip button
             if forced:
                 _force_change = 0.0
-            if cover_palette and (swap or forced or (pending and now - last_change >= dwell)):
-                chosen = choose_painting(cover_palette, recent, cfg.get("repeat_days", 3), cfg.get("taste", True))
+            if swap or forced or (pending and now - last_change >= dwell):  # no cover and no tags: the moment and taste still choose
+                chosen, why = choose_painting(cover_palette, recent, cfg.get("repeat_days", 3), cfg.get("taste", True),
+                                              cfg.get("match"), music_feel)
                 if chosen:
                     painting, last_change = chosen, now
                     painting_for = f"{track.get('title')}|{track.get('artist')}|{track.get('album')}"
@@ -212,6 +295,7 @@ def run(stop: threading.Event, cfg: dict) -> None:
             public = {k: v for k, v in track.items() if k != "cover_bytes"}
             public["cover"] = track.get("cover_url") or (f"/data/cover.jpg?v={int(last_change)}" if track.get("cover_bytes") else None)
             out = {"active": True, "backend": backend, "updated_at": now, "track": public, "cover_palette": cover_palette,
+                   "music": music_feel, "why": why,
                    "painting": painting, "painting_for": painting_for, "painting_changed_at": last_change,
                    "pending": pending, "recent": recent}
         tmp = config.NOW.with_suffix(".tmp")

@@ -21,22 +21,30 @@ seconds and the wall follows, one painting per song, in the colours of its cover
 ## What it does
 
 - **Follows your music.** When a song starts, the album cover is reduced to five
-  colours and the closest painting comes up. Spotify and Apple Music on macOS,
-  plus YouTube Music, Deezer, TIDAL or a browser tab (the Mac app ships
-  `media-control` for those); any player on Windows and Linux.
-- **Rotates on its own** every few minutes when nothing is playing.
+  colours, the artist's genre tags give the music a feel (jazz is warm, doom
+  metal is dark), and the painting that answers both comes up. Spotify and Apple
+  Music on macOS, plus YouTube Music, Deezer, TIDAL or a browser tab (the Mac app
+  ships `media-control` for those); any player on Windows and Linux.
+- **Follows the moment.** The hour, the sky and the season weigh in too: a rainy
+  night and a clear summer noon do not get the same painting for the same song.
+  With no music at all the wall still has something to go on.
+- **Says why**, in one line under the label: *chosen for the deep blue of the
+  cover, the jazz in the music and the rain*. Each of the three signals has its
+  own switch.
 - **Keeps a quiet board**: clock, date, weather, sunrise and sunset. Nothing from work.
 - **Learns what you like**, or not: keep a painting (♥) and the wall leans toward
   that painter, museum and century. *Surprise me* turns the lean off.
 - **Makes a card** of the wall right now (`P`), for sending to someone.
 - **Knows the calendar**: on a painter's birthday, a line says so.
-- **Keeps a diary.** A *Kept* page for your favourites and a *Stats* page.
+- **Keeps a diary.** A *Kept* page for your favourites and a *Stats* page, a
+  line when you kept something on this day a year ago, and a card of your year.
 - **Updates itself**, one click, signed releases.
 
 Everything runs on your machine, on `127.0.0.1`. No accounts, no API keys, no
 telemetry. The only network calls are museum images, Open-Meteo for weather, the
-album cover, and one request a day to GitHub to see whether a newer version exists
-(`"update_check": false` in `config.json` turns that off).
+album cover, one request per artist to MusicBrainz for its genre tags (cached for
+three months), and one request a day to GitHub to see whether a newer version
+exists (`"update_check": false` in `config.json` turns that off).
 
 ## Install
 
@@ -173,6 +181,7 @@ with their keys. That sheet also opens by itself on the first launch.
 | `K` | *Kept*, your favourites |
 | `S` | *Stats* |
 | `P` | save a card of this wall |
+| `Y` | save a card of your year |
 | `T` | wall colour |
 | `G` | settings |
 | `?` · `H` | what the buttons and keys do (shown once on first launch) |
@@ -192,6 +201,32 @@ someone *look what my wall did*.
 </details>
 
 <details>
+<summary><b>Why this painting</b> · three signals, three switches, one sentence</summary>
+
+Under the label, a small line gives the reason: *chosen for the deep blue of the
+cover, the classical in the music and the evening*. It is built from whatever
+signals were on and available, so it is also the honest account of what the wall
+did not know. The three signals, each with a switch in the ⚙ panel (*Matching*):
+
+- **Cover colours.** The album cover reduced to five colours, compared with each
+  painting's palette in CIELAB. The strongest signal: it is the picture itself.
+- **Music feel.** The artist's genre tags from MusicBrainz (no key, no login:
+  Spotify closed its audio-features endpoint to new apps in 2024). Each known tag
+  nudges what the painting should be: how light, how vivid, how warm, and roughly
+  which century. *Bossa nova* asks for warm and bright, *drone* for dark and grey,
+  *baroque* for the 1600s. A browser tab playing a video has a channel, not a
+  band, and is skipped.
+- **The moment.** The hour (night, first light, blue hour, evening), the sky from
+  the weather code (rain, snow, fog, grey, clear, storm) and the season. Nothing
+  to fetch beyond the weather the wall already shows.
+
+Turn any off; one stays on. With all music signals off, or nothing playing, the
+moment chooses. With the moment off too and nothing playing, the wall draws at
+random, weighted by your taste. `"players": "none"` in `config.json` makes a wall
+that never listens to music at all.
+</details>
+
+<details>
 <summary><b>Today in art</b> · a line on a painter's birthday</summary>
 
 <p align="center">
@@ -203,6 +238,27 @@ It appears when a painter in the index was born or died on today's date; the
 wall also leans a little toward that painter for the day. The dates come from
 Wikidata for 527 of the 606 painters in the index, which covers 324 days of the
 year. `python3 tools/artist_dates.py` refreshes them after indexing new museums.
+
+The same line remembers you: *a year ago today you kept The Lutenist while Nina
+Simone played*. When both have something to say they take turns, twenty seconds
+each.
+</details>
+
+<details>
+<summary><b>Your year</b> · <code>Y</code>, or the button on Stats</summary>
+
+<p align="center">
+  <img src="docs/year.png" alt="The year card: 2026 in large serif, three numbers, twelve painting tiles, four facts" width="420">
+</p>
+
+Paintings shown, hours on the wall, paintings kept; twelve tiles, the first
+painting kept in each month (a year that began in September fills the rest with
+the others); the painter you kept most, your museum, the music behind the hearts,
+the painter you lived with longest. Computed on your machine from `favorites.json`
+and `history.jsonl`; nothing is sent anywhere. The Stats page shows the same
+numbers and the kept-per-month bars, with a button for any year the wall has
+seen; `Y` on the wall makes this year's card (last year's, in January, when the
+wall also says so under the weather). In the language on screen.
 </details>
 
 <details>
@@ -235,10 +291,10 @@ URL. The choice is remembered per browser.
 </details>
 
 <details>
-<summary><b>Settings</b> · <code>G</code>: language, place, units, pace, choice, updates</summary>
+<summary><b>Settings</b> · <code>G</code>: language, place, units, pace, choice, matching, updates</summary>
 
 <p align="center">
-  <img src="docs/panel.png" alt="The settings panel: a language menu, a city search with results, °C or °F, pace, choice, updates, and the credits" width="520">
+  <img src="docs/panel.png" alt="The settings panel: a language menu, a city search, °C or °F, pace, choice, matching (cover colours, music feel, the moment), updates, and the credits" width="520">
 </p>
 
 **Language.** The wall speaks English, French, Dutch, German, Spanish, Italian,
@@ -255,8 +311,12 @@ remembered per browser; *reset* goes back to `config.json`.
 **Pace.** How long a painting stays when nothing is playing: 2, 4, 8 or 15 minutes.
 
 **Choice.** *My taste* lets kept paintings pull toward their artists, museums and
-centuries. *Surprise me* matches on colour alone, for people who would rather
-discover. Pace and Choice are written to `config.json` and apply to every window.
+centuries. *Surprise me* turns that lean off, for people who would rather
+discover.
+
+**Matching.** The three signals behind a choice, *cover colours*, *music feel*
+and *the moment*; click to turn one off, one always stays on. Pace, Choice and
+Matching are written to `config.json` and apply to every window.
 
 **Updates.** *Ask me* or *install at quit*, and the installed version. The panel
 ends with the credits.
@@ -431,6 +491,8 @@ them for you.
   "paused_rotate_minutes": 20,
   "repeat_days": 3,
   "taste": true,
+  "match": { "cover": true, "music": true, "moment": true },
+  "players": "auto",
   "update_mode": "click"
 }
 ```
@@ -439,8 +501,10 @@ them for you.
 `rotate_minutes` is the pace with no music. A paused player holds the painting
 for `paused_rotate_minutes`, then the wall rotates until you press play.
 `repeat_days` keeps a painting off the wall for that long after it has been shown.
-`taste` is the *Choice* row (`false` = colour alone); `update_mode` is `click` or
-`auto`. The ⚙ panel writes `rotate_minutes`, `taste` and `update_mode` for you.
+`taste` is the *Choice* row (`false` = no lean toward what you keep); `match` is
+the *Matching* row, three switches; `players` is `auto`, or `none` for a wall
+that never reads a player; `update_mode` is `click` or `auto`. The ⚙ panel
+writes `rotate_minutes`, `taste`, `match` and `update_mode` for you.
 `locale` is the regional date format (`fr-FR`, `en-GB`); `language` picks the
 words on screen and, left empty, follows the locale. Both empty, the wall speaks
 the system's language, so a fresh install needs no setting. `units` is `celsius`
@@ -451,12 +515,19 @@ browser.
 <details>
 <summary>How the match works</summary>
 
-Each painting in the index has a five-colour palette. The album cover is reduced
-to five colours too. The distance between two palettes is a weighted
-nearest-colour sum in CIELAB, both ways. Your favourites shorten the distance for
-painters, museums and centuries you keep; recent showings lengthen it. The pick
-is a weighted draw among the twelve closest, so the same cover does not always
-give the same painting.
+Each painting in the index has a five-colour palette. Three signals each give a
+painting a distance from 0 to 1. **Cover**: the album cover is reduced to five
+colours too, and the distance between the two palettes is a weighted
+nearest-colour sum in CIELAB, both ways. **Music** and **moment** are compared
+through a *feel*: how light, how vivid and how warm a palette is (plus a
+century, for music), so a painting is one point and the music's tags or the
+moment's hour-sky-season are a target point. The signals are averaged by weight
+(cover 1.0, music 0.6, moment 0.5, only those on and available). Your favourites
+then shorten the distance for painters, museums and centuries you keep; recent
+showings lengthen it. The pick is a weighted draw among the twelve closest, so
+the same cover does not always give the same painting. The reasons line is the
+same calculation read back: the cover colour nearest the painting's dominant
+one, the top matched tag, the notable parts of the moment.
 </details>
 
 <details>

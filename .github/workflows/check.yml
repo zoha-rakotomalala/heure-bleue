@@ -13,6 +13,7 @@ jobs:
         with: { python-version: "${{ matrix.python }}" }
       - run: python -m pip install -r requirements.txt
       - run: python -m compileall -q heurebleue
+      - run: python tests/test_signals.py
       - run: python -m heurebleue doctor || true
       - run: python -c "import json;d=json.load(open('data/paintings.json',encoding='utf-8'));assert len(d)>0 and all({'id','title','image','palette'}<=set(p) for p in d);print(len(d),'paintings')"
       - run: python -m heurebleue demo --out site

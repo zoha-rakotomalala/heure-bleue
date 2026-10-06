@@ -11,7 +11,11 @@
   GET  /api/version               -> this version, the latest GitHub release, whether it is newer
   POST /api/update/open           -> open that release page in the system browser
   POST /api/update/install        -> packaged app: download, verify, swap, relaunch (progress in /api/version)
-  POST /api/config {update_mode | taste} -> write a setting to config.json (the ⚙ panel's toggles)
+  POST /api/config {update_mode | taste | rotate_minutes | match} -> write a setting to config.json (the ⚙ panel)
+  POST /api/moment {code, sunrise, sunset, lat} -> the page's weather, for the matcher (hour and season need nothing)
+  POST /api/pick                  -> a painting for this moment when nothing plays, with its reasons ("why")
+  GET  /api/memories              -> paintings kept on this day in earlier years ("a year ago today")
+  GET  /api/wrapped?year=Y        -> the year's numbers; POST {year, labels} draws the year card to the Desktop
   POST /api/open {url}            -> open one of our own pages (credits, source) in the system browser
   POST /api/card                  -> render the share card (PNG) to the Desktop and reveal it
   GET  /api/favorites.csv|.md     -> the Kept list as a download; POST the same path saves it to the Desktop
@@ -30,11 +34,11 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from . import __version__, config, updates
-from .wall import load_index, painters_of_the_day
+from . import __version__, config, moment, updates
+from .wall import MATCH_DEFAULT, choose_painting, load_index, painters_of_the_day
 
 OPEN_ALLOWED = ("https://zoha-rakotomalala.github.io/", "https://github.com/zoha-rakotomalala/heure-bleue")
-PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days", "taste")
+PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days", "taste", "match", "players")
 SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
 _LAST_SEEN: dict = {}
 _SEEN_LOCK = threading.Lock()
@@ -76,6 +80,27 @@ def export_favorites(favs: list[dict], fmt: str) -> tuple[str, bytes, str]:
         lines.append(f"- **[{f.get('title')}]({f.get('url') or f.get('image')})** — {who}  ")
         lines.append(f"  {f.get('museum') or ''}" + (f" · while playing *{t['title']}* by {t.get('artist')}" if t.get("title") else "") + f" · kept {f.get('saved_at')}")
     return f"heure bleue kept {stamp}.md", ("\n".join(lines) + "\n").encode("utf-8"), "text/markdown"
+
+
+def year_param(v) -> int:
+    """The year asked for; by default the current one, or the one just ended in January."""
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        lt = time.localtime()
+        return lt.tm_year - 1 if lt.tm_mon == 1 else lt.tm_year
+
+
+def memories(favs: list[dict]) -> list[dict]:
+    """Paintings kept on this month and day in an earlier year, newest first."""
+    lt = time.localtime()
+    md, out = f"{lt.tm_mon:02d}-{lt.tm_mday:02d}", []
+    for f in favs:
+        s = f.get("saved_at") or ""
+        if len(s) >= 10 and s[5:10] == md and s[:4].isdigit() and int(s[:4]) < lt.tm_year:
+            out.append({"id": f.get("id"), "title": f.get("title"), "artist": f.get("artist"), "years": lt.tm_year - int(s[:4]),
+                        "song": (f.get("track") or {}).get("title"), "song_artist": (f.get("track") or {}).get("artist")})
+    return sorted(out, key=lambda m: m["years"])
 
 
 def load_favs() -> list[dict]:
@@ -195,6 +220,12 @@ class Handler(SimpleHTTPRequestHandler):
             return self._json(updates.state())
         if p == "/api/today":
             return self._json(painters_of_the_day())
+        if p == "/api/memories":
+            return self._json(memories(load_favs()))
+        if p == "/api/wrapped":
+            from . import year
+            q = dict(x.split("=", 1) for x in urlsplit(self.path).query.split("&") if "=" in x)
+            return self._json(year.summary(year_param(q.get("year")), load_favs(), load_history()))
         if p in ("/api/favorites.csv", "/api/favorites.md"):
             return self._file_download(*export_favorites(load_favs(), p.rsplit(".", 1)[1]))
         if p == "/api/taste":
@@ -256,9 +287,51 @@ class Handler(SimpleHTTPRequestHandler):
             if "taste" in body:
                 out["taste"] = self.cfg["taste"] = bool(body["taste"])  # the wall loop shares this dict, so the next choice sees it
                 config.save_keys(taste=out["taste"])
+            if "match" in body and isinstance(body["match"], dict):
+                m = {**MATCH_DEFAULT, **(self.cfg.get("match") or {}), **{k: bool(v) for k, v in body["match"].items() if k in MATCH_DEFAULT}}
+                if not any(m.values()):
+                    return self._json({"error": "at least one signal must stay on"}, 400)
+                out["match"] = self.cfg["match"] = m
+                config.save_keys(match=m)
             if not out:
                 return self._json({"error": "nothing to set"}, 400)
             return self._json(out)
+
+        if p == "/api/moment":
+            try:
+                moment.update(body.get("code"), body.get("sunrise"), body.get("sunset"), body.get("lat"))
+            except (TypeError, ValueError):
+                return self._json({"error": "bad values"}, 400)
+            return self._json({"ok": True, **{k: v for k, v in moment.current().items() if k != "feel"}})
+
+        if p == "/api/pick":
+            # nothing is playing: the moment (and taste, and wear) choose; the page shows the reasons
+            try:
+                now = json.loads(config.NOW.read_text(encoding="utf-8"))
+            except (FileNotFoundError, json.JSONDecodeError):
+                now = {}
+            chosen, why = choose_painting(None, now.get("recent") or [], self.cfg.get("repeat_days", 3), self.cfg.get("taste", True),
+                                          self.cfg.get("match"), None, portrait=bool(body.get("portrait", True)))
+            if not chosen:
+                return self._json({"error": "no paintings"}, 409)
+            return self._json({"painting": chosen, "why": why})
+
+        if p == "/api/wrapped":
+            from . import card, year
+            y = year_param(body.get("year"))
+            s = year.summary(y, load_favs(), load_history())
+            if not s["kept"] and not s["shown"]:
+                return self._json({"error": "nothing on the wall that year"}, 409)
+            index = {q["id"]: q for q in load_index()}
+            labels = body.get("labels") if isinstance(body.get("labels"), dict) else None
+            img = year.render(s, index, labels)
+            folder = card.desktop()
+            if not folder.exists():
+                folder = config.DATA.parent / "cards"; folder.mkdir(parents=True, exist_ok=True)
+            path = folder / f"heure bleue {y}.png"
+            img.save(path, "PNG", optimize=True)
+            card.reveal(path)
+            return self._json({"ok": True, "path": str(path), "year": y})
 
         if p == "/api/card":
             # the share card: a PNG of the wall right now, saved to the Desktop and shown in the file manager

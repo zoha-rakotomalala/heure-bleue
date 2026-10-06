@@ -65,6 +65,18 @@
   #hourlbl { display: grid; grid-template-columns: repeat(24, 1fr); font-size: calc(var(--u) * 0.9); color: var(--faint); margin-top: 0.8vh; }
   #hourlbl span:nth-child(n+2):not(:nth-child(6n+1)) { visibility: hidden; }
 
+  /* the year: kept per month, and the card button */
+  #year .months { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.4vw; align-items: end; height: 9vh; margin-top: 1vh; }
+  #year .months i { display: block; background: var(--gold); opacity: 0.85; min-height: 1px; transition: height 1.2s ease; }
+  #year .months i.z { background: var(--hair); opacity: 1; height: 1px !important; }
+  #year .mlbl { display: grid; grid-template-columns: repeat(12, 1fr); font-size: calc(var(--u) * 0.9); color: var(--faint); margin-top: 0.8vh; text-align: center; }
+  #year .facts { display: flex; flex-wrap: wrap; gap: 1vh 3vw; margin-top: 1.6vh; font-size: calc(var(--u) * 1.2); color: var(--muted); }
+  #year .facts b { color: var(--text); font-weight: 400; font-family: var(--serif); font-style: italic; font-size: 1.15em; }
+  #year .yr { display: inline-flex; gap: 0.4vw; margin-left: 0.8em; vertical-align: middle; }
+  #year .yr button, #year button.card { background: none; border: 1px solid var(--hair); color: var(--muted); border-radius: 999px; padding: 0.3vh 1vw; font: inherit; font-size: calc(var(--u) * 1.05); cursor: pointer; letter-spacing: 0.04em; }
+  #year .yr button.on, #year button.card { border-color: var(--gold); color: var(--gold); }
+  #year button.card { margin-top: 1.8vh; }
+  #year button.card:disabled { opacity: 0.5; cursor: default; }
   #empty { display: none; font-family: var(--serif); font-style: italic; font-size: calc(var(--u) * 2.2); color: var(--muted); text-align: center; padding: 28vh 4vw; line-height: 1.5; }
   #empty.on { display: block; }
   #empty small { display: block; font-family: var(--sans); font-style: normal; font-size: 0.55em; color: var(--faint); margin-top: 1.2vh; }
@@ -126,6 +138,43 @@ function rows(list, top, fmt, extra = "") {
 }
 function section(title, sub, body) { return `<section><h2>${title}${sub ? `<small>${sub}</small>` : ""}</h2>${body}</section>`; }
 
+// --- the year ---------------------------------------------------------------------
+// numbers come from /api/wrapped (the same ones the card draws); the demo has none and shows nothing here
+let yearPick = null;
+async function yearSection(hist, favs) {
+  const years = [...new Set([...hist.map(r => new Date(r.ts * 1000).getFullYear()), ...favs.map(f => +String(f.saved_at || "").slice(0, 4)).filter(Boolean)])].sort((a, b) => b - a);
+  if (!years.length || HB.cfg.demo) return "";
+  if (!yearPick || !years.includes(yearPick)) yearPick = years[0];
+  let y = null;
+  try { const r = await fetch(`/api/wrapped?year=${yearPick}`, { cache: "no-store" }); if (r.ok) y = await r.json(); } catch (e) {}
+  if (!y) return "";
+  const fmt = new Intl.DateTimeFormat(HB.lang, { month: "short" });
+  const months = Array.from({ length: 12 }, (_, i) => fmt.format(new Date(2024, i, 15)).replace(".", ""));
+  const max = Math.max(...y.per_month, 1);
+  const pick = years.length > 1 ? `<span class="yr">${years.map(v => `<button data-y="${v}" class="${v === yearPick ? "on" : ""}">${v}</button>`).join("")}</span>` : "";
+  const facts = [];
+  if (y.top_artist) facts.push(`${T("yr_most_kept")} <b>${esc(y.top_artist[0])}</b> · ${y.top_artist[1]}`);
+  if (y.top_museum) facts.push(`${T("yr_museum")} <b>${esc(shortMuseum(y.top_museum[0]))}</b>`);
+  if (y.top_song_artist || y.top_music) facts.push(`${T("yr_song")} <b>${esc(y.top_song_artist ? y.top_song_artist[0] : y.top_music.name)}</b>`);
+  if (y.top_painter) facts.push(`${T("yr_painter")} <b>${esc(y.top_painter.name)}</b> · ${y.top_painter.hours} ${T("h")}`);
+  return `<section id="year"><h2>${T("yr_title")}${pick}<small>${y.kept} ${T("kept").toLowerCase()} · ${y.shown} ${T("shown")}</small></h2>
+    <div class="months">${y.per_month.map(n => `<i class="${n ? "" : "z"}" data-h="${(100 * n / max).toFixed(1)}" title="${n}"></i>`).join("")}</div>
+    <div class="mlbl">${months.map(m => `<span>${esc(m)}</span>`).join("")}</div>
+    <div class="facts">${facts.map(f => `<span>${f}</span>`).join("")}</div>
+    <button class="card">${T("yr_card", { y: yearPick })}</button></section>`;
+}
+document.addEventListener("click", async (e) => {
+  const yb = e.target.closest("#year .yr button"); if (yb) { yearPick = +yb.dataset.y; load(); return; }
+  const cb = e.target.closest("#year button.card"); if (!cb) return;
+  cb.disabled = true; cb.textContent = T("card_making");
+  try {
+    const r = await fetch("/api/wrapped", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ year: yearPick, labels: HB.yearLabels() }) });
+    if (!r.ok) throw new Error(r.status);
+    cb.textContent = T("card_saved");
+  } catch (err) { cb.textContent = T("card_failed"); }
+  setTimeout(() => { cb.disabled = false; cb.textContent = T("yr_card", { y: yearPick }); }, 5000);
+});
+
 // --- load and aggregate -------------------------------------------------------
 async function load() {
   let hist = [], favs = [], index = [];
@@ -153,12 +202,13 @@ async function load() {
   $("#head").innerHTML = head.map(([n, u, k]) => `<div class="big"><div class="n">${n}${u ? `<small>${u}</small>` : ""}</div><div class="k">${k}</div></div>`).join("");
 
   const secs = [];
+  secs.push(await yearSection(hist, favs));
   const time = (e) => dur(e.v);
   const count = (e) => `${e.n}×`;
 
   secs.push(section(T("museums"), T("time_on_wall"), rows(tally(hist, r => r.museum, r => r.dwell_s).map(e => ({ ...e, label: shortMuseum(e.k) })), 6, time)));
   secs.push(section(T("centuries"), T("time_on_wall"), rows(tally(hist, r => century(r.p.date), r => r.dwell_s).map(e => ({ ...e, label: HB.century(e.k) })), 8, time)));
-  secs.push(section(T("painters"), T("most_on_wall"), rows(tally(hist.filter(r => r.artist && r.artist !== "Unknown artist"), r => r.artist, r => r.dwell_s), 8, time)));
+  secs.push(section(T("painters"), T("most_on_wall"), rows(tally(hist.filter(r => r.artist && !/^(unknown artist|anonymous|anoniem)$/i.test(r.artist)), r => r.artist, r => r.dwell_s), 8, time)));
   const pics = tally(hist, r => r.id, r => r.dwell_s).map(e => ({ ...e, html: `${e.r.p.image ? `<img src="${esc(e.r.p.image)}" alt="">` : ""}<span><em>${esc(e.r.title)}</em><br><span class="s">${esc(e.r.artist || "")}</span></span>` }));
   secs.push(section(T("most_shown"), "", rows(pics, 5, (e) => `${e.n}× · ${dur(e.v)}`, "pic")));
   const skips = tally(skipped, r => r.id).map(e => ({ ...e, html: `${e.r.p.image ? `<img src="${esc(e.r.p.image)}" alt="">` : ""}<span><em>${esc(e.r.title)}</em><br><span class="s">${esc(e.r.artist || "")}</span></span>` }));
@@ -188,7 +238,7 @@ async function load() {
   $("#grid").innerHTML = secs.join("");
   requestAnimationFrame(() => {
     document.querySelectorAll(".bar i").forEach(i => i.style.width = i.dataset.w + "%");
-    document.querySelectorAll("#hours i:not(.z)").forEach(i => i.style.height = Math.max(2, i.dataset.h) + "%");
+    document.querySelectorAll("#hours i:not(.z), #year .months i:not(.z)").forEach(i => i.style.height = Math.max(2, i.dataset.h) + "%");
   });
 }
 document.addEventListener("keydown", (e) => { if (!e.metaKey && !e.ctrlKey && !e.altKey && e.key === "Escape") location.href = "./"; });

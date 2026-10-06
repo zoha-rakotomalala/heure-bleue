@@ -24,7 +24,7 @@ for (const f of pages) {
   for (const m of src.matchAll(/\bT\(\s*"([a-z_]+)"/g)) add(m[1]);
   for (const m of src.matchAll(/\bHB\.t\(\s*"([a-z_]+)"/g)) add(m[1]);
   for (const m of src.matchAll(/\bstatus\(\s*"([a-z_]+)"/g)) add(m[1]);
-  for (const m of src.matchAll(/"((?:tip|upd|today|card|demo|ver|taste|pace)_[a-z_]+)"/g)) add(m[1]);
+  for (const m of src.matchAll(/"((?:tip|upd|today|card|demo|ver|taste|pace|match|memory1?|yr|why)_[a-z_]+)"/g)) add(m[1]);
   if (f.endsWith(".html")) {
     for (const m of src.matchAll(/<script src="([^"]+)"/g)) {
       assert.ok(/\?v=__V__$/.test(m[1]), `${f}: script ${m[1]} is not versioned (needs ?v=__V__)`);

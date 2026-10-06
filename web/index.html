@@ -54,9 +54,10 @@
   #label .title { font-family: var(--serif); font-size: 2.6vmin; font-weight: 400; line-height: 1.2; font-style: italic; }
   #label .artist { font-size: 1.6vmin; color: var(--muted); margin-top: 0.8vh; font-weight: 300; }
   #label .museum { font-size: 1.2vmin; color: var(--faint); margin-top: 0.6vh; letter-spacing: 0.06em; text-transform: uppercase; }
-  #label .mood { font-size: 1.1vmin; color: var(--faint); margin-top: 1.2vh; display: none; align-items: center; gap: 0.6em; }
+  #label .mood { font-size: max(1.2vmin, 11px); color: var(--faint); margin-top: 1.2vh; display: none; align-items: center; gap: 0.6em; }
   #label .mood.on { display: flex; }
   #label .mood i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; }
+  #label .mood .dots:empty { display: none; }
 
   /* --- spotify badge ----------------------------------------------------- */
   #now { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.6vmin; align-items: center; padding-top: 2vh; border-top: 1px solid var(--hair); opacity: 0; transform: translateY(8px); transition: opacity 1.5s ease, transform 1.5s ease; min-width: 0; }
@@ -217,6 +218,7 @@
       <div><div class="k" data-i18n="units">Units</div><div class="pills units"><button data-u="celsius">°C</button><button data-u="fahrenheit">°F</button></div></div>
       <div class="pace"><div class="k" data-i18n="pace">Pace</div><div class="pills rot"><button data-m="2">2 min</button><button data-m="4">4 min</button><button data-m="8">8 min</button><button data-m="15">15 min</button></div><div class="note" data-i18n="pace_note">how long a painting stays when nothing is playing</div></div>
       <div class="taste"><div class="k" data-i18n="choice">Choice</div><div class="pills pick"><button data-t="1" data-i18n="taste_on">my taste</button><button data-t="0" data-i18n="taste_off">surprise me</button></div><div class="note" data-i18n="taste_note">my taste: kept paintings pull toward their artists, museums and centuries</div></div>
+      <div class="match"><div class="k" data-i18n="match">Matching</div><div class="pills sig"><button data-s="cover" data-i18n="match_cover">cover colours</button><button data-s="music" data-i18n="match_music">music feel</button><button data-s="moment" data-i18n="match_moment">the moment</button></div><div class="note" data-i18n="match_note">what a choice listens to; turn any off, one stays on</div></div>
       <div class="updates" hidden><div class="k" data-i18n="updates">Updates</div><div class="pills mode"><button data-m="click" data-i18n="upd_click">ask me</button><button data-m="auto" data-i18n="upd_auto">install at quit</button></div><div class="note ver"></div></div>
       <button class="reset" data-i18n="reset">reset to config.json</button>
       <div class="credits"><span data-i18n="made_by">made by</span> <a href="#" data-open="https://zoha-rakotomalala.github.io/">Zoha Rakotomalala</a> · <a href="#" data-open="https://github.com/zoha-rakotomalala/heure-bleue" data-i18n="source">source</a> · <span class="v"></span></div>
@@ -258,14 +260,25 @@ async function loadToday() {
   try { todayList = await (await fetch("/api/today", { cache: "no-store" })).json(); } catch (e) { todayList = []; }
   paintToday();
 }
+let memoryList = [], todayFlip = false;
+async function loadMemories() {
+  try { memoryList = await (await fetch("/api/memories", { cache: "no-store" })).json(); } catch (e) { memoryList = []; }
+  paintToday();
+}
+// January: the year that just ended is ready as a card (Y)
+const yearReady = () => new Date().getMonth() === 0 && new Date().getDate() <= 10 && !CFG.demo;
 function paintToday() {
-  const el = $("#weather .today"); const e = todayList[0];
-  el.classList.toggle("on", !!e);
-  if (!e) return;
-  el.textContent = T(e.event === "born" ? "today_born" : "today_died", { a: e.artist, y: e.year, n: e.age });
+  const el = $("#weather .today"); const e = todayList[0], m = memoryList[0];
+  const lines = [];
+  if (e) lines.push(T(e.event === "born" ? "today_born" : "today_died", { a: e.artist, y: e.year, n: e.age }));
+  if (m) lines.push(T(m.years === 1 ? (m.song ? "memory1_song" : "memory1") : (m.song ? "memory_song" : "memory"), { p: m.title, s: m.song, n: m.years }));
+  if (yearReady()) lines.push(T("year_ready", { y: new Date().getFullYear() - 1 }));
+  el.classList.toggle("on", lines.length > 0);
+  if (!lines.length) return;
+  el.textContent = lines[Math.floor(Date.now() / 20000) % lines.length];  // more than one: take turns, 20 s each
 }
 document.addEventListener("hb:lang", paintToday);
-loadToday(); setInterval(loadToday, 3600 * 1000);
+loadToday(); setInterval(loadToday, 3600 * 1000); loadMemories(); setInterval(loadMemories, 3600 * 1000); setInterval(paintToday, 20000);
 let upd = null, updTimer = null;
 async function checkUpdate() {
   try {
@@ -394,6 +407,8 @@ async function weather() {
     paintWeather();
     sunTimes = { rise: new Date(j.daily.sunrise[0]), set: new Date(j.daily.sunset[0]) };
     sunLine();
+    // the matcher lives in the server; it needs the sky and the sun, not the temperature
+    fetch("/api/moment", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: j.current.weather_code, sunrise: sunTimes.rise / 1000, sunset: sunTimes.set / 1000, lat: c.lat }) }).catch(() => {});
   } catch (e) { console.warn("weather", e); }
 }
 function paintWeather() {
@@ -471,7 +486,22 @@ function status(key) { const el = $("#label .status"); if (key) { el.textContent
 const statusIs = (key) => $("#label .status").dataset.key === key;
 // the curator text: Dutch readers get the Dutch original where it exists; everyone else gets the English text, never the Dutch one
 function storyFor(p) { if (HB.lang === "nl" && p.story_nl) return p.story_nl; if (p.story && p.story_lang !== "nl") return p.story; return ""; }
-function show(p, matched) {
+// the reasons behind a choice, as one sentence: "chosen for the deep blue of the cover, the jazz in the music and the rain"
+const WHY_ONLY = (why) => (why || []).filter(w => HB.LANGS.en[w.k]);
+function whySentence(why) {
+  const parts = WHY_ONLY(why).map(w => T(w.k, { c: T(w.c || "col_grey"), t: w.t, a: w.a }));
+  if (!parts.length) return "";
+  const last = parts.pop();
+  return T("why_lead", { list: parts.length ? `${parts.join(", ")} ${T("and")} ${last}` : last });
+}
+let currentWhy = [];
+function paintWhy() {
+  const el = $("#label .mood"), txt = whySentence(currentWhy);
+  el.querySelector(".txt").textContent = txt || T("mood");
+  el.classList.toggle("on", !!txt || el.querySelector(".dots").innerHTML !== "");
+}
+document.addEventListener("hb:lang", paintWhy);
+function show(p, matched, why) {
   if (!p || (current && current.id === p.id)) return;
   reportSeen(current); shownAt = Date.now();
   current = p; recent = [...recent, p.id].slice(-Math.max(30, index.length - 20)); shows[p.id] = (shows[p.id] || 0) + 1;
@@ -480,7 +510,7 @@ function show(p, matched) {
   next.classList.remove("drift");
   status("st_loading");
   next.onload = () => { next.classList.add("show", "drift"); prev.classList.remove("show", "drift"); front = front === "A" ? "B" : "A"; status(null); };
-  next.onerror = () => { status("st_museum"); if (!musicMode) setTimeout(() => show(pickRandom(), null), 2000); };
+  next.onerror = () => { status("st_museum"); if (!musicMode) setTimeout(async () => { const [q, why] = await pickNext(); show(q, null, why); }, 2000); };
   next.src = p.image;
   const story = $("#label .story"); story.classList.remove("on"); clearTimeout(story._t);
   const text = storyFor(p);
@@ -493,8 +523,9 @@ function show(p, matched) {
   document.documentElement.style.setProperty("--glow", hexToRgba(dom, 0.5));
   setTheme(p);
   refreshFav();
-  $("#label .mood").classList.toggle("on", !!matched);
-  if (matched) $("#label .mood .dots").innerHTML = matched.slice(0,5).map(c => `<i style="background:${c.hex}"></i>`).join("");
+  $("#label .mood .dots").innerHTML = matched ? matched.slice(0,5).map(c => `<i style="background:${c.hex}"></i>`).join("") : "";
+  currentWhy = why || [];
+  paintWhy();
   lastRotate = Date.now();
 }
 function mmss(ms) { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
@@ -542,20 +573,28 @@ async function nowPlaying() {
     lastLongPause = longPause; paintState(t, longPause);
     tick = { pos: t.position_s, dur: t.duration_ms, at: Date.now(), playing: t.state === "playing" };
     paintTimes();
-    if (longPause) $("#label .mood").classList.remove("on");
-    else if (j.painting) show(j.painting, j.cover_palette);
+    if (longPause) { $("#label .mood .dots").innerHTML = ""; paintWhy(); }  // the dots were the cover; the reasons stay
+    else if (j.painting) show(j.painting, j.cover_palette, j.why);
   } else {
     if (musicMode) { lastTrackKey = null; status(null); }
     musicMode = false;
     $("#controls").classList.remove("music");
     $("#now").classList.remove("on");
-    $("#label .mood").classList.remove("on");
+    $("#label .mood .dots").innerHTML = ""; paintWhy();
   }
 }
 
+async function pickNext() {
+  if (CFG.demo) return [pickRandom(), null];
+  try {
+    const r = await fetch("/api/pick", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ portrait: innerHeight >= innerWidth * 0.9 }) });
+    if (r.ok) { const j = await r.json(); if (j.painting) return [j.painting, j.why]; }
+  } catch (e) {}
+  return [pickRandom(), null];
+}
 async function rotate() {
   if (musicMode) return;
-  if (!current || Date.now() - lastRotate > ROTATE_MS) show(pickRandom(), null);
+  if (!current || Date.now() - lastRotate > ROTATE_MS) { const [p, why] = await pickNext(); show(p, null, why); }
 }
 
 // --- controls --------------------------------------------------------------
@@ -572,7 +611,7 @@ $("#controls .swap").onclick = async (e) => {
   e.currentTarget.classList.remove("spin"); void e.currentTarget.offsetWidth; e.currentTarget.classList.add("spin");
   swapRequested = true;
   if (musicMode) { status("st_choosing"); await fetch("/api/swap", { method: "POST" }); setTimeout(nowPlaying, 1500); setTimeout(nowPlaying, 4000); setTimeout(nowPlaying, 7000); }
-  else show(pickRandom(), null);
+  else { const [p, why] = await pickNext(); show(p, null, why); }
 };
 $("#controls .next").onclick = async (e) => {
   if (!musicMode) return;
@@ -599,8 +638,20 @@ function buildPrefs() {
   $("#prefs .reset").style.display = HB.overridden() ? "" : "none";
   document.querySelectorAll("#prefs .pick button").forEach(b => b.classList.toggle("on", (b.dataset.t === "1") === (CFG.taste !== false)));
   document.querySelectorAll("#prefs .rot button").forEach(b => b.classList.toggle("on", +b.dataset.m === +CFG.rotate_minutes));
+  const m = CFG.match || { cover: true, music: true, moment: true };
+  document.querySelectorAll("#prefs .sig button").forEach(b => b.classList.toggle("on", m[b.dataset.s] !== false));
   buildUpdates();
 }
+document.querySelectorAll("#prefs .sig button").forEach(b => {
+  b.onclick = async () => {
+    const m = { cover: true, music: true, moment: true, ...(CFG.match || {}) };
+    const next = { ...m, [b.dataset.s]: !m[b.dataset.s] };
+    if (!Object.values(next).some(Boolean)) return;  // one signal stays on
+    CFG.match = next; buildPrefs();
+    try { await fetch("/api/config", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ match: next }) }); } catch (e) {}
+    if (!musicMode) { lastRotate = 0; rotate(); }
+  };
+});
 document.querySelectorAll("#prefs .rot button").forEach(b => {
   b.onclick = async () => {
     CFG.rotate_minutes = +b.dataset.m; ROTATE_MS = CFG.rotate_minutes * 60 * 1000;
@@ -624,7 +675,7 @@ $("#prefs .reset").onclick = () => { HB.reset(); buildPrefs(); };
 // help: the same sentences as the button tooltips, with their keys, in one sheet
 const HELP_ROWS = [
   ["⚙", "G", "tip_prefs"], ["◐", "T", "tip_theme"], ["↻", "N · space · →", "tip_swap"], ["♡", "L", "tip_keep"],
-  ["▤", "K", "tip_kept"], ["⌑", "P", "tip_card"], ["⏭", "> · .", "tip_next"], [null, "S", "tip_stats"], [null, "F", "tip_full"], ["?", "? · H", "tip_help"],
+  ["▤", "K", "tip_kept"], ["⌑", "P", "tip_card"], [null, "Y", "tip_year"], ["⏭", "> · .", "tip_next"], [null, "S", "tip_stats"], [null, "F", "tip_full"], ["?", "? · H", "tip_help"],
 ];
 function buildHelp() {
   const box = $("#help .rows"); box.innerHTML = "";
@@ -656,6 +707,16 @@ $("#controls .card").onclick = async () => {
   } catch (e) { status("card_failed"); setTimeout(() => { if (statusIs("card_failed")) status(null); }, 5000); }
   b.classList.remove("busy", "spin");
 };
+// the year card: the Stats page has the button; Y makes it from the wall (last year in January, else this year)
+async function makeYearCard() {
+  if (CFG.demo) return;
+  status("card_making");
+  try {
+    const r = await fetch("/api/wrapped", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ labels: HB.yearLabels() }) });
+    const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status);
+    status("card_saved"); setTimeout(() => { if (statusIs("card_saved")) status(null); }, 6000);
+  } catch (e) { status("card_failed"); setTimeout(() => { if (statusIs("card_failed")) status(null); }, 5000); }
+}
 let searchTimer;
 $("#prefs input").oninput = (e) => {
   clearTimeout(searchTimer);
@@ -707,6 +768,7 @@ document.addEventListener("keydown", (e) => {
   else if (k === "g") { $("#controls .prefs").click(); }
   else if (k === "k") { location.href = "favorites.html"; }
   else if (k === "p") { $("#controls .card").click(); }
+  else if (k === "y") { makeYearCard(); }
   else if (k === "s") { location.href = "stats.html"; }
   else if (k === ">" || k === ".") { $("#controls .next").click(); }
   else if (k === "escape") { $("#controls").classList.remove("open", "prefs"); }

@@ -74,6 +74,9 @@
       return json({ favorite: state, count: favs.length, taste_n: favs.length });
     }
     if (path.endsWith("/api/today")) return json([]);  // the painters' dates live with the server
+    if (path.endsWith("/api/memories")) return json([]);
+    if (path.endsWith("/api/moment")) return json({ ok: true });
+    if (path.endsWith("/api/pick") || path.endsWith("/api/wrapped")) return json({ error: "needs the app" }, 501);  // the page draws at random instead
     if (path.endsWith("/api/card") || /\/api\/favorites\.(csv|md)$/.test(path)) return json({ error: "needs the app" }, 501);
     return realFetch(input, init);
   };

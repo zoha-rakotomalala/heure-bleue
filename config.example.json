@@ -10,6 +10,8 @@
   "rotate_minutes": 4,
   "paused_rotate_minutes": 20,
   "taste": true,
+  "match": { "cover": true, "music": true, "moment": true },
+  "players": "auto",
   "update_check": true,
   "update_mode": "click"
 }
