@@ -1,7 +1,7 @@
 # heure bleue
 
 A gallery wall for a spare screen. One painting at a time, from the open
-collections of seventeen museums, chosen to match the colours of the music you
+collections of twenty-two museums, chosen to match the colours of the music you
 are playing.
 
 **[Try the web demo](https://zoha-rakotomalala.github.io/heure-bleue/)** — the
@@ -452,12 +452,15 @@ print('PUBLIC_KEY_B64:      ', base64.b64encode(k.public_key().public_bytes(Enco
 
 ## The paintings
 
-1,121 public-domain works ship with the app, about 500 bytes each, no images on
-disk. Rijksmuseum 300 · Musée d'Orsay 125 · The Met 101 · Van Gogh Museum 90 ·
-Mauritshuis 67 · Louvre 41 · Belvedere, Ateneum, Prado, Kunsthistorisches
-Museum, Gemäldegalerie, Hermitage, Neue Pinakothek, Alte Nationalgalerie,
-Marmottan Monet, National Gallery London 35–40 each · Städel 20. Rijksmuseum
-works carry the museum's own text about the painting, shown under the label.
+1,726 public-domain works ship with the app, about 500 bytes each, no images on
+disk. Rijksmuseum 295 · Musée d'Orsay 139 · The Met 102 · Van Gogh Museum 99 ·
+Mauritshuis 91 · Belvedere 89 · Ateneum 85 · Prado 83 · Kunsthistorisches
+Museum, Gemäldegalerie 80 each · Alte Nationalgalerie 76 · National Gallery
+London 68 · Hermitage 61 · Städel 58 · Neue Pinakothek 57 · Louvre 53 ·
+Marmottan Monet 51 · Nationalmuseum Stockholm 41 · National Gallery of Art
+Washington 38 · Kröller-Müller 37 · Beaux-Arts de Lyon 28 · Orangerie 15.
+Rijksmuseum works carry the museum's own text about the painting, shown under
+the label.
 
 To add more:
 
@@ -571,6 +574,6 @@ frames into a GIF. `tools/shoot_docs.js` takes the screenshots on this page.
 Images and metadata: [The Metropolitan Museum of Art](https://www.metmuseum.org/art/collection) (CC0),
 the [Rijksmuseum](https://data.rijksmuseum.nl/) (CC0), and
 [Wikimedia Commons](https://commons.wikimedia.org/) uploads of public-domain works
-from fifteen other museums. Weather: [Open-Meteo](https://open-meteo.com/).
+from twenty other museums. Weather: [Open-Meteo](https://open-meteo.com/).
 
 MIT licence.
