@@ -145,17 +145,29 @@ def analyse(img_bytes):
 # --- Met ---------------------------------------------------------------------
 
 MET = "https://collectionapi.metmuseum.org/public/collection/v1"
-MET_SEARCHES = [
-    f"{MET}/search?hasImages=true&isPublicDomain=true&departmentId=11&q=painting",
-    f"{MET}/search?hasImages=true&isPublicDomain=true&departmentId=1&q=painting",
-    f"{MET}/search?hasImages=true&isPublicDomain=true&departmentId=21&q=painting",
-]
+# /v1/search was retired on 1 October 2026 (HTTP 410). Its replacement, /v1.1/search, takes the same filters
+# and pages with offset/limit (500 max). 11 = European Paintings, 1 = American Wing, 21 = Modern.
+MET_SEARCHES = [f"{MET}.1/search?hasImages=true&isPublicDomain=true&departmentId={d}&q=painting" for d in (11, 1, 21)]
+MET_PAGE = 500
+
+
+def met_search(url):
+    """Every objectID the paginated v1.1 search returns for `url`."""
+    ids, offset = [], 0
+    while True:
+        d = get_json(f"{url}&offset={offset}&limit={MET_PAGE}")
+        page = d.get("objectIDs") or []
+        ids.extend(page)
+        offset += len(page)
+        if not page or offset >= d.get("total", 0):
+            return ids
+        time.sleep(DELAY)
 
 
 def met_candidates(seen):
     ids = []
     for url in MET_SEARCHES:
-        ids.extend(get_json(url).get("objectIDs") or [])
+        ids.extend(met_search(url))
     ids = [i for i in dict.fromkeys(ids) if f"met-{i}" not in seen]
     random.shuffle(ids)
     return ids
@@ -687,7 +699,7 @@ def main(target=None, source=None, delay=None, argv=None):
     ap.add_argument("--target", type=int, default=300, help="stop when the index holds this many paintings")
     ap.add_argument("--source", default="all",
                     help="met, rijks, a Commons museum slug (" + ", ".join(COMMONS_MUSEUMS) + "), "
-                         "'commons' for all Commons museums, or 'all' (default, round-robin over everything)")
+                         "'commons' for all Commons museums, 'all' (default, round-robin over everything), or a comma list")
     ap.add_argument("--delay", type=float, default=0.8)
     ap.add_argument("--allow-cc", action="store_true",
                     help="also keep CC BY-licensed files, in data/paintings.local.json (git-ignored, this machine only)")
@@ -699,6 +711,9 @@ def main(target=None, source=None, delay=None, argv=None):
     global ALLOW_CC
     ALLOW_CC = args.allow_cc
     source = "all" if args.source == "both" else args.source.lower()
+    wanted = set(source.split(","))  # "met,orsay,prado": several sources, round-robin
+    def want(*names):
+        return bool(wanted & {*names, "all"})
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     existing = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else []
@@ -713,12 +728,12 @@ def main(target=None, source=None, delay=None, argv=None):
             LOCAL.write_text(json.dumps(local, ensure_ascii=False), encoding="utf-8")
 
     queues = []
-    if source in ("met", "all"):
+    if want("met"):
         queues.append(("met", met_candidates(seen), met_fetch))
-    if source in ("rijks", "all"):
+    if want("rijks"):
         queues.append(("rijks", rijks_candidates(seen), rijks_fetch))
     for slug in COMMONS_MUSEUMS:
-        if source in (slug, "commons", "all"):
+        if want(slug, "commons"):
             queues.append((slug, commons_candidates(seen, slug), functools.partial(commons_fetch, slug=slug)))
     if not queues:
         ap.error(f"unknown source {source!r}")

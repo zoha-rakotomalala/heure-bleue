@@ -469,7 +469,14 @@ python3 -m heurebleue index --source prado --target 1200  # one museum
 The indexer is slow on purpose (a pause between requests, back-off on 429) so it
 stays a good citizen of free museum APIs. Only public-domain images are kept;
 `--allow-cc` also keeps CC-licensed photos in a local, git-ignored file for your
-own screen.
+own screen. `--source met,orsay,prado` takes a comma list.
+
+After an indexing pass, `python3 tools/clean_index.py data/paintings.json` tidies
+the result: it drops objects that are not paintings (a thangka, ceiling putti, a
+harpsichord lid), copies and sketches, scanned pages and stamps, repairs titles
+that were still file names, and merges the same painting uploaded twice. Pass
+`--favorites <data dir>/favorites.json` and a kept duplicate is the one that
+survives.
 
 <details>
 <summary><code>config.json</code>, every key</summary>
@@ -489,7 +496,7 @@ them for you.
   "min_dwell_seconds": 45,
   "rotate_minutes": 4,
   "paused_rotate_minutes": 20,
-  "repeat_days": 3,
+  "repeat_days": 7,
   "taste": true,
   "match": { "cover": true, "music": true, "moment": true },
   "players": "auto",
@@ -500,7 +507,8 @@ them for you.
 `min_dwell_seconds` stops the wall flickering when you skip tracks.
 `rotate_minutes` is the pace with no music. A paused player holds the painting
 for `paused_rotate_minutes`, then the wall rotates until you press play.
-`repeat_days` keeps a painting off the wall for that long after it has been shown.
+`repeat_days` keeps a painting off the wall for that long after it has been shown
+(a week by default; showings in the last month also count against it).
 `taste` is the *Choice* row (`false` = no lean toward what you keep); `match` is
 the *Matching* row, three switches; `players` is `auto`, or `none` for a wall
 that never reads a player; `update_mode` is `click` or `auto`. The ⚙ panel
@@ -522,12 +530,21 @@ nearest-colour sum in CIELAB, both ways. **Music** and **moment** are compared
 through a *feel*: how light, how vivid and how warm a palette is (plus a
 century, for music), so a painting is one point and the music's tags or the
 moment's hour-sky-season are a target point. The signals are averaged by weight
-(cover 1.0, music 0.6, moment 0.5, only those on and available). Your favourites
-then shorten the distance for painters, museums and centuries you keep; recent
-showings lengthen it. The pick is a weighted draw among the twelve closest, so
-the same cover does not always give the same painting. The reasons line is the
-same calculation read back: the cover colour nearest the painting's dominant
-one, the top matched tag, the notable parts of the moment.
+(cover 1.0, music 0.6, moment 0.5, only those on and available). Four things
+then stretch or shorten that distance. Your favourites shorten it for painters,
+museums and centuries you keep (never below 0.55: a lean, not a takeover). Each
+showing in the last month lengthens it by half. A painting this wall has never
+shown is pulled closer by a third, so the whole index gets its turn. And the
+*another painting* button is a "no": pressed within a minute and a half of a
+painting arriving, it costs that painting most of its closeness; pressed twice
+on the same painting, the painting stays off the wall for good. The pick is a
+weighted draw among the twenty closest (the first about 14 %, the twentieth
+about 2 %), so the same cover does not always give the same painting. Paintings
+shown in the last `repeat_days` are out of the draw entirely. On a wide screen
+every painting is in the pool; the page tells the wall its shape, and an upright
+screen gets upright paintings. The reasons line is the same calculation read
+back: the cover colour nearest the painting's dominant one, the top matched
+tag, the notable parts of the moment.
 </details>
 
 <details>

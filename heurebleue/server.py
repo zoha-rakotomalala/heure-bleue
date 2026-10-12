@@ -299,9 +299,12 @@ class Handler(SimpleHTTPRequestHandler):
 
         if p == "/api/moment":
             try:
-                moment.update(body.get("code"), body.get("sunrise"), body.get("sunset"), body.get("lat"))
+                if any(k in body for k in ("code", "sunrise", "sunset", "lat")):
+                    moment.update(body.get("code"), body.get("sunrise"), body.get("sunset"), body.get("lat"))
             except (TypeError, ValueError):
                 return self._json({"error": "bad values"}, 400)
+            if "portrait" in body:  # the window's shape, so the music loop stops assuming an upright screen
+                moment.set_portrait(body["portrait"])
             return self._json({"ok": True, **{k: v for k, v in moment.current().items() if k != "feel"}})
 
         if p == "/api/pick":
@@ -310,8 +313,8 @@ class Handler(SimpleHTTPRequestHandler):
                 now = json.loads(config.NOW.read_text(encoding="utf-8"))
             except (FileNotFoundError, json.JSONDecodeError):
                 now = {}
-            chosen, why = choose_painting(None, now.get("recent") or [], self.cfg.get("repeat_days", 3), self.cfg.get("taste", True),
-                                          self.cfg.get("match"), None, portrait=bool(body.get("portrait", True)))
+            chosen, why = choose_painting(None, now.get("recent") or [], self.cfg.get("repeat_days", 7), self.cfg.get("taste", True),
+                                          self.cfg.get("match"), None, portrait=body.get("portrait"))
             if not chosen:
                 return self._json({"error": "no paintings"}, 409)
             return self._json({"painting": chosen, "why": why})

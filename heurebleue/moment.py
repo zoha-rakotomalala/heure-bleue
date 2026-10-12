@@ -17,8 +17,19 @@ import threading
 import time
 from typing import Optional
 
-_STATE = {"code": None, "sunrise": 0.0, "sunset": 0.0, "lat": 48.9, "ts": 0.0}
+_STATE = {"code": None, "sunrise": 0.0, "sunset": 0.0, "lat": 48.9, "ts": 0.0, "portrait": None}
 _LOCK = threading.Lock()
+
+
+def set_portrait(value) -> None:
+    """The page tells us whether its window is upright; the wall thread cannot see the window."""
+    with _LOCK:
+        _STATE["portrait"] = None if value is None else bool(value)
+
+
+def portrait():
+    """True on an upright screen, False on a wide one, None when no page has reported yet (no orientation filter)."""
+    return _STATE["portrait"]
 
 # WMO weather code -> sky class
 def sky_of(code: Optional[int]) -> Optional[str]:

@@ -24,7 +24,11 @@ from . import config, moment, music, nowplaying
 from .color import color_name, hex_to_rgb, palette_distance, palette_feel, palette_from_bytes, rgb_to_lab
 
 RECENT_MAX = 40          # in-memory floor; the real memory is the viewing history (see recently_shown)
-CANDIDATES = 12          # pick among the closest N, weighted toward the closest
+CANDIDATES = 20          # pick among the closest N; the weights fall slowly so the first is likely, not certain
+WEAR = 0.5               # each showing in the last 30 days costs this much closeness (0.5 = three showings, 2.5x)
+FRESH = 0.7              # a painting never shown on this wall is this much closer: the whole index gets its turn
+SKIP_COST = 0.8          # one "another painting" click on it costs this much; two clicks and it stays off the wall
+SKIP_DWELL = 90          # a swap within this many seconds is a "no" to the painting, not to a long stay
 UA = {"User-Agent": "heure-bleue/1.0 (https://github.com/zoha-rakotomalala/heure-bleue; personal desk display)"}
 
 
@@ -57,8 +61,9 @@ def refresh_today() -> set:
 
 
 def taste_bonus(p: dict, taste: dict, hour_artist: Optional[str]) -> float:
-    """Multiplier on the color distance, 0.35..1.0. Lower = preferred.
-    Gentle until ~20 favorites, then the weights have real shape."""
+    """Multiplier on the distance, 0.55..1.0. Lower = preferred.
+    Gentle until ~20 favorites, then the weights have real shape. The floor is 0.55, not lower:
+    a kept painter should come back more often, not crowd out the 800 painters never kept."""
     if not taste or not taste.get("n"):
         return 0.8 if p.get("artist") in _TODAY else 1.0
     strength = min(1.0, taste["n"] / 20)
@@ -69,7 +74,7 @@ def taste_bonus(p: dict, taste: dict, hour_artist: Optional[str]) -> float:
         score += 0.8
     if p.get("artist") in _TODAY:
         score += 0.4  # the painter's birthday or death day: a small nudge, not a takeover
-    return max(0.35, 1.0 - 0.5 * strength * min(score, 1.3))
+    return max(0.55, 1.0 - 0.35 * strength * min(score, 1.3))
 
 
 _FEEL: dict[str, dict] = {}  # painting id -> palette feel, computed once
@@ -135,12 +140,29 @@ def artist_hour() -> Optional[str]:
     return a.get("artist") if a.get("until", 0) > time.time() else None
 
 
-def recently_shown(days: float, wear_days: float = 30) -> tuple[set[str], dict[str, int]]:
-    """From history.jsonl: the ids shown in the last `days` (excluded outright),
-    and how many times each id was shown in the last `wear_days` (a soft penalty,
-    so the whole pool gets its turn instead of the same close matches)."""
-    cutoff, wear_cutoff = time.time() - days * 86400, time.time() - wear_days * 86400
-    block, shows = set(), {}
+class Memory:
+    """What the viewing history says about each painting."""
+    __slots__ = ("last", "shows", "ever", "skips")
+
+    def __init__(self):
+        self.last: dict[str, float] = {}  # id -> when it was last shown
+        self.shows: dict[str, int] = {}  # showings in the last `wear_days`: a soft penalty
+        self.ever: set[str] = set()      # ever shown on this wall: the rest are fresh
+        self.skips: dict[str, int] = {}  # "another painting" clicks within SKIP_DWELL seconds: a "no"
+
+    def block(self, days: float) -> set[str]:
+        """Ids shown in the last `days`: off the wall."""
+        cutoff = time.time() - days * 86400
+        return {pid for pid, ts in self.last.items() if ts >= cutoff}
+
+
+def recently_shown(wear_days: float = 30) -> Memory:
+    """From history.jsonl: when each id was last shown (block(days) excludes the recent ones), how many
+    times each id was shown in the last `wear_days` (a soft penalty, so the whole pool gets its turn
+    instead of the same close matches), every id ever shown (the others get a freshness bonus), and the
+    quick swaps per id."""
+    wear_cutoff = time.time() - wear_days * 86400
+    m = Memory()
     try:
         for line in config.HISTORY.read_text(encoding="utf-8").splitlines():
             try:
@@ -148,30 +170,37 @@ def recently_shown(days: float, wear_days: float = 30) -> tuple[set[str], dict[s
             except json.JSONDecodeError:
                 continue
             ts, pid = row.get("ts", 0), row.get("id")
-            if not pid or ts < wear_cutoff:
+            if not pid:
                 continue
-            shows[pid] = shows.get(pid, 0) + 1
-            if ts >= cutoff:
-                block.add(pid)
+            m.ever.add(pid)
+            m.last[pid] = max(ts, m.last.get(pid, 0))
+            if row.get("swapped") and row.get("dwell_s", SKIP_DWELL) < SKIP_DWELL:
+                m.skips[pid] = m.skips.get(pid, 0) + 1
+            if ts >= wear_cutoff:
+                m.shows[pid] = m.shows.get(pid, 0) + 1
     except FileNotFoundError:
         pass
-    return block, shows
+    return m
 
 
-def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repeat_days: float = 3, use_taste: bool = True,
+def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repeat_days: float = 7, use_taste: bool = True,
                     match: Optional[dict] = None, music_feel: Optional[dict] = None, use_moment: bool = True,
-                    portrait: bool = True) -> tuple[Optional[dict], list[dict]]:
+                    portrait: Optional[bool] = None) -> tuple[Optional[dict], list[dict]]:
     """The painting for this moment, and why.
 
     Three signals, each with its own switch in config.json "match": the cover's colours
     (the strongest, when a song plays), the music's genre tags, and the moment (hour, sky,
     season). Each gives a 0..1 distance per painting; they are averaged by weight, then
-    taste and wear scale the result. With no signal on or available (nothing playing and
-    "moment" off), the choice is a weighted draw over the whole pool: taste and wear only.
+    taste, wear, freshness and the user's "no"s scale the result. With no signal on or
+    available (nothing playing and "moment" off), the choice is a weighted draw over the
+    whole pool: taste, wear and freshness only.
+
+    portrait: True on an upright screen (upright paintings only, when the pool allows), False on a
+    wide one (every painting), None = whatever the page last reported (see moment.portrait()).
     """
     index = load_index()
-    block, shows = recently_shown(repeat_days)
-    block.update(recent)
+    mem = recently_shown()
+    block = mem.block(repeat_days) | set(recent) | {pid for pid, n in mem.skips.items() if n >= 2}  # two quick "no"s: off the wall for good
     paintings = [p for p in index if p["id"] not in block]
     if len(paintings) < 20:  # the pool is small or the memory long: fall back to the short memory only
         paintings = [p for p in index if p["id"] not in recent] or index
@@ -179,9 +208,11 @@ def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repe
         return None, []
     taste, hour = (_load_json(config.TASTE, {}), artist_hour()) if use_taste else ({}, None)  # taste off: colour and wear only
     refresh_today()
+    if portrait is None:
+        portrait = moment.portrait()
     if portrait:
         upright = [p for p in paintings if p.get("h", 1) >= p.get("w", 1) * 0.9]
-        if len(upright) >= 40:  # the screen is portrait; prefer upright when the pool allows
+        if len(upright) >= 40:  # the screen is upright; prefer upright paintings when the pool allows
             paintings = upright
     match = {**MATCH_DEFAULT, **(match or {})}
     mom = moment.current() if (match.get("moment") and use_moment) else None
@@ -195,13 +226,16 @@ def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repe
     wsum = sum(WEIGHTS[s] for s in signals)
 
     def score(p):
-        wear = 1 + 0.2 * shows.get(p["id"], 0)  # each showing this month costs 20% of closeness
+        pid = p["id"]
+        wear = 1 + WEAR * mem.shows.get(pid, 0)              # each showing this month pushes it away
+        fresh = FRESH if pid not in mem.ever else 1.0        # never shown here: pulled closer
+        no = 1 + SKIP_COST * mem.skips.get(pid, 0)           # one quick "another painting": pushed away
         base = sum(WEIGHTS[s] * f(p) for s, f in signals.items()) / wsum if signals else 1.0
-        return base * taste_bonus(p, taste, hour) * wear
+        return base * taste_bonus(p, taste, hour) * wear * fresh * no
 
     if signals:
         scored = sorted(((score(p), p) for p in paintings), key=lambda t: t[0])[:CANDIDATES]
-        weights = [1 / (i + 1) for i in range(len(scored))]  # closest most likely, never certain
+        weights = [1 / (1 + i / 4) for i in range(len(scored))]  # the closest ~14 %, the 20th ~2 %: close, never the same
         chosen = random.choices([p for _, p in scored], weights=weights, k=1)[0]
     else:
         chosen = random.choices(paintings, weights=[1 / score(p) for p in paintings], k=1)[0]
@@ -285,7 +319,7 @@ def run(stop: threading.Event, cfg: dict) -> None:
             if forced:
                 _force_change = 0.0
             if swap or forced or (pending and now - last_change >= dwell):  # no cover and no tags: the moment and taste still choose
-                chosen, why = choose_painting(cover_palette, recent, cfg.get("repeat_days", 3), cfg.get("taste", True),
+                chosen, why = choose_painting(cover_palette, recent, cfg.get("repeat_days", 7), cfg.get("taste", True),
                                               cfg.get("match"), music_feel)
                 if chosen:
                     painting, last_change = chosen, now

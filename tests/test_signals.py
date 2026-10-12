@@ -72,6 +72,26 @@ mf = music.feel_from_tags([{"name": "black metal", "count": 9}])
 p, why = wall.choose_painting(None, [], 0, False, {"cover": False, "music": True, "moment": False}, mf)
 assert why == [{"k": "why_music", "t": "black metal"}], why
 
+# the memory: two quick "another painting" clicks keep a painting off the wall; one costs it; a never-shown one is pulled closer;
+# a painting shown many times this month is pushed away even when it is the closest colour match
+from heurebleue import config  # noqa: E402
+now = time.time()
+rows = [{"id": "p0", "ts": now - 86400 * 20, "dwell_s": 12, "swapped": True}, {"id": "p0", "ts": now - 86400 * 15, "dwell_s": 9, "swapped": True},
+        {"id": "p6", "ts": now - 86400 * 10, "dwell_s": 20, "swapped": True}, {"id": "p12", "ts": now - 86400 * 10, "dwell_s": 1800, "swapped": True}]
+rows += [{"id": "p18", "ts": now - 86400 * 2 - i * 3600, "dwell_s": 600, "swapped": False} for i in range(6)]
+config.HISTORY.write_text("\n".join(json.dumps(r) for r in rows) + "\n", encoding="utf-8")
+mem = wall.recently_shown()
+assert mem.skips == {"p0": 2, "p6": 1} and mem.shows["p18"] == 6 and mem.ever == {"p0", "p6", "p12", "p18"}, (mem.skips, mem.shows, mem.ever)
+dark_hits = [wall.choose_painting(cover, [], 1, False, {"cover": True, "music": False, "moment": False})[0]["id"] for _ in range(400)]
+assert "p0" not in dark_hits, "two quick swaps must exclude p0"
+assert dark_hits.count("p18") < dark_hits.count("p24"), "a worn Rembrandt must lose to a fresh one"  # p18 is worn, p24 fresh
+assert dark_hits.count("p6") < dark_hits.count("p24"), "one quick swap must cost"
+assert len(set(dark_hits)) >= 4, set(dark_hits)  # the draw is a draw, not the first
+config.HISTORY.unlink()
+# orientation: None (no page yet) keeps every painting; the page's report is honoured
+moment.set_portrait(False); assert moment.portrait() is False
+moment.set_portrait(None); assert moment.portrait() is None
+
 # every key the server can emit is translated
 i18n = (ROOT / "web" / "i18n.js").read_text(encoding="utf-8")
 en = re.search(r"\n    en: \{(.*?)\n    \},", i18n, re.S).group(1)
