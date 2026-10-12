@@ -236,8 +236,8 @@ that never listens to music at all.
 Under the sun line, in gold italics: *Jules Dupré, died on this day in 1889*.
 It appears when a painter in the index was born or died on today's date; the
 wall also leans a little toward that painter for the day. The dates come from
-Wikidata for 527 of the 606 painters in the index, which covers 324 days of the
-year. `python3 tools/artist_dates.py` refreshes them after indexing new museums.
+Wikidata for 923 of the 1,103 painters in the index, which covers 358 days of
+the year. `python3 tools/artist_dates.py` refreshes them after indexing new museums.
 
 The same line remembers you: *a year ago today you kept The Lutenist while Nina
 Simone played*. When both have something to say they take turns, twenty seconds
@@ -452,13 +452,14 @@ print('PUBLIC_KEY_B64:      ', base64.b64encode(k.public_key().public_bytes(Enco
 
 ## The paintings
 
-1,726 public-domain works ship with the app, about 500 bytes each, no images on
-disk. Rijksmuseum 295 · Musée d'Orsay 139 · The Met 102 · Van Gogh Museum 99 ·
-Mauritshuis 91 · Belvedere 89 · Ateneum 85 · Prado 83 · Kunsthistorisches
-Museum, Gemäldegalerie 80 each · Alte Nationalgalerie 76 · National Gallery
-London 68 · Hermitage 61 · Städel 58 · Neue Pinakothek 57 · Louvre 53 ·
-Marmottan Monet 51 · Nationalmuseum Stockholm 41 · National Gallery of Art
-Washington 38 · Kröller-Müller 37 · Beaux-Arts de Lyon 28 · Orangerie 15.
+2,417 public-domain works ship with the app, about 500 bytes each, no images on
+disk. Rijksmuseum 334 · The Met 289 · Musée d'Orsay 151 · Belvedere 127 ·
+Prado, Mauritshuis 116 each · Gemäldegalerie 115 · Ateneum 114 ·
+Kunsthistorisches Museum 112 · Van Gogh Museum 109 · Alte Nationalgalerie 103 ·
+National Gallery London 92 · Städel 86 · Hermitage 79 · Nationalmuseum
+Stockholm 70 · Neue Pinakothek, National Gallery of Art Washington 69 each ·
+Marmottan Monet 68 · Louvre 64 · Kröller-Müller 58 · Beaux-Arts de Lyon 52 ·
+Orangerie 24.
 Rijksmuseum works carry the museum's own text about the painting, shown under
 the label.
 

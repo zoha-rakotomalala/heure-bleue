@@ -10,6 +10,7 @@
 "qid": "Q329811"
 },
 "Abraham Evertsz. van Westerveld": {},
+"Abraham Hondius": {},
 "Abraham Mignon": {
 "born": "1640-06-21",
 "died": "1679-03-27",
@@ -63,6 +64,11 @@
 "died": "1899-07-29",
 "qid": "Q364184"
 },
+"Adolf Schrödter": {
+"born": "1805-06-28",
+"died": "1875-12-09",
+"qid": "Q365522"
+},
 "Adolf von Becker": {
 "born": "1831-08-14",
 "died": "1909-08-23",
@@ -94,6 +100,7 @@
 "died": "1719-12-03",
 "qid": "Q2644710"
 },
+"Adriaen Isenbrant": {},
 "Adriaen Pietersz van de Venne": {
 "born": null,
 "died": "1662-11-12",
@@ -189,6 +196,11 @@
 "died": "1920-07-14",
 "qid": "Q567382"
 },
+"Albin Egger-Lienz": {
+"born": "1868-01-29",
+"died": "1926-11-04",
+"qid": "Q639706"
+},
 "Albrecht Adam": {
 "born": "1786-04-16",
 "died": "1862-08-28",
@@ -198,6 +210,11 @@
 "born": "1471-05-21",
 "died": "1528-04-06",
 "qid": "Q5580"
+},
+"Alessandro Magnasco": {
+"born": "1667-02-04",
+"died": "1749-03-12",
+"qid": "Q516941"
 },
 "Alessandro Turchi": {
 "born": null,
@@ -219,10 +236,20 @@
 "died": "1932-12-21",
 "qid": "Q2642469"
 },
+"Alexander Paischeff": {
+"born": "1894-03-01",
+"died": "1941-11-15",
+"qid": "Q17382784"
+},
 "Alexej von Jawlensky": {
 "born": "1864-03-13",
 "died": "1941-03-15",
 "qid": "Q156426"
+},
+"Alfons Spring": {
+"born": "1843-05-18",
+"died": "1908-07-14",
+"qid": "Q25965292"
 },
 "Alfred Rethel": {
 "born": "1816-05-15",
@@ -264,6 +291,11 @@
 "died": "1897-09-16",
 "qid": "Q2650452"
 },
+"Alonso del Arco": {
+"born": null,
+"died": "1704-08-19",
+"qid": "Q3847756"
+},
 "Alphonse Legros": {
 "born": "1837-05-08",
 "died": "1911-12-08",
@@ -274,6 +306,11 @@
 "died": "1891-12-27",
 "qid": "Q452896"
 },
+"Ambrose McEvoy": {
+"born": "1878-08-12",
+"died": "1927-01-04",
+"qid": "Q1846089"
+},
 "Ambrosius Benson": {},
 "Amedeo Modigliani": {
 "born": "1884-07-12",
@@ -281,15 +318,26 @@
 "qid": "Q120993"
 },
 "American 19th Century": {},
+"Ammon, Hans Hans Ammon": {},
 "Amélie Lundahl": {
 "born": "1850-05-26",
 "died": "1914-08-20",
 "qid": "Q240503"
 },
+"Anders Gustaf Koskull": {
+"born": "1831-11-27",
+"died": "1904-01-29",
+"qid": "Q5920204"
+},
 "Andrea Mantegna": {
 "born": null,
 "died": "1506-09-13",
 "qid": "Q5681"
+},
+"Andrea Previtali": {
+"born": null,
+"died": "1528-11-07",
+"qid": "Q1097187"
 },
 "Andrea Schiavone": {
 "born": null,
@@ -322,6 +370,11 @@
 "died": "1944-03-18",
 "qid": "Q2847647"
 },
+"Angelica Kauffmann": {
+"born": "1741-10-30",
+"died": "1807-11-05",
+"qid": "Q123098"
+},
 "Anna Dorothea Therbusch": {
 "born": "1721-07-23",
 "died": "1782-11-09",
@@ -332,6 +385,11 @@
 "died": "1842-11-06",
 "qid": "Q18574722"
 },
+"Anne Vallayer-Coster": {
+"born": "1744-12-21",
+"died": "1818-02-28",
+"qid": "Q468772"
+},
 "Anne-Louis Girodet": {
 "born": "1767-01-05",
 "died": "1824-12-09",
@@ -341,6 +399,11 @@
 "born": "1829-09-12",
 "died": "1880-01-04",
 "qid": "Q250194"
+},
+"Anthon van Rappard": {
+"born": "1858-05-14",
+"died": "1892-03-21",
+"qid": "Q24150"
 },
 "Anthonie Palamedesz.": {
 "born": null,
@@ -409,12 +472,23 @@
 "died": "1906-07-05",
 "qid": "Q593959"
 },
+"Antonello da Messina (Antonello di Giovanni d'Antonio)": {},
 "Antonie Sminck Pitloo": {
 "born": "1790-04-21",
 "died": "1837-06-22",
 "qid": "Q2052063"
 },
+"Antonie Volkmar": {
+"born": "1827-04-24",
+"died": "1903-12-21",
+"qid": "Q23765665"
+},
 "Antonio Arias Fernández": {},
+"Antonio Campi": {
+"born": null,
+"died": "1587-01-28",
+"qid": "Q601175"
+},
 "Antonio Joli": {
 "born": "1700-03-13",
 "died": "1777-04-29",
@@ -466,6 +540,12 @@
 "died": "1900-08-04",
 "qid": "Q2866094"
 },
+"Ary de Vois": {},
+"August Deusser": {
+"born": "1870-02-15",
+"died": "1942-10-28",
+"qid": "Q122979"
+},
 "August Kopisch": {
 "born": "1799-05-26",
 "died": "1853-02-06",
@@ -481,15 +561,35 @@
 "died": "1916-11-29",
 "qid": "Q763741"
 },
+"August Wilhelm Julius Ahlborn": {
+"born": "1796-10-11",
+"died": "1857-08-24",
+"qid": "Q96751"
+},
+"August Xaver Karl von Pettenkofen": {
+"born": "1822-05-10",
+"died": "1889-03-21",
+"qid": "Q203076"
+},
 "August von Pettenkofen": {
 "born": "1822-05-10",
 "died": "1889-03-21",
 "qid": "Q203076"
 },
+"August von Rentzell": {
+"born": null,
+"died": "1891-12-22",
+"qid": "Q18507883"
+},
 "Auguste Boulard": {
 "born": "1825-05-12",
 "died": "1897-10-11",
 "qid": "Q19758490"
+},
+"Auguste Renoir": {
+"born": "1841-02-25",
+"died": "1919-12-03",
+"qid": "Q39931"
 },
 "Augustin Théodule Ribot": {
 "born": "1823-08-08",
@@ -506,12 +606,18 @@
 "died": "1871-02-18",
 "qid": "Q22911699"
 },
+"Balthasar Beschey": {
+"born": "1708-11-20",
+"died": "1776-04-15",
+"qid": "Q2881605"
+},
 "Balthasar van der Ast": {
 "born": null,
 "died": "1657-03-07",
 "qid": "Q472522"
 },
 "Barnaba da Modena": {},
+"Barthel Bruyn the Younger": {},
 "Bartholomaeus Bruyn the Elder": {
 "born": null,
 "died": "1555-04-22",
@@ -521,6 +627,11 @@
 "born": "1598-11-13",
 "died": "1657-10-05",
 "qid": "Q809318"
+},
+"Bartholomeus Spranger": {
+"born": "1546-03-21",
+"died": null,
+"qid": "Q447682"
 },
 "Bartholomeus van der Helst": {
 "born": null,
@@ -560,6 +671,12 @@
 "qid": "Q248615"
 },
 "Bergognone (Ambrogio di Stefano da Fossano)": {},
+"Berlinghiero": {},
+"Bernaert de Rijckere": {
+"born": null,
+"died": "1590-01-01",
+"qid": "Q2897389"
+},
 "Bernard van Orley": {
 "born": null,
 "died": "1541-01-06",
@@ -595,6 +712,12 @@
 "born": "1841-01-14",
 "died": "1895-03-02",
 "qid": "Q105320"
+},
+"Brunswick Monogrammist": {},
+"Bénigne Gagneraux": {
+"born": "1756-09-24",
+"died": "1795-08-18",
+"qid": "Q12058236"
 },
 "Camille Corot": {
 "born": "1796-07-16",
@@ -656,6 +779,11 @@
 "died": "1823-04-18",
 "qid": "Q45289015"
 },
+"Carl Moll": {
+"born": "1861-04-23",
+"died": "1945-04-13",
+"qid": "Q697780"
+},
 "Carl Peter Goebel": {
 "born": "1794-04-19",
 "died": "1823-12-04",
@@ -686,6 +814,7 @@
 "died": "1909-10-27",
 "qid": "Q1041385"
 },
+"Carle (Antoine Charles Horace) Vernet": {},
 "Carle Vernet": {
 "born": "1758-08-14",
 "died": "1836-11-27",
@@ -696,6 +825,7 @@
 "died": "1895-11-11",
 "qid": "Q1041911"
 },
+"Carlo Crivelli": {},
 "Carlo Dolci": {
 "born": "1616-05-25",
 "died": "1686-01-17",
@@ -722,6 +852,7 @@
 "died": "1926-04-01",
 "qid": "Q1063574"
 },
+"Charles Caleb Ward": {},
 "Charles Howard Hodges": {
 "born": null,
 "died": "1837-07-24",
@@ -732,6 +863,11 @@
 "died": "1739-11-02",
 "qid": "Q728482"
 },
+"Charles Johann Palmié": {
+"born": "1863-10-22",
+"died": "1911-07-14",
+"qid": "Q1065076"
+},
 "Charles Landseer": {
 "born": "1799-08-12",
 "died": "1879-07-22",
@@ -741,6 +877,11 @@
 "born": "1824-04-28",
 "died": "1898-09-20",
 "qid": "Q2959654"
+},
+"Charles Sims": {
+"born": "1873-01-28",
+"died": "1928-04-13",
+"qid": "Q5082527"
 },
 "Charles de Tournemine": {
 "born": "1812-10-25",
@@ -762,10 +903,20 @@
 "died": "1943-08-09",
 "qid": "Q160141"
 },
+"Christen Købke": {
+"born": "1810-05-26",
+"died": "1848-02-07",
+"qid": "Q381458"
+},
 "Christian Georg Schütz": {
 "born": "1718-09-24",
 "died": "1791-11-03",
 "qid": "Q1079809"
+},
+"Christian Hilfgott Brand": {
+"born": "1695-03-16",
+"died": "1756-07-22",
+"qid": "Q221516"
 },
 "Christian Landenberger": {
 "born": "1862-04-07",
@@ -797,6 +948,11 @@
 "died": "1904-10-05",
 "qid": "Q5576823"
 },
+"Christoffer Wilhelm Eckersberg": {
+"born": "1783-01-02",
+"died": "1853-07-22",
+"qid": "Q363823"
+},
 "Christoph Friedrich Reinhold Lisiewski": {
 "born": "1725-06-03",
 "died": "1794-06-11",
@@ -819,11 +975,17 @@
 "died": "1682-11-23",
 "qid": "Q214074"
 },
+"Claude Lorrain (Claude Gellée)": {
+"born": null,
+"died": "1682-11-23",
+"qid": "Q214074"
+},
 "Claude Monet": {
 "born": "1840-11-14",
 "died": "1926-12-05",
 "qid": "Q296"
 },
+"Claude Monet1606": {},
 "Corneille de Lyon": {},
 "Cornelis Cornelisz. van Haarlem": {
 "born": null,
@@ -840,6 +1002,11 @@
 "born": "1630-11-15",
 "died": "1664-08-27",
 "qid": "Q421775"
+},
+"Cornelis Springer": {
+"born": "1817-05-25",
+"died": "1891-02-18",
+"qid": "Q474066"
 },
 "Cornelis Troost": {
 "born": "1696-10-08",
@@ -867,11 +1034,17 @@
 "died": "1945-07-25",
 "qid": "Q2887402"
 },
+"Daniel Gran": {
+"born": "1694-05-22",
+"died": "1757-04-16",
+"qid": "Q690624"
+},
 "Daniël Bruyninx": {
 "born": null,
 "died": "1787-08-14",
 "qid": "Q18701773"
 },
+"Daniël Mijtens": {},
 "David Ryckaert III": {
 "born": "1612-12-02",
 "died": "1661-11-11",
@@ -919,6 +1092,7 @@
 "died": "1624-02-21",
 "qid": "Q380708"
 },
+"Dirck van Bergen": {},
 "Dirck van Delen": {
 "born": null,
 "died": "1671-05-16",
@@ -940,6 +1114,17 @@
 "died": "1494-01-11",
 "qid": "Q191423"
 },
+"Domenico Ghirlandaio (Domenico Bigordi)": {
+"born": "1448-06-02",
+"died": "1494-01-11",
+"qid": "Q191423"
+},
+"Domenico Guidobono": {
+"born": "1668-11-06",
+"died": null,
+"qid": "Q3713080"
+},
+"Domenico Panetti": {},
 "Duccio di Buoninsegna": {},
 "Eastman Johnson": {
 "born": "1824-07-29",
@@ -981,6 +1166,11 @@
 "died": "1868-10-25",
 "qid": "Q317639"
 },
+"Eduard Magnus": {
+"born": "1799-01-07",
+"died": "1872-08-08",
+"qid": "Q72859"
+},
 "Eduard Mössmer": {
 "born": null,
 "died": "1838-01-04",
@@ -991,10 +1181,20 @@
 "died": "1913-01-22",
 "qid": "Q911548"
 },
+"Eduard Swoboda": {
+"born": "1814-01-14",
+"died": "1902-09-13",
+"qid": "Q1290151"
+},
 "Edvard Munch": {
 "born": "1863-12-12",
 "died": "1944-01-23",
 "qid": "Q41406"
+},
+"Edward Hicks": {
+"born": "1780-04-04",
+"died": "1849-08-23",
+"qid": "Q2723190"
 },
 "Eero Järnefelt": {
 "born": "1863-11-08",
@@ -1011,6 +1211,11 @@
 "died": "1614-04-07",
 "qid": "Q301"
 },
+"El Greco (Domenikos Theotokopoulos)": {
+"born": "1541-10-01",
+"died": "1614-04-07",
+"qid": "Q301"
+},
 "El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg : Francisco de Goya derivative work: Papa Lima Whi": {},
 "Eleanor Fortescue-Brickdale": {
 "born": "1872-01-25",
@@ -1022,12 +1227,37 @@
 "died": "1938-10-02",
 "qid": "Q5998690"
 },
+"Elin Danielson-Gambogi": {
+"born": "1861-09-03",
+"died": "1919-12-31",
+"qid": "Q1827236"
+},
+"Elisabeth Louise Vigée Le Brun": {
+"born": "1755-04-16",
+"died": "1842-03-30",
+"qid": "Q213163"
+},
 "Emanuel de Witte": {},
+"Emmanuel Benner": {
+"born": "1836-03-28",
+"died": "1896-09-24",
+"qid": "Q1338174"
+},
+"Erasmus Quellinus II": {
+"born": "1607-11-19",
+"died": "1678-11-07",
+"qid": "Q625228"
+},
 "Ercole de' Roberti": {},
 "Erik Johan Löfgren": {
 "born": "1825-05-15",
 "died": "1884-12-10",
 "qid": "Q5969439"
+},
+"Ernest Meissonier": {
+"born": "1815-02-21",
+"died": "1891-01-31",
+"qid": "Q354786"
 },
 "Ernest Quost": {
 "born": "1842-02-24",
@@ -1144,6 +1374,16 @@
 "died": "1921-11-12",
 "qid": "Q559559"
 },
+"Fernand Léger": {
+"born": "1881-02-04",
+"died": "1955-08-17",
+"qid": "Q157183"
+},
+"Filippino Lippi": {
+"born": null,
+"died": "1504-04-18",
+"qid": "Q296265"
+},
 "Filippo Tarchiani": {},
 "Fleury François Richard": {
 "born": "1777-02-25",
@@ -1156,6 +1396,11 @@
 "died": "1455-02-18",
 "qid": "Q5664"
 },
+"Fra Filippo Lippi": {
+"born": null,
+"died": "1469-10-08",
+"qid": "Q205148"
+},
 "Francesco Albani": {
 "born": "1578-03-17",
 "died": "1660-10-04",
@@ -1167,6 +1412,11 @@
 "qid": "Q705079"
 },
 "Francesco Battaglioli": {},
+"Francesco Botticini": {
+"born": null,
+"died": "1498-01-16",
+"qid": "Q983275"
+},
 "Francesco Francia": {
 "born": null,
 "died": "1517-01-15",
@@ -1177,6 +1427,7 @@
 "died": "1793-01-01",
 "qid": "Q318769"
 },
+"Francesco Renaldi": {},
 "Francesco di Giorgio Martini": {
 "born": "1439-09-23",
 "died": "1501-11-29",
@@ -1187,6 +1438,7 @@
 "died": "1525-01-14",
 "qid": "Q537712"
 },
+"Francis A. Beckett": {},
 "Francis Wheatley": {
 "born": null,
 "died": "1801-06-28",
@@ -1212,6 +1464,11 @@
 "died": "1828-04-16",
 "qid": "Q5432"
 },
+"Francisco de Zurbarán": {
+"born": "1598-11-07",
+"died": "1664-08-27",
+"qid": "Q209615"
+},
 "Frans Floris": {
 "born": null,
 "died": "1570-10-01",
@@ -1228,7 +1485,22 @@
 "qid": "Q167654"
 },
 "Frans Hals, Pieter Codde": {},
+"Frans Jansz Post": {
+"born": "1612-11-17",
+"died": "1680-02-17",
+"qid": "Q577489"
+},
+"Frans Pourbus the Younger": {
+"born": null,
+"died": "1622-02-19",
+"qid": "Q934540"
+},
 "Frans Snijders": {
+"born": "1579-11-11",
+"died": "1657-08-19",
+"qid": "Q29231"
+},
+"Frans Snyders": {
 "born": "1579-11-11",
 "died": "1657-08-19",
 "qid": "Q29231"
@@ -1237,6 +1509,11 @@
 "born": "1689-12-24",
 "died": "1763-10-22",
 "qid": "Q705981"
+},
+"Frans van Mieris the Elder": {
+"born": "1635-04-16",
+"died": "1681-03-12",
+"qid": "Q959236"
 },
 "Franz Adam": {
 "born": "1815-05-04",
@@ -1318,6 +1595,11 @@
 "died": "1837-01-11",
 "qid": "Q163543"
 },
+"François Hubert Drouais": {
+"born": "1727-12-14",
+"died": "1775-10-21",
+"qid": "Q946487"
+},
 "François Ryckhals": {
 "born": "1600-05-03",
 "died": "1647-07-29",
@@ -1352,6 +1634,16 @@
 "born": "1825-01-10",
 "died": "1901-06-13",
 "qid": "Q772701"
+},
+"Friedrich Gauermann": {
+"born": "1807-09-20",
+"died": "1862-07-07",
+"qid": "Q669760"
+},
+"Friedrich Voltz": {
+"born": "1817-10-31",
+"died": "1886-06-25",
+"qid": "Q215515"
 },
 "Friedrich von Amerling": {
 "born": "1803-04-14",
@@ -1394,6 +1686,12 @@
 "died": "1667-10-24",
 "qid": "Q355213"
 },
+"Gaspard Dughet": {
+"born": "1613-06-07",
+"died": "1675-05-27",
+"qid": "Q741375"
+},
+"Gentile da Fabriano (Gentile di Niccolò di Giovanni di Massio)": {},
 "Geo Poggenbeek": {
 "born": "1853-07-20",
 "died": "1903-01-04",
@@ -1429,6 +1727,11 @@
 "died": "1840-10-29",
 "qid": "Q3951062"
 },
+"George Chinnery": {
+"born": "1774-01-05",
+"died": "1852-05-30",
+"qid": "Q3089402"
+},
 "George Hendrik Breitner": {
 "born": "1857-09-12",
 "died": "1923-06-05",
@@ -1454,6 +1757,16 @@
 "died": "1891-03-29",
 "qid": "Q34013"
 },
+"Georges Valmier": {
+"born": "1885-04-11",
+"died": "1937-03-25",
+"qid": "Q1009528"
+},
+"Georges de La Tour": {
+"born": "1593-03-13",
+"died": "1652-01-30",
+"qid": "Q203371"
+},
 "Georgius Jacobus Johannes van Os": {
 "born": "1782-11-20",
 "died": "1861-07-21",
@@ -1468,6 +1781,17 @@
 "born": null,
 "died": "1523-08-13",
 "qid": "Q333380"
+},
+"Gerard Dou": {
+"born": "1613-04-07",
+"died": "1675-02-09",
+"qid": "Q335927"
+},
+"Gerard Houckgeest": {},
+"Gerard de Lairesse": {
+"born": "1640-09-11",
+"died": "1711-07-28",
+"qid": "Q533958"
 },
 "Gerard ter Borch (II)": {
 "born": null,
@@ -1518,6 +1842,11 @@
 "born": null,
 "died": "1578-02-05",
 "qid": "Q504949"
+},
+"Gijsbert d'Hondecoeter": {
+"born": null,
+"died": "1653-08-29",
+"qid": "Q1921738"
 },
 "Gijsbert d'Hondecoeter / Aelbert Cuyp": {},
 "Ginés Andrés de Aguirre": {
@@ -1572,12 +1901,19 @@
 "died": "1931-01-12",
 "qid": "Q362003"
 },
+"Giovanni Domenico Tiepolo": {
+"born": "1727-08-30",
+"died": "1804-03-03",
+"qid": "Q435316"
+},
 "Giovanni Gerolamo Savoldo": {},
 "Giovanni Gioseffo dal Sole": {
 "born": "1654-12-10",
 "died": "1719-07-22",
 "qid": "Q961329"
 },
+"Giovanni Girolamo Savoldo": {},
+"Giovanni Larciani": {},
 "Giovanni Paolo Panini": {
 "born": "1691-06-17",
 "died": "1765-10-21",
@@ -1615,6 +1951,7 @@
 "died": "1706-11-16",
 "qid": "Q874868"
 },
+"Goodhart Ducciesque Master": {},
 "Gottfried Libalt": {
 "born": null,
 "died": "1673-05-01",
@@ -1630,6 +1967,16 @@
 "died": "1660-02-02",
 "qid": "Q550401"
 },
+"Goya": {
+"born": "1746-03-30",
+"died": "1828-04-16",
+"qid": "Q5432"
+},
+"Goya (Francisco de Goya y Lucientes)": {
+"born": "1746-03-30",
+"died": "1828-04-16",
+"qid": "Q5432"
+},
 "Guido Reni": {
 "born": "1575-11-04",
 "died": "1642-08-18",
@@ -1644,6 +1991,11 @@
 "born": "1854-10-24",
 "died": "1895-04-09",
 "qid": "Q4357370"
+},
+"Gustaf Fjæstad": {
+"born": "1868-12-22",
+"died": "1948-07-17",
+"qid": "Q3378634"
 },
 "Gustaf Wilhelm Finnberg": {
 "born": "1784-11-24",
@@ -1680,6 +2032,7 @@
 "died": "1898-04-18",
 "qid": "Q203828"
 },
+"Göbel, Angilbert Angilbert Göbel": {},
 "Hanna Winge": {
 "born": "1838-12-04",
 "died": "1896-03-09",
@@ -1705,6 +2058,11 @@
 "born": null,
 "died": "1543-11-29",
 "qid": "Q48319"
+},
+"Hans Klohss": {
+"born": "1879-06-10",
+"died": "1954-02-15",
+"qid": "Q109749912"
 },
 "Hans Leonhard Schäufelein": {},
 "Hans Makart": {
@@ -1817,6 +2175,11 @@
 "qid": "Q156386"
 },
 "Henri Rousseau, dit le Douanier": {},
+"Henri Sallembier": {
+"born": null,
+"died": "1820-10-01",
+"qid": "Q1606012"
+},
 "Henri de Braekeleer": {
 "born": "1840-06-11",
 "died": "1888-07-20",
@@ -1857,6 +2220,12 @@
 "died": "1685-01-05",
 "qid": "Q539074"
 },
+"Herman van Lin": {},
+"Hermann Eichler": {
+"born": null,
+"died": "1901-09-17",
+"qid": "Q39826676"
+},
 "Hermanus Numan": {
 "born": null,
 "died": "1820-03-09",
@@ -1894,6 +2263,8 @@
 "died": "1917-07-12",
 "qid": "Q263080"
 },
+"Hugo van der Goes": {},
+"Ignacio de Ries": {},
 "Ilmari Aalto": {
 "born": "1891-08-07",
 "died": "1934-09-29",
@@ -1919,10 +2290,21 @@
 "died": "1673-03-06",
 "qid": "Q864013"
 },
+"Italian (Umbrian) Painter": {},
 "Jacob Adriaensz Backer": {
 "born": null,
 "died": "1651-08-27",
 "qid": "Q19032"
+},
+"Jacob Duck": {
+"born": null,
+"died": "1667-01-28",
+"qid": "Q1284751"
+},
+"Jacob Gillig": {
+"born": null,
+"died": "1701-07-24",
+"qid": "Q1679057"
 },
 "Jacob Jordaens": {
 "born": "1593-05-19",
@@ -1944,6 +2326,11 @@
 "died": "1807-04-28",
 "qid": "Q560528"
 },
+"Jacob Weyer": {
+"born": null,
+"died": "1670-05-08",
+"qid": "Q15962370"
+},
 "Jacob de Wit": {
 "born": "1695-12-19",
 "died": "1754-11-12",
@@ -1964,6 +2351,7 @@
 "died": "1751-01-29",
 "qid": "Q1677705"
 },
+"Jacob van Spreeuwen": {},
 "Jacob van der Merck": {},
 "Jacob van der Ulft": {
 "born": null,
@@ -1971,6 +2359,7 @@
 "qid": "Q859874"
 },
 "Jacobus Levecq": {},
+"Jacometto (Jacometto Veneziano)": {},
 "Jacopo Bassano": {
 "born": null,
 "died": "1592-02-14",
@@ -1987,6 +2376,16 @@
 "died": "1594-05-31",
 "qid": "Q9319"
 },
+"Jacopo da Ponte": {
+"born": null,
+"died": "1592-02-14",
+"qid": "Q346502"
+},
+"Jacopo da Sellaio": {
+"born": null,
+"died": "1493-11-21",
+"qid": "Q2525549"
+},
 "Jacques Augustin Catherine Pajou": {
 "born": "1766-08-27",
 "died": "1828-11-28",
@@ -1996,6 +2395,16 @@
 "born": "1600-10-01",
 "died": "1638-11-10",
 "qid": "Q385845"
+},
+"Jacques Louis David": {
+"born": "1748-08-30",
+"died": "1825-12-29",
+"qid": "Q83155"
+},
+"Jacques Muller": {
+"born": null,
+"died": "1673-02-03",
+"qid": "Q19574321"
 },
 "Jacques d'Arthois": {
 "born": "1613-10-12",
@@ -2065,10 +2474,25 @@
 "died": "1678-09-01",
 "qid": "Q285933"
 },
+"Jan Cornelis van Rossum": {
+"born": "1820-03-01",
+"died": "1905-09-04",
+"qid": "Q18603305"
+},
 "Jan Ekels (II)": {
 "born": "1724-11-21",
 "died": "1781-11-22",
 "qid": "Q2314671"
+},
+"Jan Ekels the Younger": {
+"born": "1759-06-28",
+"died": "1793-06-04",
+"qid": "Q2450553"
+},
+"Jan Fyt": {
+"born": "1611-03-15",
+"died": "1661-09-11",
+"qid": "Q624802"
 },
 "Jan Gossaert": {
 "born": null,
@@ -2095,6 +2519,11 @@
 "died": "1903-05-31",
 "qid": "Q18579560"
 },
+"Jan Jansz. Westerbaen de Oude": {
+"born": null,
+"died": "1686-09-19",
+"qid": "Q17276695"
+},
 "Jan Lodewijk Jonxis": {
 "born": "1789-04-09",
 "died": "1866-02-17",
@@ -2110,6 +2539,7 @@
 "died": "1668-09-19",
 "qid": "Q759588"
 },
+"Jan Mostaert": {},
 "Jan Nowopacký": {
 "born": "1821-11-15",
 "died": "1908-07-03",
@@ -2137,10 +2567,25 @@
 "qid": "Q3161764"
 },
 "Jan Tengnagel": {},
+"Jan Toorop": {
+"born": "1858-12-20",
+"died": "1928-03-03",
+"qid": "Q369416"
+},
+"Jan Verkolje": {
+"born": "1650-02-09",
+"died": "1693-05-08",
+"qid": "Q120609"
+},
 "Jan Weenix": {
 "born": null,
 "died": "1719-09-19",
 "qid": "Q1346044"
+},
+"Jan Willem Pieneman": {
+"born": "1779-11-04",
+"died": "1853-04-08",
+"qid": "Q512948"
 },
 "Jan de Baen": {
 "born": "1633-02-20",
@@ -2208,6 +2653,7 @@
 "died": "1935-10-04",
 "qid": "Q461907"
 },
+"Jean Clouet": {},
 "Jean Delville": {
 "born": "1867-01-19",
 "died": "1953-01-19",
@@ -2223,10 +2669,20 @@
 "died": "1806-08-22",
 "qid": "Q127171"
 },
+"Jean Marc Nattier": {
+"born": "1685-03-17",
+"died": "1766-11-07",
+"qid": "Q277738"
+},
 "Jean Siméon Chardin": {
 "born": "1699-11-02",
 "died": "1779-12-06",
 "qid": "Q207447"
+},
+"Jean-Antoine Watteau": {
+"born": "1684-10-10",
+"died": "1721-07-18",
+"qid": "Q183221"
 },
 "Jean-Auguste-Dominique Ingres": {
 "born": "1780-08-29",
@@ -2258,6 +2714,11 @@
 "died": "1736-07-25",
 "qid": "Q731533"
 },
+"Jean-Baptiste Monnoyer": {
+"born": "1636-01-12",
+"died": "1699-02-20",
+"qid": "Q3087909"
+},
 "Jean-Baptiste-Camille Corot": {
 "born": "1796-07-16",
 "died": "1875-02-22",
@@ -2267,6 +2728,16 @@
 "born": "1814-10-04",
 "died": "1875-01-20",
 "qid": "Q148458"
+},
+"Jean-François Millet (II)": {
+"born": "1814-10-04",
+"died": "1875-01-20",
+"qid": "Q148458"
+},
+"Jean-François Raffaëlli": {
+"born": "1850-04-20",
+"died": "1924-02-11",
+"qid": "Q658862"
 },
 "Jean-Honoré Fragonard": {
 "born": "1732-04-05",
@@ -2298,6 +2769,11 @@
 "died": "1921-03-23",
 "qid": "Q708568"
 },
+"Jeanette Möller": {
+"born": "1825-01-05",
+"died": "1872-03-25",
+"qid": "Q4968754"
+},
 "Johan Barthold Jongkind": {
 "born": "1819-06-03",
 "died": "1891-02-09",
@@ -2308,10 +2784,20 @@
 "died": "1857-10-14",
 "qid": "Q164735"
 },
+"Johan Christian Dahl": {
+"born": "1788-02-24",
+"died": "1857-10-14",
+"qid": "Q164735"
+},
 "Johan Gottlob Brusell": {
 "born": "1756-12-25",
 "died": "1829-11-27",
 "qid": "Q5588534"
+},
+"Johan Hendrik Weissenbruch": {
+"born": "1824-06-19",
+"died": "1903-03-24",
+"qid": "Q1691988"
 },
 "Johan Jongkind": {
 "born": "1819-06-03",
@@ -2323,10 +2809,20 @@
 "died": "1796-09-03",
 "qid": "Q1692353"
 },
+"Johann Anton Ramboux": {
+"born": "1790-10-05",
+"died": "1866-10-02",
+"qid": "Q1524156"
+},
 "Johann Baptist Hoechle": {
 "born": "1754-10-19",
 "died": "1832-01-01",
 "qid": "Q21468700"
+},
+"Johann Baptist Reiter": {
+"born": "1813-07-04",
+"died": "1890-01-10",
+"qid": "Q1692583"
 },
 "Johann Baptist von Lampi the Younger": {
 "born": "1775-03-04",
@@ -2359,6 +2855,16 @@
 "died": "1798-06-09",
 "qid": "Q1693923"
 },
+"Johann Georg Schwartze": {
+"born": "1814-10-20",
+"died": "1874-08-29",
+"qid": "Q1587043"
+},
+"Johann Heinrich Wilhelm Tischbein": {
+"born": "1751-02-15",
+"died": "1829-02-26",
+"qid": "Q213973"
+},
 "Johann Jakob Hartmann": {
 "born": "1658-08-05",
 "died": null,
@@ -2379,10 +2885,20 @@
 "died": "1642-03-04",
 "qid": "Q439439"
 },
+"Johann Ludwig Ernst Morgenstern": {
+"born": "1738-09-22",
+"died": "1819-11-13",
+"qid": "Q1695336"
+},
 "Johann Matthias Ranftl": {
 "born": "1804-01-20",
 "died": "1854-11-01",
 "qid": "Q1695465"
+},
+"Johann Melchior Roos": {
+"born": "1663-12-27",
+"died": null,
+"qid": "Q473825"
 },
 "Johann Michael Neder": {
 "born": "1807-04-29",
@@ -2399,6 +2915,11 @@
 "died": "1853-12-16",
 "qid": "Q63531"
 },
+"Johann Peter Krafft": {
+"born": "1780-09-15",
+"died": "1856-10-28",
+"qid": "Q324683"
+},
 "Johann Philipp Lemke": {
 "born": "1631-05-19",
 "died": "1711-04-03",
@@ -2410,6 +2931,16 @@
 "qid": "Q21459950"
 },
 "Johann Ulrich Mayr": {},
+"Johann Wilhelm Baur": {
+"born": "1607-05-31",
+"died": "1642-01-01",
+"qid": "Q324487"
+},
+"Johann Wilhelm Preyer": {
+"born": "1803-07-19",
+"died": "1889-02-20",
+"qid": "Q783797"
+},
 "Johann Wilhelm Schirmer": {
 "born": "1807-09-07",
 "died": "1863-09-11",
@@ -2542,15 +3073,30 @@
 "died": "1839-01-12",
 "qid": "Q263569"
 },
+"Joseph Aved": {
+"born": "1702-01-12",
+"died": "1766-03-04",
+"qid": "Q489437"
+},
 "Joseph Bail": {
 "born": "1862-01-22",
 "died": "1921-11-28",
 "qid": "Q3184554"
 },
+"Joseph Boze": {
+"born": "1745-02-06",
+"died": "1826-01-17",
+"qid": "Q447676"
+},
 "Joseph Hasslwander": {
 "born": "1812-08-07",
 "died": "1878-08-03",
 "qid": "Q28055102"
+},
+"Joseph Marinkel": {
+"born": "1732-05-10",
+"died": null,
+"qid": "Q18608913"
 },
 "Joseph Moerenhout": {
 "born": "1801-05-03",
@@ -2592,6 +3138,11 @@
 "died": "1891-12-28",
 "qid": "Q9014337"
 },
+"José de Ribera": {
+"born": "1591-01-12",
+"died": "1652-09-03",
+"qid": "Q297838"
+},
 "Jozef Israëls": {
 "born": "1824-01-27",
 "died": "1911-08-12",
@@ -2608,6 +3159,7 @@
 "qid": "Q151152"
 },
 "Juan Martín Cabezalero": {},
+"Juan de Flandes": {},
 "Juho Rissanen": {
 "born": "1873-03-09",
 "died": "1950-12-12",
@@ -2633,6 +3185,11 @@
 "died": "1860-10-08",
 "qid": "Q1863471"
 },
+"Julien Dupré": {
+"born": "1851-03-18",
+"died": "1910-04-15",
+"qid": "Q964484"
+},
 "Julius Victor Berger": {
 "born": "1850-07-20",
 "died": "1902-11-17",
@@ -2642,6 +3199,11 @@
 "born": "1742-06-12",
 "died": "1819-07-31",
 "qid": "Q2216010"
+},
+"Jérôme-François Chantereau": {
+"born": null,
+"died": "1757-12-07",
+"qid": "Q15433531"
 },
 "József Molnár": {
 "born": "1821-03-21",
@@ -2718,6 +3280,16 @@
 "died": "1901-02-17",
 "qid": "Q39590760"
 },
+"Kazimierz Sichulski": {
+"born": "1879-01-17",
+"died": "1942-11-06",
+"qid": "Q554266"
+},
+"Kenneth Hayes Miller": {
+"born": "1876-03-11",
+"died": "1952-01-01",
+"qid": "Q3195174"
+},
 "Klemens Brosch": {
 "born": "1894-10-21",
 "died": "1926-12-17",
@@ -2768,6 +3340,11 @@
 "died": "1864-01-26",
 "qid": "Q60163"
 },
+"Leonardus Temminck": {
+"born": "1753-09-03",
+"died": "1813-04-04",
+"qid": "Q16068750"
+},
 "Leonetto Cappiello": {
 "born": "1875-04-09",
 "died": "1942-02-02",
@@ -2795,6 +3372,11 @@
 "died": "1899-11-13",
 "qid": "Q8312649"
 },
+"Louis Cretey": {
+"born": null,
+"died": "1713-10-30",
+"qid": "Q645978"
+},
 "Louis Gauffier": {
 "born": "1762-06-10",
 "died": "1801-10-20",
@@ -2810,10 +3392,25 @@
 "died": "1873-01-23",
 "qid": "Q3121314"
 },
+"Louis Hersent": {
+"born": "1777-03-10",
+"died": "1860-10-02",
+"qid": "Q761853"
+},
+"Louis Janmot": {
+"born": "1814-05-21",
+"died": "1892-06-01",
+"qid": "Q1382422"
+},
 "Louis Jean Desprez": {
 "born": "1743-05-28",
 "died": "1804-03-19",
 "qid": "Q1871779"
+},
+"Louis Jean Francois Lagrenée": {
+"born": "1725-01-21",
+"died": "1805-06-19",
+"qid": "Q1871782"
 },
 "Louis Léopold Boilly": {
 "born": "1761-07-05",
@@ -2824,6 +3421,16 @@
 "born": "1654-11-19",
 "died": "1733-11-21",
 "qid": "Q2617951"
+},
+"Louis-Léopold Boilly": {
+"born": "1761-07-05",
+"died": "1845-01-04",
+"qid": "Q715909"
+},
+"Louis-Marie Autissier": {
+"born": "1772-02-08",
+"died": "1830-09-04",
+"qid": "Q3260705"
 },
 "Louvre INV 101": {},
 "Louvre RF 2082": {},
@@ -2837,6 +3444,7 @@
 "died": "1705-01-03",
 "qid": "Q332494"
 },
+"Luca di Tommè di Nuto": {},
 "Lucas Cranach (I)": {
 "born": "1472-10-04",
 "died": "1553-10-16",
@@ -2846,6 +3454,11 @@
 "born": "1472-10-04",
 "died": "1553-10-16",
 "qid": "Q191748"
+},
+"Lucas Cranach the Younger": {
+"born": "1515-10-04",
+"died": "1586-01-25",
+"qid": "Q170339"
 },
 "Lucas van Uden": {
 "born": "1595-10-18",
@@ -2861,6 +3474,16 @@
 "born": "1630-12-28",
 "died": "1708-11-07",
 "qid": "Q468214"
+},
+"Ludovico Carracci": {
+"born": "1555-04-21",
+"died": "1619-11-13",
+"qid": "Q380553"
+},
+"Ludovico Lipparini": {
+"born": "1800-02-17",
+"died": "1856-03-19",
+"qid": "Q367620"
 },
 "Ludwig Ferdinand Schnorr von Carolsfeld": {
 "born": "1788-10-11",
@@ -2925,6 +3548,7 @@
 "Manner of Franz Xaver Winterhalter": {},
 "Manner of Marten Jozef Geeraerts": {},
 "Manner of Paulus Potter": {},
+"Manner of Roelant Savery": {},
 "Marcellus Coffermans": {
 "born": null,
 "died": "1581-11-17",
@@ -2934,6 +3558,11 @@
 "born": null,
 "died": "1839-08-11",
 "qid": "Q3846178"
+},
+"Marcus Gheeraerts the Younger": {
+"born": null,
+"died": "1636-01-19",
+"qid": "Q13583490"
 },
 "Maria Wiik": {
 "born": "1853-08-02",
@@ -2966,17 +3595,29 @@
 "died": "1932-07-18",
 "qid": "Q6765943"
 },
+"Martin Johann Schmidt": {
+"born": "1718-09-25",
+"died": "1801-06-28",
+"qid": "Q570251"
+},
+"Martin Mytens (I)": {
+"born": "1695-06-24",
+"died": "1770-03-23",
+"qid": "Q1082324"
+},
 "Martin van Meytens": {
 "born": "1695-06-24",
 "died": "1770-03-23",
 "qid": "Q1082324"
 },
+"Martino di Bartolommeo di Biagio": {},
 "Martín Bernat": {},
 "Martín Rico y Ortega": {
 "born": "1833-11-12",
 "died": "1908-04-13",
 "qid": "Q427999"
 },
+"Marx Reichlich": {},
 "Mary Cassatt": {
 "born": "1844-05-22",
 "died": "1926-06-14",
@@ -2994,6 +3635,11 @@
 "born": "1647-04-16",
 "died": "1726-06-04",
 "qid": "Q708036"
+},
+"Matthys Maris": {
+"born": "1839-08-17",
+"died": "1917-08-22",
+"qid": "Q1375830"
 },
 "Maurice Denis": {
 "born": "1870-11-25",
@@ -3020,6 +3666,11 @@
 "died": "1935-04-01",
 "qid": "Q1616945"
 },
+"Max Slevogt": {
+"born": "1868-10-08",
+"died": "1932-09-20",
+"qid": "Q703356"
+},
 "Max Suppantschitsch": {
 "born": "1865-04-13",
 "died": "1953-01-19",
@@ -3036,6 +3687,7 @@
 "died": "1941-02-06",
 "qid": "Q545293"
 },
+"Meester van het Altaar van Friedrich": {},
 "Meijer de Haan": {
 "born": "1852-04-14",
 "died": "1895-10-24",
@@ -3047,6 +3699,16 @@
 "qid": "Q336908"
 },
 "Meister des Albrechtsaltares zu Klosterneuburg": {},
+"Melchior d' Hondecoeter": {
+"born": null,
+"died": "1695-04-03",
+"qid": "Q304411"
+},
+"Melchior d'Hondecoeter": {
+"born": null,
+"died": "1695-04-03",
+"qid": "Q304411"
+},
 "Michael Sweerts": {
 "born": "1618-09-29",
 "died": "1664-06-01",
@@ -3057,6 +3719,7 @@
 "died": "1525-12-21",
 "qid": "Q372203"
 },
+"Michelino da Besozzo (Michelino de Mulinari)": {},
 "Michiel Jansz. van Mierevelt": {
 "born": "1566-05-01",
 "died": "1641-06-27",
@@ -3077,6 +3740,11 @@
 "died": "1705-06-20",
 "qid": "Q185495"
 },
+"Mikhail Rundaltsov": {
+"born": "1871-11-07",
+"died": "1935-11-02",
+"qid": "Q46508760"
+},
 "Monogrammist LAM": {},
 "Moretto da Brescia": {},
 "Moritz Calisch": {
@@ -3084,12 +3752,24 @@
 "died": "1870-03-13",
 "qid": "Q474331"
 },
+"Narcisse Virgile Diaz de la Peña": {
+"born": "1807-08-21",
+"died": "1876-11-18",
+"qid": "Q724140"
+},
 "Narcisse-Virgile Diaz de la Peña": {
 "born": "1807-08-21",
 "died": "1876-11-18",
 "qid": "Q724140"
 },
 "Narkiz Bunin": {},
+"Natale Schiavoni": {
+"born": "1777-04-25",
+"died": "1858-04-15",
+"qid": "Q522983"
+},
+"Netherlandish (Antwerp Mannerist) Painter": {},
+"Netherlandish (Bruges) Painter": {},
 "Niccolò di Pietro Gerini": {},
 "Nicola Pisano": {},
 "Nicolaas Pieneman": {
@@ -3107,10 +3787,25 @@
 "died": "1693-12-24",
 "qid": "Q505150"
 },
+"Nicolaes Moeyaert": {
+"born": null,
+"died": "1655-08-26",
+"qid": "Q59661"
+},
 "Nicolaes Pietersz Berchem": {
 "born": "1620-10-01",
 "died": "1683-02-18",
 "qid": "Q711737"
+},
+"Nicolaes Pieterszoon Berchem": {
+"born": "1620-10-01",
+"died": "1683-02-18",
+"qid": "Q711737"
+},
+"Nicolaes van Haeften": {
+"born": null,
+"died": "1715-02-20",
+"qid": "Q13895747"
 },
 "Nicolas Colombel": {
 "born": null,
@@ -3118,18 +3813,34 @@
 "qid": "Q3340213"
 },
 "Nicolas Neufchâtel": {},
+"Nicolas Poussin": {
+"born": "1594-06-15",
+"died": "1665-11-19",
+"qid": "Q41554"
+},
+"Nicolas de Largillierre (or Largillière)": {
+"born": "1656-10-10",
+"died": "1746-03-20",
+"qid": "Q550302"
+},
 "Nicolas-Bernard Lépicié": {
 "born": "1735-06-16",
 "died": "1784-09-14",
 "qid": "Q2468565"
 },
 "Nicolò dell'Abate": {},
+"Nikolay Nikanorovich Dubovskoy": {
+"born": "1859-12-05",
+"died": "1918-02-28",
+"qid": "Q1349819"
+},
 "Nils Schillmark": {
 "born": "1745-06-26",
 "died": "1804-01-28",
 "qid": "Q11884512"
 },
 "Nori Malo-Renault": {},
+"North Netherlandish Painter": {},
 "Northern French Painter": {},
 "Odilon Redon": {
 "born": "1840-04-20",
@@ -3150,6 +3861,11 @@
 "born": "1890-07-20",
 "died": "1917-10-04",
 "qid": "Q25454303"
+},
+"Oskar Schlemmer": {
+"born": "1888-09-04",
+"died": "1943-04-13",
+"qid": "Q458816"
 },
 "Otto Bache": {
 "born": "1839-08-21",
@@ -3177,6 +3893,11 @@
 "qid": "Q9342"
 },
 "Paolo Veronese": {
+"born": null,
+"died": "1588-04-19",
+"qid": "Q9440"
+},
+"Paolo Veronese (Paolo Caliari)": {
 "born": null,
 "died": "1588-04-19",
 "qid": "Q9440"
@@ -3218,6 +3939,16 @@
 "died": "1903-05-09",
 "qid": "Q37693"
 },
+"Paul Guigou": {
+"born": "1834-02-15",
+"died": "1871-12-21",
+"qid": "Q2348377"
+},
+"Paul Signac": {
+"born": "1863-11-11",
+"died": "1935-08-15",
+"qid": "Q151573"
+},
 "Paul Sérusier": {
 "born": "1864-11-09",
 "died": "1927-10-07",
@@ -3229,11 +3960,17 @@
 "qid": "Q2610964"
 },
 "Paulus Constantijn la Fargue": {},
+"Paulus Moreelse": {
+"born": null,
+"died": "1638-03-06",
+"qid": "Q59620"
+},
 "Paulus Potter": {
 "born": "1625-11-20",
 "died": "1654-01-17",
 "qid": "Q355406"
 },
+"Paulus van Hillegaert (I)": {},
 "Pauwels van Hillegaert": {},
 "Pedro Atanasio Bocanegra": {
 "born": "1638-05-12",
@@ -3284,6 +4021,11 @@
 "qid": "Q1970087"
 },
 "Philip Schey": {},
+"Philip de László": {
+"born": "1869-04-30",
+"died": "1937-11-22",
+"qid": "Q704208"
+},
 "Philip van Dijk": {
 "born": "1683-01-10",
 "died": "1753-02-02",
@@ -3315,6 +4057,7 @@
 "died": "1818-06-11",
 "qid": "Q3382227"
 },
+"Pier Maria Pennacchi": {},
 "Piero di Cosimo (Piero di Lorenzo di Piero d'Antonio)": {
 "born": "1462-01-02",
 "died": "1522-04-12",
@@ -3346,6 +4089,11 @@
 "died": "1919-12-03",
 "qid": "Q39931"
 },
+"Pierre-Auguste Vafflard": {
+"born": "1777-12-19",
+"died": "1837-09-07",
+"qid": "Q3382870"
+},
 "Pierre-Jacques Cazes": {
 "born": null,
 "died": "1754-06-25",
@@ -3366,6 +4114,11 @@
 "died": "1674-09-03",
 "qid": "Q2241666"
 },
+"Pieter Claesz.": {
+"born": null,
+"died": "1661-01-01",
+"qid": "Q354832"
+},
 "Pieter Cornelisz. van Slingelandt, Willem van Mieris": {},
 "Pieter Isaacsz.": {
 "born": null,
@@ -3382,12 +4135,23 @@
 "died": "1665-05-31",
 "qid": "Q433804"
 },
+"Pieter Lastman": {
+"born": null,
+"died": "1633-04-04",
+"qid": "Q352864"
+},
+"Pieter Nason": {},
 "Pieter de Bloot": {
 "born": null,
 "died": "1658-11-03",
 "qid": "Q2094279"
 },
 "Pieter de Grebber": {},
+"Pieter de Hooch": {
+"born": "1629-12-20",
+"died": "1684-03-24",
+"qid": "Q314889"
+},
 "Pieter de Molijn": {
 "born": "1595-04-06",
 "died": "1661-03-23",
@@ -3398,12 +4162,27 @@
 "died": "1678-04-13",
 "qid": "Q2311583"
 },
+"Pieter van Bloemen": {
+"born": "1657-01-17",
+"died": "1720-03-06",
+"qid": "Q1696398"
+},
+"Pieter van Slingelandt": {
+"born": "1640-10-20",
+"died": "1691-11-07",
+"qid": "Q420237"
+},
 "Pieter van der Werff": {
 "born": null,
 "died": "1722-09-26",
 "qid": "Q768520"
 },
 "Pietro Bellotti": {},
+"Pietro Longhi (Pietro Falca)": {
+"born": "1701-11-05",
+"died": "1785-05-08",
+"qid": "Q447058"
+},
 "Pietro Perugino": {},
 "Pietro Rotari": {
 "born": "1707-09-30",
@@ -3415,12 +4194,19 @@
 "died": "1855-06-09",
 "qid": "Q1389396"
 },
+"Placido Costanzi": {
+"born": null,
+"died": "1759-10-02",
+"qid": "Q4231486"
+},
 "Pompeo Batoni": {
 "born": "1708-01-25",
 "died": "1787-02-04",
 "qid": "Q505613"
 },
+"Porcellis, Julius": {},
 "Possibly Eugenio Caxés": {},
+"Pseudo-Félix Chrétien": {},
 "Quinten Massijs (I)": {
 "born": null,
 "died": "1530-09-14",
@@ -3442,6 +4228,16 @@
 "died": "1520-04-06",
 "qid": "Q5597"
 },
+"Rembrandt": {
+"born": "1606-07-15",
+"died": "1669-10-04",
+"qid": "Q5598"
+},
+"Rembrandt (Rembrandt van Rijn)": {
+"born": "1606-07-15",
+"died": "1669-10-04",
+"qid": "Q5598"
+},
 "Rembrandt van Rijn": {
 "born": "1606-07-15",
 "died": "1669-10-04",
@@ -3451,6 +4247,11 @@
 "born": "1812-01-05",
 "died": "1894-08-13",
 "qid": "Q2692543"
+},
+"Ricardo Arredondo Calmache": {
+"born": "1850-10-23",
+"died": null,
+"qid": "Q20013190"
 },
 "Ricardo Balaca": {
 "born": "1844-12-31",
@@ -3462,6 +4263,11 @@
 "died": "1702-12-28",
 "qid": "Q576178"
 },
+"Richard Gerstl": {
+"born": "1883-09-14",
+"died": "1908-11-04",
+"qid": "Q129113"
+},
 "Richard Harlfinger": {
 "born": "1873-07-17",
 "died": "1948-02-19",
@@ -3472,11 +4278,23 @@
 "died": "1938-12-31",
 "qid": "Q2221664"
 },
+"Richard Wilson": {
+"born": "1713-08-01",
+"died": "1782-05-11",
+"qid": "Q471387"
+},
+"Rinaldo da Siena": {},
+"Robert Campin": {
+"born": null,
+"died": "1444-04-26",
+"qid": "Q80442"
+},
 "Robert Charles Dudley": {
 "born": null,
 "died": "1909-04-28",
 "qid": "Q20830848"
 },
+"Robert Peake the Elder": {},
 "Robert Russ": {
 "born": "1847-06-08",
 "died": "1922-03-16",
@@ -3497,11 +4315,17 @@
 "died": "1899-05-25",
 "qid": "Q241732"
 },
+"Rudolf Jordan": {
+"born": "1810-05-04",
+"died": "1887-03-26",
+"qid": "Q2173092"
+},
 "Rudolf Ribarz": {
 "born": "1848-05-30",
 "died": "1904-11-12",
 "qid": "Q2173638"
 },
+"Rueland Frueauf d. Ä.": {},
 "Sabine Lepsius": {
 "born": "1864-01-15",
 "died": "1942-11-22",
@@ -3518,6 +4342,16 @@
 "died": "1670-11-03",
 "qid": "Q247005"
 },
+"Salvator Rosa": {
+"born": "1615-06-20",
+"died": "1673-03-15",
+"qid": "Q359421"
+},
+"Samuel Scott": {
+"born": null,
+"died": "1772-10-12",
+"qid": "Q2542057"
+},
 "Sandro Botticelli": {
 "born": null,
 "died": "1510-05-17",
@@ -3528,7 +4362,17 @@
 "died": null,
 "qid": "Q1379714"
 },
+"Sassetta (Stefano di Giovanni)": {
+"born": null,
+"died": "1450-04-01",
+"qid": "Q362016"
+},
 "Saturnino Gatti": {},
+"Scarsellino (Ippolito Scarsella)": {
+"born": null,
+"died": "1620-10-27",
+"qid": "Q2295535"
+},
 "Sebastiaen Vrancx": {
 "born": "1573-02-01",
 "died": "1647-05-19",
@@ -3540,6 +4384,7 @@
 "died": "1547-06-21",
 "qid": "Q285423"
 },
+"Segna di Buonaventura": {},
 "Serafín Avendaño": {
 "born": "1837-08-02",
 "died": "1916-08-23",
@@ -3575,15 +4420,30 @@
 "died": "1723-10-19",
 "qid": "Q65317"
 },
+"Sir Henry Raeburn": {
+"born": "1756-03-04",
+"died": "1823-07-08",
+"qid": "Q561916"
+},
 "Sir Joshua Reynolds": {
 "born": "1723-07-16",
 "died": "1792-02-23",
 "qid": "Q194402"
 },
+"Sir Peter Lely (Pieter van der Faes)": {
+"born": "1618-09-14",
+"died": "1680-11-30",
+"qid": "Q161336"
+},
 "Sir Thomas Lawrence": {
 "born": "1769-04-13",
 "died": "1830-01-07",
 "qid": "Q312096"
+},
+"Sir William Beechey": {
+"born": "1753-12-12",
+"died": "1839-01-28",
+"qid": "Q48566"
 },
 "Sofonisba Anguissola": {
 "born": null,
@@ -3594,6 +4454,13 @@
 "born": "1860-09-16",
 "died": "1927-07-27",
 "qid": "Q2105066"
+},
+"Spanish (Castilian) Painter": {},
+"Spanish (Catalan) Painter": {},
+"Spinello Aretino (Spinello di Luca Spinelli)": {
+"born": null,
+"died": "1410-03-14",
+"qid": "Q287934"
 },
 "Suze Robertson": {
 "born": "1855-12-17",
@@ -3642,6 +4509,11 @@
 "died": "1788-08-02",
 "qid": "Q192720"
 },
+"Thomas Lawrence": {
+"born": "1769-04-13",
+"died": "1830-01-07",
+"qid": "Q312096"
+},
 "Théo van Rysselberghe": {
 "born": "1862-11-23",
 "died": "1926-12-14",
@@ -3657,10 +4529,25 @@
 "died": "1880-04-11",
 "qid": "Q555885"
 },
+"Théodore Géricault": {
+"born": "1791-09-26",
+"died": "1824-01-26",
+"qid": "Q184212"
+},
 "Théodore Rousseau": {
 "born": "1812-04-15",
 "died": "1867-12-22",
 "qid": "Q310025"
+},
+"Tibout Regters": {
+"born": "1710-12-24",
+"died": "1768-01-26",
+"qid": "Q7800530"
+},
+"Tina Blau": {
+"born": "1845-11-15",
+"died": "1916-10-31",
+"qid": "Q547655"
 },
 "Titian with fur": {},
 "Torsten Wasastjerna": {
@@ -3692,11 +4579,22 @@
 "died": "1871-12-21",
 "qid": "Q878576"
 },
+"Vilhelm Hammershøi": {
+"born": "1864-05-15",
+"died": "1916-02-13",
+"qid": "Q380706"
+},
+"Vilhelm Kyhn": {
+"born": "1819-03-30",
+"died": "1903-05-11",
+"qid": "Q1781575"
+},
 "Vincent van Gogh": {
 "born": "1853-03-30",
 "died": "1890-07-29",
 "qid": "Q5582"
 },
+"Vincent van Gogh, The Hague": {},
 "Vincenzo Catena": {},
 "Vincenzo Foppa": {},
 "Vinzenz Fischer": {
@@ -3739,6 +4637,11 @@
 "born": "1806-03-09",
 "died": "1848-03-12",
 "qid": "Q459105"
+},
+"Wilhelm Marstrand": {
+"born": "1810-12-24",
+"died": "1873-03-25",
+"qid": "Q358399"
 },
 "Wilhelm Trübner": {
 "born": "1851-02-03",
@@ -3795,6 +4698,11 @@
 "died": "1692-03-09",
 "qid": "Q2005598"
 },
+"Willem van Mieris": {
+"born": "1662-06-03",
+"died": "1747-01-26",
+"qid": "Q1348950"
+},
 "Willem van de Velde (I)": {
 "born": "1633-12-18",
 "died": "1707-04-06",
@@ -3810,10 +4718,20 @@
 "died": "1707-04-06",
 "qid": "Q432266"
 },
+"William Bouguereau": {
+"born": "1825-11-30",
+"died": "1905-08-19",
+"qid": "Q483992"
+},
 "William Degouve de Nuncques": {
 "born": "1867-02-28",
 "died": "1935-03-01",
 "qid": "Q1049510"
+},
+"William Stanley Haseltine": {
+"born": "1835-06-11",
+"died": "1900-02-03",
+"qid": "Q2762575"
 },
 "William Stott": {
 "born": "1857-11-20",
@@ -3837,6 +4755,7 @@
 "died": "1925-05-27",
 "qid": "Q23040389"
 },
+"after Antoine Watteau": {},
 "two artists": {},
 "{{Creator:}}": {},
 "Édouard Detaille": {
