@@ -88,6 +88,16 @@ assert dark_hits.count("p18") < dark_hits.count("p24"), "a worn Rembrandt must l
 assert dark_hits.count("p6") < dark_hits.count("p24"), "one quick swap must cost"
 assert len(set(dark_hits)) >= 4, set(dark_hits)  # the draw is a draw, not the first
 config.HISTORY.unlink()
+# the playlist: "kept" draws only from favorites.json, "new" never from it, "mix" from everything; an empty Kept list means "mix"
+config.FAVORITES.write_text(json.dumps([{"id": "p1"}, {"id": "p7"}, {"id": "p13"}]), encoding="utf-8")
+assert wall.kept_ids() == {"p1", "p7", "p13"}
+only_kept = {wall.choose_painting(None, [], 0, False, {"cover": False, "music": False, "moment": False}, pool="kept")[0]["id"] for _ in range(60)}
+assert only_kept <= {"p1", "p7", "p13"} and len(only_kept) >= 2, only_kept
+only_new = {wall.choose_painting(cover, [], 0, False, {"cover": True, "music": False, "moment": False}, pool="new")[0]["id"] for _ in range(60)}
+assert not (only_new & {"p1", "p7", "p13"}), only_new
+config.FAVORITES.write_text("[]", encoding="utf-8")
+assert len({wall.choose_painting(None, [], 0, False, {"cover": False, "music": False, "moment": False}, pool="kept")[0]["id"] for _ in range(60)}) > 3
+config.FAVORITES.unlink()
 # orientation: None (no page yet) keeps every painting; the page's report is honoured
 moment.set_portrait(False); assert moment.portrait() is False
 moment.set_portrait(None); assert moment.portrait() is None

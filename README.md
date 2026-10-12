@@ -314,9 +314,15 @@ remembered per browser; *reset* goes back to `config.json`.
 centuries. *Surprise me* turns that lean off, for people who would rather
 discover.
 
+**Playlist.** Which paintings are on the table. *Everything* is the whole index.
+*Only new* takes the Kept list out: a painting you kept never comes back, the
+wall only discovers. *Only kept* is the opposite, the wall replays your Kept
+list, like a playlist of the paintings you love. The two last need at least one
+kept painting.
+
 **Matching.** The three signals behind a choice, *cover colours*, *music feel*
-and *the moment*; click to turn one off, one always stays on. Pace, Choice and
-Matching are written to `config.json` and apply to every window.
+and *the moment*; click to turn one off, one always stays on. Pace, Choice,
+Playlist and Matching are written to `config.json` and apply to every window.
 
 **Updates.** *Ask me* or *install at quit*, and the installed version. The panel
 ends with the credits.
@@ -503,6 +509,7 @@ them for you.
   "repeat_days": 7,
   "taste": true,
   "match": { "cover": true, "music": true, "moment": true },
+  "pool": "mix",
   "players": "auto",
   "update_mode": "click"
 }
@@ -514,9 +521,10 @@ for `paused_rotate_minutes`, then the wall rotates until you press play.
 `repeat_days` keeps a painting off the wall for that long after it has been shown
 (a week by default; showings in the last month also count against it).
 `taste` is the *Choice* row (`false` = no lean toward what you keep); `match` is
-the *Matching* row, three switches; `players` is `auto`, or `none` for a wall
-that never reads a player; `update_mode` is `click` or `auto`. The ⚙ panel
-writes `rotate_minutes`, `taste`, `match` and `update_mode` for you.
+the *Matching* row, three switches; `pool` is the *Playlist* row (`mix`, `new`
+or `kept`); `players` is `auto`, or `none` for a wall that never reads a
+player; `update_mode` is `click` or `auto`. The ⚙ panel writes
+`rotate_minutes`, `taste`, `match`, `pool` and `update_mode` for you.
 `locale` is the regional date format (`fr-FR`, `en-GB`); `language` picks the
 words on screen and, left empty, follows the locale. Both empty, the wall speaks
 the system's language, so a fresh install needs no setting. `units` is `celsius`

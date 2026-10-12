@@ -218,6 +218,7 @@
       <div><div class="k" data-i18n="units">Units</div><div class="pills units"><button data-u="celsius">°C</button><button data-u="fahrenheit">°F</button></div></div>
       <div class="pace"><div class="k" data-i18n="pace">Pace</div><div class="pills rot"><button data-m="2">2 min</button><button data-m="4">4 min</button><button data-m="8">8 min</button><button data-m="15">15 min</button></div><div class="note" data-i18n="pace_note">how long a painting stays when nothing is playing</div></div>
       <div class="taste"><div class="k" data-i18n="choice">Choice</div><div class="pills pick"><button data-t="1" data-i18n="taste_on">my taste</button><button data-t="0" data-i18n="taste_off">surprise me</button></div><div class="note" data-i18n="taste_note">my taste: kept paintings pull toward their artists, museums and centuries</div></div>
+      <div class="pool"><div class="k" data-i18n="pool">Playlist</div><div class="pills pl"><button data-p="mix" data-i18n="pool_mix">everything</button><button data-p="new" data-i18n="pool_new">only new</button><button data-p="kept" data-i18n="pool_kept">only kept</button></div><div class="note" data-i18n="pool_note">everything: the whole index · only new: a kept painting never comes back · only kept: the wall replays your Kept list</div></div>
       <div class="match"><div class="k" data-i18n="match">Matching</div><div class="pills sig"><button data-s="cover" data-i18n="match_cover">cover colours</button><button data-s="music" data-i18n="match_music">music feel</button><button data-s="moment" data-i18n="match_moment">the moment</button></div><div class="note" data-i18n="match_note">what a choice listens to; turn any off, one stays on</div></div>
       <div class="updates" hidden><div class="k" data-i18n="updates">Updates</div><div class="pills mode"><button data-m="click" data-i18n="upd_click">ask me</button><button data-m="auto" data-i18n="upd_auto">install at quit</button></div><div class="note ver"></div></div>
       <button class="reset" data-i18n="reset">reset to config.json</button>
@@ -459,8 +460,10 @@ function tasteWeight(p) {
   return 1 + 3 * strength * score;
 }
 function pickRandom() {
-  const pool = index.filter(p => p.h >= p.w * 0.9 && !recent.includes(p.id)); // prefer portrait or square
-  const src = pool.length ? pool : index;
+  const kept = new Set(favorites.map(f => f.id)), mode = kept.size ? (CFG.pool || "mix") : "mix";
+  const table = mode === "kept" ? index.filter(p => kept.has(p.id)) : mode === "new" ? index.filter(p => !kept.has(p.id)) : index;
+  const pool = table.filter(p => p.h >= p.w * 0.9 && !recent.includes(p.id)); // prefer portrait or square
+  const src = pool.length ? pool : (table.filter(p => !recent.includes(p.id)).length ? table.filter(p => !recent.includes(p.id)) : table);
   // taste raises the odds; each showing this month lowers them, so the whole pool gets its turn
   const weights = src.map(p => tasteWeight(p) / (1 + 0.5 * (shows[p.id] || 0)));
   let r = Math.random() * weights.reduce((a, b) => a + b, 0);
@@ -647,6 +650,7 @@ function buildPrefs() {
   document.querySelectorAll("#prefs .units button").forEach(b => b.classList.toggle("on", b.dataset.u === HB.units()));
   $("#prefs .reset").style.display = HB.overridden() ? "" : "none";
   document.querySelectorAll("#prefs .pick button").forEach(b => b.classList.toggle("on", (b.dataset.t === "1") === (CFG.taste !== false)));
+  document.querySelectorAll("#prefs .pl button").forEach(b => b.classList.toggle("on", b.dataset.p === (CFG.pool || "mix")));
   document.querySelectorAll("#prefs .rot button").forEach(b => b.classList.toggle("on", +b.dataset.m === +CFG.rotate_minutes));
   const m = CFG.match || { cover: true, music: true, moment: true };
   document.querySelectorAll("#prefs .sig button").forEach(b => b.classList.toggle("on", m[b.dataset.s] !== false));
@@ -674,6 +678,15 @@ document.querySelectorAll("#prefs .pick button").forEach(b => {
     CFG.taste = b.dataset.t === "1";
     buildPrefs();
     try { await fetch("/api/config", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ taste: CFG.taste }) }); } catch (e) { /* the web demo keeps it for this page only */ }
+  };
+});
+document.querySelectorAll("#prefs .pl button").forEach(b => {
+  b.onclick = async () => {
+    if (b.dataset.p !== "mix" && !favorites.length) return;  // nothing kept yet: the two other playlists would be empty
+    CFG.pool = b.dataset.p;
+    buildPrefs();
+    try { await fetch("/api/config", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pool: CFG.pool }) }); } catch (e) { /* the web demo keeps it for this page only */ }
+    if (!musicMode) { lastRotate = 0; rotate(); }
   };
 });
 // credits: links open in the system browser from the app window (a plain link would replace the wall)

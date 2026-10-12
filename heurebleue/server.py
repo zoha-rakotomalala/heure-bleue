@@ -11,7 +11,7 @@
   GET  /api/version               -> this version, the latest GitHub release, whether it is newer
   POST /api/update/open           -> open that release page in the system browser
   POST /api/update/install        -> packaged app: download, verify, swap, relaunch (progress in /api/version)
-  POST /api/config {update_mode | taste | rotate_minutes | match} -> write a setting to config.json (the ⚙ panel)
+  POST /api/config {update_mode | taste | rotate_minutes | match | pool} -> write a setting to config.json (the ⚙ panel)
   POST /api/moment {code, sunrise, sunset, lat} -> the page's weather, for the matcher (hour and season need nothing)
   POST /api/pick                  -> a painting for this moment when nothing plays, with its reasons ("why")
   GET  /api/memories              -> paintings kept on this day in earlier years ("a year ago today")
@@ -38,7 +38,7 @@ from . import __version__, config, moment, updates
 from .wall import MATCH_DEFAULT, choose_painting, load_index, painters_of_the_day
 
 OPEN_ALLOWED = ("https://zoha-rakotomalala.github.io/", "https://github.com/zoha-rakotomalala/heure-bleue")
-PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days", "taste", "match", "players")
+PUBLIC_CFG_KEYS = ("city", "locale", "language", "units", "theme", "rotate_minutes", "paused_rotate_minutes", "repeat_days", "taste", "match", "pool", "players")
 SEEN_DEDUPE_S = 15  # a second window reporting the same painting within this window is an echo
 _LAST_SEEN: dict = {}
 _SEEN_LOCK = threading.Lock()
@@ -293,6 +293,11 @@ class Handler(SimpleHTTPRequestHandler):
                     return self._json({"error": "at least one signal must stay on"}, 400)
                 out["match"] = self.cfg["match"] = m
                 config.save_keys(match=m)
+            if "pool" in body:
+                if body["pool"] not in config.POOLS:
+                    return self._json({"error": f"pool must be one of {', '.join(config.POOLS)}"}, 400)
+                out["pool"] = self.cfg["pool"] = body["pool"]
+                config.save_keys(pool=out["pool"])
             if not out:
                 return self._json({"error": "nothing to set"}, 400)
             return self._json(out)
@@ -314,7 +319,7 @@ class Handler(SimpleHTTPRequestHandler):
             except (FileNotFoundError, json.JSONDecodeError):
                 now = {}
             chosen, why = choose_painting(None, now.get("recent") or [], self.cfg.get("repeat_days", 7), self.cfg.get("taste", True),
-                                          self.cfg.get("match"), None, portrait=body.get("portrait"))
+                                          self.cfg.get("match"), None, portrait=body.get("portrait"), pool=self.cfg.get("pool", "mix"))
             if not chosen:
                 return self._json({"error": "no paintings"}, 409)
             return self._json({"painting": chosen, "why": why})

@@ -183,9 +183,14 @@ def recently_shown(wear_days: float = 30) -> Memory:
     return m
 
 
+def kept_ids() -> set[str]:
+    """The ids in favorites.json: the user's Kept list."""
+    return {f.get("id") for f in _load_json(config.FAVORITES, []) if isinstance(f, dict) and f.get("id")}
+
+
 def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repeat_days: float = 7, use_taste: bool = True,
                     match: Optional[dict] = None, music_feel: Optional[dict] = None, use_moment: bool = True,
-                    portrait: Optional[bool] = None) -> tuple[Optional[dict], list[dict]]:
+                    portrait: Optional[bool] = None, pool: str = "mix") -> tuple[Optional[dict], list[dict]]:
     """The painting for this moment, and why.
 
     Three signals, each with its own switch in config.json "match": the cover's colours
@@ -197,8 +202,18 @@ def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repe
 
     portrait: True on an upright screen (upright paintings only, when the pool allows), False on a
     wide one (every painting), None = whatever the page last reported (see moment.portrait()).
+
+    pool: which paintings are on the table, like a playlist. "mix" = the whole index; "new" = the
+    index minus the Kept list (a kept painting never comes back, the wall only discovers); "kept" =
+    the Kept list only (the wall replays what you love). An empty Kept list falls back to "mix".
     """
     index = load_index()
+    if pool in ("new", "kept"):
+        kept = kept_ids()
+        if pool == "kept" and kept:
+            index = [p for p in index if p["id"] in kept] or index
+        elif pool == "new":
+            index = [p for p in index if p["id"] not in kept] or index
     mem = recently_shown()
     block = mem.block(repeat_days) | set(recent) | {pid for pid, n in mem.skips.items() if n >= 2}  # two quick "no"s: off the wall for good
     paintings = [p for p in index if p["id"] not in block]
@@ -320,7 +335,7 @@ def run(stop: threading.Event, cfg: dict) -> None:
                 _force_change = 0.0
             if swap or forced or (pending and now - last_change >= dwell):  # no cover and no tags: the moment and taste still choose
                 chosen, why = choose_painting(cover_palette, recent, cfg.get("repeat_days", 7), cfg.get("taste", True),
-                                              cfg.get("match"), music_feel)
+                                              cfg.get("match"), music_feel, pool=cfg.get("pool", "mix"))
                 if chosen:
                     painting, last_change = chosen, now
                     painting_for = f"{track.get('title')}|{track.get('artist')}|{track.get('album')}"
