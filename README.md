@@ -278,6 +278,8 @@ to the museum's page.
 
 *Stats* (`S`) reads the wall's history: time on the wall by museum, century and
 painter, how often you kept or skipped, and which music brought which painters.
+A *Women painters* section gives their share of the index, of what the wall
+showed and of what you kept, and the women painters you lived with longest.
 </details>
 
 <details>

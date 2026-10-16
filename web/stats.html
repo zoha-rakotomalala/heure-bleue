@@ -209,6 +209,14 @@ async function load() {
   secs.push(section(T("museums"), T("time_on_wall"), rows(tally(hist, r => r.museum, r => r.dwell_s).map(e => ({ ...e, label: shortMuseum(e.k) })), 6, time)));
   secs.push(section(T("centuries"), T("time_on_wall"), rows(tally(hist, r => century(r.p.date), r => r.dwell_s).map(e => ({ ...e, label: HB.century(e.k) })), 8, time)));
   secs.push(section(T("painters"), T("most_on_wall"), rows(tally(hist.filter(r => r.artist && !/^(unknown artist|anonymous|anoniem)$/i.test(r.artist)), r => r.artist, r => r.dwell_s), 8, time)));
+  // women painters: their share of the index, of what the wall showed, of what you kept (gender comes from Wikidata)
+  const womenIdx = index.filter(p => p.gender === "f").length;
+  if (womenIdx) {
+    const womenShown = hist.filter(r => r.p.gender === "f"), womenKept = favs.filter(f => (byId.get(f.id) || {}).gender === "f");
+    const pct = (a, b) => b ? Math.round(1000 * a / b) / 10 : 0;
+    secs.push(section(T("women"), T("women_sub", { i: pct(womenIdx, index.length), s: pct(womenShown.length, hist.length), k: pct(womenKept.length, favs.length) }),
+      rows(tally(womenShown.filter(r => r.artist), r => r.artist, r => r.dwell_s), 8, time)));
+  }
   const pics = tally(hist, r => r.id, r => r.dwell_s).map(e => ({ ...e, html: `${e.r.p.image ? `<img src="${esc(e.r.p.image)}" alt="">` : ""}<span><em>${esc(e.r.title)}</em><br><span class="s">${esc(e.r.artist || "")}</span></span>` }));
   secs.push(section(T("most_shown"), "", rows(pics, 5, (e) => `${e.n}× · ${dur(e.v)}`, "pic")));
   const skips = tally(skipped, r => r.id).map(e => ({ ...e, html: `${e.r.p.image ? `<img src="${esc(e.r.p.image)}" alt="">` : ""}<span><em>${esc(e.r.title)}</em><br><span class="s">${esc(e.r.artist || "")}</span></span>` }));
