@@ -285,8 +285,8 @@ showed and of what you kept, and the women painters you lived with longest.
 <details>
 <summary><b>Wall colours</b> · <code>T</code></summary>
 
-Forest, heure bleue, night, charcoal, plum, oxblood, paper, linen, or a wall
-that takes its colour from the painting. Press `T`, or add `?theme=night` to the
+Plum by default; forest, heure bleue, night, charcoal, oxblood, paper, linen, or
+a wall that takes its colour from the painting. Press `T`, or add `?theme=night` to the
 URL. The choice is remembered per browser.
 
 ![six wall colours](docs/themes.png)
@@ -514,7 +514,7 @@ them for you.
 ```json
 {
   "port": 8765,
-  "theme": "forest",
+  "theme": "plum",
   "locale": "en-GB",
   "language": "",
   "units": "celsius",

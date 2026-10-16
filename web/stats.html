@@ -112,9 +112,9 @@ const params = new URLSearchParams(location.search);
 const hexRgb = (h) => { const n = parseInt(h.replace("#", ""), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
 const lum = ([r, g, b]) => (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
 (function theme() {
-  const name = params.get("theme") || localStorage.getItem("wall.theme") || "forest";
+  const name = params.get("theme") || localStorage.getItem("wall.theme") || "plum";
   const bg = params.get("bg") || localStorage.getItem("wall.bg");
-  let t = THEMES[name] || THEMES.forest;
+  let t = THEMES[name] || THEMES.plum;
   if ((name === "custom" || params.has("bg")) && bg) { const h = bg.startsWith("#") ? bg : "#" + bg; const d = lum(hexRgb(h)) < 0.45; t = { bg: h, text: d ? "#e8e6e1" : "#2a2622", gold: d ? "#d8b36a" : "#9c6a10" }; }
   const r = document.documentElement.style;
   r.setProperty("--bg", t.bg); r.setProperty("--text", t.text); r.setProperty("--text-rgb", hexRgb(t.text).join(", ")); r.setProperty("--gold", t.gold);

@@ -66,7 +66,7 @@ DEFAULTS = {
     "rotate_minutes": 4,
     "paused_rotate_minutes": 20,
     "repeat_days": 7,
-    "theme": "forest",
+    "theme": "plum",
     "city": {"name": "Paris", "lat": 48.8566, "lon": 2.3522, "timezone": "Europe/Paris"},
     "locale": "",        # date format (fr-FR, en-GB, ...); empty = the system language
     "language": "",       # ui language (en, fr, nl, de, es, it, pt, fi, sv, da, pl, ru, ja); empty = follow locale
