@@ -438,7 +438,7 @@ def orsay_candidates(seen, depth=2, cache_hours=72):
 WOMEN = config.DATA / "women_painters.json" if (config.DATA / "women_painters.json").exists() \
     else config.BUNDLE / "data" / "women_painters.json"
 WOMEN_MAX_CATS = 12       # categories walked per painter ("by museum", "by year" and their children)
-WOMEN_MAX_FILES = 30      # files taken per painter, so one prolific name does not fill the pool
+WOMEN_MAX_FILES = None    # no cap: every painting by every woman painter on the list
 WOMEN_SKIP_CATS = COMMONS_SKIP_CATS + ("private collection", "unidentified", "Signatures of", "by subject", "by genre")
 _PAINTER_OF = {}          # pageid -> painter name, from the category that listed the file
 _MUSEUM_CAT = re.compile(r"^Category:.*\b(?:paintings|works|art|portraits|landscapes|still lifes?|drawings|watercolou?rs|"
@@ -511,23 +511,26 @@ def institution_from_wikitext(pageid):
     return None, None
 
 
-def women_candidates(seen, cache_hours=72, max_painters=None):
-    """Walk each woman painter's "Paintings by <name>" category (plus its "by museum" / "by year"
-    children). Returns shuffled file pageids; remembers which painter each file belongs to."""
-    cache = ROOT / "logs" / "women_candidates.json"
+PAINTERS = config.DATA / "painters.txt" if (config.DATA / "painters.txt").exists() \
+    else config.BUNDLE / "data" / "painters.txt"   # one painter per line; "# ..." comments; walked without a cap
+
+
+def painter_candidates(seen, slug, names, cap, cache_hours=72, max_cats=None):
+    """Walk each painter's "Paintings by <name>" category (plus its "by museum" / "by year"
+    children). `cap` bounds the files taken per painter (None = everything). Returns shuffled
+    file pageids and remembers which painter each file belongs to."""
+    cache = ROOT / "logs" / f"{slug}_candidates.json"
     files = None
     if cache.exists() and time.time() - cache.stat().st_mtime < cache_hours * 3600:
         files = {int(k): v for k, v in json.loads(cache.read_text(encoding="utf-8")).items()}
-        print(f"  women: {len(files)} image files from cache {cache.name}")
+        print(f"  {slug}: {len(files)} image files from cache {cache.name}")
     if files is None:
-        painters = json.loads(WOMEN.read_text(encoding="utf-8")) if WOMEN.exists() else []
-        if max_painters:
-            painters = painters[:max_painters]
+        painters = list(names)
         files, hits, named = {}, 0, 0
-        for i, p in enumerate(painters):
-            root = f"Category:Paintings by {p['name']}"
+        for i, name in enumerate(painters):
+            root = f"Category:Paintings by {name}"
             todo, done, mine = [(root, 0)], set(), 0
-            while todo and len(done) < WOMEN_MAX_CATS and mine < WOMEN_MAX_FILES:
+            while todo and len(done) < (max_cats or WOMEN_MAX_CATS) and (cap is None or mine < cap):
                 cat, lvl = todo.pop(0)
                 if cat in done:
                     continue
@@ -542,28 +545,69 @@ def women_candidates(seen, cache_hours=72, max_painters=None):
                     continue
                 time.sleep(DELAY)
                 for m in members:
-                    if m.get("ns") == 6 and m["title"].lower().endswith(IMAGE_EXT) and mine < WOMEN_MAX_FILES:
-                        files[m["pageid"]] = [m["title"], p["name"]]
+                    if m.get("ns") == 6 and m["title"].lower().endswith(IMAGE_EXT) and (cap is None or mine < cap):
+                        files[m["pageid"]] = [m["title"], name]
                         mine += 1
-                    elif m.get("ns") == 14 and lvl < 2 and not any(s.lower() in m["title"].lower() for s in WOMEN_SKIP_CATS):
+                    elif m.get("ns") == 14 and lvl < 3 and not any(x.lower() in m["title"].lower() for x in WOMEN_SKIP_CATS):
                         todo.append((m["title"], lvl + 1))
             if mine:
                 named += 1
             if (i + 1) % 25 == 0:
-                print(f"  women: {i + 1}/{len(painters)} painters walked, {named} with paintings, {len(files)} files", flush=True)
-        print(f"  women: {len(painters)} painters, {named} with a 'Paintings by' category, {len(files)} image files", flush=True)
+                print(f"  {slug}: {i + 1}/{len(painters)} painters walked, {named} with paintings, {len(files)} files", flush=True)
+        print(f"  {slug}: {len(painters)} painters, {named} with a 'Paintings by' category, {len(files)} image files", flush=True)
         cache.parent.mkdir(parents=True, exist_ok=True)
         cache.write_text(json.dumps(files, ensure_ascii=False), encoding="utf-8")
     _PAINTER_OF.update({pid: v[1] for pid, v in files.items()})
     seen_pids = {sid.rsplit("-", 1)[-1] for sid in seen}
     ids = [pid for pid in files if str(pid) not in seen_pids]
     random.shuffle(ids)
-    _QUEUES["women"] = ids
+    _QUEUES[slug] = ids
     return ids
+
+
+_PRIVATE = re.compile(r"private collection|collection particuli|privatsammlung|privébezit|particuliere collectie|colección particular|collezione privata", re.I)
+
+
+def home_from_wikitext_fallback(pageid):
+    """When no museum is named: 'Private collection' if the file says so, else None. One extra call
+    at most, and the result is only a label line."""
+    try:
+        d = commons({"action": "query", "prop": "revisions", "rvprop": "content", "rvslots": "main", "pageids": str(pageid)})
+        pages = d.get("query", {}).get("pages", [])
+        text = ((pages[0].get("revisions") or [{}])[0].get("slots", {}).get("main", {}).get("content", "")) if pages else ""
+    except Exception:  # noqa: BLE001
+        return None
+    for m in _INSTITUTION.finditer(text):
+        raw = m.group(1).split("\n")[0]
+        if _PRIVATE.search(raw):
+            return "Private collection"
+    return None
+
+
+def women_candidates(seen, cache_hours=72, max_painters=None):
+    painters = json.loads(WOMEN.read_text(encoding="utf-8")) if WOMEN.exists() else []
+    if max_painters:
+        painters = painters[:max_painters]
+    return painter_candidates(seen, "women", [p["name"] for p in painters], WOMEN_MAX_FILES, cache_hours, max_cats=40)
+
+
+def requested_painters():
+    """Names from data/painters.txt: one per line, blank lines and # comments ignored."""
+    if not PAINTERS.exists():
+        return []
+    return [ln.strip() for ln in PAINTERS.read_text(encoding="utf-8").splitlines() if ln.strip() and not ln.lstrip().startswith("#")]
+
+
+def painters_candidates(seen, cache_hours=72):
+    return painter_candidates(seen, "painters", requested_painters(), None, cache_hours, max_cats=40)
 
 
 def women_fetch(pageid):
     return commons_fetch(pageid, "women")
+
+
+def painters_fetch(pageid):
+    return commons_fetch(pageid, "painters")
 
 
 _QUEUES = {}               # slug -> remaining candidate pageids (shared with main's queue order)
@@ -772,19 +816,19 @@ def orsay_date(ii):
 
 def commons_fetch(pageid, slug="orsay"):
     women = slug == "women"
-    museum = None if women else COMMONS_MUSEUMS[slug][1]
+    by_painter = slug in ("women", "painters")
+    museum = None if by_painter else COMMONS_MUSEUMS[slug][1]
     page, ii = _imageinfo(pageid, slug)
     if not ii:
         return None
-    if women:
+    if by_painter:
         cat_titles = [c.get("title", "") for c in page.get("categories", []) or []]
         mslug, museum = resolve_museum(cat_titles)
         if not museum:
             time.sleep(DELAY)
             mslug, museum = institution_from_wikitext(pageid)
         if not museum:
-            print(f"  nohome {slug}-{pageid} {page['title'][5:45]}")
-            return None  # no collection named: a private-collection or unlocated work
+            museum = home_from_wikitext_fallback(pageid)  # "Private collection", a city, or None: the label line stays empty
         slug = mslug or "commons"
     lic = _meta(ii, "LicenseShortName")
     cc_only = not PD_LICENCE.search(lic) and bool(CC_LICENCE.search(lic))
@@ -889,6 +933,8 @@ def main(target=None, source=None, delay=None, argv=None):
             queues.append((slug, commons_candidates(seen, slug), functools.partial(commons_fetch, slug=slug)))
     if want("women") and WOMEN.exists():
         queues.append(("women", women_candidates(seen), women_fetch))
+    if want("painters") and requested_painters():
+        queues.append(("painters", painters_candidates(seen), painters_fetch))
     if not queues:
         ap.error(f"unknown source {source!r}")
     print("candidates: " + ", ".join(f"{n}={len(q)}" for n, q, _ in queues))

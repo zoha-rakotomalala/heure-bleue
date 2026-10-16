@@ -17,3 +17,4 @@ assets/VERSION
 vendor/
 !data/women_painters.json
 !data/painters.json
+!data/painters.txt

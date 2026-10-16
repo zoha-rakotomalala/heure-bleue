@@ -1,0 +1,5 @@
+# Painters whose whole Commons "Paintings by" category the indexer walks (python3 -m heurebleue index --source painters).
+# One name per line, as Commons spells it.
+Antonio Muñoz Degrain
+Marius Bauer
+Gerard van Honthorst

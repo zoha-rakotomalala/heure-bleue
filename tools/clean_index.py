@@ -124,7 +124,7 @@ def clean(items, favorites=()):
     for p in kept:
         if p["artist"].lower() in ("unknown artist", "anonymous", "anoniem") or SERIES.search(p["title"]):
             continue
-        groups.setdefault((p["museum"], p["artist"], norm(p["title"])), []).append(p)
+        groups.setdefault((p.get("museum") or "", p["artist"], norm(p["title"])), []).append(p)
     gone = set()
     for g in groups.values():
         g.sort(key=lambda p: (p["id"] not in favorites, -(p.get("w", 0) * p.get("h", 0))))

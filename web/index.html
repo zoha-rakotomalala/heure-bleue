@@ -532,7 +532,7 @@ function show(p, matched, why) {
   else story.textContent = "";
   $("#label .title").textContent = p.title;
   $("#label .artist").textContent = [p.artist, p.date].filter(Boolean).join(" · ");
-  $("#label .museum").textContent = p.museum;
+  $("#label .museum").textContent = p.museum || "";
   const dom = p.palette && p.palette[0] ? p.palette[0].hex : "#f0b45c";
   document.documentElement.style.setProperty("--glow", hexToRgba(dom, 0.5));
   setTheme(p);
