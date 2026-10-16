@@ -346,6 +346,7 @@ COMMONS_MUSEUMS = {
     "ateneum": ("Category:Paintings in the Ateneum", "Ateneum, Helsinki"),
     "hermitage": ("Category:Paintings in the Hermitage", "Hermitage Museum, Saint Petersburg"),
     "nga": ("Category:Paintings in the National Gallery of Art (Washington, D.C.)", "National Gallery of Art, Washington"),
+    "borghese": ("Category:Paintings in the Galleria Borghese (Rome)", "Galleria Borghese, Rome"),
 }
 ORSAY_ROOT, ORSAY_MUSEUM = COMMONS_MUSEUMS["orsay"]
 COMMONS_SKIP_CATS = ("People with paintings", "Framed paintings", "Details of", "Copies after", "Reproductions of",
@@ -468,6 +469,7 @@ _MUSEUM_ALIAS = [  # a known museum's words in a category -> its slug (so ids de
     (re.compile(r"Nationalmuseum(?: Stockholm)?", re.I), "nationalmuseum"), (re.compile(r"Ateneum", re.I), "ateneum"),
     (re.compile(r"\bHermitage\b", re.I), "hermitage"),
     (re.compile(r"National Gallery of Art(?: \(Washington|, Washington)", re.I), "nga"),
+    (re.compile(r"Galleria Borghese", re.I), "borghese"),
     (re.compile(r"Rijksmuseum(?: Amsterdam)?$", re.I), "rijks"), (re.compile(r"Metropolitan Museum of Art", re.I), "met"),
 ]
 _RIJKS_MET_NAMES = {"rijks": "Rijksmuseum, Amsterdam", "met": "The Metropolitan Museum of Art"}
