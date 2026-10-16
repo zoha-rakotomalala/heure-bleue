@@ -126,6 +126,11 @@
 "died": "1846-06-07",
 "qid": "Q18560543"
 },
+"Adélaïde Labille-Guiard": {
+"born": "1749-04-11",
+"died": "1803-04-24",
+"qid": "Q235647"
+},
 "Aelbert Cuyp": {
 "born": "1620-10-20",
 "died": "1691-11-15",
@@ -150,6 +155,11 @@
 "After Matheus Vroom": {},
 "After Peter Paul Rubens": {},
 "After Raphael": {},
+"Agnes Slott-Møller": {
+"born": "1862-06-10",
+"died": "1937-06-11",
+"qid": "Q4693125"
+},
 "Agnolo Bronzino": {
 "born": "1503-11-17",
 "died": "1572-11-23",
@@ -241,6 +251,11 @@
 "died": "1941-11-15",
 "qid": "Q17382784"
 },
+"Alexandra Frosterus-Såltin": {
+"born": "1837-12-06",
+"died": "1916-02-29",
+"qid": "Q4988517"
+},
 "Alexej von Jawlensky": {
 "born": "1864-03-13",
 "died": "1941-03-15",
@@ -286,6 +301,11 @@
 "died": "1675-11-08",
 "qid": "Q539036"
 },
+"Alma del Banco": {
+"born": "1862-12-24",
+"died": "1943-03-08",
+"qid": "Q1638092"
+},
 "Alois Schönn": {
 "born": "1826-03-11",
 "died": "1897-09-16",
@@ -319,6 +339,11 @@
 },
 "American 19th Century": {},
 "Ammon, Hans Hans Ammon": {},
+"Amrita Sher-Gil": {
+"born": "1913-01-30",
+"died": "1941-12-05",
+"qid": "Q150312"
+},
 "Amélie Lundahl": {
 "born": "1850-05-26",
 "died": "1914-08-20",
@@ -375,10 +400,65 @@
 "died": "1807-11-05",
 "qid": "Q123098"
 },
+"Anita Rée": {
+"born": "1885-02-09",
+"died": "1933-12-12",
+"qid": "Q274026"
+},
+"Anna Alma-Tadema": {
+"born": "1867-05-16",
+"died": "1943-07-05",
+"qid": "Q2770619"
+},
+"Anna Ancher": {
+"born": "1859-08-18",
+"died": "1935-04-15",
+"qid": "Q253446"
+},
+"Anna Boberg": {
+"born": "1864-12-03",
+"died": "1935-01-27",
+"qid": "Q4939691"
+},
+"Anna Boch": {
+"born": "1848-02-10",
+"died": "1936-02-25",
+"qid": "Q466668"
+},
+"Anna De Weert": {
+"born": "1867-05-27",
+"died": "1950-05-12",
+"qid": "Q1821051"
+},
 "Anna Dorothea Therbusch": {
 "born": "1721-07-23",
 "died": "1782-11-09",
 "qid": "Q273126"
+},
+"Anna Lea Merritt": {
+"born": "1844-09-13",
+"died": "1930-04-07",
+"qid": "Q2850565"
+},
+"Anna Nordlander": {
+"born": "1843-03-26",
+"died": "1879-04-28",
+"qid": "Q4970064"
+},
+"Anna Petersen": {
+"born": "1845-02-20",
+"died": "1910-10-06",
+"qid": "Q12301770"
+},
+"Anna Rosina de Gasc": {
+"born": "1713-07-10",
+"died": "1783-03-26",
+"qid": "Q299146"
+},
+"Anna Syberg": {
+"born": "1870-01-07",
+"died": "1914-07-04",
+"qid": "Q3360519"
 },
 "Anna-Geneviève Greuze": {
 "born": "1762-04-16",
@@ -412,6 +492,11 @@
 },
 "Anthonie Waterloo": {},
 "Anthonis Mor": {},
+"Anthonore Christensen": {
+"born": "1849-07-05",
+"died": "1926-08-27",
+"qid": "Q11958385"
+},
 "Anthony van Dyck": {
 "born": "1599-03-22",
 "died": "1641-12-09",
@@ -541,6 +626,21 @@
 "qid": "Q2866094"
 },
 "Ary de Vois": {},
+"Asta Nørregaard": {
+"born": "1853-08-13",
+"died": "1933-03-23",
+"qid": "Q1778899"
+},
+"Astri Aasen": {
+"born": "1875-09-03",
+"died": "1935-10-10",
+"qid": "Q12713553"
+},
+"Astrid Holm": {
+"born": "1876-10-30",
+"died": "1937-12-17",
+"qid": "Q16063259"
+},
 "August Deusser": {
 "born": "1870-02-15",
 "died": "1942-10-28",
@@ -615,6 +715,16 @@
 "born": null,
 "died": "1657-03-07",
 "qid": "Q472522"
+},
+"Barbara Bodichon": {
+"born": "1827-04-08",
+"died": "1891-06-11",
+"qid": "Q2370725"
+},
+"Barbara Longhi": {
+"born": "1552-10-01",
+"died": "1638-12-23",
+"qid": "Q31146"
 },
 "Barnaba da Modena": {},
 "Barthel Bruyn the Younger": {},
@@ -703,6 +813,11 @@
 "died": "1914-05-15",
 "qid": "Q5409026"
 },
+"Bertha Wegmann": {
+"born": "1847-12-26",
+"died": "1926-02-22",
+"qid": "Q827752"
+},
 "Bertha van Hasselt": {
 "born": "1878-09-22",
 "died": "1932-06-11",
@@ -712,6 +827,16 @@
 "born": "1841-01-14",
 "died": "1895-03-02",
 "qid": "Q105320"
+},
+"Betzy Akersloot-Berg": {
+"born": "1850-12-16",
+"died": "1922-12-18",
+"qid": "Q2490400"
+},
+"Bramine Hubrecht": {
+"born": "1855-07-21",
+"died": "1913-11-05",
+"qid": "Q17430319"
 },
 "Brunswick Monogrammist": {},
 "Bénigne Gagneraux": {
@@ -836,6 +961,11 @@
 "died": "1926-01-22",
 "qid": "Q694113"
 },
+"Caroline Bardua": {
+"born": "1781-11-11",
+"died": "1864-06-02",
+"qid": "Q201699"
+},
 "Carstian Luyckx / Daniel Seghers": {},
 "Caspar David Friedrich": {
 "born": "1774-09-05",
@@ -846,6 +976,21 @@
 "born": null,
 "died": "1684-01-15",
 "qid": "Q217715"
+},
+"Catharina Backer": {
+"born": "1689-09-22",
+"died": "1766-02-08",
+"qid": "Q17320100"
+},
+"Cecilia Beaux": {
+"born": "1855-05-01",
+"died": "1942-09-17",
+"qid": "Q466677"
+},
+"Cecilie Dahl": {
+"born": "1858-03-26",
+"died": "1943-08-05",
+"qid": "Q4943901"
 },
 "Charles Angrand": {
 "born": "1854-04-19",
@@ -898,6 +1043,11 @@
 "died": "1898-12-29",
 "qid": "Q28854657"
 },
+"Charley Toorop": {
+"born": "1891-03-24",
+"died": "1955-11-05",
+"qid": "Q446922"
+},
 "Chaïm Soutine": {
 "born": "1893-01-13",
 "died": "1943-08-09",
@@ -943,6 +1093,11 @@
 "died": "1774-04-23",
 "qid": "Q536581"
 },
+"Christine Løvmand": {
+"born": "1803-03-19",
+"died": "1872-04-10",
+"qid": "Q4962912"
+},
 "Christoffel Bisschop": {
 "born": "1828-04-22",
 "died": "1904-10-05",
@@ -965,6 +1120,7 @@
 },
 "Christopher Conrad Hunger": {},
 "Cima da Conegliano": {},
+"Clara Peeters": {},
 "Claude Bonnefond": {
 "born": "1868-03-28",
 "died": "1936-02-01",
@@ -986,6 +1142,11 @@
 "qid": "Q296"
 },
 "Claude Monet1606": {},
+"Constance Mayer": {
+"born": "1755-03-09",
+"died": "1821-05-26",
+"qid": "Q463270"
+},
 "Corneille de Lyon": {},
 "Cornelis Cornelisz. van Haarlem": {
 "born": null,
@@ -1232,16 +1393,71 @@
 "died": "1919-12-31",
 "qid": "Q1827236"
 },
+"Elisabeth Geertruida Wassenbergh": {
+"born": "1729-05-29",
+"died": null,
+"qid": "Q2040407"
+},
 "Elisabeth Louise Vigée Le Brun": {
 "born": "1755-04-16",
 "died": "1842-03-30",
 "qid": "Q213163"
 },
+"Elisabetta Sirani": {
+"born": "1638-01-08",
+"died": "1665-08-28",
+"qid": "Q271475"
+},
+"Elise Konstantin-Hansen": {
+"born": "1858-05-04",
+"died": "1946-02-25",
+"qid": "Q12309769"
+},
+"Elizabeth Nourse": {
+"born": "1859-10-26",
+"died": "1938-10-08",
+"qid": "Q532168"
+},
+"Else Berg": {
+"born": "1877-02-19",
+"died": "1942-11-19",
+"qid": "Q1439802"
+},
 "Emanuel de Witte": {},
+"Emily Carr": {
+"born": "1871-12-13",
+"died": "1945-03-02",
+"qid": "Q289624"
+},
+"Emma Ciardi": {
+"born": "1879-01-13",
+"died": "1933-11-16",
+"qid": "Q3724632"
+},
+"Emma Ekwall": {
+"born": "1838-01-18",
+"died": "1925-02-01",
+"qid": "Q4988393"
+},
+"Emma Löwstädt-Chadwick": {
+"born": "1855-08-10",
+"died": "1932-01-02",
+"qid": "Q4942488"
+},
+"Emma Soyer": {
+"born": null,
+"died": "1842-08-30",
+"qid": "Q5362724"
+},
 "Emmanuel Benner": {
 "born": "1836-03-28",
 "died": "1896-09-24",
 "qid": "Q1338174"
+},
+"Empress Dowager Cixi": {
+"born": "1835-11-29",
+"died": "1908-11-15",
+"qid": "Q47842"
 },
 "Erasmus Quellinus II": {
 "born": "1607-11-19",
@@ -1283,6 +1499,16 @@
 "born": "1587-05-17",
 "died": "1630-11-18",
 "qid": "Q467361"
+},
+"Ester Almqvist": {
+"born": "1869-11-03",
+"died": "1934-06-11",
+"qid": "Q4935234"
+},
+"Ester Ellqvist": {
+"born": "1880-10-04",
+"died": "1918-11-20",
+"qid": "Q4946526"
 },
 "Ettore Tito": {
 "born": "1859-12-17",
@@ -1328,6 +1554,21 @@
 "born": "1824-07-12",
 "died": "1898-08-08",
 "qid": "Q212600"
+},
+"Eva Bonnier": {
+"born": "1857-11-17",
+"died": "1909-01-13",
+"qid": "Q454670"
+},
+"Eva Gonzalès": {
+"born": "1849-04-19",
+"died": "1883-05-06",
+"qid": "Q464300"
+},
+"Fanny Brate": {
+"born": "1861-02-26",
+"died": "1940-04-24",
+"qid": "Q4244039"
 },
 "Fanny Churberg": {
 "born": "1845-12-12",
@@ -1389,6 +1630,11 @@
 "born": "1777-02-25",
 "died": "1852-03-14",
 "qid": "Q2059364"
+},
+"Florine Stettheimer": {
+"born": "1871-08-29",
+"died": "1944-05-11",
+"qid": "Q5461886"
 },
 "Floris van Schooten": {},
 "Fra Angelico": {
@@ -1767,6 +2013,11 @@
 "died": "1652-01-30",
 "qid": "Q203371"
 },
+"Georgette Agutte": {
+"born": "1867-05-17",
+"died": "1922-09-05",
+"qid": "Q450730"
+},
 "Georgius Jacobus Johannes van Os": {
 "born": "1782-11-20",
 "died": "1861-07-21",
@@ -1833,6 +2084,11 @@
 "died": "1697-11-19",
 "qid": "Q18516533"
 },
+"Gesina ter Borch": {
+"born": null,
+"died": "1690-04-16",
+"qid": "Q1519218"
+},
 "Giacomo Ceruti": {
 "born": "1698-10-13",
 "died": "1767-08-28",
@@ -1859,6 +2115,7 @@
 "died": "1649-06-28",
 "qid": "Q2701986"
 },
+"Giovanna Garzoni": {},
 "Giovanni Antonio Boltraffio": {},
 "Giovanni Antonio Canal": {
 "born": "1697-10-07",
@@ -1977,6 +2234,11 @@
 "died": "1828-04-16",
 "qid": "Q5432"
 },
+"Grace Hudson": {
+"born": "1865-02-21",
+"died": "1937-03-23",
+"qid": "Q5591221"
+},
 "Guido Reni": {
 "born": "1575-11-04",
 "died": "1642-08-18",
@@ -2031,6 +2293,11 @@
 "born": "1826-04-06",
 "died": "1898-04-18",
 "qid": "Q203828"
+},
+"Gwen John": {
+"born": "1876-06-22",
+"died": "1939-09-18",
+"qid": "Q274339"
 },
 "Göbel, Angilbert Angilbert Göbel": {},
 "Hanna Winge": {
@@ -2089,6 +2356,11 @@
 "born": null,
 "died": "1615-03-04",
 "qid": "Q152835"
+},
+"Harriet Backer": {
+"born": "1845-01-21",
+"died": "1932-03-25",
+"qid": "Q263025"
 },
 "Harris & Ewing Collection": {},
 "Heinrich Friedrich Füger": {
@@ -2205,10 +2477,25 @@
 "died": "1992-08-29",
 "qid": "Q18603301"
 },
+"Henriette Lorimier": {
+"born": "1775-08-07",
+"died": "1854-04-01",
+"qid": "Q2055547"
+},
 "Henrik August Ankarcrona": {
 "born": "1831-09-14",
 "died": "1917-01-10",
 "qid": "Q5557344"
+},
+"Henrika Šantel": {
+"born": "1874-08-17",
+"died": "1940-02-15",
+"qid": "Q18508284"
+},
+"Henriëtte Ronner-Knip": {
+"born": "1821-05-31",
+"died": "1909-02-28",
+"qid": "Q454470"
 },
 "Henry Golden Dearth": {
 "born": "1864-04-22",
@@ -2252,6 +2539,11 @@
 "died": "1863-01-17",
 "qid": "Q161145"
 },
+"Hortense Haudebourt-Lescot": {
+"born": "1784-12-14",
+"died": "1845-01-02",
+"qid": "Q1396313"
+},
 "Hubert Robert": {
 "born": "1733-05-22",
 "died": "1808-04-15",
@@ -2291,6 +2583,11 @@
 "qid": "Q864013"
 },
 "Italian (Umbrian) Painter": {},
+"Ivana Kobilca": {
+"born": "1861-12-20",
+"died": "1926-12-04",
+"qid": "Q236878"
+},
 "Jacob Adriaensz Backer": {
 "born": null,
 "died": "1651-08-27",
@@ -2358,6 +2655,11 @@
 "died": "1689-11-18",
 "qid": "Q859874"
 },
+"Jacoba van Heemskerck": {
+"born": "1876-04-01",
+"died": "1923-08-03",
+"qid": "Q440922"
+},
 "Jacobus Levecq": {},
 "Jacometto (Jacometto Veneziano)": {},
 "Jacopo Bassano": {
@@ -2385,6 +2687,11 @@
 "born": null,
 "died": "1493-11-21",
 "qid": "Q2525549"
+},
+"Jacqueline Marval": {
+"born": "1866-10-19",
+"died": "1932-05-28",
+"qid": "Q3157759"
 },
 "Jacques Augustin Catherine Pajou": {
 "born": "1766-08-27",
@@ -2774,6 +3081,11 @@
 "died": "1872-03-25",
 "qid": "Q4968754"
 },
+"Jenny Nyström": {
+"born": "1854-06-13",
+"died": "1946-01-17",
+"qid": "Q3100592"
+},
 "Johan Barthold Jongkind": {
 "born": "1819-06-03",
 "died": "1891-02-09",
@@ -3058,6 +3370,11 @@
 "died": "1807-01-17",
 "qid": "Q1301023"
 },
+"Josefa de Óbidos": {
+"born": null,
+"died": "1684-07-22",
+"qid": "Q269338"
+},
 "Josep Benlliure Gil": {
 "born": "1855-09-30",
 "died": "1937-04-05",
@@ -3160,6 +3477,11 @@
 },
 "Juan Martín Cabezalero": {},
 "Juan de Flandes": {},
+"Judith Leyster": {
+"born": null,
+"died": "1660-02-10",
+"qid": "Q232423"
+},
 "Juho Rissanen": {
 "born": "1873-03-09",
 "died": "1950-12-12",
@@ -3290,6 +3612,11 @@
 "died": "1952-01-01",
 "qid": "Q3195174"
 },
+"Kiyohara Yukinobu": {
+"born": null,
+"died": "1682-06-05",
+"qid": "Q11560527"
+},
 "Klemens Brosch": {
 "born": "1894-10-21",
 "died": "1926-12-17",
@@ -3305,10 +3632,30 @@
 "died": "1860-11-19",
 "qid": "Q938311"
 },
+"Käthe Kollwitz": {
+"born": "1867-07-08",
+"died": "1945-04-22",
+"qid": "Q142472"
+},
+"Laura Muntz Lyall": {
+"born": "1860-06-18",
+"died": "1930-12-09",
+"qid": "Q527191"
+},
+"Laura Theresa Alma-Tadema": {
+"born": "1852-04-16",
+"died": "1909-08-15",
+"qid": "Q459611"
+},
 "Laurits Andersen Ring": {
 "born": "1854-08-15",
 "died": "1933-09-10",
 "qid": "Q2199553"
+},
+"Lavinia Fontana": {
+"born": "1552-08-24",
+"died": "1614-08-11",
+"qid": "Q236050"
 },
 "Lawrence Alma-Tadema": {
 "born": "1836-01-08",
@@ -3351,6 +3698,17 @@
 "qid": "Q1915302"
 },
 "Leonhard Beck": {},
+"Li Yin": {},
+"Lilla Cabot Perry": {
+"born": "1848-01-13",
+"died": "1933-02-28",
+"qid": "Q431705"
+},
+"Lilly Martin Spencer": {
+"born": "1822-11-26",
+"died": "1902-05-22",
+"qid": "Q2986384"
+},
 "Lionel Walden": {
 "born": "1861-05-22",
 "died": "1933-07-12",
@@ -3432,6 +3790,16 @@
 "died": "1830-09-04",
 "qid": "Q3260705"
 },
+"Louise Catherine Breslau": {
+"born": "1856-12-06",
+"died": "1927-05-12",
+"qid": "Q270629"
+},
+"Louise Hersent": {
+"born": "1784-03-07",
+"died": "1862-01-07",
+"qid": "Q15952039"
+},
 "Louvre INV 101": {},
 "Louvre RF 2082": {},
 "Lovis Corinth": {
@@ -3464,6 +3832,16 @@
 "born": "1595-10-18",
 "died": "1672-11-04",
 "qid": "Q1355408"
+},
+"Lucie Cousturier": {
+"born": "1876-12-19",
+"died": "1925-06-16",
+"qid": "Q2381804"
+},
+"Lucie Ingemann": {
+"born": "1792-02-13",
+"died": "1868-01-15",
+"qid": "Q17125687"
 },
 "Lucien-Étienne Mélingue": {
 "born": "1841-12-18",
@@ -3520,6 +3898,11 @@
 "died": "1850-01-29",
 "qid": "Q1116972"
 },
+"Lyubov Popova": {
+"born": "1889-04-24",
+"died": "1924-05-25",
+"qid": "Q259594"
+},
 "Léon Augustin Lhermitte": {
 "born": "1844-07-31",
 "died": "1925-07-28",
@@ -3564,30 +3947,85 @@
 "died": "1636-01-19",
 "qid": "Q13583490"
 },
+"Marguerite Gérard": {
+"born": "1761-01-28",
+"died": "1837-05-18",
+"qid": "Q271484"
+},
 "Maria Wiik": {
 "born": "1853-08-02",
 "died": "1928-06-19",
 "qid": "Q4110933"
+},
+"Maria van Oosterwijck": {
+"born": "1630-08-20",
+"died": "1693-11-12",
+"qid": "Q292250"
 },
 "Maria von Parmentier": {
 "born": "1846-04-11",
 "died": "1879-05-14",
 "qid": "Q1365914"
 },
+"Marianne von Werefkin": {
+"born": "1860-09-10",
+"died": "1938-02-06",
+"qid": "Q464016"
+},
 "Mariano Fortuny Marsal": {
 "born": "1838-06-11",
 "died": "1874-11-21",
 "qid": "Q380052"
+},
+"Marie Bracquemond": {
+"born": "1840-12-01",
+"died": "1916-01-17",
+"qid": "Q273552"
+},
+"Marie Ellenrieder": {
+"born": "1791-03-20",
+"died": "1863-06-05",
+"qid": "Q328027"
+},
+"Marie Henriques": {
+"born": "1866-06-26",
+"died": "1944-01-12",
+"qid": "Q12326071"
+},
+"Marie Krøyer": {
+"born": "1867-06-11",
+"died": "1940-05-25",
+"qid": "Q273933"
+},
+"Marie Luplau": {
+"born": "1848-12-07",
+"died": "1925-08-16",
+"qid": "Q12326083"
 },
 "Marie Olga Brand-Krieghammer": {
 "born": "1867-07-27",
 "died": "1949-02-24",
 "qid": "Q1479072"
 },
+"Marie Petiet": {
+"born": "1854-07-20",
+"died": "1893-04-16",
+"qid": "Q3292725"
+},
+"Marie Spartali Stillman": {
+"born": "1844-03-10",
+"died": "1927-03-06",
+"qid": "Q134150"
+},
 "Marie Victoire Lemoine": {
 "born": null,
 "died": "1820-12-02",
 "qid": "Q529270"
+},
+"Marie-Guillemine Benoist": {
+"born": "1768-12-18",
+"died": "1826-10-08",
+"qid": "Q118810"
 },
 "Marie-Lan Nguyen": {},
 "Marius Bauer": {
@@ -3618,6 +4056,11 @@
 "qid": "Q427999"
 },
 "Marx Reichlich": {},
+"Mary Beale": {
+"born": "1633-03-26",
+"died": "1699-10-08",
+"qid": "Q2347846"
+},
 "Mary Cassatt": {
 "born": "1844-05-22",
 "died": "1926-06-14",
@@ -3714,6 +4157,7 @@
 "died": "1664-06-01",
 "qid": "Q1342328"
 },
+"Michaelina Wautier": {},
 "Michel Sittow": {
 "born": null,
 "died": "1525-12-21",
@@ -3745,12 +4189,22 @@
 "died": "1935-11-02",
 "qid": "Q46508760"
 },
+"Mina Carlson-Bredberg": {
+"born": "1857-09-02",
+"died": "1943-06-09",
+"qid": "Q4941918"
+},
 "Monogrammist LAM": {},
 "Moretto da Brescia": {},
 "Moritz Calisch": {
 "born": "1819-04-12",
 "died": "1870-03-13",
 "qid": "Q474331"
+},
+"Nadežda Petrović": {
+"born": "1873-10-11",
+"died": "1915-04-03",
+"qid": "Q264453"
 },
 "Narcisse Virgile Diaz de la Peña": {
 "born": "1807-08-21",
@@ -3839,13 +4293,33 @@
 "died": "1804-01-28",
 "qid": "Q11884512"
 },
+"Nina Arbore": {
+"born": "1889-10-08",
+"died": "1942-03-07",
+"qid": "Q15402320"
+},
 "Nori Malo-Renault": {},
 "North Netherlandish Painter": {},
 "Northern French Painter": {},
+"Oda Krohg": {
+"born": "1860-06-11",
+"died": "1935-10-19",
+"qid": "Q271470"
+},
 "Odilon Redon": {
 "born": "1840-04-20",
 "died": "1916-07-06",
 "qid": "Q154349"
+},
+"Olga Fialka": {
+"born": "1848-04-19",
+"died": "1930-12-17",
+"qid": "Q1001063"
+},
+"Olga Rozanova": {
+"born": "1886-06-21",
+"died": "1918-11-07",
+"qid": "Q270460"
 },
 "Olga Wisinger-Florian": {
 "born": "1844-11-01",
@@ -3958,6 +4432,11 @@
 "born": "1595-12-09",
 "died": "1678-06-30",
 "qid": "Q2610964"
+},
+"Paula Modersohn-Becker": {
+"born": "1876-02-08",
+"died": "1907-11-20",
+"qid": "Q234370"
 },
 "Paulus Constantijn la Fargue": {},
 "Paulus Moreelse": {
@@ -4206,6 +4685,11 @@
 },
 "Porcellis, Julius": {},
 "Possibly Eugenio Caxés": {},
+"Princess Louise, Duchess of Argyll": {
+"born": "1848-03-18",
+"died": "1939-12-03",
+"qid": "Q161167"
+},
 "Pseudo-Félix Chrétien": {},
 "Quinten Massijs (I)": {
 "born": null,
@@ -4315,6 +4799,11 @@
 "died": "1899-05-25",
 "qid": "Q241732"
 },
+"Rosalba Carriera": {
+"born": "1675-10-07",
+"died": "1757-04-15",
+"qid": "Q237726"
+},
 "Rudolf Jordan": {
 "born": "1810-05-04",
 "died": "1887-03-26",
@@ -4390,6 +4879,16 @@
 "died": "1916-08-23",
 "qid": "Q3394913"
 },
+"Seraphima Blonskaya": {
+"born": "1870-10-03",
+"died": "1947-08-09",
+"qid": "Q4088316"
+},
+"Shin Saimdang": {
+"born": "1504-10-29",
+"died": "1551-05-17",
+"qid": "Q464485"
+},
 "Simon Denis": {
 "born": "1755-04-14",
 "died": "1813-01-01",
@@ -4414,6 +4913,11 @@
 "born": null,
 "died": "1344-08-01",
 "qid": "Q221043"
+},
+"Sina Mesdag-van Houten": {
+"born": "1834-12-23",
+"died": "1909-03-20",
+"qid": "Q1837114"
 },
 "Sir Godfrey Kneller": {
 "born": "1646-08-08",
@@ -4445,6 +4949,11 @@
 "died": "1839-01-28",
 "qid": "Q48566"
 },
+"Sofie Ribbing": {
+"born": "1835-03-06",
+"died": "1894-12-07",
+"qid": "Q4974655"
+},
 "Sofonisba Anguissola": {
 "born": null,
 "died": "1625-11-16",
@@ -4455,12 +4964,27 @@
 "died": "1927-07-27",
 "qid": "Q2105066"
 },
+"Sophie Gengembre Anderson": {
+"born": null,
+"died": "1903-03-10",
+"qid": "Q237758"
+},
+"Sophie Taeuber-Arp": {
+"born": "1889-01-19",
+"died": "1943-01-14",
+"qid": "Q254395"
+},
 "Spanish (Castilian) Painter": {},
 "Spanish (Catalan) Painter": {},
 "Spinello Aretino (Spinello di Luca Spinelli)": {
 "born": null,
 "died": "1410-03-14",
 "qid": "Q287934"
+},
+"Suzanne Valadon": {
+"born": "1865-09-23",
+"died": "1938-04-07",
+"qid": "Q156889"
 },
 "Suze Robertson": {
 "born": "1855-12-17",
@@ -4539,6 +5063,11 @@
 "died": "1867-12-22",
 "qid": "Q310025"
 },
+"Thérèse Schwartze": {
+"born": "1851-12-20",
+"died": "1918-12-23",
+"qid": "Q457001"
+},
 "Tibout Regters": {
 "born": "1710-12-24",
 "died": "1768-01-26",
@@ -4557,6 +5086,11 @@
 },
 "Urban Görtschacher": {},
 "Valcanover number": {},
+"Valéria Dénes": {
+"born": "1877-11-02",
+"died": "1915-07-18",
+"qid": "Q986897"
+},
 "Velázquez (Diego Rodríguez de Silva y Velázquez)": {},
 "Venny Soldan-Brofeldt": {
 "born": "1863-11-02",
@@ -4579,6 +5113,11 @@
 "died": "1871-12-21",
 "qid": "Q878576"
 },
+"Victoria, Princess Royal": {
+"born": "1840-11-21",
+"died": "1901-08-05",
+"qid": "Q116728"
+},
 "Vilhelm Hammershøi": {
 "born": "1864-05-15",
 "died": "1916-02-13",
@@ -4588,6 +5127,11 @@
 "born": "1819-03-30",
 "died": "1903-05-11",
 "qid": "Q1781575"
+},
+"Vilma Lwoff-Parlaghy": {
+"born": "1863-04-15",
+"died": "1923-08-28",
+"qid": "Q527774"
 },
 "Vincent van Gogh": {
 "born": "1853-03-30",
@@ -4601,6 +5145,11 @@
 "born": "1729-04-05",
 "died": "1810-10-28",
 "qid": "Q7932963"
+},
+"Virginie Demont-Breton": {
+"born": "1859-07-26",
+"died": "1935-01-10",
+"qid": "Q3560732"
 },
 "Vittore Carpaccio": {},
 "Väinö Blomstedt": {
@@ -4748,6 +5297,11 @@
 "born": "1845-08-09",
 "died": "1921-02-04",
 "qid": "Q1041605"
+},
+"Zdenka Braunerová": {
+"born": "1858-04-09",
+"died": "1934-05-23",
+"qid": "Q7940542"
 },
 "Zhang Rulin": {},
 "Zélé Agricola": {
