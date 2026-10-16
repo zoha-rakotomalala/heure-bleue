@@ -188,11 +188,21 @@ def verify_signature(message: bytes, signature: bytes, public_key_b64: str = PUB
         raise RuntimeError("the release is not signed by the heure bleue key") from None
 
 
+def _detach_stale(mount: Path) -> None:
+    """A disk image is still attached at `mount` when the app was quit mid-copy (the
+    user relaunching to "get the update" is the common case). hdiutil then refuses to
+    attach the next download at the same point, and every later attempt fails the same
+    way. Detach it first; nothing of ours is open on it."""
+    if sys.platform == "darwin" and mount.exists() and os.path.ismount(mount):
+        subprocess.run(["hdiutil", "detach", str(mount), "-force", "-quiet"], capture_output=True, timeout=60)
+
+
 def _unpack(archive: Path, into: Path, tag: str) -> Path:
     """Unpack the downloaded asset into `into` and return the new bundle inside it."""
     into.mkdir(parents=True, exist_ok=True)
     if archive.suffix == ".dmg":
         mount = archive.parent / "mnt"
+        _detach_stale(mount)
         mount.mkdir(exist_ok=True)
         subprocess.run(["hdiutil", "attach", str(archive), "-nobrowse", "-quiet", "-mountpoint", str(mount)], check=True, timeout=120)
         try:
@@ -238,6 +248,7 @@ def stage(dmg_url: str, sums_url: str, sig_url: str, tag: str) -> Path:
     """Download, verify, unpack. Returns the staged bundle. Raises on any failure."""
     global _staged
     work = config.ROOT / "updates"
+    _detach_stale(work / "mnt")
     for p in ("staged", "mnt", asset_name(tag), SUMS, SIG):
         q = work / p
         if q.is_dir():
@@ -410,7 +421,8 @@ def apply_if_ready() -> bool:
 
 def clean_previous() -> None:
     """Remove what the last update left behind. Called at start."""
-    for name in ("previous", "previous.app", "staged", "swap.ps1"):
+    _detach_stale(config.ROOT / "updates" / "mnt")
+    for name in ("previous", "previous.app", "staged", "mnt", "swap.ps1"):
         p = config.ROOT / "updates" / name
         if p.is_dir():
             shutil.rmtree(p, ignore_errors=True)
