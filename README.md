@@ -317,8 +317,12 @@ discover.
 **Playlist.** Which paintings are on the table. *Everything* is the whole index.
 *Only new* takes the Kept list out: a painting you kept never comes back, the
 wall only discovers. *Only kept* is the opposite, the wall replays your Kept
-list, like a playlist of the paintings you love. The two last need at least one
-kept painting.
+list, like a playlist of the paintings you love. Those two need at least one
+kept painting. *Women painters* keeps only paintings by women: the index knows
+each painter's gender from Wikidata, and a dedicated indexing pass walks the
+"Paintings by" category of some 970 women painters on Wikimedia Commons, so the
+wall can show you Leyster, Ruysch, Wautier, Ancher or Backer, whom the museum
+walks alone bring in only by chance.
 
 **Matching.** The three signals behind a choice, *cover colours*, *music feel*
 and *the moment*; click to turn one off, one always stays on. Pace, Choice,
@@ -474,7 +478,17 @@ To add more:
 ```sh
 python3 -m heurebleue index --target 1500               # every museum, round-robin
 python3 -m heurebleue index --source prado --target 1200  # one museum
+python3 tools/women_painters.py                           # women painters from Wikidata -> data/women_painters.json
+python3 -m heurebleue index --source women --target 2900  # their "Paintings by" categories on Commons
+python3 tools/tag_gender.py                               # painter gender from Wikidata on every entry (data/painters.json caches it)
 ```
+
+The `women` source walks each painter's own category rather than a museum's, so
+the museum is read from the file (its categories, then the Artwork template's
+institution field); a file that names no collection is skipped. Files that land
+in one of the 22 museums keep that museum's id prefix and so deduplicate against
+the museum walks; the others are `commons-<pageid>`. At most 30 paintings per
+painter, so Morisot does not fill the pool.
 
 The indexer is slow on purpose (a pause between requests, back-off on 429) so it
 stays a good citizen of free museum APIs. Only public-domain images are kept;
@@ -521,8 +535,8 @@ for `paused_rotate_minutes`, then the wall rotates until you press play.
 `repeat_days` keeps a painting off the wall for that long after it has been shown
 (a week by default; showings in the last month also count against it).
 `taste` is the *Choice* row (`false` = no lean toward what you keep); `match` is
-the *Matching* row, three switches; `pool` is the *Playlist* row (`mix`, `new`
-or `kept`); `players` is `auto`, or `none` for a wall that never reads a
+the *Matching* row, three switches; `pool` is the *Playlist* row (`mix`, `new`,
+`kept` or `women`); `players` is `auto`, or `none` for a wall that never reads a
 player; `update_mode` is `click` or `auto`. The ⚙ panel writes
 `rotate_minutes`, `taste`, `match`, `pool` and `update_mode` for you.
 `locale` is the regional date format (`fr-FR`, `en-GB`); `language` picks the

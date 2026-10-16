@@ -429,6 +429,143 @@ def orsay_candidates(seen, depth=2, cache_hours=72):
     return commons_candidates(seen, "orsay", depth, cache_hours)
 
 
+# --- women painters: walk "Paintings by <name>" for each painter in data/women_painters.json ----------
+# The museum is not known from the category, so it is read from each file's own categories
+# ("Paintings in the Mauritshuis", "Dutch Golden Age paintings in the Rijksmuseum Amsterdam").
+# Files that resolve to one of COMMONS_MUSEUMS keep that museum's id prefix, so they
+# deduplicate against the museum walks; the others are "commons-<pageid>".
+
+WOMEN = config.DATA / "women_painters.json" if (config.DATA / "women_painters.json").exists() \
+    else config.BUNDLE / "data" / "women_painters.json"
+WOMEN_MAX_CATS = 12       # categories walked per painter ("by museum", "by year" and their children)
+WOMEN_MAX_FILES = 30      # files taken per painter, so one prolific name does not fill the pool
+WOMEN_SKIP_CATS = COMMONS_SKIP_CATS + ("private collection", "unidentified", "Signatures of", "by subject", "by genre")
+_PAINTER_OF = {}          # pageid -> painter name, from the category that listed the file
+_MUSEUM_CAT = re.compile(r"^Category:.*\b(?:paintings|works|art|portraits|landscapes|still lifes?|drawings|watercolou?rs|"
+                         r"pastels|collection)\b.*\bin (?:the )?([^,]+?)$", re.I)
+_MUSEUM_WORD = re.compile(r"museum|museo|mus[ée]e|museu|gallery|galerie|galleria|kunsthalle|kunsthaus|pinakothek|"
+                          r"collection|sammlung|stiftung|foundation|fondation|institute|palace|palais|palazzo|castle|"
+                          r"ch[âa]teau|schloss|academy|akademie|library|biblioth|hall\b|fine arts|beaux-arts|"
+                          r"nationalgalerie|belvedere|hermitage|mauritshuis|rijksmuseum|louvre|prado|uffizi|ateneum|"
+                          r"nationalmuseum|st[äa]del|albertina|kunstmuseum|konstmuseum|kunstsammlung|landesmuseum|"
+                          r"stedelijk|gemeentemuseum|frans hals|boijmans|teylers|lakenhal|skagen|hirschsprung|statens|"
+                          r"nasjonal|thorvaldsen|ordrupgaard|glyptotek|rmn|petit palais|carnavalet|cognacq", re.I)
+_MUSEUM_SKIP = re.compile(r"private collection|unidentified|unknown|\blost\b|destroyed|art market|auction|exhibition|"
+                          r"^\d|century|style|school|dynasty|^(?:the )?(?:Netherlands|France|Germany|Austria|Italy|Spain|"
+                          r"Sweden|Norway|Denmark|Finland|Russia|Belgium|Switzerland|Poland|England|United Kingdom|"
+                          r"United States|Europe|Paris|London|Amsterdam|Vienna|Berlin|Munich)$", re.I)
+_MUSEUM_ALIAS = [  # a known museum's words in a category -> its slug (so ids deduplicate with the museum walks)
+    (re.compile(r"Mus[ée]e d'Orsay", re.I), "orsay"), (re.compile(r"Orangerie", re.I), "orangerie"),
+    (re.compile(r"Marmottan", re.I), "marmottan"), (re.compile(r"Petit Palais", re.I), "petit-palais"),
+    (re.compile(r"\bLouvre\b", re.I), "louvre"), (re.compile(r"Beaux[- ]Arts de Lyon", re.I), "lyon"),
+    (re.compile(r"National Gallery, London|National Gallery \(London\)", re.I), "national-gallery"),
+    (re.compile(r"\bPrado\b", re.I), "prado"), (re.compile(r"Mauritshuis", re.I), "mauritshuis"),
+    (re.compile(r"Van Gogh Museum", re.I), "van-gogh"), (re.compile(r"Kr[öo]ller-M[üu]ller", re.I), "kroller-muller"),
+    (re.compile(r"Kunsthistorisches Museum", re.I), "khm"), (re.compile(r"Belvedere", re.I), "belvedere"),
+    (re.compile(r"Alte Nationalgalerie", re.I), "alte-nationalgalerie"),
+    (re.compile(r"Gem[äa]ldegalerie, Berlin|Gem[äa]ldegalerie \(Berlin\)|Gem[äa]ldegalerie Berlin", re.I), "gemaldegalerie"),
+    (re.compile(r"Neue Pinakothek", re.I), "neue-pinakothek"), (re.compile(r"St[äa]del", re.I), "stadel"),
+    (re.compile(r"Nationalmuseum(?: Stockholm)?", re.I), "nationalmuseum"), (re.compile(r"Ateneum", re.I), "ateneum"),
+    (re.compile(r"\bHermitage\b", re.I), "hermitage"),
+    (re.compile(r"National Gallery of Art(?: \(Washington|, Washington)", re.I), "nga"),
+    (re.compile(r"Rijksmuseum(?: Amsterdam)?$", re.I), "rijks"), (re.compile(r"Metropolitan Museum of Art", re.I), "met"),
+]
+_RIJKS_MET_NAMES = {"rijks": "Rijksmuseum, Amsterdam", "met": "The Metropolitan Museum of Art"}
+
+
+def resolve_museum(cats):
+    """(slug, museum name) from a file's categories, or (None, None) when no collection is named."""
+    best = None
+    for c in cats:
+        for pat, slug in _MUSEUM_ALIAS:
+            if pat.search(c):
+                return slug, (COMMONS_MUSEUMS.get(slug) or (None, _RIJKS_MET_NAMES.get(slug)))[1]
+        m = _MUSEUM_CAT.match(c)
+        if m:
+            name = re.sub(r"\s*\([^)]*\)\s*$", "", m.group(1)).strip()  # "Galleria Palatina (Florence)" -> "Galleria Palatina"
+            if _MUSEUM_WORD.search(name) and not _MUSEUM_SKIP.search(name) and 4 <= len(name) <= 70:
+                if best is None or len(name) < len(best):  # "Mauritshuis" over "Mauritshuis in The Hague"
+                    best = name
+    return (None, best) if best else (None, None)
+
+
+_INSTITUTION = re.compile(r"\|\s*(?:institution|gallery|museum|collection)\s*=\s*(.+)", re.I)
+_TEMPLATE_INST = re.compile(r"\{\{\s*Institution:([^}|]+)")
+_LINK = re.compile(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]")
+
+
+def institution_from_wikitext(pageid):
+    """The Artwork template's institution field, read from the file page's wikitext, or None.
+    One extra API call, used only when the file's categories name no collection."""
+    d = commons({"action": "query", "prop": "revisions", "rvprop": "content", "rvslots": "main", "pageids": str(pageid)})
+    pages = d.get("query", {}).get("pages", [])
+    text = ((pages[0].get("revisions") or [{}])[0].get("slots", {}).get("main", {}).get("content", "")) if pages else ""
+    for m in _INSTITUTION.finditer(text):
+        raw = m.group(1).split("\n")[0].strip()
+        t = _TEMPLATE_INST.search(raw)
+        name = t.group(1).strip() if t else _LINK.sub(r"\1", raw)
+        name = re.sub(r"\{\{[^}]*\}\}|<[^>]+>|\|.*$", "", name).strip(" .,;")
+        if name and _MUSEUM_WORD.search(name) and not _MUSEUM_SKIP.search(name) and 4 <= len(name) <= 70:
+            slug = next((s for pat, s in _MUSEUM_ALIAS if pat.search(name)), None)
+            return slug, ((COMMONS_MUSEUMS.get(slug) or (None, _RIJKS_MET_NAMES.get(slug)))[1] if slug else name)
+    return None, None
+
+
+def women_candidates(seen, cache_hours=72, max_painters=None):
+    """Walk each woman painter's "Paintings by <name>" category (plus its "by museum" / "by year"
+    children). Returns shuffled file pageids; remembers which painter each file belongs to."""
+    cache = ROOT / "logs" / "women_candidates.json"
+    files = None
+    if cache.exists() and time.time() - cache.stat().st_mtime < cache_hours * 3600:
+        files = {int(k): v for k, v in json.loads(cache.read_text(encoding="utf-8")).items()}
+        print(f"  women: {len(files)} image files from cache {cache.name}")
+    if files is None:
+        painters = json.loads(WOMEN.read_text(encoding="utf-8")) if WOMEN.exists() else []
+        if max_painters:
+            painters = painters[:max_painters]
+        files, hits, named = {}, 0, 0
+        for i, p in enumerate(painters):
+            root = f"Category:Paintings by {p['name']}"
+            todo, done, mine = [(root, 0)], set(), 0
+            while todo and len(done) < WOMEN_MAX_CATS and mine < WOMEN_MAX_FILES:
+                cat, lvl = todo.pop(0)
+                if cat in done:
+                    continue
+                done.add(cat)
+                try:
+                    members = commons_members(cat)
+                    hits = 0
+                except Exception as exc:  # noqa: BLE001
+                    if "429" in str(exc) or "403" in str(exc):
+                        hits += 1
+                        time.sleep(backoff_seconds(exc, hits))
+                    continue
+                time.sleep(DELAY)
+                for m in members:
+                    if m.get("ns") == 6 and m["title"].lower().endswith(IMAGE_EXT) and mine < WOMEN_MAX_FILES:
+                        files[m["pageid"]] = [m["title"], p["name"]]
+                        mine += 1
+                    elif m.get("ns") == 14 and lvl < 2 and not any(s.lower() in m["title"].lower() for s in WOMEN_SKIP_CATS):
+                        todo.append((m["title"], lvl + 1))
+            if mine:
+                named += 1
+            if (i + 1) % 25 == 0:
+                print(f"  women: {i + 1}/{len(painters)} painters walked, {named} with paintings, {len(files)} files", flush=True)
+        print(f"  women: {len(painters)} painters, {named} with a 'Paintings by' category, {len(files)} image files", flush=True)
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        cache.write_text(json.dumps(files, ensure_ascii=False), encoding="utf-8")
+    _PAINTER_OF.update({pid: v[1] for pid, v in files.items()})
+    seen_pids = {sid.rsplit("-", 1)[-1] for sid in seen}
+    ids = [pid for pid in files if str(pid) not in seen_pids]
+    random.shuffle(ids)
+    _QUEUES["women"] = ids
+    return ids
+
+
+def women_fetch(pageid):
+    return commons_fetch(pageid, "women")
+
+
 _QUEUES = {}               # slug -> remaining candidate pageids (shared with main's queue order)
 _META = {}                 # pageid -> (page, imageinfo)
 ORSAY_BATCH = 25
@@ -634,10 +771,21 @@ def orsay_date(ii):
 
 
 def commons_fetch(pageid, slug="orsay"):
-    museum = COMMONS_MUSEUMS[slug][1]
+    women = slug == "women"
+    museum = None if women else COMMONS_MUSEUMS[slug][1]
     page, ii = _imageinfo(pageid, slug)
     if not ii:
         return None
+    if women:
+        cat_titles = [c.get("title", "") for c in page.get("categories", []) or []]
+        mslug, museum = resolve_museum(cat_titles)
+        if not museum:
+            time.sleep(DELAY)
+            mslug, museum = institution_from_wikitext(pageid)
+        if not museum:
+            print(f"  nohome {slug}-{pageid} {page['title'][5:45]}")
+            return None  # no collection named: a private-collection or unlocated work
+        slug = mslug or "commons"
     lic = _meta(ii, "LicenseShortName")
     cc_only = not PD_LICENCE.search(lic) and bool(CC_LICENCE.search(lic))
     if not PD_LICENCE.search(lic) and not (ALLOW_CC and cc_only):
@@ -658,7 +806,8 @@ def commons_fetch(pageid, slug="orsay"):
             or re.search(r"\((?:19[3-9]\d|20\d\d)\)\s*$", title):
         print(f"  notart {slug}-{pageid} {title[:40]}")
         return None  # a stamp, a catalogue page, a room photo, or a painting too recent to be public domain
-    artist = orsay_artist(page, ii, trust_artist_field=not cc_only)
+    artist = _PAINTER_OF.get(pageid) if women else None  # the category that listed the file names the painter
+    artist = artist or orsay_artist(page, ii, trust_artist_field=not cc_only)
     if artist is None or NOT_A_PAINTER.search(artist):
         print(f"  noname {slug}-{pageid} {title[:40]}")
         return None
@@ -677,6 +826,8 @@ def commons_fetch(pageid, slug="orsay"):
         "museum": museum, "url": ii.get("descriptionurl") or f"https://commons.wikimedia.org/?curid={pageid}",
         "image": image, "w": w0 or w, "h": h0 or h, "palette": pal,
     }
+    if women:
+        entry["gender"] = "f"
     if len(desc) > 60 and desc.lower() != title.lower() and " " in desc:
         entry["story"] = trim_story(desc)
     if cc_only:  # kept on this machine only: data/paintings.local.json, never committed
@@ -699,7 +850,8 @@ def main(target=None, source=None, delay=None, argv=None):
     ap.add_argument("--target", type=int, default=300, help="stop when the index holds this many paintings")
     ap.add_argument("--source", default="all",
                     help="met, rijks, a Commons museum slug (" + ", ".join(COMMONS_MUSEUMS) + "), "
-                         "'commons' for all Commons museums, 'all' (default, round-robin over everything), or a comma list")
+                         "'commons' for all Commons museums, 'women' (paintings by women painters, data/women_painters.json), "
+                         "'all' (default, round-robin over everything), or a comma list")
     ap.add_argument("--delay", type=float, default=0.8)
     ap.add_argument("--allow-cc", action="store_true",
                     help="also keep CC BY-licensed files, in data/paintings.local.json (git-ignored, this machine only)")
@@ -735,6 +887,8 @@ def main(target=None, source=None, delay=None, argv=None):
     for slug in COMMONS_MUSEUMS:
         if want(slug, "commons"):
             queues.append((slug, commons_candidates(seen, slug), functools.partial(commons_fetch, slug=slug)))
+    if want("women") and WOMEN.exists():
+        queues.append(("women", women_candidates(seen), women_fetch))
     if not queues:
         ap.error(f"unknown source {source!r}")
     print("candidates: " + ", ".join(f"{n}={len(q)}" for n, q, _ in queues))

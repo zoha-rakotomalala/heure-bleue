@@ -15,3 +15,5 @@ assets/VERSION
 
 # vendored at build time by tools/vendor_media_control.py (Mac legs only)
 vendor/
+!data/women_painters.json
+!data/painters.json

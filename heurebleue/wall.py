@@ -206,9 +206,12 @@ def choose_painting(cover_palette: Optional[list[dict]], recent: list[str], repe
     pool: which paintings are on the table, like a playlist. "mix" = the whole index; "new" = the
     index minus the Kept list (a kept painting never comes back, the wall only discovers); "kept" =
     the Kept list only (the wall replays what you love). An empty Kept list falls back to "mix".
+    "women" = paintings whose painter is a woman (the index's "gender" field, read from Wikidata).
     """
     index = load_index()
-    if pool in ("new", "kept"):
+    if pool == "women":
+        index = [p for p in index if p.get("gender") == "f"] or index
+    elif pool in ("new", "kept"):
         kept = kept_ids()
         if pool == "kept" and kept:
             index = [p for p in index if p["id"] in kept] or index

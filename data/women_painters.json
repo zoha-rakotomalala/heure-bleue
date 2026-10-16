@@ -1,0 +1,7786 @@
+[
+{
+"qid": "Q5588",
+"name": "Frida Kahlo",
+"category": "Frida Kahlo",
+"born": "1907",
+"died": "1954",
+"sitelinks": 200
+},
+{
+"qid": "Q4605",
+"name": "Sarah Bernhardt",
+"category": "Sarah Bernhardt",
+"born": "1844",
+"died": "1923",
+"sitelinks": 194
+},
+{
+"qid": "Q47842",
+"name": "Empress Dowager Cixi",
+"category": "Empress Dowager Cixi",
+"born": "1835",
+"died": "1908",
+"sitelinks": 101
+},
+{
+"qid": "Q173223",
+"name": "Mary Cassatt",
+"category": "Mary Cassatt",
+"born": "1844",
+"died": "1926",
+"sitelinks": 90
+},
+{
+"qid": "Q214565",
+"name": "Beatrix Potter",
+"category": "Beatrix Potter",
+"born": "1866",
+"died": "1943",
+"sitelinks": 88
+},
+{
+"qid": "Q52937",
+"name": "Christina of Sweden",
+"category": "Christina of Sweden",
+"born": "1626",
+"died": "1689",
+"sitelinks": 86
+},
+{
+"qid": "Q105320",
+"name": "Berthe Morisot",
+"category": "Berthe Morisot",
+"born": "1841",
+"died": "1895",
+"sitelinks": 75
+},
+{
+"qid": "Q212657",
+"name": "Artemisia Gentileschi",
+"category": "Artemisia Gentileschi",
+"born": "1593",
+"died": "1653",
+"sitelinks": 74
+},
+{
+"qid": "Q62530",
+"name": "Maria Sibylla Merian",
+"category": "Maria Sibylla Merian",
+"born": "1647",
+"died": "1717",
+"sitelinks": 73
+},
+{
+"qid": "Q213163",
+"name": "Élisabeth Louise Vigée Le Brun",
+"category": "Élisabeth Vigée Le Brun",
+"born": "1755",
+"died": "1842",
+"sitelinks": 69
+},
+{
+"qid": "Q152094",
+"name": "Alexandra Feodorovna (Alix of Hesse)",
+"category": "Alexandra Fyodorovna (Alix of Hesse)",
+"born": "1872",
+"died": "1918",
+"sitelinks": 69
+},
+{
+"qid": "Q236038",
+"name": "Sofonisba Anguissola",
+"category": "Sofonisba Anguissola",
+"born": "1532",
+"died": "1625",
+"sitelinks": 65
+},
+{
+"qid": "Q152260",
+"name": "Alexandra of Denmark",
+"category": "Queen Alexandra of the United Kingdom",
+"born": "1844",
+"died": "1925",
+"sitelinks": 64
+},
+{
+"qid": "Q150312",
+"name": "Amrita Sher-Gil",
+"category": "Amrita Sher-Gil",
+"born": "1913",
+"died": "1941",
+"sitelinks": 63
+},
+{
+"qid": "Q142472",
+"name": "Käthe Kollwitz",
+"category": "Käthe Kollwitz",
+"born": "1867",
+"died": "1945",
+"sitelinks": 60
+},
+{
+"qid": "Q153601",
+"name": "Maria Feodorovna (Dagmar of Denmark)",
+"category": "Maria Fyodorovna (Dagmar of Denmark)",
+"born": "1847",
+"died": "1928",
+"sitelinks": 57
+},
+{
+"qid": "Q234370",
+"name": "Paula Modersohn-Becker",
+"category": "Paula Modersohn-Becker",
+"born": "1876",
+"died": "1907",
+"sitelinks": 55
+},
+{
+"qid": "Q123098",
+"name": "Angelica Kauffmann",
+"category": "Angelica Kauffmann",
+"born": "1741",
+"died": "1807",
+"sitelinks": 55
+},
+{
+"qid": "Q116728",
+"name": "Victoria, Princess Royal",
+"category": "Victoria, Princess Royal",
+"born": "1840",
+"died": "1901",
+"sitelinks": 54
+},
+{
+"qid": "Q120582",
+"name": "Camille Claudel",
+"category": "Camille Claudel",
+"born": "1864",
+"died": "1943",
+"sitelinks": 53
+},
+{
+"qid": "Q241732",
+"name": "Rosa Bonheur",
+"category": "Rosa Bonheur",
+"born": "1822",
+"died": "1899",
+"sitelinks": 51
+},
+{
+"qid": "Q187324",
+"name": "Zelda Fitzgerald",
+"category": "Zelda Fitzgerald",
+"born": "1900",
+"died": "1948",
+"sitelinks": 50
+},
+{
+"qid": "Q255253",
+"name": "Marie Bashkirtseva",
+"category": "Marie Bashkirtseff",
+"born": "1860",
+"died": "1884",
+"sitelinks": 49
+},
+{
+"qid": "Q155566",
+"name": "Princess Alice of the United Kingdom",
+"category": "Alice of the United Kingdom",
+"born": "1843",
+"died": "1878",
+"sitelinks": 48
+},
+{
+"qid": "Q156889",
+"name": "Suzanne Valadon",
+"category": "Suzanne Valadon",
+"born": "1865",
+"died": "1938",
+"sitelinks": 48
+},
+{
+"qid": "Q160800",
+"name": "Anna Pavlovna of Russia",
+"category": "Anna Pavlovna of Russia",
+"born": "1795",
+"died": "1865",
+"sitelinks": 48
+},
+{
+"qid": "Q234530",
+"name": "Emma Orczy",
+"category": "Emma Orczy",
+"born": "1865",
+"died": "1947",
+"sitelinks": 45
+},
+{
+"qid": "Q232423",
+"name": "Judith Leyster",
+"category": "Judith Leyster",
+"born": "1609",
+"died": "1660",
+"sitelinks": 44
+},
+{
+"qid": "Q157100",
+"name": "Margaret of Austria, Duchess of Savoy",
+"category": "Margaret of Austria, Duchess of Savoy",
+"born": "1480",
+"died": "1530",
+"sitelinks": 44
+},
+{
+"qid": "Q236050",
+"name": "Lavinia Fontana",
+"category": "Lavinia Fontana",
+"born": "1552",
+"died": "1614",
+"sitelinks": 43
+},
+{
+"qid": "Q195768",
+"name": "Constance Markievicz",
+"category": "Constance Markiewicz",
+"born": "1868",
+"died": "1927",
+"sitelinks": 42
+},
+{
+"qid": "Q264453",
+"name": "Nadežda Petrović",
+"category": "Nadežda Petrović",
+"born": "1873",
+"died": "1915",
+"sitelinks": 42
+},
+{
+"qid": "Q236985",
+"name": "Helene Schjerfbeck",
+"category": "Helene Schjerfbeck",
+"born": "1862",
+"died": "1946",
+"sitelinks": 41
+},
+{
+"qid": "Q242121",
+"name": "Aleksandra Ekster",
+"category": "Alexandra Exter",
+"born": "1882",
+"died": "1949",
+"sitelinks": 41
+},
+{
+"qid": "Q255261",
+"name": "Anna Maria van Schurman",
+"category": "Anna Maria van Schurman",
+"born": "1607",
+"died": "1678",
+"sitelinks": 41
+},
+{
+"qid": "Q466639",
+"name": "Q466639",
+"category": "Olga Boznańska",
+"born": "1865",
+"died": "1940",
+"sitelinks": 41
+},
+{
+"qid": "Q436267",
+"name": "Hilma af Klint",
+"category": "Hilma af Klint",
+"born": "1862",
+"died": "1944",
+"sitelinks": 41
+},
+{
+"qid": "Q174256",
+"name": "Ulrika Eleonora of Denmark",
+"category": "Ulrika Eleonora of Denmark",
+"born": "1656",
+"died": "1693",
+"sitelinks": 41
+},
+{
+"qid": "Q266086",
+"name": "Q266086",
+"category": "Gerda Wegener",
+"born": "1885",
+"died": "1940",
+"sitelinks": 40
+},
+{
+"qid": "Q158173",
+"name": "Princess Margaret of Connaught",
+"category": "Princess Margaret of Connaught",
+"born": "1882",
+"died": "1920",
+"sitelinks": 40
+},
+{
+"qid": "Q166028",
+"name": "Louise of Hesse-Kassel",
+"category": "Louise of Hesse-Kassel",
+"born": "1817",
+"died": "1898",
+"sitelinks": 40
+},
+{
+"qid": "Q235647",
+"name": "Adélaïde Labille-Guiard",
+"category": "Adélaïde Labille-Guiard",
+"born": "1749",
+"died": "1803",
+"sitelinks": 39
+},
+{
+"qid": "Q237726",
+"name": "Rosalba Carriera",
+"category": "Rosalba Carriera",
+"born": "1675",
+"died": "1757",
+"sitelinks": 39
+},
+{
+"qid": "Q253446",
+"name": "Anna Ancher",
+"category": "Anna Ancher",
+"born": "1859",
+"died": "1935",
+"sitelinks": 39
+},
+{
+"qid": "Q161167",
+"name": "Princess Louise, Duchess of Argyll",
+"category": "Princess Louise, Duchess of Argyll",
+"born": "1848",
+"died": "1939",
+"sitelinks": 39
+},
+{
+"qid": "Q455252",
+"name": "Catherine of Bologna",
+"category": "Catherine of Bologna",
+"born": "1413",
+"died": "1463",
+"sitelinks": 38
+},
+{
+"qid": "Q466477",
+"name": "Na Hye-sok",
+"category": "Na Hye-sok",
+"born": "1896",
+"died": "1948",
+"sitelinks": 38
+},
+{
+"qid": "Q271475",
+"name": "Elisabetta Sirani",
+"category": "Elisabetta Sirani",
+"born": "1638",
+"died": "1665",
+"sitelinks": 37
+},
+{
+"qid": "Q269338",
+"name": "Josefa de Óbidos",
+"category": "Josefa de Óbidos",
+"born": "1630",
+"died": "1684",
+"sitelinks": 37
+},
+{
+"qid": "Q234385",
+"name": "Rachel Ruysch",
+"category": "Rachel Ruysch",
+"born": "1664",
+"died": "1750",
+"sitelinks": 37
+},
+{
+"qid": "Q464016",
+"name": "Marianne von Werefkin",
+"category": "Marianne von Werefkin",
+"born": "1860",
+"died": "1938",
+"sitelinks": 37
+},
+{
+"qid": "Q289624",
+"name": "Emily Carr",
+"category": "Emily Carr",
+"born": "1871",
+"died": "1945",
+"sitelinks": 36
+},
+{
+"qid": "Q237911",
+"name": "Louise Abbéma",
+"category": "Louise Abbéma",
+"born": "1853",
+"died": "1927",
+"sitelinks": 36
+},
+{
+"qid": "Q259594",
+"name": "Lyubov Popova",
+"category": "Lyubov Popova",
+"born": "1889",
+"died": "1924",
+"sitelinks": 35
+},
+{
+"qid": "Q239487",
+"name": "Anne, Princess Royal and Princess of Orange",
+"category": "Anne, Princess Royal and Princess of Orange",
+"born": "1709",
+"died": "1759",
+"sitelinks": 35
+},
+{
+"qid": "Q452354",
+"name": "Gertrude Jekyll",
+"category": "Gertrude Jekyll",
+"born": "1843",
+"died": "1932",
+"sitelinks": 35
+},
+{
+"qid": "Q61649",
+"name": "Maria Antonia Walpurgis of Bavaria",
+"category": "Maria Antonia Walpurgis of Bavaria",
+"born": "1724",
+"died": "1780",
+"sitelinks": 34
+},
+{
+"qid": "Q274339",
+"name": "Gwen John",
+"category": "Gwen John",
+"born": "1876",
+"died": "1939",
+"sitelinks": 34
+},
+{
+"qid": "Q236978",
+"name": "Wilhelmine of Prussia, Queen of the Netherlands",
+"category": "Wilhelmina of Prussia, Queen of the Netherlands",
+"born": "1774",
+"died": "1837",
+"sitelinks": 34
+},
+{
+"qid": "Q254395",
+"name": "Sophie Taeuber-Arp",
+"category": "Sophie Taeuber-Arp",
+"born": "1889",
+"died": "1943",
+"sitelinks": 34
+},
+{
+"qid": "Q466668",
+"name": "Anna Boch",
+"category": "Anna Boch",
+"born": "1848",
+"died": "1936",
+"sitelinks": 34
+},
+{
+"qid": "Q235903",
+"name": "Evelyn De Morgan",
+"category": "Evelyn de Morgan",
+"born": "1855",
+"died": "1919",
+"sitelinks": 33
+},
+{
+"qid": "Q237740",
+"name": "Wilhelmine of Prussia, Margravine of Brandenburg-Bayreuth",
+"category": "Wilhelmine of Prussia, Margravine of Brandenburg-Bayreuth",
+"born": "1709",
+"died": "1758",
+"sitelinks": 33
+},
+{
+"qid": "Q464485",
+"name": "Shin Saimdang",
+"category": "Shin Saimdang",
+"born": "1504",
+"died": "1551",
+"sitelinks": 33
+},
+{
+"qid": "Q526915",
+"name": "Princess Eugénie of Sweden",
+"category": "Princess Eugénie of Sweden",
+"born": "1830",
+"died": "1889",
+"sitelinks": 33
+},
+{
+"qid": "Q2428749",
+"name": "Fede Galizia",
+"category": "Fede Galizia",
+"born": "1578",
+"died": "1630",
+"sitelinks": 33
+},
+{
+"qid": "Q271648",
+"name": "Marianne North",
+"category": "Marianne North",
+"born": "1830",
+"died": "1890",
+"sitelinks": 32
+},
+{
+"qid": "Q270460",
+"name": "Olga Rozanova",
+"category": "Olga Rozanova",
+"born": "1886",
+"died": "1918",
+"sitelinks": 32
+},
+{
+"qid": "Q544622",
+"name": "Julie Wilhelmine Hagen-Schwarz",
+"category": "Julie Wilhelmine Hagen-Schwarz",
+"born": "1824",
+"died": "1902",
+"sitelinks": 32
+},
+{
+"qid": "Q236878",
+"name": "Ivana Kobilca",
+"category": "Ivana Kobilca",
+"born": "1861",
+"died": "1926",
+"sitelinks": 32
+},
+{
+"qid": "Q237758",
+"name": "Sophie Gengembre Anderson",
+"category": "Sophie Gengembre Anderson",
+"born": "1823",
+"died": "1903",
+"sitelinks": 32
+},
+{
+"qid": "Q466623",
+"name": "Elsa Beskow",
+"category": "Elsa Beskow",
+"born": "1874",
+"died": "1953",
+"sitelinks": 32
+},
+{
+"qid": "Q234482",
+"name": "Princess Elizabeth of the United Kingdom",
+"category": "Princess Elizabeth of the United Kingdom",
+"born": "1770",
+"died": "1840",
+"sitelinks": 31
+},
+{
+"qid": "Q463521",
+"name": "Dora d'Istria",
+"category": "Dora d'Istria",
+"born": "1828",
+"died": "1888",
+"sitelinks": 31
+},
+{
+"qid": "Q464300",
+"name": "Eva Gonzalès",
+"category": "Eva Gonzalès",
+"born": "1847",
+"died": "1883",
+"sitelinks": 31
+},
+{
+"qid": "Q447732",
+"name": "Milena Pavlović-Barili",
+"category": "Milena Pavlović-Barili",
+"born": "1909",
+"died": "1945",
+"sitelinks": 31
+},
+{
+"qid": "Q152807",
+"name": "Alice Prin",
+"category": "Alice Prin",
+"born": "1901",
+"died": "1953",
+"sitelinks": 31
+},
+{
+"qid": "Q2370725",
+"name": "Barbara Bodichon",
+"category": "Barbara Bodichon",
+"born": "1827",
+"died": "1891",
+"sitelinks": 31
+},
+{
+"qid": "Q63232",
+"name": "Maria Cunitz",
+"category": "Maria Cunitz",
+"born": "1607",
+"died": "1664",
+"sitelinks": 30
+},
+{
+"qid": "Q273115",
+"name": "Anna Bilińska-Bohdanowicz",
+"category": "Anna Bohdanowicz (née Bilińska)",
+"born": "1854",
+"died": "1893",
+"sitelinks": 30
+},
+{
+"qid": "Q204936",
+"name": "Kate Greenaway",
+"category": "Kate Greenaway",
+"born": "1846",
+"died": "1901",
+"sitelinks": 30
+},
+{
+"qid": "Q263025",
+"name": "Harriet Backer",
+"category": "Harriet Backer",
+"born": "1845",
+"died": "1932",
+"sitelinks": 30
+},
+{
+"qid": "Q269445",
+"name": "Catarina van Hemessen",
+"category": "Catharina van Hemessen",
+"born": "1527",
+"died": "1567",
+"sitelinks": 30
+},
+{
+"qid": "Q287994",
+"name": "Edith Durham",
+"category": "Edith Durham",
+"born": "1863",
+"died": "1944",
+"sitelinks": 30
+},
+{
+"qid": "Q235605",
+"name": "Jeanne Hébuterne",
+"category": "Jeanne Hébuterne",
+"born": "1898",
+"died": "1920",
+"sitelinks": 30
+},
+{
+"qid": "Q78643",
+"name": "Angela Hitler",
+"category": "Angela Hitler",
+"born": "1883",
+"died": "1949",
+"sitelinks": 30
+},
+{
+"qid": "Q2347846",
+"name": "Mary Beale",
+"category": "Mary Beale",
+"born": "1633",
+"died": "1699",
+"sitelinks": 30
+},
+{
+"qid": "Q273552",
+"name": "Marie Bracquemond",
+"category": "Marie Bracquemond",
+"born": "1840",
+"died": "1916",
+"sitelinks": 29
+},
+{
+"qid": "Q237700",
+"name": "Mathilde Bonaparte",
+"category": "Mathilde Bonaparte",
+"born": "1820",
+"died": "1904",
+"sitelinks": 29
+},
+{
+"qid": "Q465000",
+"name": "Elizabeth Siddal",
+"category": "Elizabeth Siddal",
+"born": "1829",
+"died": "1862",
+"sitelinks": 29
+},
+{
+"qid": "Q466677",
+"name": "Cecilia Beaux",
+"category": "Cecilia Beaux",
+"born": "1855",
+"died": "1942",
+"sitelinks": 29
+},
+{
+"qid": "Q134150",
+"name": "Marie Spartali Stillman",
+"category": "Marie Spartali Stillman",
+"born": "1844",
+"died": "1927",
+"sitelinks": 29
+},
+{
+"qid": "Q2013887",
+"name": "Princess Caroline of Great Britain",
+"category": "Princess Caroline of Great Britain",
+"born": "1713",
+"died": "1757",
+"sitelinks": 29
+},
+{
+"qid": "Q58003",
+"name": "Wilhelmina of Prussia, Princess of Orange",
+"category": "Wilhelmina of Prussia, Princess of Orange",
+"born": "1751",
+"died": "1820",
+"sitelinks": 28
+},
+{
+"qid": "Q234926",
+"name": "Olga Nikolaevna of Russia",
+"category": "Queen Olga of Württemberg",
+"born": "1822",
+"died": "1892",
+"sitelinks": 28
+},
+{
+"qid": "Q235165",
+"name": "Séraphine Louis",
+"category": "Séraphine de Senlis",
+"born": "1864",
+"died": "1942",
+"sitelinks": 28
+},
+{
+"qid": "Q235183",
+"name": "Queen Maria Theresa of Bavaria",
+"category": "Queen Maria Theresa of Bavaria",
+"born": "1849",
+"died": "1919",
+"sitelinks": 28
+},
+{
+"qid": "Q433150",
+"name": "Olha Khokhlova",
+"category": "Olga Ruiz Picasso nee Khokhlova",
+"born": "1891",
+"died": "1955",
+"sitelinks": 28
+},
+{
+"qid": "Q515745",
+"name": "Pamela Colman Smith",
+"category": "Pamela Colman Smith",
+"born": "1878",
+"died": "1951",
+"sitelinks": 28
+},
+{
+"qid": "Q517349",
+"name": "Elizabeth Thompson",
+"category": "Elizabeth Thompson",
+"born": "1846",
+"died": "1933",
+"sitelinks": 28
+},
+{
+"qid": "Q547655",
+"name": "Tina Blau",
+"category": "Tina Blau",
+"born": "1845",
+"died": "1916",
+"sitelinks": 28
+},
+{
+"qid": "Q2277202",
+"name": "Princess Marie, Princess Valdemar of Denmark",
+"category": "Princess Marie of Orléans (1865–1909)",
+"born": "1865",
+"died": "1909",
+"sitelinks": 28
+},
+{
+"qid": "Q265398",
+"name": "Clara Peeters",
+"category": "Clara Peeters",
+"born": "1587",
+"died": "1657",
+"sitelinks": 27
+},
+{
+"qid": "Q444581",
+"name": "Helen Allingham",
+"category": "Helen Allingham",
+"born": "1848",
+"died": "1926",
+"sitelinks": 27
+},
+{
+"qid": "Q442841",
+"name": "Elsa von Freytag-Loringhoven",
+"category": "Elsa von Freytag-Loringhoven",
+"born": "1874",
+"died": "1927",
+"sitelinks": 27
+},
+{
+"qid": "Q4968207",
+"name": "Mary Moser",
+"category": "Mary Moser",
+"born": "1744",
+"died": "1819",
+"sitelinks": 27
+},
+{
+"qid": "Q6103622",
+"name": "Mihri Müşfik Hanım",
+"category": "Mihri Müşfik Hanım",
+"born": "1886",
+"died": "1954",
+"sitelinks": 27
+},
+{
+"qid": "Q66916",
+"name": "Marianne Weber",
+"category": "Marianne Weber (politician, 1870)",
+"born": "1870",
+"died": "1954",
+"sitelinks": 26
+},
+{
+"qid": "Q271543",
+"name": "Effie Gray",
+"category": "Effie Gray",
+"born": "1828",
+"died": "1897",
+"sitelinks": 26
+},
+{
+"qid": "Q288703",
+"name": "Karoline Luise of Hesse-Darmstadt",
+"category": "Caroline Louise of Hesse-Darmstadt",
+"born": "1723",
+"died": "1783",
+"sitelinks": 26
+},
+{
+"qid": "Q240277",
+"name": "Princess Marie of France",
+"category": "Princess Marie of Orléans (1813–1839)",
+"born": "1813",
+"died": "1839",
+"sitelinks": 26
+},
+{
+"qid": "Q242546",
+"name": "Dora Carrington",
+"category": "Dora Carrington",
+"born": "1893",
+"died": "1932",
+"sitelinks": 26
+},
+{
+"qid": "Q7422343",
+"name": "Sarah Goodridge",
+"category": "Sarah Goodridge",
+"born": "1788",
+"died": "1853",
+"sitelinks": 26
+},
+{
+"qid": "Q31146",
+"name": "Barbara Longhi",
+"category": "Barbara Longhi",
+"born": "1552",
+"died": "1638",
+"sitelinks": 25
+},
+{
+"qid": "Q213735",
+"name": "Charlotte Salomon",
+"category": "Charlotte Salomon",
+"born": "1917",
+"died": "1943",
+"sitelinks": 25
+},
+{
+"qid": "Q270130",
+"name": "Guan Daosheng",
+"category": "Guan Daosheng",
+"born": "1262",
+"died": "1319",
+"sitelinks": 25
+},
+{
+"qid": "Q240503",
+"name": "Amélie Lundahl",
+"category": "Amélie Lundahl",
+"born": "1850",
+"died": "1914",
+"sitelinks": 25
+},
+{
+"qid": "Q453187",
+"name": "Marie-Gabrielle Capet",
+"category": "Marie-Gabrielle Capet",
+"born": "1761",
+"died": "1818",
+"sitelinks": 25
+},
+{
+"qid": "Q454670",
+"name": "Eva Bonnier",
+"category": "Eva Bonnier",
+"born": "1857",
+"died": "1909",
+"sitelinks": 25
+},
+{
+"qid": "Q452807",
+"name": "Slava Raškaj",
+"category": "Slava Raškaj",
+"born": "1877",
+"died": "1906",
+"sitelinks": 25
+},
+{
+"qid": "Q431705",
+"name": "Lilla Cabot Perry",
+"category": "Lilla Cabot Perry",
+"born": "1848",
+"died": "1933",
+"sitelinks": 25
+},
+{
+"qid": "Q437143",
+"name": "Alice Pike Barney",
+"category": "Alice Pike Barney",
+"born": "1857",
+"died": "1931",
+"sitelinks": 25
+},
+{
+"qid": "Q118810",
+"name": "Marie-Guillemine Benoist",
+"category": "Marie-Guillemine Benoist",
+"born": "1768",
+"died": "1826",
+"sitelinks": 25
+},
+{
+"qid": "Q775668",
+"name": "Louise Rayner",
+"category": "Louise Rayner",
+"born": "1832",
+"died": "1924",
+"sitelinks": 25
+},
+{
+"qid": "Q1317675",
+"name": "Blanka Teleki",
+"category": "Blanka Teleki",
+"born": "1806",
+"died": "1862",
+"sitelinks": 25
+},
+{
+"qid": "Q262989",
+"name": "Leonora Christina Ulfeldt",
+"category": "Leonora Christina Ulfeldt",
+"born": "1621",
+"died": "1698",
+"sitelinks": 24
+},
+{
+"qid": "Q242421",
+"name": "Infanta María de la Paz of Spain",
+"category": "Infanta María de la Paz of Spain",
+"born": "1862",
+"died": "1946",
+"sitelinks": 24
+},
+{
+"qid": "Q457889",
+"name": "Jefimija",
+"category": "Jefimija",
+"born": "1349",
+"died": "1405",
+"sitelinks": 24
+},
+{
+"qid": "Q459611",
+"name": "Laura Theresa Alma-Tadema",
+"category": "Laura Theresa Alma-Tadema",
+"born": "1852",
+"died": "1909",
+"sitelinks": 24
+},
+{
+"qid": "Q462529",
+"name": "Karin Larsson",
+"category": "Karin Larsson",
+"born": "1859",
+"died": "1928",
+"sitelinks": 24
+},
+{
+"qid": "Q468772",
+"name": "Anne Vallayer-Coster",
+"category": "Anne Vallayer-Coster",
+"born": "1744",
+"died": "1818",
+"sitelinks": 24
+},
+{
+"qid": "Q452123",
+"name": "Marie-Denise Villers",
+"category": "Marie-Denise Villers",
+"born": "1774",
+"died": "1821",
+"sitelinks": 24
+},
+{
+"qid": "Q452896",
+"name": "Amalia Lindegren",
+"category": "Amalia Lindegren",
+"born": "1814",
+"died": "1891",
+"sitelinks": 24
+},
+{
+"qid": "Q292250",
+"name": "Maria van Oosterwijck",
+"category": "Maria van Oosterwijck",
+"born": "1630",
+"died": "1693",
+"sitelinks": 24
+},
+{
+"qid": "Q507765",
+"name": "Giovanna Garzoni",
+"category": "Giovanna Garzoni",
+"born": "1600",
+"died": "1670",
+"sitelinks": 24
+},
+{
+"qid": "Q508344",
+"name": "Margaret MacDonald",
+"category": "Margaret Macdonald Mackintosh",
+"born": "1864",
+"died": "1933",
+"sitelinks": 24
+},
+{
+"qid": "Q510352",
+"name": "Mary Delany",
+"category": "Mary Delany",
+"born": "1700",
+"died": "1788",
+"sitelinks": 24
+},
+{
+"qid": "Q3100592",
+"name": "Jenny Nyström",
+"category": "Jenny Nyström",
+"born": "1854",
+"died": "1946",
+"sitelinks": 24
+},
+{
+"qid": "Q271273",
+"name": "Victorine Meurent",
+"category": "Victorine Meurent",
+"born": "1844",
+"died": "1927",
+"sitelinks": 23
+},
+{
+"qid": "Q271470",
+"name": "Oda Krohg",
+"category": "Oda Krohg",
+"born": "1860",
+"died": "1935",
+"sitelinks": 23
+},
+{
+"qid": "Q271484",
+"name": "Marguerite Gérard",
+"category": "Marguerite Gérard",
+"born": "1761",
+"died": "1837",
+"sitelinks": 23
+},
+{
+"qid": "Q272405",
+"name": "Sigrid Hjertén",
+"category": "Sigrid Hjertén",
+"born": "1885",
+"died": "1948",
+"sitelinks": 23
+},
+{
+"qid": "Q273933",
+"name": "Marie Krøyer",
+"category": "Marie Krøyer",
+"born": "1867",
+"died": "1940",
+"sitelinks": 23
+},
+{
+"qid": "Q274026",
+"name": "Anita Rée",
+"category": "Anita Rée",
+"born": "1885",
+"died": "1933",
+"sitelinks": 23
+},
+{
+"qid": "Q275018",
+"name": "Shoen Uemura",
+"category": "Uemura Shōen",
+"born": "1875",
+"died": "1949",
+"sitelinks": 23
+},
+{
+"qid": "Q269701",
+"name": "Anna Morandi Manzolini",
+"category": "Anna Morandi Manzolini",
+"born": "1714",
+"died": "1774",
+"sitelinks": 23
+},
+{
+"qid": "Q290168",
+"name": "Katarzyna Kobro",
+"category": "Katarzyna Kobro",
+"born": "1898",
+"died": "1951",
+"sitelinks": 23
+},
+{
+"qid": "Q463270",
+"name": "Constance Mayer",
+"category": "Constance Mayer",
+"born": "1774",
+"died": "1821",
+"sitelinks": 23
+},
+{
+"qid": "Q463423",
+"name": "Elisabeth Baumann",
+"category": "Elisabeth Jerichau Baumann",
+"born": "1818",
+"died": "1881",
+"sitelinks": 23
+},
+{
+"qid": "Q464558",
+"name": "Hŏ Nansŏrhŏn",
+"category": "Heo Cho-hui",
+"born": "1563",
+"died": "1589",
+"sitelinks": 23
+},
+{
+"qid": "Q445123",
+"name": "Louise Bertin",
+"category": "Louise Bertin",
+"born": "1805",
+"died": "1877",
+"sitelinks": 23
+},
+{
+"qid": "Q443779",
+"name": "María Blanchard",
+"category": "María Blanchard",
+"born": "1881",
+"died": "1932",
+"sitelinks": 23
+},
+{
+"qid": "Q752085",
+"name": "Katarina Ivanović",
+"category": "Katarina Ivanović",
+"born": "1811",
+"died": "1882",
+"sitelinks": 23
+},
+{
+"qid": "Q2596759",
+"name": "Kitty Lange Kielland",
+"category": "Kitty Kielland",
+"born": "1843",
+"died": "1914",
+"sitelinks": 23
+},
+{
+"qid": "Q2505245",
+"name": "Cassandra Austen",
+"category": "Cassandra Austen",
+"born": "1773",
+"died": "1845",
+"sitelinks": 23
+},
+{
+"qid": "Q3560732",
+"name": "Virginie Demont-Breton",
+"category": "Virginie Demont-Breton",
+"born": "1859",
+"died": "1935",
+"sitelinks": 23
+},
+{
+"qid": "Q3631503",
+"name": "Anna Palm de Rosa",
+"category": "Anna Palm de Rosa",
+"born": "1859",
+"died": "1924",
+"sitelinks": 23
+},
+{
+"qid": "Q12286799",
+"name": "Mina Karadžić",
+"category": "Mina Karadžić",
+"born": "1828",
+"died": "1894",
+"sitelinks": 23
+},
+{
+"qid": "Q65647",
+"name": "Princess Marie of Hesse-Kassel",
+"category": "Marie Wilhelmine of Hesse-Kassel",
+"born": "1796",
+"died": "1880",
+"sitelinks": 22
+},
+{
+"qid": "Q275513",
+"name": "Olga Wisinger-Florian",
+"category": "Olga Wisinger-Florian",
+"born": "1844",
+"died": "1926",
+"sitelinks": 22
+},
+{
+"qid": "Q262788",
+"name": "Charlotte Napoléone Bonaparte",
+"category": "Charlotte Napoléone Bonaparte",
+"born": "1802",
+"died": "1839",
+"sitelinks": 22
+},
+{
+"qid": "Q268365",
+"name": "Infanta Amalia of Spain",
+"category": "Infanta Amalia of Spain",
+"born": "1834",
+"died": "1905",
+"sitelinks": 22
+},
+{
+"qid": "Q446382",
+"name": "Marianne Stokes",
+"category": "Marianne Stokes",
+"born": "1855",
+"died": "1927",
+"sitelinks": 22
+},
+{
+"qid": "Q446922",
+"name": "Charley Toorop",
+"category": "Charley Toorop",
+"born": "1891",
+"died": "1955",
+"sitelinks": 22
+},
+{
+"qid": "Q452079",
+"name": "Lola Mora",
+"category": "Lola Mora",
+"born": "1866",
+"died": "1936",
+"sitelinks": 22
+},
+{
+"qid": "Q434365",
+"name": "Anna Elizabeth Klumpke",
+"category": "Anna Elizabeth Klumpke",
+"born": "1856",
+"died": "1942",
+"sitelinks": 22
+},
+{
+"qid": "Q177565",
+"name": "Virginie Ancelot",
+"category": "Virginie Ancelot",
+"born": "1792",
+"died": "1875",
+"sitelinks": 22
+},
+{
+"qid": "Q827752",
+"name": "Bertha Wegmann",
+"category": "Bertha Wegmann",
+"born": "1847",
+"died": "1926",
+"sitelinks": 22
+},
+{
+"qid": "Q1827236",
+"name": "Elin Danielson-Gambogi",
+"category": "Elin Danielson-Gambogi",
+"born": "1861",
+"died": "1919",
+"sitelinks": 22
+},
+{
+"qid": "Q2600571",
+"name": "Tamar Abakelia",
+"category": "Tamar Abakelia",
+"born": "1905",
+"died": "1953",
+"sitelinks": 22
+},
+{
+"qid": "Q60796",
+"name": "Princess Mathilde Caroline of Bavaria",
+"category": "Mathilde of Bavaria, Grand Duchess of Hesse",
+"born": "1813",
+"died": "1862",
+"sitelinks": 21
+},
+{
+"qid": "Q270629",
+"name": "Louise Catherine Breslau",
+"category": "Louise Catherine Breslau",
+"born": "1856",
+"died": "1927",
+"sitelinks": 21
+},
+{
+"qid": "Q544173",
+"name": "Marietta Robusti",
+"category": "Marietta Robusti",
+"born": "1554",
+"died": "1590",
+"sitelinks": 21
+},
+{
+"qid": "Q463032",
+"name": "Elfriede Lohse-Wächtler",
+"category": "Elfriede Lohse-Wächtler",
+"born": "1899",
+"died": "1940",
+"sitelinks": 21
+},
+{
+"qid": "Q436803",
+"name": "Hanna Hirsch-Pauli",
+"category": "Hanna Pauli",
+"born": "1864",
+"died": "1940",
+"sitelinks": 21
+},
+{
+"qid": "Q442658",
+"name": "Elena Guro",
+"category": "Elena Guro",
+"born": "1877",
+"died": "1913",
+"sitelinks": 21
+},
+{
+"qid": "Q291010",
+"name": "Elizabeth Jane Gardner",
+"category": "Elizabeth Jane Gardner",
+"born": "1837",
+"died": "1922",
+"sitelinks": 21
+},
+{
+"qid": "Q537797",
+"name": "Timarete",
+"category": "Timarete",
+"born": "-041",
+"died": "-040",
+"sitelinks": 21
+},
+{
+"qid": "Q531174",
+"name": "Sofia Adlersparre",
+"category": "Sofia Adlersparre",
+"born": "1808",
+"died": "1862",
+"sitelinks": 21
+},
+{
+"qid": "Q562945",
+"name": "Anna Ostroumova-Lebedeva",
+"category": "Anna Ostroumova-Lebedeva",
+"born": "1871",
+"died": "1955",
+"sitelinks": 21
+},
+{
+"qid": "Q89520",
+"name": "Rosa Mayreder",
+"category": "Rosa Mayreder",
+"born": "1858",
+"died": "1938",
+"sitelinks": 21
+},
+{
+"qid": "Q93692",
+"name": "Élisabeth Sophie Chéron",
+"category": "Élisabeth Sophie Chéron",
+"born": "1648",
+"died": "1711",
+"sitelinks": 21
+},
+{
+"qid": "Q1192595",
+"name": "Ellen Thesleff",
+"category": "Ellen Thesleff",
+"born": "1869",
+"died": "1954",
+"sitelinks": 21
+},
+{
+"qid": "Q2964050",
+"name": "Fukuda Chiyo-ni",
+"category": "Kaga no Chiyo",
+"born": "1703",
+"died": "1775",
+"sitelinks": 21
+},
+{
+"qid": "Q4937489",
+"name": "Mary Elizabeth Barber",
+"category": "Mary Elizabeth Barber",
+"born": "1818",
+"died": "1899",
+"sitelinks": 21
+},
+{
+"qid": "Q4990378",
+"name": "Helena Westermarck",
+"category": "Helena Westermarck",
+"born": "1857",
+"died": "1938",
+"sitelinks": 21
+},
+{
+"qid": "Q454470",
+"name": "Henriëtte Ronner-Knip",
+"category": "Henriëtte Ronner-Knip",
+"born": "1821",
+"died": "1909",
+"sitelinks": 20
+},
+{
+"qid": "Q457001",
+"name": "Thérèse Schwartze",
+"category": "Thérèse Schwartze",
+"born": "1851",
+"died": "1918",
+"sitelinks": 20
+},
+{
+"qid": "Q462333",
+"name": "Clara Westhoff",
+"category": "Clara Westhoff",
+"born": "1878",
+"died": "1954",
+"sitelinks": 20
+},
+{
+"qid": "Q462815",
+"name": "Yelena Polenova",
+"category": "Yelena Polenova",
+"born": "1850",
+"died": "1898",
+"sitelinks": 20
+},
+{
+"qid": "Q465443",
+"name": "Lucia Anguissola",
+"category": "Lucia Anguissola",
+"born": "1536",
+"died": "1565",
+"sitelinks": 20
+},
+{
+"qid": "Q446984",
+"name": "Louise Moillon",
+"category": "Louise Moillon",
+"born": "1609",
+"died": "1696",
+"sitelinks": 20
+},
+{
+"qid": "Q440922",
+"name": "Jacoba van Heemskerck",
+"category": "Jacoba van Heemskerck",
+"born": "1876",
+"died": "1923",
+"sitelinks": 20
+},
+{
+"qid": "Q757841",
+"name": "Agnes Block",
+"category": "Agnes Block",
+"born": "1629",
+"died": "1704",
+"sitelinks": 20
+},
+{
+"qid": "Q2618092",
+"name": "Princess Sophia Hedwig of Denmark",
+"category": "Sophie Hedvig of Denmark",
+"born": "1677",
+"died": "1735",
+"sitelinks": 20
+},
+{
+"qid": "Q3906452",
+"name": "Plautilla Nelli",
+"category": "Plautilla Nelli",
+"born": "1524",
+"died": "1588",
+"sitelinks": 20
+},
+{
+"qid": "Q4110933",
+"name": "Maria Wiik",
+"category": "Maria Wiik",
+"born": "1853",
+"died": "1928",
+"sitelinks": 20
+},
+{
+"qid": "Q3847222",
+"name": "Maria Louisa Catherine Cecilia Cosway",
+"category": "Maria Cosway",
+"born": "1760",
+"died": "1838",
+"sitelinks": 20
+},
+{
+"qid": "Q4937863",
+"name": "Julia Beck",
+"category": "Julia Beck",
+"born": "1853",
+"died": "1935",
+"sitelinks": 20
+},
+{
+"qid": "Q6080013",
+"name": "Müfide Kadri",
+"category": "Müfide Kadri",
+"born": "1890",
+"died": "1911",
+"sitelinks": 20
+},
+{
+"qid": "Q15401514",
+"name": "Florence Fuller",
+"category": "Florence Fuller",
+"born": "1867",
+"died": "1946",
+"sitelinks": 20
+},
+{
+"qid": "Q22294544",
+"name": "Adavie Efendiyeva",
+"category": "Adaviye Efendiyeva",
+"born": "1879",
+"died": "1944",
+"sitelinks": 20
+},
+{
+"qid": "Q71429",
+"name": "Franziska zu Reventlow",
+"category": "Fanny zu Reventlow",
+"born": "1871",
+"died": "1918",
+"sitelinks": 19
+},
+{
+"qid": "Q273126",
+"name": "Anna Dorothea Therbusch",
+"category": "Anna Dorothea Therbusch",
+"born": "1721",
+"died": "1782",
+"sitelinks": 19
+},
+{
+"qid": "Q273923",
+"name": "Maria Wodzińska",
+"category": "Maria Wodzińska",
+"born": "1819",
+"died": "1896",
+"sitelinks": 19
+},
+{
+"qid": "Q276459",
+"name": "Ulrika Pasch",
+"category": "Ulrika Pasch",
+"born": "1734",
+"died": "1796",
+"sitelinks": 19
+},
+{
+"qid": "Q461937",
+"name": "María Izquierdo",
+"category": "María Izquierdo (artist)",
+"born": "1902",
+"died": "1955",
+"sitelinks": 19
+},
+{
+"qid": "Q464044",
+"name": "Katherine Sophie Dreier",
+"category": "Katherine Sophie Dreier",
+"born": "1877",
+"died": "1952",
+"sitelinks": 19
+},
+{
+"qid": "Q451774",
+"name": "Helene Kröller-Müller",
+"category": "Helene Kröller-Müller",
+"born": "1869",
+"died": "1939",
+"sitelinks": 19
+},
+{
+"qid": "Q443442",
+"name": "Levina Teerlinc",
+"category": "Levina Teerlinc",
+"born": "1510",
+"died": "1576",
+"sitelinks": 19
+},
+{
+"qid": "Q303708",
+"name": "Aasta Hansteen",
+"category": "Aasta Hansteen",
+"born": "1824",
+"died": "1908",
+"sitelinks": 19
+},
+{
+"qid": "Q927192",
+"name": "Broncia Koller-Pinell",
+"category": "Broncia Koller-Pinell",
+"born": "1863",
+"died": "1934",
+"sitelinks": 19
+},
+{
+"qid": "Q2656451",
+"name": "Giulia Lama",
+"category": "Giulia Lama",
+"born": "1681",
+"died": "1747",
+"sitelinks": 19
+},
+{
+"qid": "Q3112976",
+"name": "Marie-Suzanne Giroust",
+"category": "Marie-Suzanne Roslin",
+"born": "1734",
+"died": "1772",
+"sitelinks": 19
+},
+{
+"qid": "Q4244039",
+"name": "Fanny Brate",
+"category": "Fanny Brate",
+"born": "1861",
+"died": "1940",
+"sitelinks": 19
+},
+{
+"qid": "Q4940622",
+"name": "Plautilla Bricci",
+"category": "Plautilla Bricci",
+"born": "1616",
+"died": "1705",
+"sitelinks": 19
+},
+{
+"qid": "Q7940542",
+"name": "Zdenka Braunerová",
+"category": "Zdenka Braunerová",
+"born": "1858",
+"died": "1934",
+"sitelinks": 19
+},
+{
+"qid": "Q460344",
+"name": "Amélie Beaury-Saurel",
+"category": "Amélie Beaury-Saurel",
+"born": "1848",
+"died": "1924",
+"sitelinks": 18
+},
+{
+"qid": "Q468833",
+"name": "Louise du Pierry",
+"category": "Louise du Pierry",
+"born": "1746",
+"died": "1830",
+"sitelinks": 18
+},
+{
+"qid": "Q448249",
+"name": "Lucy Bacon",
+"category": "Lucy Bacon",
+"born": "1857",
+"died": "1932",
+"sitelinks": 18
+},
+{
+"qid": "Q436167",
+"name": "Pauline Auzou",
+"category": "Pauline Auzou",
+"born": "1775",
+"died": "1835",
+"sitelinks": 18
+},
+{
+"qid": "Q538642",
+"name": "Louise Jopling",
+"category": "Louise Jopling",
+"born": "1843",
+"died": "1933",
+"sitelinks": 18
+},
+{
+"qid": "Q139836",
+"name": "Fanny Churberg",
+"category": "Fanny Churberg",
+"born": "1845",
+"died": "1892",
+"sitelinks": 18
+},
+{
+"qid": "Q1012900",
+"name": "Wanda Gág",
+"category": "Wanda Gág",
+"born": "1893",
+"died": "1946",
+"sitelinks": 18
+},
+{
+"qid": "Q1421977",
+"name": "Katherine Plunket",
+"category": "Katherine Plunket",
+"born": "1820",
+"died": "1932",
+"sitelinks": 18
+},
+{
+"qid": "Q1837114",
+"name": "Sina Mesdag-van Houten",
+"category": "Sina Mesdag-van Houten",
+"born": "1834",
+"died": "1909",
+"sitelinks": 18
+},
+{
+"qid": "Q2013053",
+"name": "Annie Swynnerton",
+"category": "Annie Louise Swynnerton",
+"born": "1844",
+"died": "1933",
+"sitelinks": 18
+},
+{
+"qid": "Q2061698",
+"name": "Adah Isaacs Menken",
+"category": "Adah Isaacs Menken",
+"born": "1835",
+"died": "1868",
+"sitelinks": 18
+},
+{
+"qid": "Q2850565",
+"name": "Anna Lea Merritt",
+"category": "Anna Lea Merritt",
+"born": "1844",
+"died": "1930",
+"sitelinks": 18
+},
+{
+"qid": "Q3052418",
+"name": "Maria Graham",
+"category": "Maria Graham",
+"born": "1785",
+"died": "1842",
+"sitelinks": 18
+},
+{
+"qid": "Q3723486",
+"name": "Ellen Day Hale",
+"category": "Ellen Day Hale",
+"born": "1855",
+"died": "1940",
+"sitelinks": 18
+},
+{
+"qid": "Q4775151",
+"name": "Kate Perugini",
+"category": "Kate Perugini",
+"born": "1839",
+"died": "1929",
+"sitelinks": 18
+},
+{
+"qid": "Q4933819",
+"name": "Ottilia Adelborg",
+"category": "Ottilia Adelborg",
+"born": "1855",
+"died": "1936",
+"sitelinks": 18
+},
+{
+"qid": "Q6103039",
+"name": "Hale Asaf",
+"category": "Hale Asaf",
+"born": "1905",
+"died": "1938",
+"sitelinks": 18
+},
+{
+"qid": "Q19422204",
+"name": "Jeanna Bauck",
+"category": "Jeanna Bauck",
+"born": "1840",
+"died": "1926",
+"sitelinks": 18
+},
+{
+"qid": "Q47185",
+"name": "Anne Anderson",
+"category": "Anne Anderson (illustrator)",
+"born": "1874",
+"died": "1952",
+"sitelinks": 17
+},
+{
+"qid": "Q276064",
+"name": "Maria Zambaco",
+"category": "Maria Zambaco",
+"born": "1843",
+"died": "1914",
+"sitelinks": 17
+},
+{
+"qid": "Q458827",
+"name": "Frances MacDonald",
+"category": "Frances MacDonald",
+"born": "1873",
+"died": "1921",
+"sitelinks": 17
+},
+{
+"qid": "Q451131",
+"name": "Nélie Jacquemart",
+"category": "Nélie Jacquemart",
+"born": "1841",
+"died": "1912",
+"sitelinks": 17
+},
+{
+"qid": "Q434282",
+"name": "Eleanor Fortescue-Brickdale",
+"category": "Eleanor Fortescue-Brickdale",
+"born": "1872",
+"died": "1945",
+"sitelinks": 17
+},
+{
+"qid": "Q443272",
+"name": "Princess Marie Alexandrine of Saxe-Weimar-Eisenach",
+"category": "Marie Alexandrine of Saxe-Weimar-Eisenach",
+"born": "1849",
+"died": "1922",
+"sitelinks": 17
+},
+{
+"qid": "Q328027",
+"name": "Marie Ellenrieder",
+"category": "Marie Ellenrieder",
+"born": "1791",
+"died": "1863",
+"sitelinks": 17
+},
+{
+"qid": "Q469896",
+"name": "Louise Hollandine of the Palatinate",
+"category": "Louise Hollandine of Palatinate-Simmern",
+"born": "1622",
+"died": "1709",
+"sitelinks": 17
+},
+{
+"qid": "Q527191",
+"name": "Laura Muntz Lyall",
+"category": "Laura Muntz Lyall",
+"born": "1860",
+"died": "1930",
+"sitelinks": 17
+},
+{
+"qid": "Q139452",
+"name": "Jessie Willcox Smith",
+"category": "Jessie Willcox Smith",
+"born": "1863",
+"died": "1935",
+"sitelinks": 17
+},
+{
+"qid": "Q667333",
+"name": "Rosalie Filleul",
+"category": "Rosalie Filleul",
+"born": "1752",
+"died": "1794",
+"sitelinks": 17
+},
+{
+"qid": "Q1519218",
+"name": "Gesina ter Borch",
+"category": "Gesina ter Borch",
+"born": "1631",
+"died": "1690",
+"sitelinks": 17
+},
+{
+"qid": "Q1396169",
+"name": "Susanna Moodie",
+"category": "Susanna Moodie",
+"born": "1803",
+"died": "1885",
+"sitelinks": 17
+},
+{
+"qid": "Q2490400",
+"name": "Betzy Akersloot-Berg",
+"category": "Betzy Akersloot-Berg",
+"born": "1850",
+"died": "1922",
+"sitelinks": 17
+},
+{
+"qid": "Q2508786",
+"name": "Rebecca Solomon",
+"category": "Rebecca Solomon",
+"born": "1832",
+"died": "1886",
+"sitelinks": 17
+},
+{
+"qid": "Q2508952",
+"name": "Julia Acker",
+"category": "Julia Acker",
+"born": "1898",
+"died": "1942",
+"sitelinks": 17
+},
+{
+"qid": "Q2980727",
+"name": "Clémentine Hélène Dufau",
+"category": "Clémentine-Hélène Dufau",
+"born": "1869",
+"died": "1937",
+"sitelinks": 17
+},
+{
+"qid": "Q3631231",
+"name": "Anna Rajecka",
+"category": "Anna Rajecka",
+"born": "1754",
+"died": "1830",
+"sitelinks": 17
+},
+{
+"qid": "Q3307830",
+"name": "Maria Röhl",
+"category": "Maria Röhl",
+"born": "1801",
+"died": "1875",
+"sitelinks": 17
+},
+{
+"qid": "Q4135463",
+"name": "Nina Genke-Meller",
+"category": "Nina Genke-Meller",
+"born": "1893",
+"died": "1954",
+"sitelinks": 17
+},
+{
+"qid": "Q5372878",
+"name": "Emma Lampert Cooper",
+"category": "Emma Lampert Cooper",
+"born": "1855",
+"died": "1920",
+"sitelinks": 17
+},
+{
+"qid": "Q5401202",
+"name": "Esther Inglis",
+"category": "Esther Inglis",
+"born": "1570",
+"died": "1624",
+"sitelinks": 17
+},
+{
+"qid": "Q5163563",
+"name": "Constance Marie Charpentier",
+"category": "Constance Marie Charpentier",
+"born": "1767",
+"died": "1849",
+"sitelinks": 17
+},
+{
+"qid": "Q4984195",
+"name": "Bertha Valerius",
+"category": "Bertha Valerius",
+"born": "1824",
+"died": "1895",
+"sitelinks": 17
+},
+{
+"qid": "Q4990097",
+"name": "Charlotte Wahlström",
+"category": "Charlotte Wahlström",
+"born": "1849",
+"died": "1924",
+"sitelinks": 17
+},
+{
+"qid": "Q10530812",
+"name": "Lluïsa Vidal",
+"category": "Lluïsa Vidal i Puig",
+"born": "1876",
+"died": "1918",
+"sitelinks": 17
+},
+{
+"qid": "Q11768819",
+"name": "Maria Dulębianka",
+"category": "Maria Dulębianka",
+"born": "1861",
+"died": "1919",
+"sitelinks": 17
+},
+{
+"qid": "Q11621076",
+"name": "Katsushika Ōi",
+"category": "Katsushika Ōi",
+"born": "1800",
+"died": "1866",
+"sitelinks": 17
+},
+{
+"qid": "Q16596302",
+"name": "Emma Schenson",
+"category": "Emma Schenson",
+"born": "1827",
+"died": "1913",
+"sitelinks": 17
+},
+{
+"qid": "Q272713",
+"name": "Julie Wolfthorn",
+"category": "Julie Wolfthorn",
+"born": "1864",
+"died": "1944",
+"sitelinks": 16
+},
+{
+"qid": "Q275748",
+"name": "Leonor de Almeida Portugal, 4th Marquise of Alorna",
+"category": "Leonor de Almeida Portugal",
+"born": "1750",
+"died": "1839",
+"sitelinks": 16
+},
+{
+"qid": "Q457483",
+"name": "Joanna Hiffernan",
+"category": "Joanna Hiffernan",
+"born": "1843",
+"died": "1903",
+"sitelinks": 16
+},
+{
+"qid": "Q467787",
+"name": "Lady Ottoline Morrell",
+"category": "Lady Ottoline Morrell",
+"born": "1873",
+"died": "1938",
+"sitelinks": 16
+},
+{
+"qid": "Q371351",
+"name": "Anna Maria Ehrenstrahl",
+"category": "Anna Maria Ehrenstrahl",
+"born": "1666",
+"died": "1729",
+"sitelinks": 16
+},
+{
+"qid": "Q432723",
+"name": "Marie-Geneviève Bouliard",
+"category": "Marie-Geneviève Bouliard",
+"born": "1762",
+"died": "1825",
+"sitelinks": 16
+},
+{
+"qid": "Q441625",
+"name": "Alida Withoos",
+"category": "Alida Withoos",
+"born": "1661",
+"died": "1730",
+"sitelinks": 16
+},
+{
+"qid": "Q532168",
+"name": "Elizabeth Nourse",
+"category": "Elizabeth Nourse",
+"born": "1859",
+"died": "1938",
+"sitelinks": 16
+},
+{
+"qid": "Q530383",
+"name": "Sabine Lepsius",
+"category": "Sabine Lepsius",
+"born": "1864",
+"died": "1942",
+"sitelinks": 16
+},
+{
+"qid": "Q531358",
+"name": "Louisa Anne Meredith",
+"category": "Louisa Anne Meredith",
+"born": "1812",
+"died": "1895",
+"sitelinks": 16
+},
+{
+"qid": "Q563363",
+"name": "Anna Stainer-Knittel",
+"category": "Anna Stainer-Knittel",
+"born": "1841",
+"died": "1915",
+"sitelinks": 16
+},
+{
+"qid": "Q113144",
+"name": "Dora Hitz",
+"category": "Dora Hitz",
+"born": "1856",
+"died": "1924",
+"sitelinks": 16
+},
+{
+"qid": "Q119788",
+"name": "Anna Waser",
+"category": "Anna Waser",
+"born": "1678",
+"died": "1714",
+"sitelinks": 16
+},
+{
+"qid": "Q1092556",
+"name": "Katharine Augusta Carl",
+"category": "Katharine Carl",
+"born": "1865",
+"died": "1938",
+"sitelinks": 16
+},
+{
+"qid": "Q969521",
+"name": "Jemima Blackburn",
+"category": "Jemima Blackburn",
+"born": "1823",
+"died": "1909",
+"sitelinks": 16
+},
+{
+"qid": "Q1396313",
+"name": "Hortense Haudebourt-Lescot",
+"category": "Hortense Haudebourt-Lescot",
+"born": "1784",
+"died": "1845",
+"sitelinks": 16
+},
+{
+"qid": "Q1439802",
+"name": "Else Berg",
+"category": "Else Berg",
+"born": "1877",
+"died": "1942",
+"sitelinks": 16
+},
+{
+"qid": "Q1778899",
+"name": "Asta Nørregaard",
+"category": "Asta Nørregaard",
+"born": "1853",
+"died": "1933",
+"sitelinks": 16
+},
+{
+"qid": "Q1930132",
+"name": "Michaelina Wautier",
+"category": "Michaelina Wautier",
+"born": "1604",
+"died": "1689",
+"sitelinks": 16
+},
+{
+"qid": "Q2150709",
+"name": "Joanna Mary Boyce",
+"category": "Joanna Mary Boyce",
+"born": "1831",
+"died": "1861",
+"sitelinks": 16
+},
+{
+"qid": "Q2420197",
+"name": "Dorothy Tennant",
+"category": "Dorothy Tennant",
+"born": "1855",
+"died": "1926",
+"sitelinks": 16
+},
+{
+"qid": "Q2423476",
+"name": "Princess Louise of Orange-Nassau",
+"category": "Louise Wilhelmina of Orange-Nassau (1770–1819)",
+"born": "1770",
+"died": "1819",
+"sitelinks": 16
+},
+{
+"qid": "Q2770619",
+"name": "Anna Alma-Tadema",
+"category": "Anna Alma-Tadema",
+"born": "1867",
+"died": "1943",
+"sitelinks": 16
+},
+{
+"qid": "Q2986384",
+"name": "Lilly Martin Spencer",
+"category": "Lilly Martin Spencer",
+"born": "1822",
+"died": "1902",
+"sitelinks": 16
+},
+{
+"qid": "Q3066501",
+"name": "Fanny Stevenson",
+"category": "Fanny Stevenson",
+"born": "1840",
+"died": "1914",
+"sitelinks": 16
+},
+{
+"qid": "Q3510181",
+"name": "Anne Barnard",
+"category": "Lady Anne Barnard",
+"born": "1750",
+"died": "1825",
+"sitelinks": 16
+},
+{
+"qid": "Q3338913",
+"name": "Rebeca Matte Bello",
+"category": "Rebeca Matte Bello",
+"born": "1875",
+"died": "1929",
+"sitelinks": 16
+},
+{
+"qid": "Q4739420",
+"name": "Amalie Mánesová",
+"category": "Amalie Mánesová",
+"born": "1817",
+"died": "1883",
+"sitelinks": 16
+},
+{
+"qid": "Q5372353",
+"name": "Emily Sartain",
+"category": "Emily Sartain",
+"born": "1841",
+"died": "1927",
+"sitelinks": 16
+},
+{
+"qid": "Q4942488",
+"name": "Emma Löwstädt-Chadwick",
+"category": "Emma Löwstädt-Chadwick",
+"born": "1855",
+"died": "1932",
+"sitelinks": 16
+},
+{
+"qid": "Q6653701",
+"name": "Liu Rushi",
+"category": "Liu Rushi",
+"born": "1618",
+"died": "1664",
+"sitelinks": 16
+},
+{
+"qid": "Q15088608",
+"name": "Maria Raevska-Ivanova",
+"category": "Maria Raevskaia-Ivanova",
+"born": "1840",
+"died": "1912",
+"sitelinks": 16
+},
+{
+"qid": "Q27487434",
+"name": "Josefine Swoboda",
+"category": "Josefine Swoboda",
+"born": "1861",
+"died": "1924",
+"sitelinks": 16
+},
+{
+"qid": "Q273338",
+"name": "Valentine de Saint-Point",
+"category": "Valentine de Saint-Point",
+"born": "1875",
+"died": "1953",
+"sitelinks": 15
+},
+{
+"qid": "Q274815",
+"name": "Barbara Krafft",
+"category": "Barbara Krafft",
+"born": "1764",
+"died": "1825",
+"sitelinks": 15
+},
+{
+"qid": "Q446823",
+"name": "Karolina Pavlova",
+"category": "Karolina Pavlova",
+"born": "1807",
+"died": "1893",
+"sitelinks": 15
+},
+{
+"qid": "Q450730",
+"name": "Georgette Agutte",
+"category": "Georgette Agutte",
+"born": "1867",
+"died": "1922",
+"sitelinks": 15
+},
+{
+"qid": "Q452289",
+"name": "Madeleine Françoise Basseporte",
+"category": "Françoise Basseporte",
+"born": "1701",
+"died": "1780",
+"sitelinks": 15
+},
+{
+"qid": "Q299146",
+"name": "Anna Rosina de Gasc",
+"category": "Anna Rosina de Gasc",
+"born": "1713",
+"died": "1783",
+"sitelinks": 15
+},
+{
+"qid": "Q520954",
+"name": "Princess Luise of Anhalt-Bernburg",
+"category": "Louise of Anhalt-Bernburg",
+"born": "1799",
+"died": "1882",
+"sitelinks": 15
+},
+{
+"qid": "Q529448",
+"name": "Norah Neilson Gray",
+"category": "Norah Neilson Gray",
+"born": "1882",
+"died": "1931",
+"sitelinks": 15
+},
+{
+"qid": "Q85924",
+"name": "Friedl Dicker-Brandeis",
+"category": "Friedl Dicker-Brandeisová",
+"born": "1898",
+"died": "1944",
+"sitelinks": 15
+},
+{
+"qid": "Q1264271",
+"name": "Frances Hodgkins",
+"category": "Frances Hodgkins",
+"born": "1869",
+"died": "1947",
+"sitelinks": 15
+},
+{
+"qid": "Q1872192",
+"name": "Louise Seidler",
+"category": "Louise Seidler",
+"born": "1786",
+"died": "1866",
+"sitelinks": 15
+},
+{
+"qid": "Q2037804",
+"name": "Ottilie Roederstein",
+"category": "Ottilie Roederstein",
+"born": "1859",
+"died": "1937",
+"sitelinks": 15
+},
+{
+"qid": "Q2078865",
+"name": "Jessie M. King",
+"category": "Jessie Marion King",
+"born": "1875",
+"died": "1949",
+"sitelinks": 15
+},
+{
+"qid": "Q2143075",
+"name": "Clementina Maude, Viscountess Hawarden",
+"category": "Lady Clementina Hawarden",
+"born": "1822",
+"died": "1865",
+"sitelinks": 15
+},
+{
+"qid": "Q2511313",
+"name": "Emma Sandys",
+"category": "Emma Sandys",
+"born": "1843",
+"died": "1877",
+"sitelinks": 15
+},
+{
+"qid": "Q2825435",
+"name": "Adèle Kindt",
+"category": "Adèle Kindt",
+"born": "1804",
+"died": "1884",
+"sitelinks": 15
+},
+{
+"qid": "Q3026163",
+"name": "Diana Scultori",
+"category": "Diana Scultori Ghisi",
+"born": "1547",
+"died": "1612",
+"sitelinks": 15
+},
+{
+"qid": "Q3275679",
+"name": "Madeleine Lemaire",
+"category": "Madeleine Lemaire",
+"born": "1845",
+"died": "1928",
+"sitelinks": 15
+},
+{
+"qid": "Q3157759",
+"name": "Jacqueline Marval",
+"category": "Jacqueline Marval",
+"born": "1866",
+"died": "1932",
+"sitelinks": 15
+},
+{
+"qid": "Q3324919",
+"name": "Aurélia de Souza",
+"category": "Aurélia de Sousa",
+"born": "1866",
+"died": "1922",
+"sitelinks": 15
+},
+{
+"qid": "Q4693125",
+"name": "Agnes Slott-Møller",
+"category": "Agnes Slott-Møller",
+"born": "1862",
+"died": "1937",
+"sitelinks": 15
+},
+{
+"qid": "Q5359203",
+"name": "Elenore Abbott",
+"category": "Elenore Abbott",
+"born": "1875",
+"died": "1935",
+"sitelinks": 15
+},
+{
+"qid": "Q4768731",
+"name": "Anne Pratt",
+"category": "Anne Pratt",
+"born": "1806",
+"died": "1893",
+"sitelinks": 15
+},
+{
+"qid": "Q5365986",
+"name": "Ellis Rowan",
+"category": "Ellis Rowan",
+"born": "1848",
+"died": "1922",
+"sitelinks": 15
+},
+{
+"qid": "Q4938072",
+"name": "Carolina Benedicks-Bruce",
+"category": "Carolina Benedicks-Bruce",
+"born": "1856",
+"died": "1935",
+"sitelinks": 15
+},
+{
+"qid": "Q4939691",
+"name": "Anna Boberg",
+"category": "Anna Boberg",
+"born": "1864",
+"died": "1935",
+"sitelinks": 15
+},
+{
+"qid": "Q4974655",
+"name": "Sofie Ribbing",
+"category": "Sofie Ribbing",
+"born": "1835",
+"died": "1894",
+"sitelinks": 15
+},
+{
+"qid": "Q6204922",
+"name": "Joan Carlile",
+"category": "Joan Carlile",
+"born": "1606",
+"died": "1679",
+"sitelinks": 15
+},
+{
+"qid": "Q6584364",
+"name": "Suze Robertson",
+"category": "Suze Robertson",
+"born": "1855",
+"died": "1922",
+"sitelinks": 15
+},
+{
+"qid": "Q15449332",
+"name": "Lucy Madox Brown",
+"category": "Lucy Madox Brown",
+"born": "1843",
+"died": "1894",
+"sitelinks": 15
+},
+{
+"qid": "Q22670474",
+"name": "Agnes Dean Abbatt",
+"category": "Agnes Dean Abbatt",
+"born": "1847",
+"died": "1917",
+"sitelinks": 15
+},
+{
+"qid": "Q72207",
+"name": "Henryka Beyer",
+"category": "Henryka Beyer",
+"born": "1782",
+"died": "1855",
+"sitelinks": 14
+},
+{
+"qid": "Q201699",
+"name": "Caroline Bardua",
+"category": "Caroline Bardua",
+"born": "1781",
+"died": "1864",
+"sitelinks": 14
+},
+{
+"qid": "Q450551",
+"name": "Fanny Cornforth",
+"category": "Fanny Cornforth",
+"born": "1835",
+"died": "1909",
+"sitelinks": 14
+},
+{
+"qid": "Q430430",
+"name": "Mayken Verhulst",
+"category": "Mayken Verhulst",
+"born": "1518",
+"died": "1596",
+"sitelinks": 14
+},
+{
+"qid": "Q532010",
+"name": "Sarah Miriam Peale",
+"category": "Sarah Miriam Peale",
+"born": "1800",
+"died": "1885",
+"sitelinks": 14
+},
+{
+"qid": "Q527774",
+"name": "Vilma Lwoff-Parlaghy",
+"category": "Vilma Lwoff-Parlaghy",
+"born": "1863",
+"died": "1923",
+"sitelinks": 14
+},
+{
+"qid": "Q148878",
+"name": "Emilie Mundt",
+"category": "Emilie Mundt",
+"born": "1842",
+"died": "1922",
+"sitelinks": 14
+},
+{
+"qid": "Q1050781",
+"name": "Catharina Helena Dörrien",
+"category": "Catharina Helena Doerrien",
+"born": "1717",
+"died": "1795",
+"sitelinks": 14
+},
+{
+"qid": "Q939381",
+"name": "Louise De Hem",
+"category": "Louise De Hem",
+"born": "1866",
+"died": "1922",
+"sitelinks": 14
+},
+{
+"qid": "Q1331255",
+"name": "Elizabeth MacNicol",
+"category": "Bessie MacNicol",
+"born": "1869",
+"died": "1904",
+"sitelinks": 14
+},
+{
+"qid": "Q1638092",
+"name": "Alma del Banco",
+"category": "Alma del Banco",
+"born": "1862",
+"died": "1943",
+"sitelinks": 14
+},
+{
+"qid": "Q1750511",
+"name": "Kiyohara Tama",
+"category": "Kiyohara Tama",
+"born": "1861",
+"died": "1939",
+"sitelinks": 14
+},
+{
+"qid": "Q1915357",
+"name": "Hélène Smith",
+"category": "Hélène Smith",
+"born": "1861",
+"died": "1929",
+"sitelinks": 14
+},
+{
+"qid": "Q2006411",
+"name": "Antonietta Brandeis",
+"category": "Antonietta Brandeis",
+"born": "1848",
+"died": "1926",
+"sitelinks": 14
+},
+{
+"qid": "Q2067274",
+"name": "Fanny Geefs",
+"category": "Fanny Geefs",
+"born": "1807",
+"died": "1883",
+"sitelinks": 14
+},
+{
+"qid": "Q2095943",
+"name": "Maria Bilders-van Bosse",
+"category": "Marie Bilders-van Bosse",
+"born": "1837",
+"died": "1900",
+"sitelinks": 14
+},
+{
+"qid": "Q2128339",
+"name": "Mélanie Hahnemann",
+"category": "Mélanie Hahnemann",
+"born": "1800",
+"died": "1878",
+"sitelinks": 14
+},
+{
+"qid": "Q2199075",
+"name": "Christina Robertson",
+"category": "Christina Robertson",
+"born": "1796",
+"died": "1854",
+"sitelinks": 14
+},
+{
+"qid": "Q2419503",
+"name": "Theresa Concordia Mengs",
+"category": "Theresa Concordia Mengs",
+"born": "1725",
+"died": "1806",
+"sitelinks": 14
+},
+{
+"qid": "Q2851207",
+"name": "Anne Marie Carl-Nielsen",
+"category": "Anne Marie Carl-Nielsen",
+"born": "1863",
+"died": "1945",
+"sitelinks": 14
+},
+{
+"qid": "Q3290472",
+"name": "Margaret Sarah Carpenter",
+"category": "Margaret Carpenter",
+"born": "1793",
+"died": "1872",
+"sitelinks": 14
+},
+{
+"qid": "Q3442328",
+"name": "Rose-Adélaïde Ducreux",
+"category": "Rose-Adélaïde Ducreux",
+"born": "1761",
+"died": "1802",
+"sitelinks": 14
+},
+{
+"qid": "Q3491037",
+"name": "Sophie Fremiet",
+"category": "Sophie Rude",
+"born": "1797",
+"died": "1867",
+"sitelinks": 14
+},
+{
+"qid": "Q3132442",
+"name": "Henrietta Rae",
+"category": "Henrietta Rae",
+"born": "1859",
+"died": "1928",
+"sitelinks": 14
+},
+{
+"qid": "Q3132459",
+"name": "Henriette Browne",
+"category": "Henriette Browne",
+"born": "1829",
+"died": "1901",
+"sitelinks": 14
+},
+{
+"qid": "Q3706764",
+"name": "Diana Beauclerk",
+"category": "Diana Beauclerk",
+"born": "1734",
+"died": "1808",
+"sitelinks": 14
+},
+{
+"qid": "Q3723429",
+"name": "Elizabeth Twining",
+"category": "Elizabeth Twining",
+"born": "1805",
+"died": "1889",
+"sitelinks": 14
+},
+{
+"qid": "Q4157087",
+"name": "Olga Della-Vos-Kardovskaya",
+"category": "Olga Della-Vos-Kardovskaya",
+"born": "1875",
+"died": "1952",
+"sitelinks": 14
+},
+{
+"qid": "Q3808914",
+"name": "Johanna Helena Herolt",
+"category": "Johanna Helena Herolt",
+"born": "1668",
+"died": "1723",
+"sitelinks": 14
+},
+{
+"qid": "Q3981441",
+"name": "Tatyana Sukhotina-Tolstaya",
+"category": "Tatyana Sukhotina-Tolstaya",
+"born": "1864",
+"died": "1950",
+"sitelinks": 14
+},
+{
+"qid": "Q4009687",
+"name": "Venny Soldan-Brofeldt",
+"category": "Venny Soldan-Brofeldt",
+"born": "1863",
+"died": "1945",
+"sitelinks": 14
+},
+{
+"qid": "Q5126931",
+"name": "Clarice Beckett",
+"category": "Clarice Beckett",
+"born": "1887",
+"died": "1935",
+"sitelinks": 14
+},
+{
+"qid": "Q5461886",
+"name": "Florine Stettheimer",
+"category": "Florine Stettheimer",
+"born": "1871",
+"died": "1944",
+"sitelinks": 14
+},
+{
+"qid": "Q4964675",
+"name": "Harriet Löwenhjelm",
+"category": "Harriet Löwenhjelm",
+"born": "1887",
+"died": "1918",
+"sitelinks": 14
+},
+{
+"qid": "Q4970525",
+"name": "Helena Nyblom",
+"category": "Helena Nyblom",
+"born": "1843",
+"died": "1926",
+"sitelinks": 14
+},
+{
+"qid": "Q6780882",
+"name": "Mary Vaux Walcott",
+"category": "Mary Vaux Walcott",
+"born": "1860",
+"died": "1940",
+"sitelinks": 14
+},
+{
+"qid": "Q7186650",
+"name": "Phoebe Anna Traquair",
+"category": "Phoebe Anna Traquair",
+"born": "1852",
+"died": "1936",
+"sitelinks": 14
+},
+{
+"qid": "Q8184049",
+"name": "Abigail de Andrade",
+"category": "Abigail de Andrade",
+"born": "1862",
+"died": "1891",
+"sitelinks": 14
+},
+{
+"qid": "Q13560759",
+"name": "Laura Wheeler Waring",
+"category": "Laura Wheeler Waring",
+"born": "1887",
+"died": "1948",
+"sitelinks": 14
+},
+{
+"qid": "Q13474862",
+"name": "Lydia Field Emmet",
+"category": "Lydia Field Emmet",
+"born": "1866",
+"died": "1952",
+"sitelinks": 14
+},
+{
+"qid": "Q15858260",
+"name": "Maria Vos",
+"category": "Maria Vos",
+"born": "1824",
+"died": "1906",
+"sitelinks": 14
+},
+{
+"qid": "Q23008985",
+"name": "Ike Gyokuran",
+"category": "Ike Gyokuran",
+"born": "1727",
+"died": "1784",
+"sitelinks": 14
+},
+{
+"qid": "Q225576",
+"name": "Johanna Vergouwen",
+"category": "Johanna Vergouwen",
+"born": "1630",
+"died": "1714",
+"sitelinks": 13
+},
+{
+"qid": "Q468736",
+"name": "Victoria, Lady Welby",
+"category": "Victoria Welby",
+"born": "1837",
+"died": "1912",
+"sitelinks": 13
+},
+{
+"qid": "Q450795",
+"name": "Sophie von Knorring",
+"category": "Sophie von Knorring",
+"born": "1797",
+"died": "1848",
+"sitelinks": 13
+},
+{
+"qid": "Q386247",
+"name": "Elizabeth Forbes",
+"category": "Elizabeth Adela Forbes",
+"born": "1859",
+"died": "1912",
+"sitelinks": 13
+},
+{
+"qid": "Q537102",
+"name": "Adèle d'Affry",
+"category": "Adèle d'Affry",
+"born": "1836",
+"died": "1879",
+"sitelinks": 13
+},
+{
+"qid": "Q512339",
+"name": "Adriana Spilberg",
+"category": "Adriana Spilberg",
+"born": "1656",
+"died": "1697",
+"sitelinks": 13
+},
+{
+"qid": "Q529270",
+"name": "Marie-Victoire Lemoine",
+"category": "Marie-Victoire Lemoine",
+"born": "1754",
+"died": "1820",
+"sitelinks": 13
+},
+{
+"qid": "Q652013",
+"name": "Marie-Thérèse Reboul",
+"category": "Marie Thérèse Reboul",
+"born": "1725",
+"died": "1805",
+"sitelinks": 13
+},
+{
+"qid": "Q1095144",
+"name": "Clara Arnheim",
+"category": "Clara Arnheim",
+"born": "1865",
+"died": "1942",
+"sitelinks": 13
+},
+{
+"qid": "Q1265384",
+"name": "Marie Egner",
+"category": "Marie Egner",
+"born": "1850",
+"died": "1940",
+"sitelinks": 13
+},
+{
+"qid": "Q1824754",
+"name": "Alexa Wilding",
+"category": "Alexa Wilding",
+"born": "1845",
+"died": "1884",
+"sitelinks": 13
+},
+{
+"qid": "Q1887907",
+"name": "Malva Schalek",
+"category": "Malva Schalek",
+"born": "1882",
+"died": "1944",
+"sitelinks": 13
+},
+{
+"qid": "Q2055547",
+"name": "Henriette Lorimier",
+"category": "Henriette Lorimier",
+"born": "1775",
+"died": "1854",
+"sitelinks": 13
+},
+{
+"qid": "Q2776789",
+"name": "Maria Oakey Dewing",
+"category": "Maria Oakey Dewing",
+"born": "1845",
+"died": "1927",
+"sitelinks": 13
+},
+{
+"qid": "Q2821626",
+"name": "Abigail May Alcott Nieriker",
+"category": "Abigail May Alcott Nieriker",
+"born": "1840",
+"died": "1879",
+"sitelinks": 13
+},
+{
+"qid": "Q2836533",
+"name": "Alice Bailly",
+"category": "Alice Bailly",
+"born": "1872",
+"died": "1938",
+"sitelinks": 13
+},
+{
+"qid": "Q2381804",
+"name": "Lucie Cousturier",
+"category": "Lucie Cousturier",
+"born": "1876",
+"died": "1925",
+"sitelinks": 13
+},
+{
+"qid": "Q2905991",
+"name": "Blanche Hoschedé Monet",
+"category": "Blanche Hoschedé Monet",
+"born": "1865",
+"died": "1947",
+"sitelinks": 13
+},
+{
+"qid": "Q3075581",
+"name": "Ōtagaki Rengetsu",
+"category": "Ōtagaki Rengetsu",
+"born": "1791",
+"died": "1875",
+"sitelinks": 13
+},
+{
+"qid": "Q3189783",
+"name": "Juliette Wytsman",
+"category": "Juliette Wytsman",
+"born": "1866",
+"died": "1925",
+"sitelinks": 13
+},
+{
+"qid": "Q3263755",
+"name": "Louise Hervieu",
+"category": "Louise Hervieu",
+"born": "1878",
+"died": "1954",
+"sitelinks": 13
+},
+{
+"qid": "Q3106968",
+"name": "Giovanna Fratellini",
+"category": "Giovanna Fratellini",
+"born": "1666",
+"died": "1731",
+"sitelinks": 13
+},
+{
+"qid": "Q3433626",
+"name": "Emily Shanks",
+"category": "Emily Shanks",
+"born": "1857",
+"died": "1936",
+"sitelinks": 13
+},
+{
+"qid": "Q3555721",
+"name": "Vera Rockline",
+"category": "Vera Rockline",
+"born": "1896",
+"died": "1934",
+"sitelinks": 13
+},
+{
+"qid": "Q3273465",
+"name": "Ma Shouzhen",
+"category": "Ma Shouzhen",
+"born": "1548",
+"died": "1604",
+"sitelinks": 13
+},
+{
+"qid": "Q3638402",
+"name": "Susan Macdowell Eakins",
+"category": "Susan Macdowell Eakins",
+"born": "1851",
+"died": "1938",
+"sitelinks": 13
+},
+{
+"qid": "Q3714363",
+"name": "Dorothea Maria Graff",
+"category": "Dorothea Maria Graff",
+"born": "1678",
+"died": "1743",
+"sitelinks": 13
+},
+{
+"qid": "Q3356695",
+"name": "Orsola Maddalena Caccia",
+"category": "Orsola Maddalena Caccia",
+"born": "1596",
+"died": "1676",
+"sitelinks": 13
+},
+{
+"qid": "Q4161615",
+"name": "Marija Dilon",
+"category": "Maria Lvovna Dillon",
+"born": "1858",
+"died": "1932",
+"sitelinks": 13
+},
+{
+"qid": "Q3839037",
+"name": "Lucrina Fetti",
+"category": "Lucrina Fetti",
+"born": "1600",
+"died": "1651",
+"sitelinks": 13
+},
+{
+"qid": "Q4428845",
+"name": "Élisabeth Sonrel",
+"category": "Elisabeth Sonrel",
+"born": "1874",
+"died": "1953",
+"sitelinks": 13
+},
+{
+"qid": "Q4241935",
+"name": "Elizaveta Kruglikova",
+"category": "Elizaveta Kruglikova",
+"born": "1865",
+"died": "1941",
+"sitelinks": 13
+},
+{
+"qid": "Q4275582",
+"name": "Ann Macbeth",
+"category": "Ann Macbeth",
+"born": "1875",
+"died": "1948",
+"sitelinks": 13
+},
+{
+"qid": "Q4693023",
+"name": "Agnes Börjesson",
+"category": "Agnes Börjesson",
+"born": "1827",
+"died": "1900",
+"sitelinks": 13
+},
+{
+"qid": "Q4693045",
+"name": "Agnes Goodsir",
+"category": "Agnes Goodsir",
+"born": "1864",
+"died": "1939",
+"sitelinks": 13
+},
+{
+"qid": "Q4394452",
+"name": "Ethel Reed",
+"category": "Ethel Reed",
+"born": "1874",
+"died": "1912",
+"sitelinks": 13
+},
+{
+"qid": "Q4055448",
+"name": "Princess Auguste of Hessen-Kassel",
+"category": "Augusta Sophie of Hesse-Kassel",
+"born": "1823",
+"died": "1889",
+"sitelinks": 13
+},
+{
+"qid": "Q4101592",
+"name": "Elisabeth Bem",
+"category": "Elizaveta Bem",
+"born": "1843",
+"died": "1914",
+"sitelinks": 13
+},
+{
+"qid": "Q5361352",
+"name": "Elisa Caroline Bommer",
+"category": "Elise Caroline Bommer",
+"born": "1832",
+"died": "1910",
+"sitelinks": 13
+},
+{
+"qid": "Q4767027",
+"name": "Anna Gardell-Ericson",
+"category": "Anna Gardell-Ericson",
+"born": "1853",
+"died": "1939",
+"sitelinks": 13
+},
+{
+"qid": "Q4768505",
+"name": "Anne Killigrew",
+"category": "Anne Killigrew",
+"born": "1660",
+"died": "1685",
+"sitelinks": 13
+},
+{
+"qid": "Q5051917",
+"name": "Caterina Ginnasi",
+"category": "Caterina Ginnasi",
+"born": "1590",
+"died": "1660",
+"sitelinks": 13
+},
+{
+"qid": "Q5102798",
+"name": "Jane Sutherland",
+"category": "Jane Sutherland",
+"born": "1853",
+"died": "1928",
+"sitelinks": 13
+},
+{
+"qid": "Q5109042",
+"name": "Christabel Cockerell",
+"category": "Christabel Cockerell",
+"born": "1863",
+"died": "1951",
+"sitelinks": 13
+},
+{
+"qid": "Q4895535",
+"name": "Berthe Hoola van Nooten",
+"category": "Berthe Hoola van Nooten",
+"born": "1817",
+"died": "1892",
+"sitelinks": 13
+},
+{
+"qid": "Q4941918",
+"name": "Mina Carlson-Bredberg",
+"category": "Vilhelmina Carlson-Bredberg",
+"born": "1857",
+"died": "1943",
+"sitelinks": 13
+},
+{
+"qid": "Q5196607",
+"name": "Sarah Biffen",
+"category": "Sarah Biffen",
+"born": "1784",
+"died": "1850",
+"sitelinks": 13
+},
+{
+"qid": "Q4960539",
+"name": "Wilhelmina Lagerholm",
+"category": "Wilhelmina Lagerholm",
+"born": "1826",
+"died": "1917",
+"sitelinks": 13
+},
+{
+"qid": "Q5716061",
+"name": "Henrietta Ward",
+"category": "Henrietta Ward",
+"born": "1832",
+"died": "1924",
+"sitelinks": 13
+},
+{
+"qid": "Q4980157",
+"name": "Frida Stéenhoff",
+"category": "Frida Stéenhoff",
+"born": "1865",
+"died": "1945",
+"sitelinks": 13
+},
+{
+"qid": "Q7422719",
+"name": "Sarah Purser",
+"category": "Sarah Purser",
+"born": "1848",
+"died": "1943",
+"sitelinks": 13
+},
+{
+"qid": "Q6696640",
+"name": "Lucia Fairchild Fuller",
+"category": "Lucia Fairchild Fuller",
+"born": "1872",
+"died": "1924",
+"sitelinks": 13
+},
+{
+"qid": "Q6761631",
+"name": "Maria Theresia van Thielen",
+"category": "Maria Theresia van Thielen",
+"born": "1640",
+"died": "1706",
+"sitelinks": 13
+},
+{
+"qid": "Q9011444",
+"name": "Jennie Augusta Brownscombe",
+"category": "Jennie Augusta Brownscombe",
+"born": "1850",
+"died": "1936",
+"sitelinks": 13
+},
+{
+"qid": "Q11901153",
+"name": "Victoria Åberg",
+"category": "Victoria Åberg",
+"born": "1824",
+"died": "1892",
+"sitelinks": 13
+},
+{
+"qid": "Q12068549",
+"name": "Harriet Morgan",
+"category": "Harriet Scott",
+"born": "1830",
+"died": "1907",
+"sitelinks": 13
+},
+{
+"qid": "Q12326083",
+"name": "Marie Luplau",
+"category": "Marie Luplau",
+"born": "1848",
+"died": "1925",
+"sitelinks": 13
+},
+{
+"qid": "Q15917658",
+"name": "Anna Abrahams",
+"category": "Anna Abrahams",
+"born": "1849",
+"died": "1930",
+"sitelinks": 13
+},
+{
+"qid": "Q17125687",
+"name": "Lucie Ingemann",
+"category": "Lucie Ingemann",
+"born": "1792",
+"died": "1868",
+"sitelinks": 13
+},
+{
+"qid": "Q21043078",
+"name": "Sofie Holten",
+"category": "Sophie Holten",
+"born": "1858",
+"died": "1930",
+"sitelinks": 13
+},
+{
+"qid": "Q21674592",
+"name": "Héloïse Colin",
+"category": "Héloïse Suzanne Colin",
+"born": "1819",
+"died": "1873",
+"sitelinks": 13
+},
+{
+"qid": "Q75563",
+"name": "Marianne Loir",
+"category": "Marianne Loir",
+"born": "1705",
+"died": "1783",
+"sitelinks": 12
+},
+{
+"qid": "Q276123",
+"name": "Helen McNicoll",
+"category": "Helen McNicoll",
+"born": "1879",
+"died": "1915",
+"sitelinks": 12
+},
+{
+"qid": "Q276416",
+"name": "Prudence Heward",
+"category": "Prudence Heward",
+"born": "1896",
+"died": "1947",
+"sitelinks": 12
+},
+{
+"qid": "Q253875",
+"name": "Elizabeth Gould",
+"category": "Elizabeth Gould",
+"born": "1804",
+"died": "1841",
+"sitelinks": 12
+},
+{
+"qid": "Q387378",
+"name": "Princess Maria Tenisheva",
+"category": "Maria Tenisheva",
+"born": "1858",
+"died": "1928",
+"sitelinks": 12
+},
+{
+"qid": "Q535431",
+"name": "Dora Stock",
+"category": "Dora Stock",
+"born": "1759",
+"died": "1832",
+"sitelinks": 12
+},
+{
+"qid": "Q526155",
+"name": "Ginevra Cantofoli",
+"category": "Ginevra Cantofoli",
+"born": "1618",
+"died": "1672",
+"sitelinks": 12
+},
+{
+"qid": "Q529608",
+"name": "Violet Manners, Duchess of Rutland",
+"category": "Violet Manners",
+"born": "1856",
+"died": "1937",
+"sitelinks": 12
+},
+{
+"qid": "Q590936",
+"name": "Elizabeth Shippen Green",
+"category": "Elizabeth Shippen Green",
+"born": "1871",
+"died": "1954",
+"sitelinks": 12
+},
+{
+"qid": "Q784160",
+"name": "Maria Marc",
+"category": "Maria Marc",
+"born": "1876",
+"died": "1955",
+"sitelinks": 12
+},
+{
+"qid": "Q1001063",
+"name": "Olga Fialka",
+"category": "Olga Fialka",
+"born": "1848",
+"died": "1930",
+"sitelinks": 12
+},
+{
+"qid": "Q1630094",
+"name": "Ida Gerhardi",
+"category": "Ida Gerhardi",
+"born": "1862",
+"died": "1927",
+"sitelinks": 12
+},
+{
+"qid": "Q1795538",
+"name": "Käthe Loewenthal",
+"category": "Käthe Loewenthal",
+"born": "1877",
+"died": "1942",
+"sitelinks": 12
+},
+{
+"qid": "Q1744626",
+"name": "Vera Ermolaeva",
+"category": "Vera Yermolayeva",
+"born": "1893",
+"died": "1937",
+"sitelinks": 12
+},
+{
+"qid": "Q1936630",
+"name": "Minerva J. Chapman",
+"category": "Minerva Josephine Chapman",
+"born": "1858",
+"died": "1947",
+"sitelinks": 12
+},
+{
+"qid": "Q2060870",
+"name": "Nampeyo",
+"category": "Nampeyo",
+"born": "1856",
+"died": "1942",
+"sitelinks": 12
+},
+{
+"qid": "Q2070194",
+"name": "Sarah Choate Sears",
+"category": "Sarah Choate Sears",
+"born": "1858",
+"died": "1935",
+"sitelinks": 12
+},
+{
+"qid": "Q2602174",
+"name": "Maria Withoos",
+"category": "Maria Withoos",
+"born": "1663",
+"died": "1699",
+"sitelinks": 12
+},
+{
+"qid": "Q3051436",
+"name": "Ellen Sharples",
+"category": "Ellen Sharples",
+"born": "1769",
+"died": "1849",
+"sitelinks": 12
+},
+{
+"qid": "Q3067991",
+"name": "Stanisława Przybyszewska",
+"category": "Stanisława Przybyszewska",
+"born": "1901",
+"died": "1935",
+"sitelinks": 12
+},
+{
+"qid": "Q3290536",
+"name": "Margaretha Haverman",
+"category": "Margaretha Haverman",
+"born": "1693",
+"died": "1723",
+"sitelinks": 12
+},
+{
+"qid": "Q3290687",
+"name": "Marguerite Burnat-Provins",
+"category": "Marguerite Burnat-Provins",
+"born": "1872",
+"died": "1952",
+"sitelinks": 12
+},
+{
+"qid": "Q3101345",
+"name": "Georges Achille-Fould",
+"category": "Georges Achille-Fould",
+"born": "1865",
+"died": "1951",
+"sitelinks": 12
+},
+{
+"qid": "Q3436820",
+"name": "Hanna Winge",
+"category": "Hanna Winge",
+"born": "1838",
+"died": "1896",
+"sitelinks": 12
+},
+{
+"qid": "Q3505637",
+"name": "Susanna van Steenwijk",
+"category": "Susanna van Steenwijck-Gaspoel",
+"born": "1601",
+"died": "1664",
+"sitelinks": 12
+},
+{
+"qid": "Q3360519",
+"name": "Anna Syberg",
+"category": "Anna Syberg",
+"born": "1870",
+"died": "1914",
+"sitelinks": 12
+},
+{
+"qid": "Q3817171",
+"name": "Juana Borrero",
+"category": "Juana Borrero",
+"born": "1877",
+"died": "1896",
+"sitelinks": 12
+},
+{
+"qid": "Q4458078",
+"name": "Gerda Tirén",
+"category": "Gerda Tirén",
+"born": "1858",
+"died": "1928",
+"sitelinks": 12
+},
+{
+"qid": "Q5354345",
+"name": "Eleanor Norcross",
+"category": "Eleanor Norcross",
+"born": "1854",
+"died": "1923",
+"sitelinks": 12
+},
+{
+"qid": "Q4767149",
+"name": "Anna Katharina Block",
+"category": "Anna Katharina Block",
+"born": "1642",
+"died": "1719",
+"sitelinks": 12
+},
+{
+"qid": "Q4767304",
+"name": "Anna Maria Mengs",
+"category": "Anna Maria Mengs",
+"born": "1751",
+"died": "1792",
+"sitelinks": 12
+},
+{
+"qid": "Q4783330",
+"name": "Arabella Elizabeth Roupell",
+"category": "Arabella Elizabeth Roupell",
+"born": "1817",
+"died": "1914",
+"sitelinks": 12
+},
+{
+"qid": "Q4523001",
+"name": "Zofia Szeptycka",
+"category": "Zofia Szeptycka",
+"born": "1837",
+"died": "1904",
+"sitelinks": 12
+},
+{
+"qid": "Q5372152",
+"name": "Emily Eden",
+"category": "Emily Eden",
+"born": "1797",
+"died": "1869",
+"sitelinks": 12
+},
+{
+"qid": "Q5372282",
+"name": "Emily Mary Osborn",
+"category": "Emily Mary Osborn",
+"born": "1828",
+"died": "1925",
+"sitelinks": 12
+},
+{
+"qid": "Q5086211",
+"name": "Charlotte de Rothschild",
+"category": "Charlotte de Rothschild",
+"born": "1825",
+"died": "1899",
+"sitelinks": 12
+},
+{
+"qid": "Q5126049",
+"name": "Clara Southern",
+"category": "Clara Southern",
+"born": "1860",
+"died": "1940",
+"sitelinks": 12
+},
+{
+"qid": "Q5446751",
+"name": "Fidelia Bridges",
+"category": "Fidelia Bridges",
+"born": "1834",
+"died": "1923",
+"sitelinks": 12
+},
+{
+"qid": "Q4935234",
+"name": "Ester Almqvist",
+"category": "Ester Almqvist",
+"born": "1869",
+"died": "1934",
+"sitelinks": 12
+},
+{
+"qid": "Q4946526",
+"name": "Ester Ellqvist",
+"category": "Ester Ellqvist",
+"born": "1880",
+"died": "1918",
+"sitelinks": 12
+},
+{
+"qid": "Q5171152",
+"name": "Cornelia Barns",
+"category": "Cornelia Barns",
+"born": "1888",
+"died": "1941",
+"sitelinks": 12
+},
+{
+"qid": "Q5591434",
+"name": "Graceanna Lewis",
+"category": "Graceanna Lewis",
+"born": "1821",
+"died": "1912",
+"sitelinks": 12
+},
+{
+"qid": "Q5715981",
+"name": "Henrietta Johnston",
+"category": "Henrietta Johnston",
+"born": "1674",
+"died": "1729",
+"sitelinks": 12
+},
+{
+"qid": "Q5729862",
+"name": "Blanca de los Ríos",
+"category": "Blanca de los Ríos",
+"born": "1859",
+"died": "1955",
+"sitelinks": 12
+},
+{
+"qid": "Q5858672",
+"name": "Fenia Chertkoff",
+"category": "Fenia Chertkoff",
+"born": "1869",
+"died": "1927",
+"sitelinks": 12
+},
+{
+"qid": "Q6779589",
+"name": "Mary Fraser Tytler",
+"category": "Mary Fraser Tytler",
+"born": "1849",
+"died": "1938",
+"sitelinks": 12
+},
+{
+"qid": "Q6780677",
+"name": "Mary Sargant Florence",
+"category": "Mary Sargant Florence",
+"born": "1857",
+"died": "1954",
+"sitelinks": 12
+},
+{
+"qid": "Q7360842",
+"name": "Rolinda Sharples",
+"category": "Rolinda Sharples",
+"born": "1793",
+"died": "1838",
+"sitelinks": 12
+},
+{
+"qid": "Q6736649",
+"name": "Mainie Harriet Jellett",
+"category": "Mainie Jellett",
+"born": "1897",
+"died": "1944",
+"sitelinks": 12
+},
+{
+"qid": "Q8249439",
+"name": "Gu Hengbo",
+"category": "Gu Mei",
+"born": "1619",
+"died": "1663",
+"sitelinks": 12
+},
+{
+"qid": "Q12309769",
+"name": "Elise Konstantin-Hansen",
+"category": "Elise Konstantin-Hansen",
+"born": "1858",
+"died": "1946",
+"sitelinks": 12
+},
+{
+"qid": "Q11560527",
+"name": "Kiyohara Yukinobu",
+"category": "Kiyohara Yukinobu",
+"born": "1644",
+"died": "1682",
+"sitelinks": 12
+},
+{
+"qid": "Q12713553",
+"name": "Astri Aasen",
+"category": "Astri Aasen",
+"born": "1875",
+"died": "1935",
+"sitelinks": 12
+},
+{
+"qid": "Q14417673",
+"name": "Zofia Atteslander",
+"category": "Zofia Atteslander",
+"born": "1874",
+"died": "1924",
+"sitelinks": 12
+},
+{
+"qid": "Q15694193",
+"name": "Gerardina Jacoba van de Sande Bakhuyzen",
+"category": "Gerardine van de Sande Bakhuyzen",
+"born": "1826",
+"died": "1895",
+"sitelinks": 12
+},
+{
+"qid": "Q15995683",
+"name": "Louise Cox",
+"category": "Louise Howland King Cox",
+"born": "1865",
+"died": "1945",
+"sitelinks": 12
+},
+{
+"qid": "Q17423465",
+"name": "Ann Hall",
+"category": "Ann Hall",
+"born": "1792",
+"died": "1863",
+"sitelinks": 12
+},
+{
+"qid": "Q18560378",
+"name": "Jeanne-Philiberte Ledoux",
+"category": "Jeanne-Philiberte Ledoux",
+"born": "1767",
+"died": "1840",
+"sitelinks": 12
+},
+{
+"qid": "Q19665124",
+"name": "Gabrielle D. Clements",
+"category": "Gabrielle D. Clements",
+"born": "1858",
+"died": "1948",
+"sitelinks": 12
+},
+{
+"qid": "Q19590318",
+"name": "Jeanne-Élisabeth Chaudet",
+"category": "Jeanne-Elisabeth Chaudet",
+"born": "1767",
+"died": "1832",
+"sitelinks": 12
+},
+{
+"qid": "Q19680794",
+"name": "Agatha van der Mijn",
+"category": "Agatha van der Mijn",
+"born": "1700",
+"died": "1776",
+"sitelinks": 12
+},
+{
+"qid": "Q19747594",
+"name": "Bertha Müller",
+"category": "Bertha Müller",
+"born": "1848",
+"died": "1937",
+"sitelinks": 12
+},
+{
+"qid": "Q20440976",
+"name": "Julie Hart Beers",
+"category": "Julie Hart Beers",
+"born": "1834",
+"died": "1913",
+"sitelinks": 12
+},
+{
+"qid": "Q20873639",
+"name": "Maria Gażycz",
+"category": "Maria Gażycz",
+"born": "1860",
+"died": "1935",
+"sitelinks": 12
+},
+{
+"qid": "Q57729511",
+"name": "Susie M. Barstow",
+"category": "Susie M. Barstow",
+"born": "1836",
+"died": "1923",
+"sitelinks": 12
+},
+{
+"qid": "Q273349",
+"name": "Felka Płatek",
+"category": "Felka Płatek",
+"born": "1899",
+"died": "1944",
+"sitelinks": 11
+},
+{
+"qid": "Q275137",
+"name": "Louisa Beresford, Marchioness of Waterford",
+"category": "Louisa Anne, Marchioness of Waterford",
+"born": "1818",
+"died": "1891",
+"sitelinks": 11
+},
+{
+"qid": "Q459138",
+"name": "Moina Mathers",
+"category": "Moina Mathers",
+"born": "1865",
+"died": "1928",
+"sitelinks": 11
+},
+{
+"qid": "Q433566",
+"name": "Eva Watson-Schütze",
+"category": "Eva Watson-Schütze",
+"born": "1867",
+"died": "1935",
+"sitelinks": 11
+},
+{
+"qid": "Q561428",
+"name": "Anna Klein",
+"category": "Anna Klein",
+"born": "1883",
+"died": "1941",
+"sitelinks": 11
+},
+{
+"qid": "Q126743",
+"name": "Amalie Bensinger",
+"category": "Amalie Bensinger",
+"born": "1809",
+"died": "1889",
+"sitelinks": 11
+},
+{
+"qid": "Q1302990",
+"name": "Marie-Victoire Jaquotot",
+"category": "Marie-Victoire Jaquotot",
+"born": "1772",
+"died": "1855",
+"sitelinks": 11
+},
+{
+"qid": "Q1329733",
+"name": "Elisabeth Andrae",
+"category": "Elisabeth Andrae",
+"born": "1876",
+"died": "1945",
+"sitelinks": 11
+},
+{
+"qid": "Q1337347",
+"name": "Emilie Preyer",
+"category": "Emilie Preyer",
+"born": "1849",
+"died": "1930",
+"sitelinks": 11
+},
+{
+"qid": "Q1469672",
+"name": "Sophie von Adelung",
+"category": "Sophie von Adelung",
+"born": "1850",
+"died": "1927",
+"sitelinks": 11
+},
+{
+"qid": "Q1355806",
+"name": "Erma Bossi",
+"category": "Erma Bossi",
+"born": "1875",
+"died": "1952",
+"sitelinks": 11
+},
+{
+"qid": "Q1419288",
+"name": "Molly Cramer",
+"category": "Molly Cramer",
+"born": "1852",
+"died": "1936",
+"sitelinks": 11
+},
+{
+"qid": "Q1593149",
+"name": "Maria Slavona",
+"category": "Maria Slavona",
+"born": "1865",
+"died": "1931",
+"sitelinks": 11
+},
+{
+"qid": "Q1606202",
+"name": "Henriette Wolters-van Pee",
+"category": "Henriëtte Wolters-Van Pee",
+"born": "1692",
+"died": "1741",
+"sitelinks": 11
+},
+{
+"qid": "Q1897519",
+"name": "Marie Wiegmann",
+"category": "Marie Wiegmann",
+"born": "1820",
+"died": "1893",
+"sitelinks": 11
+},
+{
+"qid": "Q2103861",
+"name": "Mabel Loomis Todd",
+"category": "Mabel Loomis Todd",
+"born": "1856",
+"died": "1932",
+"sitelinks": 11
+},
+{
+"qid": "Q2654919",
+"name": "Martha Stettler",
+"category": "Martha Stettler",
+"born": "1870",
+"died": "1945",
+"sitelinks": 11
+},
+{
+"qid": "Q2670892",
+"name": "Maria Margaretha van Os",
+"category": "Maria Margrita van Os",
+"born": "1780",
+"died": "1862",
+"sitelinks": 11
+},
+{
+"qid": "Q2597755",
+"name": "Susannah Hornebolt",
+"category": "Susanna Horenbout",
+"born": "1503",
+"died": "1545",
+"sitelinks": 11
+},
+{
+"qid": "Q2447336",
+"name": "Wally Moes",
+"category": "Wally Moes",
+"born": "1856",
+"died": "1918",
+"sitelinks": 11
+},
+{
+"qid": "Q2994808",
+"name": "Constance Gordon-Cumming",
+"category": "Constance Gordon-Cumming",
+"born": "1837",
+"died": "1924",
+"sitelinks": 11
+},
+{
+"qid": "Q3292167",
+"name": "Marie-Noémi Cadiot",
+"category": "Marie-Noémi Cadiot",
+"born": "1828",
+"died": "1888",
+"sitelinks": 11
+},
+{
+"qid": "Q3292318",
+"name": "Marie-Éléonore Godefroid",
+"category": "Marie-Éléonore Godefroid",
+"born": "1778",
+"died": "1849",
+"sitelinks": 11
+},
+{
+"qid": "Q3292434",
+"name": "Marie Cazin",
+"category": "Marie Cazin",
+"born": "1844",
+"died": "1924",
+"sitelinks": 11
+},
+{
+"qid": "Q3292725",
+"name": "Marie Petiet",
+"category": "Marie Petiet",
+"born": "1854",
+"died": "1893",
+"sitelinks": 11
+},
+{
+"qid": "Q3296173",
+"name": "Mary Fairchild Low",
+"category": "Mary Fairchild Low",
+"born": "1858",
+"died": "1946",
+"sitelinks": 11
+},
+{
+"qid": "Q3187858",
+"name": "Carolina Carlesimo",
+"category": "Juana Romani",
+"born": "1867",
+"died": "1923",
+"sitelinks": 11
+},
+{
+"qid": "Q3263639",
+"name": "Louise-Joséphine Sarazin de Belmont",
+"category": "Louise-Joséphine Sarazin de Belmont",
+"born": "1790",
+"died": "1870",
+"sitelinks": 11
+},
+{
+"qid": "Q3086480",
+"name": "Françoise Duparc",
+"category": "Françoise Duparc",
+"born": "1726",
+"died": "1778",
+"sitelinks": 11
+},
+{
+"qid": "Q3571072",
+"name": "Xue Susu",
+"category": "Xue Susu",
+"born": "1564",
+"died": "1637",
+"sitelinks": 11
+},
+{
+"qid": "Q3275598",
+"name": "Madeleine Boullogne",
+"category": "Madeleine Boullogne",
+"born": "1646",
+"died": "1710",
+"sitelinks": 11
+},
+{
+"qid": "Q3651026",
+"name": "Nino Chavchavadze",
+"category": "Nino Chavchavadze",
+"born": "1812",
+"died": "1857",
+"sitelinks": 11
+},
+{
+"qid": "Q4455334",
+"name": "Eva Topelius",
+"category": "Eva Acke",
+"born": "1855",
+"died": "1929",
+"sitelinks": 11
+},
+{
+"qid": "Q4725738",
+"name": "Alice Barber Stephens",
+"category": "Alice Barber Stephens",
+"born": "1858",
+"died": "1932",
+"sitelinks": 11
+},
+{
+"qid": "Q4357400",
+"name": "Margareta Capsia",
+"category": "Margareta Capsia",
+"born": "1682",
+"died": "1759",
+"sitelinks": 11
+},
+{
+"qid": "Q4374905",
+"name": "Anna Potocka",
+"category": "Anna Potocka, Wąsowicz (née Tyszkiewicz)",
+"born": "1779",
+"died": "1867",
+"sitelinks": 11
+},
+{
+"qid": "Q4394206",
+"name": "Antonina Rzhevskaya",
+"category": "Antonina Rzhevskaya",
+"born": "1861",
+"died": "1934",
+"sitelinks": 11
+},
+{
+"qid": "Q5362185",
+"name": "Eliza Pratt Greatorex",
+"category": "Eliza Pratt Greatorex",
+"born": "1819",
+"died": "1897",
+"sitelinks": 11
+},
+{
+"qid": "Q4762120",
+"name": "Angel De Cora",
+"category": "Angel De Cora",
+"born": "1871",
+"died": "1919",
+"sitelinks": 11
+},
+{
+"qid": "Q4766924",
+"name": "Anna Claypoole Peale",
+"category": "Anna Claypoole Peale",
+"born": "1791",
+"died": "1878",
+"sitelinks": 11
+},
+{
+"qid": "Q4768181",
+"name": "Anne Bremer",
+"category": "Anne Bremer",
+"born": "1868",
+"died": "1923",
+"sitelinks": 11
+},
+{
+"qid": "Q5403087",
+"name": "Ethel Carrick",
+"category": "Ethel Carrick",
+"born": "1872",
+"died": "1951",
+"sitelinks": 11
+},
+{
+"qid": "Q5403225",
+"name": "Ethel Walker",
+"category": "Ethel Walker",
+"born": "1861",
+"died": "1951",
+"sitelinks": 11
+},
+{
+"qid": "Q4936505",
+"name": "Elise Arnberg",
+"category": "Elise Arnberg",
+"born": "1826",
+"died": "1891",
+"sitelinks": 11
+},
+{
+"qid": "Q4958665",
+"name": "Elisabeth Keyser",
+"category": "Elisabeth Keyser",
+"born": "1851",
+"died": "1898",
+"sitelinks": 11
+},
+{
+"qid": "Q4969995",
+"name": "Anna Nordgren",
+"category": "Anna Nordgren",
+"born": "1847",
+"died": "1916",
+"sitelinks": 11
+},
+{
+"qid": "Q4970064",
+"name": "Anna Nordlander",
+"category": "Anna Nordlander",
+"born": "1843",
+"died": "1877",
+"sitelinks": 11
+},
+{
+"qid": "Q4982628",
+"name": "Hildegard Thorell",
+"category": "Hildegard Thorell",
+"born": "1850",
+"died": "1930",
+"sitelinks": 11
+},
+{
+"qid": "Q4988517",
+"name": "Alexandra Frosterus-Såltin",
+"category": "Alexandra Frosterus-Såltin",
+"born": "1837",
+"died": "1916",
+"sitelinks": 11
+},
+{
+"qid": "Q4990094",
+"name": "Dora Wahlroos",
+"category": "Dora Wahlroos",
+"born": "1870",
+"died": "1947",
+"sitelinks": 11
+},
+{
+"qid": "Q6470225",
+"name": "Lady Helena Gleichen",
+"category": "Helena Gleichen",
+"born": "1873",
+"died": "1947",
+"sitelinks": 11
+},
+{
+"qid": "Q7422565",
+"name": "Sarah Mapps Douglass",
+"category": "Sarah Mapps Douglass",
+"born": "1806",
+"died": "1882",
+"sitelinks": 11
+},
+{
+"qid": "Q6787498",
+"name": "Matilda Browne",
+"category": "Matilda Browne",
+"born": "1869",
+"died": "1947",
+"sitelinks": 11
+},
+{
+"qid": "Q8085022",
+"name": "Adelheid Dietrich",
+"category": "Adelheid Dietrich",
+"born": "1827",
+"died": "1870",
+"sitelinks": 11
+},
+{
+"qid": "Q11465868",
+"name": "Rin Yamashita",
+"category": "Yamashita Rin",
+"born": "1857",
+"died": "1939",
+"sitelinks": 11
+},
+{
+"qid": "Q12071021",
+"name": "Maria Felice Tibaldi",
+"category": "Maria Felice Tibaldi",
+"born": "1707",
+"died": "1770",
+"sitelinks": 11
+},
+{
+"qid": "Q12117354",
+"name": "Sonia Lewitska",
+"category": "Sonia Lewitska",
+"born": "1874",
+"died": "1937",
+"sitelinks": 11
+},
+{
+"qid": "Q12301770",
+"name": "Anna Petersen",
+"category": "Anna Petersen",
+"born": "1845",
+"died": "1910",
+"sitelinks": 11
+},
+{
+"qid": "Q11685102",
+"name": "Helena Skirmunt",
+"category": "Helena Skirmunt",
+"born": "1827",
+"died": "1874",
+"sitelinks": 11
+},
+{
+"qid": "Q12876877",
+"name": "Eleni Boukoura-Altamoura",
+"category": "Eleni Boukoura-Altamoura",
+"born": "1821",
+"died": "1900",
+"sitelinks": 11
+},
+{
+"qid": "Q13136997",
+"name": "Margareta de Heer",
+"category": "Margaretha de Heer",
+"born": "1603",
+"died": "1665",
+"sitelinks": 11
+},
+{
+"qid": "Q13560679",
+"name": "Jenny Eakin Delony",
+"category": "Jenny Eakin Delony",
+"born": "1866",
+"died": "1949",
+"sitelinks": 11
+},
+{
+"qid": "Q15904009",
+"name": "Yun Zhu",
+"category": "Yun Zhu",
+"born": "1771",
+"died": "1833",
+"sitelinks": 11
+},
+{
+"qid": "Q15970234",
+"name": "Marguerite Delorme",
+"category": "Marguerite Delorme",
+"born": "1876",
+"died": "1946",
+"sitelinks": 11
+},
+{
+"qid": "Q15997836",
+"name": "May Wilson Preston",
+"category": "May Wilson Preston",
+"born": "1873",
+"died": "1949",
+"sitelinks": 11
+},
+{
+"qid": "Q16859805",
+"name": "Arcangela Paladini",
+"category": "Arcangela Paladini",
+"born": "1599",
+"died": "1622",
+"sitelinks": 11
+},
+{
+"qid": "Q18560543",
+"name": "Adèle Romany",
+"category": "Adèle Romany",
+"born": "1769",
+"died": "1846",
+"sitelinks": 11
+},
+{
+"qid": "Q18508145",
+"name": "Emilie Mediz-Pelikan",
+"category": "Emilie Mediz-Pelikan",
+"born": "1861",
+"died": "1908",
+"sitelinks": 11
+},
+{
+"qid": "Q19366834",
+"name": "Barbara Elisabeth van Houten",
+"category": "Barbara Elisabeth van Houten",
+"born": "1862",
+"died": "1950",
+"sitelinks": 11
+},
+{
+"qid": "Q19369386",
+"name": "Antonia de Bañuelos Thorndike",
+"category": "Antonia de Bañuelos Thorndike",
+"born": "1855",
+"died": "1921",
+"sitelinks": 11
+},
+{
+"qid": "Q19404634",
+"name": "Louisa Starr",
+"category": "Louisa Starr",
+"born": "1845",
+"died": "1909",
+"sitelinks": 11
+},
+{
+"qid": "Q19414297",
+"name": "Victoria Dubourg",
+"category": "Victoria Dubourg",
+"born": "1840",
+"died": "1926",
+"sitelinks": 11
+},
+{
+"qid": "Q19792224",
+"name": "Laura Coombs Hills",
+"category": "Laura Coombs Hills",
+"born": "1859",
+"died": "1952",
+"sitelinks": 11
+},
+{
+"qid": "Q19990516",
+"name": "Marie Müller",
+"category": "Marie Müller (artist)",
+"born": "1847",
+"died": "1935",
+"sitelinks": 11
+},
+{
+"qid": "Q19841648",
+"name": "Grace Hall Hemingway",
+"category": "Grace Hall Hemingway",
+"born": "1872",
+"died": "1951",
+"sitelinks": 11
+},
+{
+"qid": "Q20859053",
+"name": "Madeleine Zillhardt",
+"category": "Madeleine Zillhardt",
+"born": "1863",
+"died": "1950",
+"sitelinks": 11
+},
+{
+"qid": "Q274813",
+"name": "Éléonore Duplay",
+"category": "Éléonore Duplay",
+"born": "1768",
+"died": "1832",
+"sitelinks": 10
+},
+{
+"qid": "Q457254",
+"name": "Teodora Matejko",
+"category": "Teodora Matejko",
+"born": "1846",
+"died": "1896",
+"sitelinks": 10
+},
+{
+"qid": "Q520581",
+"name": "Helena Unierzyska",
+"category": "Helena Unierzyska",
+"born": "1867",
+"died": "1932",
+"sitelinks": 10
+},
+{
+"qid": "Q530639",
+"name": "Hazel Lavery",
+"category": "Hazel Lavery",
+"born": "1880",
+"died": "1935",
+"sitelinks": 10
+},
+{
+"qid": "Q114460",
+"name": "Hede von Trapp",
+"category": "Hede von Trapp",
+"born": "1877",
+"died": "1947",
+"sitelinks": 10
+},
+{
+"qid": "Q780077",
+"name": "Félicie de Fauveau",
+"category": "Félicie de Fauveau",
+"born": "1801",
+"died": "1886",
+"sitelinks": 10
+},
+{
+"qid": "Q807594",
+"name": "Barbara Regina Dietzsch",
+"category": "Barbara Regina Dietzsch",
+"born": "1706",
+"died": "1783",
+"sitelinks": 10
+},
+{
+"qid": "Q923881",
+"name": "Marianne Ehrenström",
+"category": "Marianne Ehrenström",
+"born": "1773",
+"died": "1867",
+"sitelinks": 10
+},
+{
+"qid": "Q1422010",
+"name": "Orra White Hitchcock",
+"category": "Orra White Hitchcock",
+"born": "1796",
+"died": "1863",
+"sitelinks": 10
+},
+{
+"qid": "Q1660404",
+"name": "Jessica Dismorr",
+"category": "Jessica Dismorr",
+"born": "1885",
+"died": "1939",
+"sitelinks": 10
+},
+{
+"qid": "Q1895990",
+"name": "Maria Innocentia Hummel",
+"category": "Maria Innocentia Hummel",
+"born": "1909",
+"died": "1946",
+"sitelinks": 10
+},
+{
+"qid": "Q2040407",
+"name": "Elisabeth Geertruida Wassenbergh",
+"category": "Elisabeth Geertruida Wassenbergh",
+"born": "1729",
+"died": "1781",
+"sitelinks": 10
+},
+{
+"qid": "Q2058289",
+"name": "Euphrosine Beernaert",
+"category": "Euphrosine Beernaert",
+"born": "1831",
+"died": "1901",
+"sitelinks": 10
+},
+{
+"qid": "Q2120094",
+"name": "Jenny Montigny",
+"category": "Jenny Montigny",
+"born": "1875",
+"died": "1937",
+"sitelinks": 10
+},
+{
+"qid": "Q2204292",
+"name": "Růžena Zátková",
+"category": "Růžena Zátková",
+"born": "1885",
+"died": "1923",
+"sitelinks": 10
+},
+{
+"qid": "Q2688035",
+"name": "Nina Ahlstedt",
+"category": "Nina Ahlstedt",
+"born": "1853",
+"died": "1907",
+"sitelinks": 10
+},
+{
+"qid": "Q2714765",
+"name": "Geertruydt Roghman",
+"category": "Geertruydt Roghman",
+"born": "1625",
+"died": "1650",
+"sitelinks": 10
+},
+{
+"qid": "Q2780287",
+"name": "Rose Clark",
+"category": "Rose Clark",
+"born": "1852",
+"died": "1942",
+"sitelinks": 10
+},
+{
+"qid": "Q2825318",
+"name": "Adrienne Marie Louise Grandpierre-Deverzy",
+"category": "Adrienne Marie Louise Grandpierre-Deverzy",
+"born": "1798",
+"died": "1869",
+"sitelinks": 10
+},
+{
+"qid": "Q2842660",
+"name": "Amelia Curran",
+"category": "Amelia Curran",
+"born": "1775",
+"died": "1847",
+"sitelinks": 10
+},
+{
+"qid": "Q2965864",
+"name": "Christina Charlotta Cederström",
+"category": "Charlotta Cederström",
+"born": "1760",
+"died": "1832",
+"sitelinks": 10
+},
+{
+"qid": "Q3298986",
+"name": "Mathilde de Morny",
+"category": "Mathilde de Morny",
+"born": "1863",
+"died": "1944",
+"sitelinks": 10
+},
+{
+"qid": "Q3176106",
+"name": "Jeanne Malivel",
+"category": "Jeanne Malivel",
+"born": "1895",
+"died": "1926",
+"sitelinks": 10
+},
+{
+"qid": "Q3263626",
+"name": "Louise-Adéone Drölling",
+"category": "Louise-Adéone Drölling",
+"born": "1797",
+"died": "1834",
+"sitelinks": 10
+},
+{
+"qid": "Q3275249",
+"name": "Marie-Élisabeth Cavé",
+"category": "Marie-Élisabeth Cavé",
+"born": "1806",
+"died": "1883",
+"sitelinks": 10
+},
+{
+"qid": "Q3724632",
+"name": "Emma Ciardi",
+"category": "Emma Ciardi",
+"born": "1879",
+"died": "1933",
+"sitelinks": 10
+},
+{
+"qid": "Q3732148",
+"name": "Ernesta Legnani Bisi",
+"category": "Ernesta Legnani",
+"born": "1788",
+"died": "1859",
+"sitelinks": 10
+},
+{
+"qid": "Q3307858",
+"name": "Anna Maria Thelott",
+"category": "Anna Maria Thelott",
+"born": "1683",
+"died": "1710",
+"sitelinks": 10
+},
+{
+"qid": "Q3808923",
+"name": "Empress Renhuai; Empress Zhu",
+"category": "Empress Renhuai of Song",
+"born": "1102",
+"died": "1127",
+"sitelinks": 10
+},
+{
+"qid": "Q3819089",
+"name": "Carmen Tórtola Valencia",
+"category": "Carmen Tórtola Valencia",
+"born": "1882",
+"died": "1955",
+"sitelinks": 10
+},
+{
+"qid": "Q4406790",
+"name": "Elena Samokich-Soudkovskaïa",
+"category": "Elena Petrovna Samokish-Sudkovskaya",
+"born": "1863",
+"died": "1924",
+"sitelinks": 10
+},
+{
+"qid": "Q4203038",
+"name": "Ira Yan",
+"category": "Ira Yan",
+"born": "1869",
+"died": "1919",
+"sitelinks": 10
+},
+{
+"qid": "Q4354618",
+"name": "Frances Anne Hopkins",
+"category": "Frances Anne Hopkins",
+"born": "1838",
+"died": "1919",
+"sitelinks": 10
+},
+{
+"qid": "Q4681137",
+"name": "Addie L. Ballou",
+"category": "Addie L. Ballou",
+"born": "1837",
+"died": "1916",
+"sitelinks": 10
+},
+{
+"qid": "Q4088316",
+"name": "Seraphima Blonskaya",
+"category": "Seraphima Blonskaya",
+"born": "1870",
+"died": "1947",
+"sitelinks": 10
+},
+{
+"qid": "Q5362606",
+"name": "Elizabeth Coffin",
+"category": "Elizabeth Rebecca Coffin",
+"born": "1850",
+"died": "1930",
+"sitelinks": 10
+},
+{
+"qid": "Q4537219",
+"name": "Maria Yakunchikova",
+"category": "Maria Yakunchikova",
+"born": "1870",
+"died": "1902",
+"sitelinks": 10
+},
+{
+"qid": "Q5372127",
+"name": "Emily Cumming Harris",
+"category": "Emily Cumming Harris",
+"born": "1837",
+"died": "1925",
+"sitelinks": 10
+},
+{
+"qid": "Q5052892",
+"name": "Catherine Read",
+"category": "Catherine Read",
+"born": "1723",
+"died": "1778",
+"sitelinks": 10
+},
+{
+"qid": "Q4820953",
+"name": "Augusta Preitinger",
+"category": "Guus van Dongen",
+"born": "1878",
+"died": "1946",
+"sitelinks": 10
+},
+{
+"qid": "Q5171188",
+"name": "Cornelia van der Mijn",
+"category": "Cornelia van der Mijn",
+"born": "1709",
+"died": "1782",
+"sitelinks": 10
+},
+{
+"qid": "Q4959059",
+"name": "Tyra Kleen",
+"category": "Tyra Kleen",
+"born": "1874",
+"died": "1951",
+"sitelinks": 10
+},
+{
+"qid": "Q4961995",
+"name": "Mechtelt van Lichtenberg",
+"category": "Mechtelt van Lichtenberg toe Boecop",
+"born": "1520",
+"died": "1598",
+"sitelinks": 10
+},
+{
+"qid": "Q4962912",
+"name": "Christine Løvmand",
+"category": "Christine Løvmand",
+"born": "1803",
+"died": "1872",
+"sitelinks": 10
+},
+{
+"qid": "Q4967957",
+"name": "Clara Montalba",
+"category": "Clara Montalba",
+"born": "1840",
+"died": "1929",
+"sitelinks": 10
+},
+{
+"qid": "Q4976317",
+"name": "Hanna Rönnberg",
+"category": "Hanna Rönnberg",
+"born": "1862",
+"died": "1946",
+"sitelinks": 10
+},
+{
+"qid": "Q4978495",
+"name": "Amanda Sidvall",
+"category": "Amanda Sidvall",
+"born": "1844",
+"died": "1892",
+"sitelinks": 10
+},
+{
+"qid": "Q4979792",
+"name": "Emma Josepha Sparre",
+"category": "Emma Sparre",
+"born": "1851",
+"died": "1913",
+"sitelinks": 10
+},
+{
+"qid": "Q5591221",
+"name": "Grace Hudson",
+"category": "Grace Hudson",
+"born": "1865",
+"died": "1937",
+"sitelinks": 10
+},
+{
+"qid": "Q6101516",
+"name": "Izabella Elżbieta Działyńska",
+"category": "Izabella Działyńska",
+"born": "1830",
+"died": "1899",
+"sitelinks": 10
+},
+{
+"qid": "Q6779319",
+"name": "Mary Dignam",
+"category": "Mary Dignam",
+"born": "1857",
+"died": "1938",
+"sitelinks": 10
+},
+{
+"qid": "Q6153595",
+"name": "Janet Scudder",
+"category": "Janet Scudder",
+"born": "1869",
+"died": "1940",
+"sitelinks": 10
+},
+{
+"qid": "Q7367857",
+"name": "Rose Maynard Barton",
+"category": "Rose Maynard Barton",
+"born": "1856",
+"died": "1929",
+"sitelinks": 10
+},
+{
+"qid": "Q6761699",
+"name": "Maria del Rosario Weiss",
+"category": "Rosario Weiss",
+"born": "1814",
+"died": "1843",
+"sitelinks": 10
+},
+{
+"qid": "Q6792218",
+"name": "Maud Earl",
+"category": "Maud Earl",
+"born": "1864",
+"died": "1943",
+"sitelinks": 10
+},
+{
+"qid": "Q8309899",
+"name": "Marie-Anne Fragonard",
+"category": "Marie-Anne Fragonard",
+"born": "1745",
+"died": "1823",
+"sitelinks": 10
+},
+{
+"qid": "Q9584331",
+"name": "Adélia Fonseca",
+"category": "Adélia Fonseca",
+"born": "1827",
+"died": "1920",
+"sitelinks": 10
+},
+{
+"qid": "Q11465984",
+"name": "Catarina Ykens (I)",
+"category": "Catarina Ykens (I)",
+"born": "1608",
+"died": "1666",
+"sitelinks": 10
+},
+{
+"qid": "Q11978845",
+"name": "Johanne Mathilde Dietrichson",
+"category": "Johanne Mathilde Dietrichson",
+"born": "1837",
+"died": "1921",
+"sitelinks": 10
+},
+{
+"qid": "Q12057190",
+"name": "Christina Enschedé",
+"category": "Christiana Gerarda Enschedé",
+"born": "1791",
+"died": "1873",
+"sitelinks": 10
+},
+{
+"qid": "Q12173007",
+"name": "Ekaterina Junge",
+"category": "Ekaterina Junge",
+"born": "1843",
+"died": "1913",
+"sitelinks": 10
+},
+{
+"qid": "Q12320032",
+"name": "Johanne Cathrine Krebs",
+"category": "Johanne Krebs",
+"born": "1848",
+"died": "1924",
+"sitelinks": 10
+},
+{
+"qid": "Q11851610",
+"name": "Anna Sahlsten",
+"category": "Anna Sahlstén",
+"born": "1859",
+"died": "1931",
+"sitelinks": 10
+},
+{
+"qid": "Q11881446",
+"name": "Mathilda Rotkirch",
+"category": "Mathilda Rotkirch",
+"born": "1813",
+"died": "1842",
+"sitelinks": 10
+},
+{
+"qid": "Q15402320",
+"name": "Nina Arbore",
+"category": "Nina Arbore",
+"born": "1889",
+"died": "1942",
+"sitelinks": 10
+},
+{
+"qid": "Q15450676",
+"name": "Maria Katharina Prestel",
+"category": "Maria Katharina Prestel",
+"born": "1747",
+"died": "1794",
+"sitelinks": 10
+},
+{
+"qid": "Q13640653",
+"name": "Geesje Mesdag-van Calcar",
+"category": "Geesje Mesdag-van Calcar",
+"born": "1850",
+"died": "1936",
+"sitelinks": 10
+},
+{
+"qid": "Q15488386",
+"name": "Maria Giovanna Clementi",
+"category": "Maria Giovanna Clementi",
+"born": "1690",
+"died": "1761",
+"sitelinks": 10
+},
+{
+"qid": "Q15511647",
+"name": "Francina Margaretha van Huysum",
+"category": "Francina Margaretha van Huysum",
+"born": "1707",
+"died": "1789",
+"sitelinks": 10
+},
+{
+"qid": "Q15527965",
+"name": "Margaretha Roosenboom",
+"category": "Margaretha Roosenboom",
+"born": "1843",
+"died": "1896",
+"sitelinks": 10
+},
+{
+"qid": "Q16063259",
+"name": "Astrid Holm",
+"category": "Astrid Holm",
+"born": "1876",
+"died": "1937",
+"sitelinks": 10
+},
+{
+"qid": "Q16065556",
+"name": "Adriana van Ravenswaay",
+"category": "Adriana van Ravenswaay",
+"born": "1816",
+"died": "1872",
+"sitelinks": 10
+},
+{
+"qid": "Q15987833",
+"name": "Marion Boyd Allen",
+"category": "Marion Boyd Allen",
+"born": "1862",
+"died": "1941",
+"sitelinks": 10
+},
+{
+"qid": "Q16200110",
+"name": "Adriana Johanna Haanen",
+"category": "Adriana Johanna Haanen",
+"born": "1814",
+"died": "1895",
+"sitelinks": 10
+},
+{
+"qid": "Q16200439",
+"name": "Ida Botti Scifoni",
+"category": "Idda Botti Scifoni",
+"born": "1812",
+"died": "1844",
+"sitelinks": 10
+},
+{
+"qid": "Q16031493",
+"name": "Anna Huntington Stanley",
+"category": "Anna Huntington Stanley",
+"born": "1864",
+"died": "1907",
+"sitelinks": 10
+},
+{
+"qid": "Q16856738",
+"name": "Iso Rae",
+"category": "Iso Rae",
+"born": "1860",
+"died": "1940",
+"sitelinks": 10
+},
+{
+"qid": "Q18018400",
+"name": "Anna Gerresheim",
+"category": "Anna Gerresheim",
+"born": "1852",
+"died": "1921",
+"sitelinks": 10
+},
+{
+"qid": "Q17320100",
+"name": "Catharina Backer",
+"category": "Catharina Backer",
+"born": "1689",
+"died": "1766",
+"sitelinks": 10
+},
+{
+"qid": "Q17325025",
+"name": "Marguerite Charpentier",
+"category": "Marguérite Louise Charpentier",
+"born": "1848",
+"died": "1904",
+"sitelinks": 10
+},
+{
+"qid": "Q16943821",
+"name": "Madeleine Carpentier",
+"category": "Madeleine Carpentier",
+"born": "1865",
+"died": "1949",
+"sitelinks": 10
+},
+{
+"qid": "Q18516564",
+"name": "Henriëtte Geertruida Knip",
+"category": "Henriette Geertruida Knip",
+"born": "1783",
+"died": "1842",
+"sitelinks": 10
+},
+{
+"qid": "Q18562310",
+"name": "Helen Cordelia Angell",
+"category": "Helen Cordelia Angell",
+"born": "1847",
+"died": "1884",
+"sitelinks": 10
+},
+{
+"qid": "Q18508284",
+"name": "Henrika Šantel",
+"category": "Henrika Šantel",
+"born": "1874",
+"died": "1940",
+"sitelinks": 10
+},
+{
+"qid": "Q18508300",
+"name": "Heva Coomans",
+"category": "Heva Coomans",
+"born": "1860",
+"died": "1939",
+"sitelinks": 10
+},
+{
+"qid": "Q18642364",
+"name": "Dorothy Boyle, Countess of Burlington and Countess of Cork",
+"category": "Dorothy Savile",
+"born": "1699",
+"died": "1758",
+"sitelinks": 10
+},
+{
+"qid": "Q19370145",
+"name": "Rosina Mantovani Gutti",
+"category": "Rosina Mantovani Gutti",
+"born": "1851",
+"died": "1943",
+"sitelinks": 10
+},
+{
+"qid": "Q19372925",
+"name": "Jenny Zillhardt",
+"category": "Jenny Zillhardt",
+"born": "1857",
+"died": "1939",
+"sitelinks": 10
+},
+{
+"qid": "Q19375224",
+"name": "Lily Blatherwick",
+"category": "Lily Blatherwick",
+"born": "1854",
+"died": "1934",
+"sitelinks": 10
+},
+{
+"qid": "Q19507071",
+"name": "Zoé-Laure de Chatillon",
+"category": "Zoé-Laure de Chatillon",
+"born": "1826",
+"died": "1908",
+"sitelinks": 10
+},
+{
+"qid": "Q19750548",
+"name": "Ellen Emmet Rand",
+"category": "Ellen Emmet Rand",
+"born": "1875",
+"died": "1941",
+"sitelinks": 10
+},
+{
+"qid": "Q20497287",
+"name": "Margaret Lesley Bush-Brown",
+"category": "Margaret Lesley Bush-Brown",
+"born": "1857",
+"died": "1944",
+"sitelinks": 10
+},
+{
+"qid": "Q21345058",
+"name": "Marie Collart-Henrotin",
+"category": "Marie Collart-Henrotin",
+"born": "1842",
+"died": "1911",
+"sitelinks": 10
+},
+{
+"qid": "Q21457825",
+"name": "Emily Stannard",
+"category": "Emily Stannard",
+"born": "1802",
+"died": "1885",
+"sitelinks": 10
+},
+{
+"qid": "Q21501349",
+"name": "Adelaide Claxton",
+"category": "Adelaide Claxton",
+"born": "1841",
+"died": "1927",
+"sitelinks": 10
+},
+{
+"qid": "Q21536713",
+"name": "May Vale",
+"category": "May Vale",
+"born": "1862",
+"died": "1945",
+"sitelinks": 10
+},
+{
+"qid": "Q21639354",
+"name": "Nina Simonovich-Efimova",
+"category": "Nina Simonovich-Efimova",
+"born": "1877",
+"died": "1948",
+"sitelinks": 10
+},
+{
+"qid": "Q21818570",
+"name": "Eleanor Greatorex",
+"category": "Eleanor Greatorex",
+"born": "1853",
+"died": "1908",
+"sitelinks": 10
+},
+{
+"qid": "Q22915182",
+"name": "Marie Tannæs",
+"category": "Marie Tannæs",
+"born": "1854",
+"died": "1939",
+"sitelinks": 10
+},
+{
+"qid": "Q22674349",
+"name": "Giola Gandini",
+"category": "Giola Gandini",
+"born": "1906",
+"died": "1941",
+"sitelinks": 10
+},
+{
+"qid": "Q24003239",
+"name": "Helena Emingerová",
+"category": "Helena Emingerová",
+"born": "1858",
+"died": "1943",
+"sitelinks": 10
+},
+{
+"qid": "Q26202496",
+"name": "Camilla Friedländer",
+"category": "Camilla Friedländer",
+"born": "1856",
+"died": "1928",
+"sitelinks": 10
+},
+{
+"qid": "Q28207217",
+"name": "Rosina Emmet Sherwood",
+"category": "Rosina Emmet Sherwood",
+"born": "1854",
+"died": "1948",
+"sitelinks": 10
+},
+{
+"qid": "Q274665",
+"name": "Edith Maryon",
+"category": "Edith Maryon",
+"born": "1872",
+"died": "1924",
+"sitelinks": 9
+},
+{
+"qid": "Q276084",
+"name": "Rosina Ferrara",
+"category": "Rosina Ferrara",
+"born": "1861",
+"died": "1934",
+"sitelinks": 9
+},
+{
+"qid": "Q276496",
+"name": "Geneviève Brossard de Beaulieu",
+"category": "Geneviève Brossard de Beaulieu",
+"born": "1755",
+"died": "1832",
+"sitelinks": 9
+},
+{
+"qid": "Q405768",
+"name": "Lizinska de Mirbel",
+"category": "Lizinska de Mirbel",
+"born": "1796",
+"died": "1849",
+"sitelinks": 9
+},
+{
+"qid": "Q475749",
+"name": "Luise Begas-Parmentier",
+"category": "Luise Begas-Parmentier",
+"born": "1843",
+"died": "1920",
+"sitelinks": 9
+},
+{
+"qid": "Q512429",
+"name": "Jacoba Maria van Nickelen",
+"category": "Jacoba Maria van Nickelen",
+"born": "1690",
+"died": "1749",
+"sitelinks": 9
+},
+{
+"qid": "Q528556",
+"name": "Princess Feodora Adelheid of Schleswig-Holstein-Sonderburg-Augustenburg",
+"category": "Feodora von Schleswig-Holstein-Sonderburg-Augustenburg",
+"born": "1874",
+"died": "1910",
+"sitelinks": 9
+},
+{
+"qid": "Q530624",
+"name": "Neysa McMein",
+"category": "Neysa McMein",
+"born": "1888",
+"died": "1949",
+"sitelinks": 9
+},
+{
+"qid": "Q94577",
+"name": "Tom Seidmann-Freud",
+"category": "Tom Seidmann-Freud",
+"born": "1892",
+"died": "1930",
+"sitelinks": 9
+},
+{
+"qid": "Q123743",
+"name": "Babeli Giezendanner",
+"category": "Babeli Giezendanner",
+"born": "1831",
+"died": "1905",
+"sitelinks": 9
+},
+{
+"qid": "Q1067398",
+"name": "Charlotte von Krogh",
+"category": "Charlotte Christiane von Krogh",
+"born": "1827",
+"died": "1913",
+"sitelinks": 9
+},
+{
+"qid": "Q1239493",
+"name": "Elisabeth von Eicken",
+"category": "Elisabeth von Eicken",
+"born": "1862",
+"died": "1940",
+"sitelinks": 9
+},
+{
+"qid": "Q774020",
+"name": "Dorothea Maetzel-Johannsen",
+"category": "Dorothea Maetzel-Johannsen",
+"born": "1886",
+"died": "1930",
+"sitelinks": 9
+},
+{
+"qid": "Q1330394",
+"name": "Elisabeth von Adlerflycht",
+"category": "Elisabeth von Adlerflycht",
+"born": "1775",
+"died": "1846",
+"sitelinks": 9
+},
+{
+"qid": "Q1515693",
+"name": "Gertrud Staats",
+"category": "Gertrud Staats",
+"born": "1859",
+"died": "1938",
+"sitelinks": 9
+},
+{
+"qid": "Q1451083",
+"name": "Sally von Kügelgen",
+"category": "Sally von Kügelgen",
+"born": "1860",
+"died": "1928",
+"sitelinks": 9
+},
+{
+"qid": "Q1495354",
+"name": "Susan Stuart Frackleton",
+"category": "Susan Stuart Frackelton",
+"born": "1848",
+"died": "1932",
+"sitelinks": 9
+},
+{
+"qid": "Q1564832",
+"name": "Edith Anna Somerville",
+"category": "Edith Somerville",
+"born": "1858",
+"died": "1949",
+"sitelinks": 9
+},
+{
+"qid": "Q1613618",
+"name": "Hermione von Preuschen",
+"category": "Hermione von Preuschen",
+"born": "1854",
+"died": "1918",
+"sitelinks": 9
+},
+{
+"qid": "Q1677808",
+"name": "Jacqueline Comerre-Paton",
+"category": "Jacqueline Comerre-Paton",
+"born": "1859",
+"died": "1955",
+"sitelinks": 9
+},
+{
+"qid": "Q1821051",
+"name": "Anna De Weert",
+"category": "Anna De Weert",
+"born": "1867",
+"died": "1950",
+"sitelinks": 9
+},
+{
+"qid": "Q1846225",
+"name": "Berthe Art",
+"category": "Berthe Art",
+"born": "1857",
+"died": "1934",
+"sitelinks": 9
+},
+{
+"qid": "Q1874037",
+"name": "Ludovike Simanowiz",
+"category": "Ludovike Simanowiz",
+"born": "1759",
+"died": "1827",
+"sitelinks": 9
+},
+{
+"qid": "Q1897138",
+"name": "Marie-Geneviève Navarre",
+"category": "Marie-Geneviève Navarre",
+"born": "1735",
+"died": "1795",
+"sitelinks": 9
+},
+{
+"qid": "Q1992805",
+"name": "Nina Kogan",
+"category": "Nina Kogan",
+"born": "1889",
+"died": "1942",
+"sitelinks": 9
+},
+{
+"qid": "Q2094530",
+"name": "Pietronella Peters",
+"category": "Pietronella Peters",
+"born": "1848",
+"died": "1924",
+"sitelinks": 9
+},
+{
+"qid": "Q2180340",
+"name": "Titia Brongersma",
+"category": "Titia Brongersma",
+"born": "1650",
+"died": "1700",
+"sitelinks": 9
+},
+{
+"qid": "Q2501622",
+"name": "Maria Verelst",
+"category": "Maria Verelst",
+"born": "1680",
+"died": "1744",
+"sitelinks": 9
+},
+{
+"qid": "Q2230822",
+"name": "Catharina Oostfries",
+"category": "Catharina Oostfries",
+"born": "1636",
+"died": "1708",
+"sitelinks": 9
+},
+{
+"qid": "Q2257340",
+"name": "Sophia Holt",
+"category": "Sophia Holt",
+"born": "1658",
+"died": "1734",
+"sitelinks": 9
+},
+{
+"qid": "Q2928572",
+"name": "Elise Thérèse Koekkoek-Daiwaille",
+"category": "Elise Thérèse Daiwaille",
+"born": "1814",
+"died": "1881",
+"sitelinks": 9
+},
+{
+"qid": "Q2995309",
+"name": "Consuelo Fould",
+"category": "Consuelo Fould",
+"born": "1862",
+"died": "1927",
+"sitelinks": 9
+},
+{
+"qid": "Q3051071",
+"name": "Elisa de Lamartine",
+"category": "Marianne Élisa de Lamartine",
+"born": "1790",
+"died": "1863",
+"sitelinks": 9
+},
+{
+"qid": "Q2955939",
+"name": "Chana Gitla Kowalska",
+"category": "Chana Gitla Kowalska",
+"born": "1899",
+"died": "1942",
+"sitelinks": 9
+},
+{
+"qid": "Q3290989",
+"name": "Maria Maddalena Baldacci",
+"category": "Maria Maddalena Baldacci",
+"born": "1718",
+"died": "1782",
+"sitelinks": 9
+},
+{
+"qid": "Q3175994",
+"name": "Jeanne Bonaparte",
+"category": "Jeanne Bonaparte",
+"born": "1861",
+"died": "1910",
+"sitelinks": 9
+},
+{
+"qid": "Q3176153",
+"name": "Jeanne Rongier",
+"category": "Jeanne Rongier",
+"born": "1852",
+"died": "1929",
+"sitelinks": 9
+},
+{
+"qid": "Q3197848",
+"name": "Teresa Żarnowerówna",
+"category": "Teresa Żarnowerówna",
+"born": "1895",
+"died": "1949",
+"sitelinks": 9
+},
+{
+"qid": "Q3237589",
+"name": "Li Yin",
+"category": "Li Yin",
+"born": "1610",
+"died": "1685",
+"sitelinks": 9
+},
+{
+"qid": "Q3094100",
+"name": "Gabrielle-Charlotte Patin",
+"category": "Gabrielle-Charlotte Patin",
+"born": "1665",
+"died": "1751",
+"sitelinks": 9
+},
+{
+"qid": "Q3103962",
+"name": "Grada Hermina Marius",
+"category": "Grada Hermina Marius",
+"born": "1854",
+"died": "1919",
+"sitelinks": 9
+},
+{
+"qid": "Q3377754",
+"name": "Marie Jeanne Clemens",
+"category": "Marie Jeanne Clemens",
+"born": "1755",
+"died": "1791",
+"sitelinks": 9
+},
+{
+"qid": "Q3518357",
+"name": "Teresa del Po",
+"category": "Teresa del Po",
+"born": "1649",
+"died": "1713",
+"sitelinks": 9
+},
+{
+"qid": "Q3567210",
+"name": "Wen Chu",
+"category": "Wen Shu",
+"born": "1594",
+"died": "1634",
+"sitelinks": 9
+},
+{
+"qid": "Q3273592",
+"name": "Cornelia van Marle",
+"category": "Cornelia van Marle",
+"born": "1661",
+"died": "1698",
+"sitelinks": 9
+},
+{
+"qid": "Q3723425",
+"name": "Elizabeth Leveson-Gower, Duchess of Sutherland",
+"category": "Elizabeth Gordon, 19th Countess of Sutherland",
+"born": "1765",
+"died": "1839",
+"sitelinks": 9
+},
+{
+"qid": "Q4189311",
+"name": "Elizabeta Zvantseva",
+"category": "Elizabeta Zvantseva",
+"born": "1864",
+"died": "1921",
+"sitelinks": 9
+},
+{
+"qid": "Q3847439",
+"name": "Maria Moninckx",
+"category": "Maria Moninckx",
+"born": "1673",
+"died": "1757",
+"sitelinks": 9
+},
+{
+"qid": "Q4271993",
+"name": "Auguste Ludwig",
+"category": "Auguste Ludwig",
+"born": "1834",
+"died": "1901",
+"sitelinks": 9
+},
+{
+"qid": "Q4349506",
+"name": "Charlotta Malm-Reuterholm",
+"category": "Charlotta Malm-Reuterholm",
+"born": "1768",
+"died": "1845",
+"sitelinks": 9
+},
+{
+"qid": "Q4725732",
+"name": "Alice Bolingbroke Woodward",
+"category": "Alice Bolingbroke Woodward",
+"born": "1862",
+"died": "1951",
+"sitelinks": 9
+},
+{
+"qid": "Q4742233",
+"name": "Amelia Cary, Viscountess Falkland",
+"category": "Amelia Cary, Viscountess Falkland",
+"born": "1807",
+"died": "1858",
+"sitelinks": 9
+},
+{
+"qid": "Q5361418",
+"name": "Elisabeth Alida Haanen",
+"category": "Elisabeth Alida Haanen",
+"born": "1809",
+"died": "1845",
+"sitelinks": 9
+},
+{
+"qid": "Q5362440",
+"name": "Elizabeth Boott",
+"category": "Elizabeth Boott Duveneck",
+"born": "1846",
+"died": "1888",
+"sitelinks": 9
+},
+{
+"qid": "Q4755108",
+"name": "Andrea Gram",
+"category": "Andrea Gram",
+"born": "1853",
+"died": "1927",
+"sitelinks": 9
+},
+{
+"qid": "Q4766556",
+"name": "Ann Mary Newton",
+"category": "Ann Mary Newton",
+"born": "1832",
+"died": "1866",
+"sitelinks": 9
+},
+{
+"qid": "Q4767011",
+"name": "Anna Francisca de Bruyns",
+"category": "Anna Francisca de Bruyns",
+"born": "1604",
+"died": "1656",
+"sitelinks": 9
+},
+{
+"qid": "Q4767321",
+"name": "Anna Mary Howitt",
+"category": "Anna Mary Howitt",
+"born": "1824",
+"died": "1884",
+"sitelinks": 9
+},
+{
+"qid": "Q4768347",
+"name": "Anne Frances Byrne",
+"category": "Anne Frances Byrne",
+"born": "1775",
+"died": "1837",
+"sitelinks": 9
+},
+{
+"qid": "Q4768387",
+"name": "Anne Goldthwaite",
+"category": "Anne Goldthwaite",
+"born": "1869",
+"died": "1944",
+"sitelinks": 9
+},
+{
+"qid": "Q5362847",
+"name": "Elizabeth Goodridge",
+"category": "Eliza Goodridge",
+"born": "1798",
+"died": "1882",
+"sitelinks": 9
+},
+{
+"qid": "Q4959704",
+"name": "Wilhelmina Krafft",
+"category": "Wilhelmina Krafft",
+"born": "1778",
+"died": "1828",
+"sitelinks": 9
+},
+{
+"qid": "Q4980514",
+"name": "Marika Stiernstedt",
+"category": "Marika Stiernstedt",
+"born": "1875",
+"died": "1954",
+"sitelinks": 9
+},
+{
+"qid": "Q4988393",
+"name": "Emma Ekwall",
+"category": "Emma Ekwall",
+"born": "1838",
+"died": "1925",
+"sitelinks": 9
+},
+{
+"qid": "Q5479059",
+"name": "Francesca Alexander",
+"category": "Francesca Alexander",
+"born": "1837",
+"died": "1917",
+"sitelinks": 9
+},
+{
+"qid": "Q5529917",
+"name": "Geertgen Wyntges",
+"category": "Geertgen Wyntges",
+"born": "1636",
+"died": "1712",
+"sitelinks": 9
+},
+{
+"qid": "Q6151162",
+"name": "Jane Benham Hay",
+"category": "Jane Benham Hay",
+"born": "1829",
+"died": "1904",
+"sitelinks": 9
+},
+{
+"qid": "Q7376346",
+"name": "Ruby Lindsay",
+"category": "Ruby Lindsay",
+"born": "1885",
+"died": "1919",
+"sitelinks": 9
+},
+{
+"qid": "Q7421795",
+"name": "Sara Troost",
+"category": "Sara Troost",
+"born": "1732",
+"died": "1803",
+"sitelinks": 9
+},
+{
+"qid": "Q6624017",
+"name": "Aleijda Wolfsen",
+"category": "Aleijda Wolfsen",
+"born": "1648",
+"died": "1692",
+"sitelinks": 9
+},
+{
+"qid": "Q6717269",
+"name": "Dong Xiaowan",
+"category": "Dong Xiaowan",
+"born": "1624",
+"died": "1651",
+"sitelinks": 9
+},
+{
+"qid": "Q7607043",
+"name": "Stella Bowen",
+"category": "Stella Bowen",
+"born": "1893",
+"died": "1947",
+"sitelinks": 9
+},
+{
+"qid": "Q7647917",
+"name": "Susan Hale",
+"category": "Susan Hale",
+"born": "1833",
+"died": "1910",
+"sitelinks": 9
+},
+{
+"qid": "Q12060446",
+"name": "Anna Cornelia Holt",
+"category": "Anna Cornelia Holt",
+"born": "1671",
+"died": "1692",
+"sitelinks": 9
+},
+{
+"qid": "Q12302478",
+"name": "Augusta Dohlmann",
+"category": "Augusta Dohlmann",
+"born": "1847",
+"died": "1914",
+"sitelinks": 9
+},
+{
+"qid": "Q12326071",
+"name": "Marie Henriques",
+"category": "Marie Henriques",
+"born": "1866",
+"died": "1944",
+"sitelinks": 9
+},
+{
+"qid": "Q15407045",
+"name": "Hélène Feillet",
+"category": "Hélène Feillet",
+"born": "1812",
+"died": "1889",
+"sitelinks": 9
+},
+{
+"qid": "Q13560751",
+"name": "Virginia Richmond Reynolds",
+"category": "Virginia Richmond Reynolds",
+"born": "1866",
+"died": "1903",
+"sitelinks": 9
+},
+{
+"qid": "Q14541190",
+"name": "Elena Popea",
+"category": "Elena Popea",
+"born": "1879",
+"died": "1941",
+"sitelinks": 9
+},
+{
+"qid": "Q15734181",
+"name": "Catharina Julia Roeters van Lennep",
+"category": "Catharina Julia Roeters van Lennep",
+"born": "1813",
+"died": "1883",
+"sitelinks": 9
+},
+{
+"qid": "Q16070395",
+"name": "Julie de Graag",
+"category": "Julie de Graag",
+"born": "1877",
+"died": "1924",
+"sitelinks": 9
+},
+{
+"qid": "Q15104964",
+"name": "Amanda Brewster Sewell",
+"category": "Amanda Brewster Sewell",
+"born": "1839",
+"died": "1926",
+"sitelinks": 9
+},
+{
+"qid": "Q15104969",
+"name": "Alice De Wolf Kellogg",
+"category": "Alice De Wolf Kellogg",
+"born": "1862",
+"died": "1900",
+"sitelinks": 9
+},
+{
+"qid": "Q15133172",
+"name": "Maria Schalcken",
+"category": "Maria Schalcken",
+"born": "1647",
+"died": "1690",
+"sitelinks": 9
+},
+{
+"qid": "Q15962457",
+"name": "Maria Margaretha la Fargue",
+"category": "Maria Margaretha la Fargue",
+"born": "1743",
+"died": "1813",
+"sitelinks": 9
+},
+{
+"qid": "Q16030833",
+"name": "Florence Esté",
+"category": "Florence Esté",
+"born": "1859",
+"died": "1926",
+"sitelinks": 9
+},
+{
+"qid": "Q16594463",
+"name": "Anna Cassel",
+"category": "Anna Cassel",
+"born": "1860",
+"died": "1937",
+"sitelinks": 9
+},
+{
+"qid": "Q17353230",
+"name": "Marian Emma Chase",
+"category": "Marian Emma Chase",
+"born": "1844",
+"died": "1905",
+"sitelinks": 9
+},
+{
+"qid": "Q17430319",
+"name": "Bramine Hubrecht",
+"category": "Bramine Hubrecht",
+"born": "1855",
+"died": "1913",
+"sitelinks": 9
+},
+{
+"qid": "Q18093157",
+"name": "Wilhelmina van Idsinga",
+"category": "Wilhelmina Geertruida van Idsinga",
+"born": "1788",
+"died": "1819",
+"sitelinks": 9
+},
+{
+"qid": "Q18202155",
+"name": "Anna Maria von Baden-Durlach",
+"category": "Anna Maria of Baden-Durlach",
+"born": "1617",
+"died": "1672",
+"sitelinks": 9
+},
+{
+"qid": "Q16890287",
+"name": "Adelaide Salles-Wagner",
+"category": "Adelaïde Salles-Wagner",
+"born": "1825",
+"died": "1890",
+"sitelinks": 9
+},
+{
+"qid": "Q18527938",
+"name": "Edith Martineau",
+"category": "Edith Martineau",
+"born": "1842",
+"died": "1909",
+"sitelinks": 9
+},
+{
+"qid": "Q18558894",
+"name": "Elisabeth Johanna Koning",
+"category": "Elisabeth Johanna Koning",
+"born": "1816",
+"died": "1887",
+"sitelinks": 9
+},
+{
+"qid": "Q18574722",
+"name": "Anna-Geneviève Greuze",
+"category": "Anne-Geneviève Greuze",
+"born": "1762",
+"died": "1842",
+"sitelinks": 9
+},
+{
+"qid": "Q18637013",
+"name": "Eugénie Marie Salanson",
+"category": "Eugénie Marie Salanson",
+"born": "1836",
+"died": "1912",
+"sitelinks": 9
+},
+{
+"qid": "Q18701628",
+"name": "Susanna de La Croix",
+"category": "Susanna de la Croix",
+"born": "1755",
+"died": "1789",
+"sitelinks": 9
+},
+{
+"qid": "Q18646081",
+"name": "Marie-Amélie Cogniet",
+"category": "Marie Amélie Cogniet",
+"born": "1798",
+"died": "1869",
+"sitelinks": 9
+},
+{
+"qid": "Q19363569",
+"name": "Francine Charderon",
+"category": "Francine Charderon",
+"born": "1861",
+"died": "1928",
+"sitelinks": 9
+},
+{
+"qid": "Q19409121",
+"name": "Jessie MacGregor",
+"category": "Jessie Macgregor",
+"born": "1847",
+"died": "1919",
+"sitelinks": 9
+},
+{
+"qid": "Q19502553",
+"name": "María Roësset Mosquera",
+"category": "María Roësset Mosquera",
+"born": "1882",
+"died": "1921",
+"sitelinks": 9
+},
+{
+"qid": "Q19588488",
+"name": "Angèle Dubos",
+"category": "Angèle Dubos",
+"born": "1844",
+"died": "1916",
+"sitelinks": 9
+},
+{
+"qid": "Q19975139",
+"name": "Elizabeth Wentworth Roberts",
+"category": "Elizabeth Wentworth Roberts",
+"born": "1871",
+"died": "1927",
+"sitelinks": 9
+},
+{
+"qid": "Q19817346",
+"name": "Susanna Mayr",
+"category": "Susanna Mayr",
+"born": "1600",
+"died": "1674",
+"sitelinks": 9
+},
+{
+"qid": "Q20064680",
+"name": "Herminie Gudin",
+"category": "Henriette Gudin",
+"born": "1825",
+"died": "1876",
+"sitelinks": 9
+},
+{
+"qid": "Q20085715",
+"name": "Fanny Currey",
+"category": "Fanny Currey",
+"born": "1848",
+"died": "1917",
+"sitelinks": 9
+},
+{
+"qid": "Q20967783",
+"name": "Lea von Littrow",
+"category": "Lea von Littrow",
+"born": "1860",
+"died": "1925",
+"sitelinks": 9
+},
+{
+"qid": "Q21457898",
+"name": "Emma Gaggiotti Richards",
+"category": "Emma Gaggiotti Richards",
+"born": "1825",
+"died": "1912",
+"sitelinks": 9
+},
+{
+"qid": "Q22957899",
+"name": "Dora Wheeler Keith",
+"category": "Dora Wheeler Keith",
+"born": "1856",
+"died": "1940",
+"sitelinks": 9
+},
+{
+"qid": "Q23482609",
+"name": "Waleria Tarnowska",
+"category": "Waleria Tarnowska",
+"born": "1782",
+"died": "1849",
+"sitelinks": 9
+},
+{
+"qid": "Q23612680",
+"name": "Alejandrina Gessler y Lacroix",
+"category": "Alejandrina Gessler y Lacroix",
+"born": "1831",
+"died": "1907",
+"sitelinks": 9
+},
+{
+"qid": "Q23613943",
+"name": "Georgiana Houghton",
+"category": "Georgiana Houghton",
+"born": "1814",
+"died": "1884",
+"sitelinks": 9
+},
+{
+"qid": "Q26331477",
+"name": "Elena Klokacheva",
+"category": "Elena Klokacheva",
+"born": "1871",
+"died": "1943",
+"sitelinks": 9
+},
+{
+"qid": "Q28476668",
+"name": "Frida Konstantin",
+"category": "Frida Konstantin",
+"born": "1884",
+"died": "1918",
+"sitelinks": 9
+},
+{
+"qid": "Q33139890",
+"name": "Anna Barbara Bansi",
+"category": "Barbara Bansi",
+"born": "1777",
+"died": "1863",
+"sitelinks": 9
+},
+{
+"qid": "Q33555326",
+"name": "Marie-Nicole Vestier",
+"category": "Marie-Nicole Dumont",
+"born": "1767",
+"died": "1846",
+"sitelinks": 9
+},
+{
+"qid": "Q36977844",
+"name": "Dörte Helm",
+"category": "Dörte Helm",
+"born": "1898",
+"died": "1941",
+"sitelinks": 9
+},
+{
+"qid": "Q38120567",
+"name": "Juliette Bonheur",
+"category": "Juliette Bonheur",
+"born": "1830",
+"died": "1891",
+"sitelinks": 9
+},
+{
+"qid": "Q51547947",
+"name": "Adele-Anais Toudouze",
+"category": "Adèle-Anaïs Toudouze",
+"born": "1822",
+"died": "1899",
+"sitelinks": 9
+},
+{
+"qid": "Q60768261",
+"name": "Agustina Mercedes González López",
+"category": "Agustina González López",
+"born": "1891",
+"died": "1936",
+"sitelinks": 9
+},
+{
+"qid": "Q61492128",
+"name": "Maria Callani",
+"category": "Maria Callani",
+"born": "1778",
+"died": "1803",
+"sitelinks": 9
+},
+{
+"qid": "Q68469426",
+"name": "Qiu Zhu",
+"category": "Qiu Zhu",
+"born": null,
+"died": "1585",
+"sitelinks": 9
+},
+{
+"qid": "Q440442",
+"name": "Ulla Tessin",
+"category": "Ulla Tessin",
+"born": "1711",
+"died": "1768",
+"sitelinks": 8
+},
+{
+"qid": "Q518755",
+"name": "Charlotte Mercier",
+"category": "Charlotte Mercier",
+"born": "1738",
+"died": "1762",
+"sitelinks": 8
+},
+{
+"qid": "Q529142",
+"name": "Césarine Davin-Mirvault",
+"category": "Césarine Davin-Mirvault",
+"born": "1773",
+"died": "1844",
+"sitelinks": 8
+},
+{
+"qid": "Q559038",
+"name": "Anna-Lisa Thomson",
+"category": "Anna-Lisa Thomson",
+"born": "1905",
+"died": "1952",
+"sitelinks": 8
+},
+{
+"qid": "Q561947",
+"name": "Anna Maria Anguissola",
+"category": "Anna Maria Anguissola",
+"born": "1555",
+"died": "1611",
+"sitelinks": 8
+},
+{
+"qid": "Q563531",
+"name": "Anna Vittoria Dolara",
+"category": "Anna Vittoria Dolara",
+"born": "1754",
+"died": "1827",
+"sitelinks": 8
+},
+{
+"qid": "Q95753",
+"name": "Elisabeth von Staegemann",
+"category": "Elisabeth von Staegemann",
+"born": "1761",
+"died": "1835",
+"sitelinks": 8
+},
+{
+"qid": "Q102680",
+"name": "Bertha Zillessen",
+"category": "Bertha Zillessen",
+"born": "1872",
+"died": "1936",
+"sitelinks": 8
+},
+{
+"qid": "Q118220",
+"name": "Galka Scheyer",
+"category": "Galka Scheyer",
+"born": "1889",
+"died": "1945",
+"sitelinks": 8
+},
+{
+"qid": "Q616794",
+"name": "Julie von Egloffstein",
+"category": "Julie Gräfin von Egloffstein",
+"born": "1792",
+"died": "1869",
+"sitelinks": 8
+},
+{
+"qid": "Q1074555",
+"name": "Margherita Caffi",
+"category": "Margherita Caffi",
+"born": "1648",
+"died": "1710",
+"sitelinks": 8
+},
+{
+"qid": "Q1095253",
+"name": "Clara Siewert",
+"category": "Clara Siewert",
+"born": "1862",
+"died": "1945",
+"sitelinks": 8
+},
+{
+"qid": "Q1117956",
+"name": "Marianna Candidi Dionigi",
+"category": "Marianna Dionigi",
+"born": "1756",
+"died": "1826",
+"sitelinks": 8
+},
+{
+"qid": "Q966484",
+"name": "Fulvia Bisi",
+"category": "Fulvia Bisi",
+"born": "1818",
+"died": "1911",
+"sitelinks": 8
+},
+{
+"qid": "Q986897",
+"name": "Valéria Dénes",
+"category": "Valéria Dénes",
+"born": "1877",
+"died": "1915",
+"sitelinks": 8
+},
+{
+"qid": "Q1331315",
+"name": "Elizabeth Simcoe",
+"category": "Elizabeth Simcoe",
+"born": "1762",
+"died": "1850",
+"sitelinks": 8
+},
+{
+"qid": "Q1337336",
+"name": "Emilie Linder",
+"category": "Emilie Linder",
+"born": "1797",
+"died": "1867",
+"sitelinks": 8
+},
+{
+"qid": "Q1509334",
+"name": "Georgiana McCrae",
+"category": "Georgiana McCrae",
+"born": "1804",
+"died": "1890",
+"sitelinks": 8
+},
+{
+"qid": "Q1431642",
+"name": "Anna Peters",
+"category": "Anna Peters",
+"born": "1843",
+"died": "1926",
+"sitelinks": 8
+},
+{
+"qid": "Q1434857",
+"name": "Q1434857",
+"category": "Henni Lehmann",
+"born": "1862",
+"died": "1937",
+"sitelinks": 8
+},
+{
+"qid": "Q1438310",
+"name": "Henriette Félicité Tassaert",
+"category": "Henriette-Félicité Tassaert",
+"born": "1766",
+"died": "1818",
+"sitelinks": 8
+},
+{
+"qid": "Q1593417",
+"name": "Hedwig Weiß",
+"category": "Hedwig Weiß",
+"born": "1860",
+"died": "1923",
+"sitelinks": 8
+},
+{
+"qid": "Q1613610",
+"name": "Hermine Overbeck-Rohte",
+"category": "Hermine Overbeck-Rohte",
+"born": "1869",
+"died": "1937",
+"sitelinks": 8
+},
+{
+"qid": "Q1686697",
+"name": "Jelka Rosen",
+"category": "Jelka Rosen",
+"born": "1868",
+"died": "1935",
+"sitelinks": 8
+},
+{
+"qid": "Q1867953",
+"name": "Nanine Vallain",
+"category": "Nanine Vallain",
+"born": "1767",
+"died": "1815",
+"sitelinks": 8
+},
+{
+"qid": "Q1877196",
+"name": "Lulu von Thürheim",
+"category": "Lulu von Thürheim",
+"born": "1780",
+"died": "1864",
+"sitelinks": 8
+},
+{
+"qid": "Q1717368",
+"name": "Mary Louisa Kirschner",
+"category": "Marie Louise Kirschner",
+"born": "1852",
+"died": "1931",
+"sitelinks": 8
+},
+{
+"qid": "Q1739652",
+"name": "Kerstin Cardon",
+"category": "Kerstin Cardon",
+"born": "1843",
+"died": "1924",
+"sitelinks": 8
+},
+{
+"qid": "Q1937505",
+"name": "Margaretha van Godewijk",
+"category": "Margaretha van Godewijk",
+"born": "1627",
+"died": "1677",
+"sitelinks": 8
+},
+{
+"qid": "Q2019689",
+"name": "Olga Oppenheimer",
+"category": "Olga Oppenheimer",
+"born": "1886",
+"died": "1941",
+"sitelinks": 8
+},
+{
+"qid": "Q2585677",
+"name": "Yvonne Serruys",
+"category": "Yvonne Serruys",
+"born": "1873",
+"died": "1953",
+"sitelinks": 8
+},
+{
+"qid": "Q2599482",
+"name": "Ketty Gilsoul-Hoppe",
+"category": "Ketty Gilsoul-Hoppe",
+"born": "1868",
+"died": "1939",
+"sitelinks": 8
+},
+{
+"qid": "Q2688024",
+"name": "Anna Wengberg",
+"category": "Anna Wengberg",
+"born": "1865",
+"died": "1936",
+"sitelinks": 8
+},
+{
+"qid": "Q2693042",
+"name": "Q2693042",
+"category": "Mary Lizzie Macomber",
+"born": "1861",
+"died": "1916",
+"sitelinks": 8
+},
+{
+"qid": "Q2301569",
+"name": "Emma De Vigne",
+"category": "Emma De Vigne",
+"born": "1850",
+"died": "1898",
+"sitelinks": 8
+},
+{
+"qid": "Q2315409",
+"name": "Jenny Hoppe",
+"category": "Jenny Hoppe",
+"born": "1870",
+"died": "1934",
+"sitelinks": 8
+},
+{
+"qid": "Q2344178",
+"name": "Stephanie Hollenstein",
+"category": "Stephanie Hollenstein",
+"born": "1886",
+"died": "1944",
+"sitelinks": 8
+},
+{
+"qid": "Q2369598",
+"name": "Susanne von Nathusius",
+"category": "Susanne von Nathusius",
+"born": "1850",
+"died": "1929",
+"sitelinks": 8
+},
+{
+"qid": "Q2850456",
+"name": "Anna Bacherini Piattoli",
+"category": "Anna Bacherini Piattoli",
+"born": "1720",
+"died": "1788",
+"sitelinks": 8
+},
+{
+"qid": "Q2962602",
+"name": "Chen Shu",
+"category": "Chen Shu (painter)",
+"born": "1660",
+"died": "1736",
+"sitelinks": 8
+},
+{
+"qid": "Q2941938",
+"name": "Catherine Duchemin",
+"category": "Catherine Duchemin",
+"born": "1630",
+"died": "1698",
+"sitelinks": 8
+},
+{
+"qid": "Q3292492",
+"name": "Marie Duhem",
+"category": "Marie Duhem",
+"born": "1871",
+"died": "1918",
+"sitelinks": 8
+},
+{
+"qid": "Q3263641",
+"name": "Louise-Magdeleine Horthemels",
+"category": "Louise-Magdeleine Horthemels",
+"born": "1686",
+"died": "1767",
+"sitelinks": 8
+},
+{
+"qid": "Q3426198",
+"name": "Ellen Favorin",
+"category": "Ellen Favorin",
+"born": "1853",
+"died": "1919",
+"sitelinks": 8
+},
+{
+"qid": "Q3491058",
+"name": "Sophie Trébuchet",
+"category": "Sophie Trébuchet",
+"born": "1772",
+"died": "1821",
+"sitelinks": 8
+},
+{
+"qid": "Q3502253",
+"name": "Stéphanie de Virieu",
+"category": "Stéphanie de Virieu",
+"born": "1785",
+"died": "1873",
+"sitelinks": 8
+},
+{
+"qid": "Q3526356",
+"name": "Théodelinde Bourcin-Dubouché",
+"category": "Théodelinde Bourcin-Dubouché",
+"born": "1809",
+"died": "1860",
+"sitelinks": 8
+},
+{
+"qid": "Q3144829",
+"name": "Hélène Oettingen",
+"category": "Helene Oettingen",
+"born": "1885",
+"died": "1950",
+"sitelinks": 8
+},
+{
+"qid": "Q3161845",
+"name": "Jane Atché",
+"category": "Jane Atché",
+"born": "1872",
+"died": "1937",
+"sitelinks": 8
+},
+{
+"qid": "Q3639388",
+"name": "Bianca Milesi",
+"category": "Bianca Milesi",
+"born": "1790",
+"died": "1849",
+"sitelinks": 8
+},
+{
+"qid": "Q3369201",
+"name": "Catharine Hermine Kølle",
+"category": "Catharine Hermine Kølle",
+"born": "1788",
+"died": "1859",
+"sitelinks": 8
+},
+{
+"qid": "Q3605649",
+"name": "Adriana Bisi Fabbri",
+"category": "Adriana Bisi Fabbri",
+"born": "1881",
+"died": "1918",
+"sitelinks": 8
+},
+{
+"qid": "Q4402713",
+"name": "Serafima Ryangina",
+"category": "Serafima Ryangina",
+"born": "1891",
+"died": "1955",
+"sitelinks": 8
+},
+{
+"qid": "Q4447156",
+"name": "Sofia Sukhovo-Kobylina",
+"category": "Sofia Sukhovo-Kobylina",
+"born": "1825",
+"died": "1867",
+"sitelinks": 8
+},
+{
+"qid": "Q4458075",
+"name": "Stina Tirén",
+"category": "Stina Tirén",
+"born": "1886",
+"died": "1951",
+"sitelinks": 8
+},
+{
+"qid": "Q4681705",
+"name": "Adelaide Eliza Ironside",
+"category": "Adelaide Ironside",
+"born": "1831",
+"died": "1867",
+"sitelinks": 8
+},
+{
+"qid": "Q4684119",
+"name": "Thamine Tadama-Groeneveld",
+"category": "Thamine Tadama-Groeneveld",
+"born": "1871",
+"died": "1938",
+"sitelinks": 8
+},
+{
+"qid": "Q4686988",
+"name": "Adélaïde-Victorine Hall",
+"category": "Adélaïde Victoire Hall",
+"born": "1772",
+"died": "1844",
+"sitelinks": 8
+},
+{
+"qid": "Q4742222",
+"name": "Amelia Bauerle",
+"category": "Amelia Bauerle",
+"born": "1870",
+"died": "1916",
+"sitelinks": 8
+},
+{
+"qid": "Q3915962",
+"name": "Dorothy Kate Richmond",
+"category": "Dorothy Kate Richmond",
+"born": "1861",
+"died": "1935",
+"sitelinks": 8
+},
+{
+"qid": "Q4014505",
+"name": "Virginia Vezzi",
+"category": "Virginia Vezzi",
+"born": "1600",
+"died": "1638",
+"sitelinks": 8
+},
+{
+"qid": "Q5338520",
+"name": "Edith Corbet",
+"category": "Edith Corbet",
+"born": "1846",
+"died": "1920",
+"sitelinks": 8
+},
+{
+"qid": "Q5354408",
+"name": "Eleanor Vere Boyle",
+"category": "Eleanor Vere Boyle",
+"born": "1825",
+"died": "1916",
+"sitelinks": 8
+},
+{
+"qid": "Q5362724",
+"name": "Emma Soyer",
+"category": "Emma Soyer",
+"born": "1813",
+"died": "1842",
+"sitelinks": 8
+},
+{
+"qid": "Q4742316",
+"name": "Amelia Van Buren",
+"category": "Amelia Van Buren",
+"born": "1856",
+"died": "1942",
+"sitelinks": 8
+},
+{
+"qid": "Q4763266",
+"name": "Angiola Teresa Moratori Scanabecchi",
+"category": "Teresa Muratori",
+"born": "1661",
+"died": "1708",
+"sitelinks": 8
+},
+{
+"qid": "Q4767282",
+"name": "Anna Maria Barbara Abesch",
+"category": "Anna Barbara Abesch",
+"born": "1706",
+"died": "1773",
+"sitelinks": 8
+},
+{
+"qid": "Q5364568",
+"name": "Ella Sophonisba Hergesheimer",
+"category": "Ella Sophonisba Hergesheimer",
+"born": "1873",
+"died": "1943",
+"sitelinks": 8
+},
+{
+"qid": "Q5364956",
+"name": "Ellen Montalba",
+"category": "Ellen Montalba",
+"born": "1842",
+"died": "1912",
+"sitelinks": 8
+},
+{
+"qid": "Q5403150",
+"name": "Ethel Léontine Gabain",
+"category": "Ethel Gabain",
+"born": "1883",
+"died": "1950",
+"sitelinks": 8
+},
+{
+"qid": "Q5044963",
+"name": "Caroline Armington",
+"category": "Caroline Armington",
+"born": "1875",
+"died": "1939",
+"sitelinks": 8
+},
+{
+"qid": "Q5126065",
+"name": "Clara Weaver Parrish",
+"category": "Clara Weaver Parrish",
+"born": "1861",
+"died": "1925",
+"sitelinks": 8
+},
+{
+"qid": "Q5129302",
+"name": "Claudine Bouzonnet-Stella",
+"category": "Claudine Bouzonnet-Stella",
+"born": "1636",
+"died": "1697",
+"sitelinks": 8
+},
+{
+"qid": "Q5460580",
+"name": "Florence Carlyle",
+"category": "Florence Carlyle",
+"born": "1864",
+"died": "1923",
+"sitelinks": 8
+},
+{
+"qid": "Q4877182",
+"name": "Beatrice Offor",
+"category": "Beatrice Offor",
+"born": "1864",
+"died": "1920",
+"sitelinks": 8
+},
+{
+"qid": "Q4895502",
+"name": "Bertha Lum",
+"category": "Bertha Lum",
+"born": "1869",
+"died": "1954",
+"sitelinks": 8
+},
+{
+"qid": "Q4938650",
+"name": "Elisabeth Bergstrand-Poulsen",
+"category": "Elisabeth Bergstrand-Poulsen",
+"born": "1887",
+"died": "1955",
+"sitelinks": 8
+},
+{
+"qid": "Q4939608",
+"name": "Elisabeth Blomqvist",
+"category": "Elisabeth Blomqvist",
+"born": "1827",
+"died": "1901",
+"sitelinks": 8
+},
+{
+"qid": "Q4943901",
+"name": "Cecilie Dahl",
+"category": "Cecilie Dahl",
+"born": "1858",
+"died": "1943",
+"sitelinks": 8
+},
+{
+"qid": "Q4949708",
+"name": "Esther Gehlin",
+"category": "Esther Gehlin",
+"born": "1892",
+"died": "1949",
+"sitelinks": 8
+},
+{
+"qid": "Q5171180",
+"name": "Cornelia Scheffer",
+"category": "Cornelia Scheffer-Lamme",
+"born": "1769",
+"died": "1839",
+"sitelinks": 8
+},
+{
+"qid": "Q4961854",
+"name": "Adelaide Leuhusen",
+"category": "Adelaide Leuhusen",
+"born": "1828",
+"died": "1923",
+"sitelinks": 8
+},
+{
+"qid": "Q4971036",
+"name": "Dagmar Olrik",
+"category": "Dagmar Olrik",
+"born": "1860",
+"died": "1932",
+"sitelinks": 8
+},
+{
+"qid": "Q4978878",
+"name": "Josabeth Sjöberg",
+"category": "Josabeth Sjöberg",
+"born": "1812",
+"died": "1882",
+"sitelinks": 8
+},
+{
+"qid": "Q5648807",
+"name": "Hannah Cohoon",
+"category": "Hannah Cohoon",
+"born": "1781",
+"died": "1864",
+"sitelinks": 8
+},
+{
+"qid": "Q5703272",
+"name": "Helen Thomas Dranga",
+"category": "Helen Thomas Dranga",
+"born": "1866",
+"died": "1940",
+"sitelinks": 8
+},
+{
+"qid": "Q5712128",
+"name": "Aurora Mira",
+"category": "Aurora Mira",
+"born": "1863",
+"died": "1939",
+"sitelinks": 8
+},
+{
+"qid": "Q5760179",
+"name": "Celia Castro",
+"category": "Celia Castro",
+"born": "1860",
+"died": "1930",
+"sitelinks": 8
+},
+{
+"qid": "Q5788598",
+"name": "Cornelia Scheffer",
+"category": "Cornelia Scheffer-Marjolin",
+"born": "1830",
+"died": "1899",
+"sitelinks": 8
+},
+{
+"qid": "Q6779659",
+"name": "Mary L. Gow",
+"category": "Mary Louise Gow",
+"born": "1851",
+"died": "1929",
+"sitelinks": 8
+},
+{
+"qid": "Q7367032",
+"name": "Rosa Corder",
+"category": "Rosa Corder",
+"born": "1853",
+"died": "1893",
+"sitelinks": 8
+},
+{
+"qid": "Q7371903",
+"name": "Rowena Meeks Abdy",
+"category": "Rowena Meeks Abdy",
+"born": "1887",
+"died": "1945",
+"sitelinks": 8
+},
+{
+"qid": "Q7422172",
+"name": "Sarah Cecilia Harrison",
+"category": "Sarah Cecilia Harrison",
+"born": "1863",
+"died": "1941",
+"sitelinks": 8
+},
+{
+"qid": "Q6582254",
+"name": "Anna Ruysch",
+"category": "Anna Ruysch",
+"born": "1666",
+"died": "1741",
+"sitelinks": 8
+},
+{
+"qid": "Q6862679",
+"name": "Mina Fonda Ochtman",
+"category": "Mina Fonda Ochtman",
+"born": "1862",
+"died": "1924",
+"sitelinks": 8
+},
+{
+"qid": "Q6965611",
+"name": "Narcisa Freixas",
+"category": "Narcisa Freixas i Cruells",
+"born": "1859",
+"died": "1926",
+"sitelinks": 8
+},
+{
+"qid": "Q8300988",
+"name": "Hermine Stilke",
+"category": "Hermine Stilke",
+"born": "1804",
+"died": "1869",
+"sitelinks": 8
+},
+{
+"qid": "Q7933280",
+"name": "Violet Teague",
+"category": "Violet Teague",
+"born": "1872",
+"died": "1951",
+"sitelinks": 8
+},
+{
+"qid": "Q10340373",
+"name": "Ofélia Marques",
+"category": "Ofélia Marques",
+"born": "1902",
+"died": "1952",
+"sitelinks": 8
+},
+{
+"qid": "Q10868255",
+"name": "Magdalena Mira",
+"category": "Magdalena Mira Mena",
+"born": "1859",
+"died": "1930",
+"sitelinks": 8
+},
+{
+"qid": "Q9154700",
+"name": "Aniela Pająkówna",
+"category": "Aniela Pająkówna",
+"born": "1864",
+"died": "1912",
+"sitelinks": 8
+},
+{
+"qid": "Q9266707",
+"name": "Gela Seksztajn",
+"category": "Gela Seksztajn",
+"born": "1907",
+"died": "1943",
+"sitelinks": 8
+},
+{
+"qid": "Q11135844",
+"name": "Gabriela Puzynina",
+"category": "Gabriela Puzyna",
+"born": "1815",
+"died": "1869",
+"sitelinks": 8
+},
+{
+"qid": "Q11958385",
+"name": "Anthonore Christensen",
+"category": "Anthonore Christensen",
+"born": "1849",
+"died": "1926",
+"sitelinks": 8
+},
+{
+"qid": "Q12058449",
+"name": "Lillian Genth",
+"category": "Lillian Genth",
+"born": "1876",
+"died": "1953",
+"sitelinks": 8
+},
+{
+"qid": "Q12060178",
+"name": "Claude Raguet Hirst",
+"category": "Claude Raguet Hirst",
+"born": "1855",
+"died": "1942",
+"sitelinks": 8
+},
+{
+"qid": "Q11862300",
+"name": "Henriette Brossin de Polanska",
+"category": "Henriette Brossin de Polanska",
+"born": "1878",
+"died": "1954",
+"sitelinks": 8
+},
+{
+"qid": "Q15432413",
+"name": "Margaretha Wulfraet",
+"category": "Margaretha Wulfraet",
+"born": "1678",
+"died": "1760",
+"sitelinks": 8
+},
+{
+"qid": "Q13104045",
+"name": "Marie-Thérèse Glaesener-Hartmann",
+"category": "Thérèse Glaesener-Hartmann",
+"born": "1858",
+"died": "1923",
+"sitelinks": 8
+},
+{
+"qid": "Q13567655",
+"name": "Florence Dreyfous",
+"category": "Florence Dreyfous",
+"born": "1868",
+"died": "1950",
+"sitelinks": 8
+},
+{
+"qid": "Q14241252",
+"name": "Hilda Montalba",
+"category": "Hilda Montalba",
+"born": "1846",
+"died": "1919",
+"sitelinks": 8
+},
+{
+"qid": "Q13426673",
+"name": "Hedevig Lund",
+"category": "Hedevig T.C.E. Lund",
+"born": "1824",
+"died": "1888",
+"sitelinks": 8
+},
+{
+"qid": "Q13439134",
+"name": "Betsy Repelius",
+"category": "Betsy Repelius",
+"born": "1848",
+"died": "1921",
+"sitelinks": 8
+},
+{
+"qid": "Q15701493",
+"name": "Maria Geertruida Barbiers",
+"category": "Maria Geertruida Barbiers",
+"born": "1801",
+"died": "1879",
+"sitelinks": 8
+},
+{
+"qid": "Q15701783",
+"name": "Josefa Texidor i Torres",
+"category": "Josefa Teixidor i Torres",
+"born": "1865",
+"died": "1914",
+"sitelinks": 8
+},
+{
+"qid": "Q15734137",
+"name": "Kate Bisschop-Swift",
+"category": "Kate Bisschop-Swift",
+"born": "1834",
+"died": "1928",
+"sitelinks": 8
+},
+{
+"qid": "Q16062780",
+"name": "Margaret Gillies",
+"category": "Margaret Gillies",
+"born": "1803",
+"died": "1887",
+"sitelinks": 8
+},
+{
+"qid": "Q16063056",
+"name": "Catharina Jacoba Abrahamina Enschedé",
+"category": "Catharina Jacoba Abrahamina Enschedé",
+"born": "1828",
+"died": "1883",
+"sitelinks": 8
+},
+{
+"qid": "Q15056344",
+"name": "Maria de Grebber",
+"category": "Maria de Grebber",
+"born": "1602",
+"died": "1680",
+"sitelinks": 8
+},
+{
+"qid": "Q15133582",
+"name": "Aleida Greve",
+"category": "Aleida Greve",
+"born": "1670",
+"died": "1742",
+"sitelinks": 8
+},
+{
+"qid": "Q15952039",
+"name": "Louise Hersent",
+"category": "Louise Hersent",
+"born": "1784",
+"died": "1862",
+"sitelinks": 8
+},
+{
+"qid": "Q15975470",
+"name": "Adrienne Jacqueline s' Jacob",
+"category": "Adrienne Jacqueline s' Jacob",
+"born": "1857",
+"died": "1920",
+"sitelinks": 8
+},
+{
+"qid": "Q15996210",
+"name": "Enella Benedict",
+"category": "Enella Benedict",
+"born": "1858",
+"died": "1942",
+"sitelinks": 8
+},
+{
+"qid": "Q15997394",
+"name": "Paule Gobillard",
+"category": "Paule Gobillard",
+"born": "1867",
+"died": "1946",
+"sitelinks": 8
+},
+{
+"qid": "Q16186108",
+"name": "Charlotte Eustace Sophie de Fuligny-Damas",
+"category": "Charlotte Eustace Sophie de Fuligny-Damas",
+"born": "1741",
+"died": "1828",
+"sitelinks": 8
+},
+{
+"qid": "Q16025239",
+"name": "Lilian Cheviot",
+"category": "Lilian Cheviot",
+"born": "1876",
+"died": "1936",
+"sitelinks": 8
+},
+{
+"qid": "Q16026967",
+"name": "Ruth Payne Burgess",
+"category": "Ruth Payne Burgess",
+"born": "1865",
+"died": "1934",
+"sitelinks": 8
+},
+{
+"qid": "Q16030086",
+"name": "Marjorie Organ",
+"category": "Marjorie Organ",
+"born": "1886",
+"died": "1930",
+"sitelinks": 8
+},
+{
+"qid": "Q16030640",
+"name": "Catherine Madox Brown",
+"category": "Catherine Madox Brown",
+"born": "1850",
+"died": "1927",
+"sitelinks": 8
+},
+{
+"qid": "Q16031507",
+"name": "Mary Rogers Williams",
+"category": "Mary Rogers Williams",
+"born": "1857",
+"died": "1907",
+"sitelinks": 8
+},
+{
+"qid": "Q16595764",
+"name": "Eva Löwstädt-Åström",
+"category": "Eva Löwstädt-Åström",
+"born": "1865",
+"died": "1942",
+"sitelinks": 8
+},
+{
+"qid": "Q17380296",
+"name": "Hanna Frosterus-Segerstråle",
+"category": "Hanna Frosterus-Segerstråle",
+"born": "1867",
+"died": "1946",
+"sitelinks": 8
+},
+{
+"qid": "Q17457044",
+"name": "Edma Morisot",
+"category": "Edma Morisot",
+"born": "1839",
+"died": "1921",
+"sitelinks": 8
+},
+{
+"qid": "Q17211095",
+"name": "Chigusa Kitani",
+"category": "Kitani Chigusa",
+"born": "1895",
+"died": "1947",
+"sitelinks": 8
+},
+{
+"qid": "Q16890294",
+"name": "Annie Cornelia Shaw",
+"category": "Annie Cornelia Shaw",
+"born": "1852",
+"died": "1887",
+"sitelinks": 8
+},
+{
+"qid": "Q17749075",
+"name": "Alexandra Makovskaya",
+"category": "Alexandra Makovskaya",
+"born": "1837",
+"died": "1915",
+"sitelinks": 8
+},
+{
+"qid": "Q18527156",
+"name": "Clara Maria Pope",
+"category": "Clara Maria Pope",
+"born": "1767",
+"died": "1838",
+"sitelinks": 8
+},
+{
+"qid": "Q18527925",
+"name": "Edith Hayllar",
+"category": "Edith Hayllar",
+"born": "1860",
+"died": "1948",
+"sitelinks": 8
+},
+{
+"qid": "Q18546678",
+"name": "Kitty Jenner",
+"category": "Katharine Jenner",
+"born": "1853",
+"died": "1936",
+"sitelinks": 8
+},
+{
+"qid": "Q18508119",
+"name": "Diana Coomans",
+"category": "Diana Coomans",
+"born": "1861",
+"died": "1952",
+"sitelinks": 8
+},
+{
+"qid": "Q19643241",
+"name": "Mary Brewster Hazelton",
+"category": "Mary Brewster Hazelton",
+"born": "1868",
+"died": "1953",
+"sitelinks": 8
+},
+{
+"qid": "Q18608933",
+"name": "Adela Breton",
+"category": "Adela Breton",
+"born": "1849",
+"died": "1923",
+"sitelinks": 8
+},
+{
+"qid": "Q18645967",
+"name": "Alice Marion Ellen Bale",
+"category": "A.M.E. Bale",
+"born": "1875",
+"died": "1955",
+"sitelinks": 8
+},
+{
+"qid": "Q19359621",
+"name": "Elizabeth Heaphy Murray",
+"category": "Elizabeth Heaphy Murray",
+"born": "1815",
+"died": "1882",
+"sitelinks": 8
+},
+{
+"qid": "Q19409567",
+"name": "Amy Sawyer",
+"category": "Amy Sawyer",
+"born": "1863",
+"died": "1945",
+"sitelinks": 8
+},
+{
+"qid": "Q19463079",
+"name": "Maude Goodman",
+"category": "Maude Goodman",
+"born": "1853",
+"died": "1938",
+"sitelinks": 8
+},
+{
+"qid": "Q19464447",
+"name": "Georgette Meunier",
+"category": "Georgette Meunier",
+"born": "1859",
+"died": "1951",
+"sitelinks": 8
+},
+{
+"qid": "Q19275606",
+"name": "Joséphine Houssay",
+"category": "Joséphine Houssay",
+"born": "1840",
+"died": "1914",
+"sitelinks": 8
+},
+{
+"qid": "Q19573635",
+"name": "Pauline Rifer de Courcelles",
+"category": "Pauline Rifer de Courcelles",
+"born": "1781",
+"died": "1851",
+"sitelinks": 8
+},
+{
+"qid": "Q19593488",
+"name": "Fanny Fleury",
+"category": "Fanny Fleury",
+"born": "1846",
+"died": "1923",
+"sitelinks": 8
+},
+{
+"qid": "Q19999159",
+"name": "Emília Coranty Llurià",
+"category": "Emília Coranty Llurià",
+"born": "1862",
+"died": "1944",
+"sitelinks": 8
+},
+{
+"qid": "Q19802601",
+"name": "Petronella van Woensel",
+"category": "Petronella van Woensel",
+"born": "1785",
+"died": "1839",
+"sitelinks": 8
+},
+{
+"qid": "Q20022900",
+"name": "Rachel Szalit-Marcus",
+"category": "Rachel Szalit-Marcus",
+"born": "1894",
+"died": "1942",
+"sitelinks": 8
+},
+{
+"qid": "Q20638655",
+"name": "Helene Cramer",
+"category": "Helene Cramer",
+"born": "1844",
+"died": "1916",
+"sitelinks": 8
+},
+{
+"qid": "Q20769459",
+"name": "Clarissa Munger Badger",
+"category": "Clarissa Munger Badger",
+"born": "1806",
+"died": "1889",
+"sitelinks": 8
+},
+{
+"qid": "Q21499503",
+"name": "Carla Witte",
+"category": "Carla Witte",
+"born": "1889",
+"died": "1943",
+"sitelinks": 8
+},
+{
+"qid": "Q21751042",
+"name": "Charlotte B. Coman",
+"category": "Charlotte B. Coman",
+"born": "1833",
+"died": "1925",
+"sitelinks": 8
+},
+{
+"qid": "Q21751552",
+"name": "Louise Adélaïde Desnos",
+"category": "Louise Adélaïde Desnos",
+"born": "1807",
+"died": "1878",
+"sitelinks": 8
+},
+{
+"qid": "Q21553153",
+"name": "Etha Fles",
+"category": "Etha Fles",
+"born": "1857",
+"died": "1948",
+"sitelinks": 8
+},
+{
+"qid": "Q22958103",
+"name": "Pauline Powell Burns",
+"category": "Pauline Powell Burns",
+"born": "1876",
+"died": "1912",
+"sitelinks": 8
+},
+{
+"qid": "Q21993953",
+"name": "Ada Thilén",
+"category": "Ada Thilén",
+"born": "1852",
+"died": "1933",
+"sitelinks": 8
+},
+{
+"qid": "Q23008817",
+"name": "Adèle Sophia Cordelia Opzoomer",
+"category": "Adéle Opzoomer",
+"born": "1856",
+"died": "1925",
+"sitelinks": 8
+},
+{
+"qid": "Q23064495",
+"name": "Marie Joséphine Nicolas",
+"category": "Marie Nicolas",
+"born": "1845",
+"died": "1903",
+"sitelinks": 8
+},
+{
+"qid": "Q24284708",
+"name": "Dorothy Weir Young",
+"category": "Dorothy Weir Young",
+"born": "1890",
+"died": "1947",
+"sitelinks": 8
+},
+{
+"qid": "Q26001154",
+"name": "Bertha von Tarnóczy",
+"category": "Bertha von Tarnoczy",
+"born": "1846",
+"died": "1936",
+"sitelinks": 8
+},
+{
+"qid": "Q26250757",
+"name": "Sophie Koner",
+"category": "Sophie Koner",
+"born": "1855",
+"died": "1929",
+"sitelinks": 8
+},
+{
+"qid": "Q28599878",
+"name": "Veronica Fontana",
+"category": "Veronica Fontana",
+"born": "1651",
+"died": "1688",
+"sitelinks": 8
+},
+{
+"qid": "Q29168484",
+"name": "Marie Sandholt",
+"category": "Marie Sandholt",
+"born": "1872",
+"died": "1942",
+"sitelinks": 8
+},
+{
+"qid": "Q30045559",
+"name": "Marie Marguerite Carraux de Rosemond",
+"category": "Marie-Marguerite Carreaux de Rosemond",
+"born": "1765",
+"died": "1788",
+"sitelinks": 8
+},
+{
+"qid": "Q38206030",
+"name": "Marie-Élisabeth Gabiou",
+"category": "Marie-Élisabeth Gabiou",
+"born": "1761",
+"died": "1811",
+"sitelinks": 8
+},
+{
+"qid": "Q36501485",
+"name": "Maria a'Becket",
+"category": "Maria a'Becket",
+"born": "1839",
+"died": "1904",
+"sitelinks": 8
+},
+{
+"qid": "Q43130966",
+"name": "Kathleen Honora Greatorex",
+"category": "Kathleen Honora Greatorex",
+"born": "1851",
+"died": "1942",
+"sitelinks": 8
+},
+{
+"qid": "Q59156538",
+"name": "Hildegard Lehnert",
+"category": "Hildegard Lehnert",
+"born": "1857",
+"died": "1943",
+"sitelinks": 8
+},
+{
+"qid": "Q59440186",
+"name": "Helene Marie Stromeyer",
+"category": "Helene Stromeyer",
+"born": "1834",
+"died": "1924",
+"sitelinks": 8
+},
+{
+"qid": "Q58304952",
+"name": "Adrienne von Pötting",
+"category": "Adrienne von Pötting",
+"born": "1856",
+"died": "1909",
+"sitelinks": 8
+},
+{
+"qid": "Q56480189",
+"name": "Emily Jane Harding",
+"category": "Emily J. Harding",
+"born": "1850",
+"died": "1940",
+"sitelinks": 8
+}
+]

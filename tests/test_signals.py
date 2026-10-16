@@ -18,9 +18,9 @@ os.environ["HEURE_BLEUE_HOME"] = str(HOME)
 (HOME / "data").mkdir()
 (HOME / "data" / "paintings.json").write_text(json.dumps([
     {"id": f"p{i}", "title": f"P{i}", "artist": a, "museum": "M", "date": d, "w": 3, "h": 4, "image": "x",
-     "palette": [{"hex": h, "w": 0.6}, {"hex": "#808080", "w": 0.4}]}
+     "palette": [{"hex": h, "w": 0.6}, {"hex": "#808080", "w": 0.4}], **({"gender": "f"} if a == "Morisot" else {})}
     for i, (a, d, h) in enumerate([("Rembrandt", "1640", "#1a120a"), ("Dufy", "1925", "#f2c14e"), ("Monet", "1890", "#9fc5e8"),
-                                    ("Vermeer", "1660", "#d9c7a0"), ("Rothko", "1958", "#8b1a1a"), ("Turner", "1840", "#c9c9c9")] * 8)
+                                    ("Vermeer", "1660", "#d9c7a0"), ("Rothko", "1958", "#8b1a1a"), ("Morisot", "1840", "#c9c9c9")] * 8)
 ]), encoding="utf-8")
 
 from heurebleue import color, moment, music, wall, year  # noqa: E402
@@ -98,6 +98,9 @@ assert not (only_new & {"p1", "p7", "p13"}), only_new
 config.FAVORITES.write_text("[]", encoding="utf-8")
 assert len({wall.choose_painting(None, [], 0, False, {"cover": False, "music": False, "moment": False}, pool="kept")[0]["id"] for _ in range(60)}) > 3
 config.FAVORITES.unlink()
+# "women" draws only from paintings whose painter is tagged female; no Kept list needed
+only_women = {wall.choose_painting(cover, [], 0, False, {"cover": True, "music": False, "moment": False}, pool="women")[0]["artist"] for _ in range(40)}
+assert only_women == {"Morisot"}, only_women
 # orientation: None (no page yet) keeps every painting; the page's report is honoured
 moment.set_portrait(False); assert moment.portrait() is False
 moment.set_portrait(None); assert moment.portrait() is None
