@@ -45,6 +45,7 @@ DELAY = 0.8
 DEADLINE = 75          # seconds; a wall-clock cap per request. urllib's timeout does not cover DNS lookups,
                        # which hung an overnight run for 20 minutes.
 ALLOW_CC = False       # accept CC BY / CC BY-SA files into the local-only index (never committed)
+REWALK = False         # ignore the saved candidate lists of the women/painters sources and walk Commons again
 
 
 def _with_deadline(fn, seconds):
@@ -515,43 +516,78 @@ def institution_from_wikitext(pageid):
 
 PAINTERS = config.DATA / "painters.txt" if (config.DATA / "painters.txt").exists() \
     else config.BUNDLE / "data" / "painters.txt"   # one painter per line; "# ..." comments; walked without a cap
+_BARE_SKIP = re.compile(r"\((?:cropped|photo)\)|page \d|\bp\d+\b|\bgrob|\bgrave|zdj[eę]cie|photograph|"
+                        r"hand-written|wystawa|sztuka|magazine|daily", re.I)
+
+
+def _painter_titled(title, name):
+    """True when a file in a painter's BARE category is titled like one of their works
+    ("Kazimierz Sichulski - Angel, 1911.jpg", "Sichulski Huculka 1906.jpg"), not a photo of them,
+    a book scan or an exhibition view."""
+    t = title.split(":", 1)[-1].rsplit(".", 1)[0].strip()
+    if _BARE_SKIP.search(t):
+        return False
+    surname = name.split()[-1]
+    if t.lower() in (name.lower(), surname.lower()):          # "Kazimierz Sichulski.jpg" is a photo of him
+        return False
+    return surname.lower() in t.lower() and len(t) > len(surname) + 3
 
 
 def painter_candidates(seen, slug, names, cap, cache_hours=72, max_cats=None):
     """Walk each painter's "Paintings by <name>" category (plus its "by museum" / "by year"
     children). `cap` bounds the files taken per painter (None = everything). Returns shuffled
-    file pageids and remembers which painter each file belongs to."""
+    file pageids and remembers which painter each file belongs to. `cache_hours=None`: the saved
+    list is a queue being worked through and never expires; `--rewalk` forces a fresh walk."""
     cache = ROOT / "logs" / f"{slug}_candidates.json"
     files = None
-    if cache.exists() and time.time() - cache.stat().st_mtime < cache_hours * 3600:
+    fresh = cache.exists() and (cache_hours is None or time.time() - cache.stat().st_mtime < cache_hours * 3600)
+    if fresh and not REWALK:
         files = {int(k): v for k, v in json.loads(cache.read_text(encoding="utf-8")).items()}
-        print(f"  {slug}: {len(files)} image files from cache {cache.name}")
+        missing = (set(names) - {v[1] for v in files.values()}) if slug == "painters" else set()
+        if missing:  # painters.txt gained names since the walk: the cache is a different list, walk again
+            # (only for the hand-written list: most of the 973 women have no Commons files, so they are
+            # legitimately absent from their cache and must not trigger a 70-minute re-walk)
+            print(f"  {slug}: cache lacks {len(missing)} requested painter(s) ({', '.join(sorted(missing)[:4])}...), re-walking")
+            files = None
+        else:
+            print(f"  {slug}: {len(files)} image files from cache {cache.name}")
     if files is None:
         painters = list(names)
         files, hits, named = {}, 0, 0
         for i, name in enumerate(painters):
-            root = f"Category:Paintings by {name}"
-            todo, done, mine = [(root, 0)], set(), 0
-            while todo and len(done) < (max_cats or WOMEN_MAX_CATS) and (cap is None or mine < cap):
-                cat, lvl = todo.pop(0)
-                if cat in done:
-                    continue
-                done.add(cat)
-                try:
-                    members = commons_members(cat)
-                    hits = 0
-                except Exception as exc:  # noqa: BLE001
-                    if "429" in str(exc) or "403" in str(exc):
-                        hits += 1
-                        time.sleep(backoff_seconds(exc, hits))
-                    continue
-                time.sleep(DELAY)
-                for m in members:
-                    if m.get("ns") == 6 and m["title"].lower().endswith(IMAGE_EXT) and (cap is None or mine < cap):
-                        files[m["pageid"]] = [m["title"], name]
-                        mine += 1
-                    elif m.get("ns") == 14 and lvl < 3 and not any(x.lower() in m["title"].lower() for x in WOMEN_SKIP_CATS):
-                        todo.append((m["title"], lvl + 1))
+            mine = 0
+            # Walk "Paintings by <name>"; when Commons has no such category (Sichulski), fall back to the
+            # painter's bare category in STRICT mode: a bare category also holds photos of the painter, book
+            # scans, caricatures and graves, so only "<Name> - <Title>" files and "...paintings..." children count.
+            for root, strict in ((f"Category:Paintings by {name}", False), (f"Category:{name}", True)):
+                if mine:
+                    break
+                todo, done = [(root, 0)], set()
+                while todo and len(done) < (max_cats or WOMEN_MAX_CATS) and (cap is None or mine < cap):
+                    cat, lvl = todo.pop(0)
+                    if cat in done:
+                        continue
+                    done.add(cat)
+                    try:
+                        members = commons_members(cat)
+                        hits = 0
+                    except Exception as exc:  # noqa: BLE001
+                        if "429" in str(exc) or "403" in str(exc):
+                            hits += 1
+                            time.sleep(backoff_seconds(exc, hits))
+                        continue
+                    time.sleep(DELAY)
+                    for m in members:
+                        title = m["title"]
+                        if m.get("ns") == 6 and title.lower().endswith(IMAGE_EXT) and (cap is None or mine < cap):
+                            if strict and lvl == 0 and not _painter_titled(title, name):
+                                continue
+                            files[m["pageid"]] = [title, name]
+                            mine += 1
+                        elif m.get("ns") == 14 and lvl < 3 and not any(x.lower() in title.lower() for x in WOMEN_SKIP_CATS):
+                            if strict and "paintings" not in title.lower():
+                                continue
+                            todo.append((title, lvl + 1))
             if mine:
                 named += 1
             if (i + 1) % 25 == 0:
@@ -586,7 +622,7 @@ def home_from_wikitext_fallback(pageid):
     return None
 
 
-def women_candidates(seen, cache_hours=72, max_painters=None):
+def women_candidates(seen, cache_hours=None, max_painters=None):
     painters = json.loads(WOMEN.read_text(encoding="utf-8")) if WOMEN.exists() else []
     if max_painters:
         painters = painters[:max_painters]
@@ -600,7 +636,7 @@ def requested_painters():
     return [ln.strip() for ln in PAINTERS.read_text(encoding="utf-8").splitlines() if ln.strip() and not ln.lstrip().startswith("#")]
 
 
-def painters_candidates(seen, cache_hours=72):
+def painters_candidates(seen, cache_hours=None):
     return painter_candidates(seen, "painters", requested_painters(), None, cache_hours, max_cats=40)
 
 
@@ -901,13 +937,16 @@ def main(target=None, source=None, delay=None, argv=None):
     ap.add_argument("--delay", type=float, default=0.8)
     ap.add_argument("--allow-cc", action="store_true",
                     help="also keep CC BY-licensed files, in data/paintings.local.json (git-ignored, this machine only)")
+    ap.add_argument("--rewalk", action="store_true",
+                    help="women/painters: walk Commons again instead of resuming the saved candidate list (picks up new uploads)")
     args = ap.parse_args(argv if argv is not None else [])
     if target is not None: args.target = target
     if source is not None: args.source = source
     if delay is not None: args.delay = delay
     DELAY = args.delay
-    global ALLOW_CC
+    global ALLOW_CC, REWALK
     ALLOW_CC = args.allow_cc
+    REWALK = args.rewalk
     source = "all" if args.source == "both" else args.source.lower()
     wanted = set(source.split(","))  # "met,orsay,prado": several sources, round-robin
     def want(*names):

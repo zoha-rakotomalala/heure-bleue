@@ -111,7 +111,7 @@ def cmd_open(_args) -> int:
 def cmd_index(args) -> int:
     from . import indexer
     return indexer.main(target=args.target, source=args.source, delay=args.delay,
-                        argv=["--allow-cc"] if args.allow_cc else [])
+                        argv=(["--allow-cc"] if args.allow_cc else []) + (["--rewalk"] if args.rewalk else []))
 
 
 def cmd_stories(args) -> int:
@@ -140,6 +140,7 @@ def main(argv=None) -> int:
     p = sub.add_parser("index", help="grow the painting index")
     p.add_argument("--target", type=int, default=420); p.add_argument("--source", default="all", help="met, rijks, a Commons museum slug, commons, or all"); p.add_argument("--delay", type=float, default=0.8)
     p.add_argument("--allow-cc", action="store_true", help="also keep CC BY files, in data/paintings.local.json (this machine only)")
+    p.add_argument("--rewalk", action="store_true", help="women/painters: walk Commons again instead of resuming the saved list")
     p.set_defaults(fn=cmd_index)
     p = sub.add_parser("stories", help="add curator texts to Rijksmuseum entries"); p.add_argument("--force", action="store_true"); p.set_defaults(fn=cmd_stories)
     p = sub.add_parser("service", help="start at login"); p.add_argument("action", choices=["install", "remove"]); p.set_defaults(fn=cmd_service)
