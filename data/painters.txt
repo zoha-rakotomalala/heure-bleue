@@ -16,3 +16,9 @@ Ferdynand Ruszczyc
 Gustav Klimt
 Koloman Moser
 Egon Schiele
+# Art Nouveau proper (added 2026-10-19, second batch)
+Georges de Feure
+Eugène Grasset
+Carlos Schwabe
+Jan Toorop
+Margaret Macdonald Mackintosh

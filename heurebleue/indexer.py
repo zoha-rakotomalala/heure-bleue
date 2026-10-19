@@ -516,8 +516,9 @@ def institution_from_wikitext(pageid):
 
 PAINTERS = config.DATA / "painters.txt" if (config.DATA / "painters.txt").exists() \
     else config.BUNDLE / "data" / "painters.txt"   # one painter per line; "# ..." comments; walked without a cap
-_BARE_SKIP = re.compile(r"\((?:cropped|photo)\)|page \d|\bp\d+\b|\bgrob|\bgrave|zdj[eę]cie|photograph|"
-                        r"hand-written|wystawa|sztuka|magazine|daily", re.I)
+_BARE_SKIP = re.compile(r"\((?:cropped|photo)\)|page \d|\bpp?\.\s*\d|\bp\d+\b|\bgrob|\bgrave|zdj[eę]cie|photograph|"
+                        r"hand-written|wystawa|sztuka|magazine|daily|\bnadar\b|\baffiche\b|\bposter\b|\bm[ée]thode\b|"
+                        r"\billustration\b|ex-libris|cartaz|croquis|signature|\bfries\b|frieze", re.I)
 
 
 def _painter_titled(title, name):
