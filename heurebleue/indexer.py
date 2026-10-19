@@ -17,6 +17,7 @@ Usage: python3 build_index.py --target 300 [--source met|rijks|orsay|all] [--del
        ("both" is kept as an alias for "all")
 """
 import argparse
+import concurrent.futures
 import functools
 import html
 import io
@@ -46,6 +47,7 @@ DEADLINE = 75          # seconds; a wall-clock cap per request. urllib's timeout
                        # which hung an overnight run for 20 minutes.
 ALLOW_CC = False       # accept CC BY / CC BY-SA files into the local-only index (never committed)
 REWALK = False         # ignore the saved candidate lists of the women/painters sources and walk Commons again
+WORKERS = 1            # parallel fetches; each keeps its own DELAY pacing, so 4 workers ~ 4x the rate. Past ~4 Commons 429s.
 
 
 def _with_deadline(fn, seconds):
@@ -663,16 +665,22 @@ def _imageinfo_batch(pageids):
     return {p["pageid"]: p for p in d.get("query", {}).get("pages", []) if "imageinfo" in p}
 
 
+_META_LOCK = threading.Lock()   # workers share the metadata batch cache; one batch request at a time
+
+
 def _imageinfo(pageid, slug="orsay"):
-    """(page, imageinfo) for a file; fetched ORSAY_BATCH files per API call, from this museum's queue."""
-    if pageid not in _META:
-        queue = _QUEUES.get(slug, [])
-        batch = [pageid] + [p for p in reversed(queue) if p != pageid and p not in _META][: ORSAY_BATCH - 1]
-        pages = _imageinfo_batch(batch)
-        for pid in batch:
-            pg = pages.get(pid)
-            _META[pid] = (pg, pg["imageinfo"][0]) if pg else (None, None)
-    return _META.pop(pageid)
+    """(page, imageinfo) for a file; fetched ORSAY_BATCH files per API call, from this museum's queue.
+    Thread-safe: under the lock a worker's batch also prefetches the next files of the queue,
+    so with several workers most calls are answered from the cache without a request."""
+    with _META_LOCK:
+        if pageid not in _META:
+            queue = list(_QUEUES.get(slug, []))[-(ORSAY_BATCH * 4):]  # snapshot: the main thread pops this list
+            batch = [pageid] + [p for p in reversed(queue) if p != pageid and p not in _META][: ORSAY_BATCH - 1]
+            pages = _imageinfo_batch(batch)
+            for pid in batch:
+                pg = pages.get(pid)
+                _META[pid] = (pg, pg["imageinfo"][0]) if pg else (None, None)
+        return _META.pop(pageid)
 
 
 def thumb_url(original, orig_width, width):
@@ -940,14 +948,17 @@ def main(target=None, source=None, delay=None, argv=None):
                     help="also keep CC BY-licensed files, in data/paintings.local.json (git-ignored, this machine only)")
     ap.add_argument("--rewalk", action="store_true",
                     help="women/painters: walk Commons again instead of resuming the saved candidate list (picks up new uploads)")
+    ap.add_argument("--workers", type=int, default=1,
+                    help="parallel fetches (1-6). Each worker keeps the --delay pacing; 4 is a safe speed-up on Commons")
     args = ap.parse_args(argv if argv is not None else [])
     if target is not None: args.target = target
     if source is not None: args.source = source
     if delay is not None: args.delay = delay
     DELAY = args.delay
-    global ALLOW_CC, REWALK
+    global ALLOW_CC, REWALK, WORKERS
     ALLOW_CC = args.allow_cc
     REWALK = args.rewalk
+    WORKERS = max(1, min(6, args.workers))
     source = "all" if args.source == "both" else args.source.lower()
     wanted = set(source.split(","))  # "met,orsay,prado": several sources, round-robin
     def want(*names):
@@ -982,30 +993,55 @@ def main(target=None, source=None, delay=None, argv=None):
     print("candidates: " + ", ".join(f"{n}={len(q)}" for n, q, _ in queues))
 
     processed = added = hits = 0
-    while len(existing) < args.target and any(q for _, q, _ in queues):
-        for name, q, fetch in queues:  # round-robin so the museums grow together
-            if not q or len(existing) >= args.target:
-                continue
-            cid = q.pop()
-            processed += 1
-            try:
-                entry = fetch(cid)
-                hits = 0
-            except Exception as exc:  # noqa: BLE001
-                print(f"  skip   {name} {cid}: {exc}", file=sys.stderr)
-                if "403" in str(exc) or "429" in str(exc):
-                    hits += 1
-                    wait = backoff_seconds(exc, hits)
-                    print(f"  rate-limited ({hits} in a row), sleeping {wait}s", file=sys.stderr)
-                    time.sleep(wait)
-                continue
-            if entry:
-                existing.append(entry)
-                seen.add(entry["id"])
-                added += 1
-            if processed % 20 == 0:
-                save()
-                print(f"  {processed} processed, {added} added, index={len(existing)}")
+    rr = 0
+    in_flight = {}  # future -> (name, cid)
+
+    def take_next():
+        """Next (name, cid, fetch) in round-robin over the queues that still have work, or None."""
+        nonlocal rr
+        live = [t for t in queues if t[1]]
+        if not live or len(existing) + len(in_flight) >= args.target:
+            return None
+        name, q, fetch = live[rr % len(live)]
+        rr += 1
+        return name, q.pop(), fetch
+
+    pool = concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS, thread_name_prefix="fetch")
+    try:
+        while True:
+            # Keep WORKERS fetches in the air; the main thread alone touches `existing` and the queues.
+            while len(in_flight) < WORKERS:
+                nxt = take_next()
+                if nxt is None:
+                    break
+                name, cid, fetch = nxt
+                in_flight[pool.submit(fetch, cid)] = (name, cid)
+            if not in_flight:
+                break
+            done, _ = concurrent.futures.wait(in_flight, return_when=concurrent.futures.FIRST_COMPLETED)
+            for fut in done:
+                name, cid = in_flight.pop(fut)
+                processed += 1
+                try:
+                    entry = fut.result()
+                    hits = 0
+                except Exception as exc:  # noqa: BLE001
+                    print(f"  skip   {name} {cid}: {exc}", file=sys.stderr)
+                    if "403" in str(exc) or "429" in str(exc):
+                        hits += 1
+                        wait = backoff_seconds(exc, hits)
+                        print(f"  rate-limited ({hits} in a row), pausing submissions {wait}s", file=sys.stderr)
+                        time.sleep(wait)  # in the main thread: nothing new is submitted while we wait
+                    continue
+                if entry and entry["id"] not in seen:
+                    existing.append(entry)
+                    seen.add(entry["id"])
+                    added += 1
+                if processed % 20 == 0:
+                    save()
+                    print(f"  {processed} processed, {added} added, index={len(existing)}")
+    finally:
+        pool.shutdown(wait=True, cancel_futures=True)
     save()
     print(f"done: {len(existing)} paintings in {OUT}" + (f" + {LOCAL.name}" if LOCAL.exists() else ""))
     return 0
