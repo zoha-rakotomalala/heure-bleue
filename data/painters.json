@@ -1,4 +1,8 @@
 {
+"Aasta Hansteen": {
+"gender": "f",
+"qid": "Q303708"
+},
 "Abraham Begeyn": {
 "gender": "m",
 "qid": "Q2148044"
@@ -232,6 +236,10 @@
 "gender": "m",
 "qid": "Q156426"
 },
+"Alfons Mucha": {
+"gender": "m",
+"qid": "Q146691"
+},
 "Alfons Spring": {
 "gender": "m",
 "qid": "Q25965292"
@@ -280,6 +288,10 @@
 "gender": "m",
 "qid": "Q957538"
 },
+"Alphonse Mucha": {
+"gender": "m",
+"qid": "Q146691"
+},
 "Amalia Lindegren": {
 "gender": "f",
 "qid": "Q452896"
@@ -310,6 +322,10 @@
 "gender": "m",
 "qid": "Q5920204"
 },
+"Andrea Gram": {
+"gender": "f",
+"qid": "Q4755108"
+},
 "Andrea Mantegna": {
 "gender": "m",
 "qid": "Q5681"
@@ -318,9 +334,17 @@
 "gender": "m",
 "qid": "Q1097187"
 },
+"Andrea Sacchi": {
+"gender": "m",
+"qid": "Q495008"
+},
 "Andrea Schiavone": {
 "gender": "m",
 "qid": "Q495060"
+},
+"Andrea del Sarto": {
+"gender": "m",
+"qid": "Q5571"
 },
 "Andrea del Verrocchio": {
 "gender": "m",
@@ -378,13 +402,25 @@
 "gender": "f",
 "qid": "Q273126"
 },
+"Anna Gardell-Ericson": {
+"gender": "f",
+"qid": "Q4767027"
+},
 "Anna Lea Merritt": {
 "gender": "f",
 "qid": "Q2850565"
 },
+"Anna Nordgren": {
+"gender": "f",
+"qid": "Q4969995"
+},
 "Anna Nordlander": {
 "gender": "f",
 "qid": "Q4970064"
+},
+"Anna Peters": {
+"gender": "f",
+"qid": "Q1431642"
 },
 "Anna Petersen": {
 "gender": "f",
@@ -409,6 +445,10 @@
 "Anne-Louis Girodet": {
 "gender": "m",
 "qid": "Q433434"
+},
+"Annibale Carracci": {
+"gender": "m",
+"qid": "Q7824"
 },
 "Anselm Feuerbach": {
 "gender": "m",
@@ -491,6 +531,10 @@
 "gender": "f",
 "qid": "Q23765665"
 },
+"Antonina Rzhevskaya": {
+"gender": "f",
+"qid": "Q4394206"
+},
 "Antonio Arias Fernández": {
 "gender": "m",
 "qid": "Q3619201"
@@ -502,6 +546,10 @@
 "Antonio Joli": {
 "gender": "m",
 "qid": "Q2404265"
+},
+"Antonio Muñoz Degrain": {
+"gender": "m",
+"qid": "Q3296153"
 },
 "Antonio Vivarini": {
 "gender": "m",
@@ -520,6 +568,7 @@
 "gender": "m",
 "qid": "Q4355228"
 },
+"Archita Ricci, formerly attributed to Claude Déruet Claude Deruet [1]": {},
 "Armand Guillaumin": {
 "gender": "m",
 "qid": "Q436844"
@@ -535,6 +584,10 @@
 "Arnoud van Halen": {
 "gender": "m",
 "qid": "Q4795396"
+},
+"Artemisia Gentileschi": {
+"gender": "f",
+"qid": "Q212657"
 },
 "Arthur Devis": {
 "gender": "m",
@@ -591,6 +644,10 @@
 "August von Rentzell": {
 "gender": "m",
 "qid": "Q18507883"
+},
+"Augusta Dohlmann": {
+"gender": "f",
+"qid": "Q12302478"
 },
 "Auguste Boulard": {
 "gender": "m",
@@ -698,6 +755,10 @@
 "gender": "m",
 "qid": "Q822891"
 },
+"Bernardino Licinio": {
+"gender": "m",
+"qid": "Q2629038"
+},
 "Bernardo Bellotto": {
 "gender": "m",
 "qid": "Q164688"
@@ -730,9 +791,14 @@
 "gender": "f",
 "qid": "Q2490400"
 },
+"Bouillon Julien": {},
 "Bramine Hubrecht": {
 "gender": "f",
 "qid": "Q17430319"
+},
+"Broncia Koller-Pinell": {
+"gender": "f",
+"qid": "Q927192"
 },
 "Brunswick Monogrammist": {
 "gender": "m",
@@ -817,6 +883,10 @@
 "Carl von Merode": {
 "gender": "m",
 "qid": "Q1041385"
+},
+"Carla Witte": {
+"gender": "f",
+"qid": "Q21499503"
 },
 "Carle (Antoine Charles Horace) Vernet": {},
 "Carle Vernet": {
@@ -1079,6 +1149,8 @@
 "gender": "m",
 "qid": "Q18603207"
 },
+"Didier Descouens": {},
+"Dido Room": {},
 "Diego Velázquez": {
 "gender": "m",
 "qid": "Q297"
@@ -1135,6 +1207,18 @@
 "Domenico Panetti": {
 "gender": "m",
 "qid": "Q1237228"
+},
+"Dora Hitz": {
+"gender": "f",
+"qid": "Q113144"
+},
+"Dorothea Maetzel-Johannsen": {
+"gender": "f",
+"qid": "Q774020"
+},
+"Dosso Dossi": {
+"gender": "m",
+"qid": "Q356777"
 },
 "Duccio di Buoninsegna": {
 "gender": "m",
@@ -1196,6 +1280,10 @@
 "gender": "m",
 "qid": "Q2723190"
 },
+"Edward Steichen": {
+"gender": "m",
+"qid": "Q313899"
+},
 "Eero Järnefelt": {
 "gender": "m",
 "qid": "Q1390614"
@@ -1203,6 +1291,10 @@
 "Eglon van der Neer": {
 "gender": "m",
 "qid": "Q874770"
+},
+"Egon Schiele": {
+"gender": "m",
+"qid": "Q44032"
 },
 "El Greco": {
 "gender": "m",
@@ -1213,6 +1305,10 @@
 "Eleanor Fortescue-Brickdale": {
 "gender": "f",
 "qid": "Q434282"
+},
+"Eleni Boukoura-Altamoura": {
+"gender": "f",
+"qid": "Q12876877"
 },
 "Elias Muukka": {
 "gender": "m",
@@ -1238,9 +1334,17 @@
 "gender": "f",
 "qid": "Q12309769"
 },
+"Elizabeth Heaphy Murray": {
+"gender": "f",
+"qid": "Q19359621"
+},
 "Elizabeth Nourse": {
 "gender": "f",
 "qid": "Q532168"
+},
+"Elizabeth Simcoe": {
+"gender": "f",
+"qid": "Q1331315"
 },
 "Else Berg": {
 "gender": "f",
@@ -1249,6 +1353,10 @@
 "Emanuel de Witte": {
 "gender": "m",
 "qid": "Q711203"
+},
+"Emilie Mundt": {
+"gender": "f",
+"qid": "Q148878"
 },
 "Emily Carr": {
 "gender": "f",
@@ -1354,9 +1462,17 @@
 "gender": "m",
 "qid": "Q353746"
 },
+"Eugène Grasset": {
+"gender": "m",
+"qid": "Q524154"
+},
 "Eugène Louis Boudin": {
 "gender": "m",
 "qid": "Q212600"
+},
+"Eugène Samuel Grasset": {
+"gender": "m",
+"qid": "Q524154"
 },
 "Eva Bonnier": {
 "gender": "f",
@@ -1397,6 +1513,10 @@
 "Ferdinand von Rayski": {
 "gender": "m",
 "qid": "Q187690"
+},
+"Ferdynand Ruszczyc": {
+"gender": "m",
+"qid": "Q1392368"
 },
 "Fernand Cormon": {
 "gender": "m",
@@ -1462,6 +1582,10 @@
 "gender": "m",
 "qid": "Q318769"
 },
+"Francesco Melzi": {
+"gender": "m",
+"qid": "Q469379"
+},
 "Francesco Renaldi": {
 "gender": "m",
 "qid": "Q15280990"
@@ -1504,6 +1628,10 @@
 "qid": "Q543948"
 },
 "Frans Francken (II)": {
+"gender": "m",
+"qid": "Q1442507"
+},
+"Frans Francken the Younger": {
 "gender": "m",
 "qid": "Q1442507"
 },
@@ -1682,6 +1810,14 @@
 "gender": "m",
 "qid": "Q741375"
 },
+"Gaspare Landi": {
+"gender": "m",
+"qid": "Q325464"
+},
+"Gela Seksztajn": {
+"gender": "f",
+"qid": "Q9266707"
+},
 "Gentile da Fabriano (Gentile di Niccolò di Giovanni di Massio)": {},
 "Geo Poggenbeek": {
 "gender": "m",
@@ -1731,6 +1867,7 @@
 "gender": "m",
 "qid": "Q5546705"
 },
+"Georges Jansoone ( JoJan ) - artwork by Alphonse Mucha": {},
 "Georges Seurat": {
 "gender": "m",
 "qid": "Q34013"
@@ -1739,6 +1876,10 @@
 "gender": "m",
 "qid": "Q1009528"
 },
+"Georges de Feure": {
+"gender": "m",
+"qid": "Q1921617"
+},
 "Georges de La Tour": {
 "gender": "m",
 "qid": "Q203371"
@@ -1746,6 +1887,10 @@
 "Georgette Agutte": {
 "gender": "f",
 "qid": "Q450730"
+},
+"Georgiana Houghton": {
+"gender": "f",
+"qid": "Q23613943"
 },
 "Georgius Jacobus Johannes van Os": {
 "gender": "m",
@@ -1779,6 +1924,7 @@
 "gender": "m",
 "qid": "Q314548"
 },
+"Gerard van Honthorst with fur": {},
 "Gerbrand van den Eeckhout": {
 "gender": "m",
 "qid": "Q550146"
@@ -1821,6 +1967,10 @@
 "qid": "Q1921738"
 },
 "Gijsbert d'Hondecoeter / Aelbert Cuyp": {},
+"Ginevra Cantofoli": {
+"gender": "f",
+"qid": "Q526155"
+},
 "Ginés Andrés de Aguirre": {
 "gender": "m",
 "qid": "Q9268238"
@@ -1853,6 +2003,10 @@
 "gender": "m",
 "qid": "Q504949"
 },
+"Giovanni Battista Ortolano": {
+"gender": "m",
+"qid": "Q3356826"
+},
 "Giovanni Battista Recco": {
 "gender": "m",
 "qid": "Q3106941"
@@ -1873,9 +2027,17 @@
 "gender": "m",
 "qid": "Q362003"
 },
+"Giovanni De Vecchi": {
+"gender": "m",
+"qid": "Q1529507"
+},
 "Giovanni Domenico Tiepolo": {
 "gender": "m",
 "qid": "Q435316"
+},
+"Giovanni Francesco Guerrieri": {
+"gender": "m",
+"qid": "Q3767273"
 },
 "Giovanni Francesco Romanelli": {
 "gender": "m",
@@ -1893,6 +2055,10 @@
 "Giovanni Girolamo Savoldo": {
 "gender": "m",
 "qid": "Q938442"
+},
+"Giovanni Lanfranco": {
+"gender": "m",
+"qid": "Q447730"
 },
 "Giovanni Larciani": {
 "gender": "m",
@@ -1913,6 +2079,10 @@
 "Girolamo Romanino": {
 "gender": "m",
 "qid": "Q732766"
+},
+"Girolamo da Treviso the Younger": {
+"gender": "m",
+"qid": "Q181980"
 },
 "Giuliano Bugiardini": {
 "gender": "m",
@@ -1959,6 +2129,7 @@
 "gender": "f",
 "qid": "Q5591221"
 },
+"Guercino in the Galleria Borghese": {},
 "Guido Reni": {
 "gender": "m",
 "qid": "Q109061"
@@ -1978,6 +2149,10 @@
 "Gustaf Wilhelm Finnberg": {
 "gender": "m",
 "qid": "Q5731022"
+},
+"Gustav Klimt": {
+"gender": "m",
+"qid": "Q34661"
 },
 "Gustav Richter": {},
 "Gustave Caillebotte": {
@@ -2005,6 +2180,10 @@
 "qid": "Q274339"
 },
 "Göbel, Angilbert Angilbert Göbel": {},
+"Hale Asaf": {
+"gender": "f",
+"qid": "Q6103039"
+},
 "Hanna Winge": {
 "gender": "f",
 "qid": "Q3436820"
@@ -2202,6 +2381,14 @@
 "gender": "m",
 "qid": "Q130531"
 },
+"Hildegard Thorell": {
+"gender": "f",
+"qid": "Q4982628"
+},
+"Hilma af Klint": {
+"gender": "f",
+"qid": "Q436267"
+},
 "Hippolyte Flandrin": {
 "gender": "m",
 "qid": "Q472235"
@@ -2235,6 +2422,14 @@
 "gender": "m",
 "qid": "Q2842736"
 },
+"Il Sassoferrato": {
+"gender": "m",
+"qid": "Q1345289"
+},
+"Il Sodoma": {
+"gender": "m",
+"qid": "Q8506"
+},
 "Ilmari Aalto": {
 "gender": "m",
 "qid": "Q4021419"
@@ -2264,6 +2459,10 @@
 "Ivana Kobilca": {
 "gender": "f",
 "qid": "Q236878"
+},
+"Jacek Malczewski": {
+"gender": "m",
+"qid": "Q448189"
 },
 "Jacob Adriaensz Backer": {
 "gender": "m",
@@ -2321,6 +2520,7 @@
 "gender": "m",
 "qid": "Q18578786"
 },
+"Jacob van der Merck / Gerard van Honthorst / Michiel Jansz. van Mierevelt": {},
 "Jacob van der Ulft": {
 "gender": "m",
 "qid": "Q859874"
@@ -2686,6 +2886,10 @@
 "gender": "f",
 "qid": "Q4968754"
 },
+"Jeanne Hébuterne": {
+"gender": "f",
+"qid": "Q235605"
+},
 "Jenny Nyström": {
 "gender": "f",
 "qid": "Q3100592"
@@ -2831,6 +3035,10 @@
 "gender": "m",
 "qid": "Q702604"
 },
+"Johanne Mathilde Dietrichson": {
+"gender": "f",
+"qid": "Q11978845"
+},
 "Johannes Christiaan Schotel, Johannes Schoenmakers": {},
 "Johannes Lingelbach": {
 "gender": "m",
@@ -2848,6 +3056,7 @@
 "gender": "m",
 "qid": "Q41264"
 },
+"John Arnott MacCulloch and Jan Máchal": {},
 "John Constable": {
 "gender": "m",
 "qid": "Q159297"
@@ -3037,6 +3246,14 @@
 "gender": "m",
 "qid": "Q1863471"
 },
+"Julia Beck": {
+"gender": "f",
+"qid": "Q4937863"
+},
+"Julie Wilhelmine Hagen-Schwarz": {
+"gender": "f",
+"qid": "Q544622"
+},
 "Julien Dupré": {
 "gender": "m",
 "qid": "Q964484"
@@ -3052,6 +3269,10 @@
 "Jérôme-François Chantereau": {
 "gender": "m",
 "qid": "Q15433531"
+},
+"Józef Mehoffer": {
+"gender": "m",
+"qid": "Q1354695"
 },
 "József Molnár": {},
 "Karel du Jardin": {
@@ -3110,10 +3331,15 @@
 "gender": "m",
 "qid": "Q39590760"
 },
+"Katsushika Ōi": {
+"gender": "f",
+"qid": "Q11621076"
+},
 "Kazimierz Sichulski": {
 "gender": "m",
 "qid": "Q554266"
 },
+"Kazin=mierz Sichulski 1879-1942": {},
 "Kenneth Hayes Miller": {
 "gender": "m",
 "qid": "Q3195174"
@@ -3169,6 +3395,10 @@
 "Leendert Overbeek": {
 "gender": "m",
 "qid": "Q18603293"
+},
+"Lelio Orsi": {
+"gender": "m",
+"qid": "Q860728"
 },
 "Leo Gestel": {
 "gender": "m",
@@ -3275,6 +3505,10 @@
 "gender": "f",
 "qid": "Q15952039"
 },
+"Louise Hollandine of the Palatinate": {
+"gender": "f",
+"qid": "Q469896"
+},
 "Louvre INV 101": {},
 "Louvre RF 2082": {},
 "Lovis Corinth": {
@@ -3330,6 +3564,10 @@
 "gender": "m",
 "qid": "Q367620"
 },
+"Ludovico Mazzolino": {
+"gender": "m",
+"qid": "Q1351631"
+},
 "Ludwig Ferdinand Schnorr von Carolsfeld": {
 "gender": "m",
 "qid": "Q470537"
@@ -3378,10 +3616,15 @@
 "gender": "m",
 "qid": "Q538350"
 },
+"Madeleine Lemaire": {
+"gender": "f",
+"qid": "Q3275679"
+},
 "Magnus Enckell": {
 "gender": "m",
 "qid": "Q967073"
 },
+"Malczewski, Jacek": {},
 "Marcellus Coffermans": {
 "gender": "m",
 "qid": "Q935830"
@@ -3390,13 +3633,29 @@
 "gender": "m",
 "qid": "Q3846178"
 },
+"Marco d'Oggiono": {
+"gender": "m",
+"qid": "Q982274"
+},
 "Marcus Gheeraerts the Younger": {
 "gender": "m",
 "qid": "Q13583490"
 },
+"Margaret MacDonald": {
+"gender": "f",
+"qid": "Q508344"
+},
+"Margaret Macdonald Mackintosh": {
+"gender": "f",
+"qid": "Q508344"
+},
 "Marguerite Gérard": {
 "gender": "f",
 "qid": "Q271484"
+},
+"Maria Marc": {
+"gender": "f",
+"qid": "Q784160"
 },
 "Maria Wiik": {
 "gender": "f",
@@ -3409,6 +3668,10 @@
 "Maria von Parmentier": {
 "gender": "f",
 "qid": "Q1365914"
+},
+"Marianne North": {
+"gender": "f",
+"qid": "Q271648"
 },
 "Marianne von Werefkin": {
 "gender": "f",
@@ -3446,9 +3709,17 @@
 "gender": "f",
 "qid": "Q3292725"
 },
+"Marie Sandholt": {
+"gender": "f",
+"qid": "Q29168484"
+},
 "Marie Spartali Stillman": {
 "gender": "f",
 "qid": "Q134150"
+},
+"Marie Tannæs": {
+"gender": "f",
+"qid": "Q22915182"
 },
 "Marie Victoire Lemoine": {
 "gender": "f",
@@ -3459,6 +3730,14 @@
 "qid": "Q118810"
 },
 "Marie-Lan Nguyen": {},
+"Marie-Victoire Lemoine": {
+"gender": "f",
+"qid": "Q529270"
+},
+"Mariotto Albertinelli": {
+"gender": "m",
+"qid": "Q436823"
+},
 "Marius Bauer": {
 "gender": "m",
 "qid": "Q6765943"
@@ -3592,9 +3871,14 @@
 "gender": "f",
 "qid": "Q1930132"
 },
+"Michał Bulsa": {},
 "Michel Sittow": {
 "gender": "m",
 "qid": "Q372203"
+},
+"Michele Tosini": {
+"gender": "m",
+"qid": "Q2309545"
 },
 "Michelino da Besozzo (Michelino de Mulinari)": {},
 "Michiel Jansz. van Mierevelt": {
@@ -3632,6 +3916,15 @@
 "Moritz Calisch": {
 "gender": "m",
 "qid": "Q474331"
+},
+"Multiple Painters": {},
+"Muñoz Degrain": {
+"gender": "m",
+"qid": "Q3296153"
+},
+"Müfide Kadri": {
+"gender": "f",
+"qid": "Q6080013"
 },
 "Nadežda Petrović": {
 "gender": "f",
@@ -3733,6 +4026,10 @@
 "gender": "m",
 "qid": "Q154349"
 },
+"Olga Boznańska": {
+"gender": "f",
+"qid": "Q466639"
+},
 "Olga Fialka": {
 "gender": "f",
 "qid": "Q1001063"
@@ -3774,6 +4071,10 @@
 "qid": "Q785355"
 },
 "Palma Vecchio": {
+"gender": "m",
+"qid": "Q9342"
+},
+"Palma il Vecchio": {
 "gender": "m",
 "qid": "Q9342"
 },
@@ -3837,6 +4138,10 @@
 "Paula Modersohn-Becker": {
 "gender": "f",
 "qid": "Q234370"
+},
+"Pauline Auzou": {
+"gender": "f",
+"qid": "Q436167"
 },
 "Paulus Constantijn la Fargue": {
 "gender": "m",
@@ -4083,11 +4388,16 @@
 "gender": "f",
 "qid": "Q234385"
 },
+"Raffaellino del Colle": {
+"gender": "m",
+"qid": "Q1323835"
+},
 "Raffaello Sanzio": {
 "gender": "m",
 "qid": "Q5597"
 },
 "Raphael (Raffaello Sanzio or Santi)": {},
+"Reissig, F., fotograaf": {},
 "Rembrandt": {
 "gender": "m",
 "qid": "Q5598"
@@ -4208,6 +4518,14 @@
 "qid": "Q4055189"
 },
 "Sano di Pietro (Ansano di Pietro di Mencio)": {},
+"Sarah Bernhardt": {
+"gender": "f",
+"qid": "Q4605"
+},
+"Sarah Goodridge": {
+"gender": "f",
+"qid": "Q7422343"
+},
 "Sassetta (Stefano di Giovanni)": {},
 "Saturnino Gatti": {
 "gender": "m",
@@ -4241,6 +4559,10 @@
 "Shin Saimdang": {
 "gender": "f",
 "qid": "Q464485"
+},
+"Sigrid Hjertén": {
+"gender": "f",
+"qid": "Q272405"
 },
 "Simon Denis": {
 "gender": "m",
@@ -4287,6 +4609,10 @@
 "gender": "m",
 "qid": "Q48566"
 },
+"Sisto Badalocchio": {
+"gender": "m",
+"qid": "Q729057"
+},
 "Sofie Ribbing": {
 "gender": "f",
 "qid": "Q4974655"
@@ -4314,6 +4640,15 @@
 "qid": "Q11928605"
 },
 "Spinello Aretino (Spinello di Luca Spinelli)": {},
+"Stanisław Wyspiański": {
+"gender": "m",
+"qid": "Q312627"
+},
+"Stefan Filipkiewicz": {
+"gender": "m",
+"qid": "Q960983"
+},
+"Studio of Gerard van Honthorst": {},
 "Suzanne Valadon": {
 "gender": "f",
 "qid": "Q156889"
@@ -4327,6 +4662,11 @@
 "gender": "m",
 "qid": "Q315835"
 },
+"Teodor Axentowicz": {
+"gender": "m",
+"qid": "Q795050"
+},
+"Teodor Axentowicz with fur": {},
 "Tethart Philipp Christian Haag": {
 "gender": "m",
 "qid": "Q7706094"
@@ -4589,6 +4929,10 @@
 "gender": "m",
 "qid": "Q2580668"
 },
+"Wojciech Weiss": {
+"gender": "m",
+"qid": "Q941359"
+},
 "Wu Mou": {},
 "Wybrand Hendriks": {
 "gender": "m",
@@ -4601,6 +4945,10 @@
 "Zdenka Braunerová": {
 "gender": "f",
 "qid": "Q7940542"
+},
+"Zelda Fitzgerald": {
+"gender": "f",
+"qid": "Q187324"
 },
 "Zhang Rulin": {},
 "Zélé Agricola": {
@@ -4636,6 +4984,11 @@
 "Émile Motte": {
 "gender": "m",
 "qid": "Q3588674"
+},
+"Βυθω": {},
+"Густав Клімт": {
+"gender": "m",
+"qid": "Q34661"
 },
 "丘崈": {}
 }

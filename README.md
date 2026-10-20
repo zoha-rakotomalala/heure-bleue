@@ -1,7 +1,7 @@
 # heure bleue
 
 A gallery wall for a spare screen. One painting at a time, from the open
-collections of twenty-two museums and the work of 147 women painters, chosen to
+collections of twenty-three museums and the work of 190 women painters, chosen to
 match the colours of the music you
 are playing.
 
@@ -237,7 +237,7 @@ that never listens to music at all.
 Under the sun line, in gold italics: *Jules Dupré, died on this day in 1889*.
 It appears when a painter in the index was born or died on today's date; the
 wall also leans a little toward that painter for the day. The dates come from
-Wikidata for 1,033 of the 1,217 painters in the index, which covers 361 days of
+Wikidata for 1,110 of the 1,315 painters in the index, which covers 364 days of
 the year. `python3 tools/artist_dates.py` refreshes them after indexing new museums.
 
 The same line remembers you: *a year ago today you kept The Lutenist while Nina
@@ -323,7 +323,8 @@ wall only discovers. *Only kept* is the opposite, the wall replays your Kept
 list, like a playlist of the paintings you love. Those two need at least one
 kept painting. *Women painters* keeps only paintings by women: the index knows
 each painter's gender from Wikidata, and a dedicated indexing pass walks the
-"Paintings by" category of some 970 women painters on Wikimedia Commons, so the
+"Paintings by" category of some 970 women painters on Wikimedia Commons (190 of
+them have one), so the
 wall can show you Leyster, Ruysch, Wautier, Ancher or Backer, whom the museum
 walks alone bring in only by chance.
 
@@ -465,17 +466,22 @@ print('PUBLIC_KEY_B64:      ', base64.b64encode(k.public_key().public_bytes(Enco
 
 ## The paintings
 
-2,845 public-domain works ship with the app, about 500 bytes each, no images on
-disk. Rijksmuseum 357 · The Met 300 · Musée d'Orsay 153 · Belvedere 130 ·
-Mauritshuis 120 · Ateneum 118 · Gemäldegalerie 117 · Prado 116 ·
-Kunsthistorisches Museum 114 · Van Gogh Museum 109 · Alte Nationalgalerie 104 ·
-National Gallery London 92 · Städel 87 · Nationalmuseum Stockholm 86 ·
-Hermitage 85 · National Gallery of Art Washington 75 · Marmottan Monet 69 ·
-Neue Pinakothek 69 · Louvre 66 · Kröller-Müller 65 · Beaux-Arts de Lyon 52 ·
-Orangerie 24. The women-painters pass adds 485 paintings by 147 women, from
-Morisot, Marguerite Gérard, Rachel Ruysch and Kiyohara Yukinobu to Modersohn-Becker,
-Werefkin and Sher-Gil; they hang wherever the museum keeps them, so some 190
-further collections appear with a painting or two each.
+9,225 public-domain works ship with the app, about 500 bytes each, no images on
+disk. Rijksmuseum 382 · The Met 304 · Belvedere 206 · Musée d'Orsay 165 ·
+Prado 134 · Ateneum 128 · Mauritshuis 124 · Gemäldegalerie 123 ·
+Kunsthistorisches Museum 121 · Nationalmuseum Stockholm 113 · Alte Nationalgalerie 112 ·
+Van Gogh Museum 110 · National Gallery London 96 · Hermitage 95 · Städel 93 ·
+Kröller-Müller 93 · Louvre 90 · National Gallery of Art Washington 83 ·
+Galleria Borghese 81 · Neue Pinakothek 69 · Marmottan Monet 64 · Beaux-Arts de Lyon 49 ·
+Orangerie 25. Two painter walks sit on top of the museum walks: the
+women-painters pass, 5,067 paintings by 190 women (Boznańska, Ancher,
+Modersohn-Becker, Sher-Gil, Tina Blau, Hjertén, Demont-Breton, Morisot, Werefkin,
+Schjerfbeck...), and `data/painters.txt`, a hand-written list walked in full
+(Honthorst, Muñoz Degrain, Bauer, then the Vienna Secession, Young Poland and
+Art Nouveau: Klimt, Moser, Schiele, Mehoffer, Wyspiański, Malczewski, Sichulski,
+Mucha, Toorop, Grasset, Schwabe, de Feure, Macdonald Mackintosh). Those
+paintings hang wherever the museum keeps them, so some 500 further collections
+appear with a few paintings each, and 4,000 entries name no collection at all.
 Rijksmuseum works carry the museum's own text about the painting, shown under
 the label.
 
